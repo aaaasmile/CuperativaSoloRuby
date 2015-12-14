@@ -1,0 +1,222 @@
+ INFO CoreGameScopetta: gui_new_match
+DEBUG coregame_log: RandomManager: using random function
+DEBUG coregame_log: get first player: state rnd_fun, first stored 0
+DEBUG CoreGameScopetta: First player ist 0
+DEBUG CoreGameScopetta: Mazziere ist 1
+ INFO CoreGameScopetta: new_giocata
+DEBUG CoreGameScopetta: Create a deck with rank and points
+DEBUG coregame_log: RM: using rnd deck size: 40
+ INFO CoreGameScopetta: Current deck:
+_Rs,_Fc,_2s,_6s,_Fd,_4d,_7b,_7c,_Cd,_4s,_2d,_Ad,_Cb,_As,_Cc,_2b,_Fs,_Rb,_Rd,_Rc,_4b,_Ac,_6b,_Cs,_3d,_7s,_3b,_5s,_5c,_3c,_7d,_4c,_5d,_3s,_6c,_6d,_5b,_2c,_Ab,_Fb
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _6d,_Ab,_5b
+ INFO CoreGameScopetta: Card _6d played from  maestro. Taken: _Ab,_5b
+ INFO CoreGameScopetta: Table now: _Fb,_2c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 0, scope = 0, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _5d
+ INFO CoreGameScopetta: Card _5d played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_2c,_5d
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _6c
+ INFO CoreGameScopetta: Card _6c played from  maestro. 
+ INFO CoreGameScopetta: Table now: _Fb,_2c,_5d,_6c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _7d,_2c,_5d
+ INFO CoreGameScopetta: Card _7d played from  Scarrafone. Taken: _2c,_5d
+ INFO CoreGameScopetta: Table now: _Fb,_6c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da Scarrafone: _7d,_2c,_5d
+ INFO CoreGameScopetta: Punteggio(Scarrafone): tot = 1, scope = 0, 7d = 1, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _3s
+ INFO CoreGameScopetta: Card _3s played from  maestro. 
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_3s
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _4c
+ INFO CoreGameScopetta: Card _4c played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_3s,_4c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: pesca_carta
+ INFO CoreGameScopetta: Mazzo rimanenti: 24
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _3c,_3s
+ INFO CoreGameScopetta: Card _3c played from  maestro. Taken: _3s
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_4c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b,_3c,_3s
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 0, scope = 0, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _3b
+ INFO CoreGameScopetta: Card _3b played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_4c,_3b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _5s
+ INFO CoreGameScopetta: Card _5s played from  maestro. 
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_4c,_3b,_5s
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _7s,_3b,_4c
+ INFO CoreGameScopetta: Card _7s played from  Scarrafone. Taken: _3b,_4c
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_5s
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da Scarrafone: _7d,_2c,_5d,_7s,_3b,_4c
+ INFO CoreGameScopetta: Punteggio(Scarrafone): tot = 1, scope = 0, 7d = 1, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _5c,_5s
+ INFO CoreGameScopetta: Card _5c played from  maestro. Taken: _5s
+ INFO CoreGameScopetta: Table now: _Fb,_6c
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b,_3c,_3s,_5c,_5s
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 0, scope = 0, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _3d
+ INFO CoreGameScopetta: Card _3d played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_6c,_3d
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: pesca_carta
+ INFO CoreGameScopetta: Mazzo rimanenti: 18
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Cs,_3d,_6c
+ INFO CoreGameScopetta: Card _Cs played from  maestro. Taken: _3d,_6c
+ INFO CoreGameScopetta: Table now: _Fb
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b,_3c,_3s,_5c,_5s,_Cs,_3d,_6c
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 0, scope = 0, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Rc
+ INFO CoreGameScopetta: Card _Rc played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_Rc
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Ac
+ INFO CoreGameScopetta: Card _Ac played from  maestro. 
+ INFO CoreGameScopetta: Table now: _Fb,_Rc,_Ac
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _4b
+ INFO CoreGameScopetta: Card _4b played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _Fb,_Rc,_Ac,_4b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _6b
+ INFO CoreGameScopetta: Card _6b played from  maestro. 
+ INFO CoreGameScopetta: Table now: _Fb,_Rc,_Ac,_4b,_6b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Rd,_Rc
+ INFO CoreGameScopetta: Card _Rd played from  Scarrafone. Taken: _Rc
+ INFO CoreGameScopetta: Table now: _Fb,_Ac,_4b,_6b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da Scarrafone: _7d,_2c,_5d,_7s,_3b,_4c,_Rd,_Rc
+ INFO CoreGameScopetta: Punteggio(Scarrafone): tot = 1, scope = 0, 7d = 1, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: pesca_carta
+ INFO CoreGameScopetta: Mazzo rimanenti: 12
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Rb,_4b,_6b
+ INFO CoreGameScopetta: Card _Rb played from  maestro. Taken: _4b,_6b
+ INFO CoreGameScopetta: Table now: _Fb,_Ac
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b,_3c,_3s,_5c,_5s,_Cs,_3d,_6c,_Rb,_4b,_6b
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 0, scope = 0, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Cb,_Ac,_Fb
+ INFO CoreGameScopetta: Card _Cb played from  Scarrafone. Taken: _Ac,_Fb
+ INFO CoreGameScopetta: Table now: 
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: player Scarrafone make scopa
+DEBUG CoreGameScopetta: Riepilogo carte prese da Scarrafone: _7d,_2c,_5d,_7s,_3b,_4c,_Rd,_Rc,_Cb,_Ac,_Fb
+ INFO CoreGameScopetta: Punteggio(Scarrafone): tot = 2, scope = 1, 7d = 1, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _2b
+ INFO CoreGameScopetta: Card _2b played from  maestro. 
+ INFO CoreGameScopetta: Table now: _2b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _As
+ INFO CoreGameScopetta: Card _As played from  Scarrafone. 
+ INFO CoreGameScopetta: Table now: _2b,_As
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Fs
+ INFO CoreGameScopetta: Card _Fs played from  maestro. 
+ INFO CoreGameScopetta: Table now: _2b,_As,_Fs
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _Cc,_As,_Fs
+ INFO CoreGameScopetta: Card _Cc played from  Scarrafone. Taken: _As,_Fs
+ INFO CoreGameScopetta: Table now: _2b
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: Riepilogo carte prese da Scarrafone: _7d,_2c,_5d,_7s,_3b,_4c,_Rd,_Rc,_Cb,_Ac,_Fb,_Cc,_As,_Fs
+ INFO CoreGameScopetta: Punteggio(Scarrafone): tot = 2, scope = 1, 7d = 1, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: pesca_carta
+ INFO CoreGameScopetta: Mazzo rimanenti: 6
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG CoreGameScopetta: core: alg_player_cardplayed_arr: _2d,_2b
+ INFO CoreGameScopetta: Card _2d played from  maestro. Taken: _2b
+ INFO CoreGameScopetta: Table now: 
+DEBUG CoreGameScopetta: mano_end
+DEBUG CoreGameScopetta: player maestro make scopa
+DEBUG CoreGameScopetta: Riepilogo carte prese da maestro: _6d,_Ab,_5b,_3c,_3s,_5c,_5s,_Cs,_3d,_6c,_Rb,_4b,_6b,_2d,_2b
+ INFO CoreGameScopetta: Punteggio(maestro): tot = 1, scope = 1, 7d = 0, car = 0, den = 0, prim = 0, nap = 0
+DEBUG CoreGameScopetta: new_mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+DEBUG coregame_log: NAL_Srv_SpazzAlgo new mano
+ INFO CoreGameScopetta: alg_player_resign: giocatore perde la partita
+ INFO CoreGameScopetta: Game saved on /home/igor/logs/080/2010_10_16/scopetta2p_60_2010_10_16_11_46_10-savedmatch.yaml

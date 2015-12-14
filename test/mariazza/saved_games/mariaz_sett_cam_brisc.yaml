@@ -1,0 +1,91 @@
+--- 
+# questa partita è usata per testare lo scambio della briscola da parte dell'algoritmo
+:giocate: 
+- :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_Fc
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_5c
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fs
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_5s
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_7s
+    :pl_name: Gino B.
+  - :type: :change_briscola
+    :arg: 
+    - Gino B.
+    - :_Fd
+    - :_7d
+    :pl_name: Gino B.
+  :deck: 
+  - :_Cs
+  - :_2b
+  - :_Ab
+  - :_6c
+  - :_3d
+  - :_4d
+  - :_3s
+  - :_7c
+  - :_Rb
+  - :_As
+  - :_Rd
+  - :_Rs
+  - :_Cc
+  - :_2d
+  - :_Cb
+  - :_6b
+  - :_Ad
+  - :_6s
+  - :_5b
+  - :_3b
+  - :_Rc
+  - :_5d
+  - :_6d
+  - :_7b
+  - :_7d
+  - :_7s
+  - :_4c
+  - :_Fs
+  - :_5s
+  - :_4s
+  - :_Ac
+  - :_Cd
+  - :_2s
+  - :_2c
+  - :_Fb
+  - :_4b
+  - :_Fc
+  - :_5c
+  - :_3c
+  - :_Fd
+  :first_plx: 0
+:date: 2008-01-06 20:46:17.565191 +01:00
+:players: 
+- Toro
+- Gino B.
+:game: 
+  :name: Mariazza
+  :opt: 
+    :target_points_segno: 71
+    :num_segni_match: 2

@@ -1,0 +1,215 @@
+--- 
+:game: 
+  :name: Spazzino
+  :opt: 
+    :gioco_private: false
+    :test_with_custom_deck: false
+    :target_points: 11
+    :vale_napola: true
+    :num_of_players: 2
+    :test_custom_deckname: scopet01.yaml
+    :combi_sum_lesscard: true
+    :replay_game: false
+    :shuffle_deck: true
+    :record_game: true
+:giocate: 
+- :first_plx: 0
+  :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_6d
+      - :_Ab
+      - :_5b
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_5d
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_6c
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_7d
+      - :_2c
+      - :_5d
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_3s
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_4c
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_3c
+      - :_3s
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_3b
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_5s
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_7s
+      - :_3b
+      - :_4c
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_5c
+      - :_5s
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_3d
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_Cs
+      - :_3d
+      - :_6c
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_Rc
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_Ac
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_4b
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_6b
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_Rd
+      - :_Rc
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_Rb
+      - :_4b
+      - :_6b
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_Cb
+      - :_Ac
+      - :_Fb
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_2b
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_As
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_Fs
+    :pl_name: maestro
+  - :type: :cardplayedarr
+    :arg: 
+    - Scarrafone
+    - - :_Cc
+      - :_As
+      - :_Fs
+    :pl_name: Scarrafone
+  - :type: :cardplayedarr
+    :arg: 
+    - maestro
+    - - :_2d
+      - :_2b
+    :pl_name: maestro
+  - :type: :resign
+    :arg: 
+    - Scarrafone
+    - :abandon
+    :pl_name: Scarrafone
+  :deck: 
+  - :_Rs
+  - :_Fc
+  - :_2s
+  - :_6s
+  - :_Fd
+  - :_4d
+  - :_7b
+  - :_7c
+  - :_Cd
+  - :_4s
+  - :_2d
+  - :_Ad
+  - :_Cb
+  - :_As
+  - :_Cc
+  - :_2b
+  - :_Fs
+  - :_Rb
+  - :_Rd
+  - :_Rc
+  - :_4b
+  - :_Ac
+  - :_6b
+  - :_Cs
+  - :_3d
+  - :_7s
+  - :_3b
+  - :_5s
+  - :_5c
+  - :_3c
+  - :_7d
+  - :_4c
+  - :_5d
+  - :_3s
+  - :_6c
+  - :_6d
+  - :_5b
+  - :_2c
+  - :_Ab
+  - :_Fb
+:players: 
+- maestro
+- Scarrafone
+:match_winner: 
+- - maestro
+  - 0
+- - Scarrafone
+  - -1
+:date: 2010-10-16 11:43:53.498875 +02:00

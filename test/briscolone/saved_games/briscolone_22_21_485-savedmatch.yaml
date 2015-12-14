@@ -1,0 +1,324 @@
+--- 
+:giocate: 
+- :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Rd
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_5b
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_4b
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Cs
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_4c
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_2b
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_2s
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_5s
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Rs
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Rb
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_5c
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_3d
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_5d
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_4s
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_6d
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Cc
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Rc
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Ac
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Ad
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_2d
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_6s
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_3s
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Cb
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_7d
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_4d
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Fc
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_6c
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_6b
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Cd
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_2c
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_Fd
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Ab
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_7c
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_7s
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_7b
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Fb
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_As
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_3c
+    :pl_name: loppa
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_Fs
+    :pl_name: robot_tora
+  - :type: :cardplayed
+    :arg: 
+    - loppa
+    - :_3b
+    :pl_name: loppa
+  :giocata_winner: 
+  - - robot_tora
+    - 68
+  - - loppa
+    - 52
+  :deck: 
+  - :_Ab
+  - :_Fd
+  - :_2c
+  - :_3b
+  - :_6b
+  - :_6c
+  - :_Fc
+  - :_4d
+  - :_7d
+  - :_Cb
+  - :_Cd
+  - :_6s
+  - :_2d
+  - :_Ad
+  - :_Ac
+  - :_7c
+  - :_Cc
+  - :_Rc
+  - :_4s
+  - :_5d
+  - :_3d
+  - :_3c
+  - :_Rb
+  - :_6d
+  - :_Rs
+  - :_2s
+  - :_2b
+  - :_4c
+  - :_7b
+  - :_4b
+  - :_3s
+  - :_5b
+  - :_Cs
+  - :_5s
+  - :_5c
+  - :_Rd
+  - :_7s
+  - :_Fb
+  - :_As
+  - :_Fs
+- :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - robot_tora
+    - :_2d
+    :pl_name: robot_tora
+  - :type: :resign
+    :arg: 
+    - loppa
+    - :abandon
+    :pl_name: loppa
+  :deck: 
+  - :_2b
+  - :_Fb
+  - :_Fc
+  - :_4d
+  - :_Ad
+  - :_4c
+  - :_Cb
+  - :_Ac
+  - :_6d
+  - :_Rd
+  - :_3s
+  - :_3b
+  - :_7b
+  - :_Cs
+  - :_4b
+  - :_5d
+  - :_Fs
+  - :_5b
+  - :_7c
+  - :_5s
+  - :_Rb
+  - :_Rc
+  - :_6b
+  - :_7s
+  - :_6c
+  - :_4s
+  - :_6s
+  - :_5c
+  - :_Fd
+  - :_Cd
+  - :_3d
+  - :_2s
+  - :_7d
+  - :_As
+  - :_3c
+  - :_2d
+  - :_Rs
+  - :_2c
+  - :_Ab
+  - :_Cc
+:match_winner: 
+- - robot_tora
+  - 1
+- - loppa
+  - -1
+:game: 
+  :name: Briscola
+  :opt: 
+    :test_with_custom_deck: false
+    :num_of_players: 2
+    :gioco_private: false
+    :target_points_segno: 61
+    :test_custom_deckname: brisc01.yaml
+    :replay_game: false
+    :shuffle_deck: true
+    :num_segni_match: 2
+    :record_game: true
+:players: 
+- loppa
+- robot_tora
+:date: 2010-11-17 01:28:21.265233 +01:00

@@ -1,0 +1,639 @@
+ INFO coregame_log: gui_new_segno players confirmed: 1/2
+ INFO coregame_log: gui_new_segno Alex = 6 igor060 = 24 
+ INFO coregame_log: gui_new_segno: aspetta inizio nuovo match
+ INFO coregame_log: Game saved on /home/igor/Projects/060/cuperativa/server/nal_games/../logs/2008_11_27/s126_gc1_2008_11_27_21_30_39-savedmatch.yaml
+ WARN coregame_log: Ignore save game because state is game_saved
+ INFO coregame_log: Ready to restart a new game 126
+ INFO coregame_log: Restart a new match
+ INFO coregame_log: gui_new_match
+DEBUG coregame_log: RandomManager: using random function
+ INFO coregame_log: new_giocata
+DEBUG coregame_log: Create a deck with rank and points
+DEBUG coregame_log: RM: using rnd deck size: 40
+ INFO coregame_log: Current deck:
+_Rb,_7d,_6s,_Cc,_5s,_2b,_Rs,_4s,_3c,_Ad,_2d,_6d,_4d,_Fd,_Fb,_6c,_5b,_3d,_Cd,_Fs,_3b,_4c,_7c,_Cb,_2c,_5c,_7s,_Fc,_7b,_Cs,_6b,_5d,_Ab,_As,_3s,_Rc,_4b,_2s,_Ac,_Rd
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3s played from  Alex. Taken: _Ac,_2s
+ INFO coregame_log: Table now: _Rd,_4b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5d played from  igor060. 
+ INFO coregame_log: Table now: _Rd,_4b,_5d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rc played from  Alex. Taken: _Rd
+ INFO coregame_log: Table now: _4b,_5d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ab played from  igor060. 
+ INFO coregame_log: Table now: _4b,_5d,_Ab
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _As played from  Alex. Taken: _Ab
+ INFO coregame_log: Table now: _4b,_5d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player Alex make picula
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6b played from  igor060. 
+ INFO coregame_log: Table now: _4b,_5d,_6b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 24
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fc played from  Alex. 
+ INFO coregame_log: Table now: _4b,_5d,_6b,_Fc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5c played from  igor060. Taken: _5d
+ INFO coregame_log: Table now: _4b,_6b,_Fc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d
+ INFO coregame_log: Punteggio(igor060): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cs played from  Alex. 
+ INFO coregame_log: Table now: _4b,_6b,_Fc,_Cs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2c played from  igor060. 
+ INFO coregame_log: Table now: _4b,_6b,_Fc,_Cs,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7b played from  Alex. 
+ INFO coregame_log: Table now: _4b,_6b,_Fc,_Cs,_2c,_7b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7s played from  igor060. Taken: _7b
+ INFO coregame_log: Table now: _4b,_6b,_Fc,_Cs,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player igor060 make picula
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b
+ INFO coregame_log: Punteggio(igor060): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 18
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4c played from  Alex. Taken: _4b
+ INFO coregame_log: Table now: _6b,_Fc,_Cs,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fs played from  igor060. Taken: _Fc
+ INFO coregame_log: Table now: _6b,_Cs,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cb played from  Alex. Taken: _Cs
+ INFO coregame_log: Table now: _6b,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b,_Cb,_Cs
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cd played from  igor060. 
+ INFO coregame_log: Table now: _6b,_2c,_Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7c played from  Alex. 
+ INFO coregame_log: Table now: _6b,_2c,_Cd,_7c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3b played from  igor060. 
+ INFO coregame_log: Table now: _6b,_2c,_Cd,_7c,_3b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 12
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5b played from  Alex. Taken: _2c,_3b
+ INFO coregame_log: Table now: _6b,_Cd,_7c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b,_Cb,_Cs,_5b,_2c,_3b
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fd played from  igor060. 
+ INFO coregame_log: Table now: _6b,_Cd,_7c,_Fd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6c played from  Alex. Taken: _6b
+ INFO coregame_log: Table now: _Cd,_7c,_Fd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b,_Cb,_Cs,_5b,_2c,_3b,_6c,_6b
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fb played from  igor060. Taken: _Fd
+ INFO coregame_log: Table now: _Cd,_7c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3d played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4d played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_4d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 6
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2d played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_4d,_2d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4s played from  igor060. Taken: _4d
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_2d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd,_4s,_4d
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ad played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_2d,_Ad
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3c played from  igor060. Taken: _2d,_Ad
+ INFO coregame_log: Table now: _Cd,_7c,_3d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd,_4s,_4d,_3c,_2d,_Ad
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6d played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_6d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rs played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7c,_3d,_6d,_Rs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cc played from  Alex. Taken: _Cd
+ INFO coregame_log: Table now: _7c,_3d,_6d,_Rs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b,_Cb,_Cs,_5b,_2c,_3b,_6c,_6b,_Cc,_Cd
+ INFO coregame_log: Punteggio(Alex): tot = 5, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7d played from  igor060. Taken: _7c
+ INFO coregame_log: Table now: _3d,_6d,_Rs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd,_4s,_4d,_3c,_2d,_Ad,_7d,_7c
+ INFO coregame_log: Punteggio(igor060): tot = 3, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2b played from  Alex. 
+ INFO coregame_log: Table now: _3d,_6d,_Rs,_2b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6s played from  igor060. Taken: _6d
+ INFO coregame_log: Table now: _3d,_Rs,_2b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd,_4s,_4d,_3c,_2d,_Ad,_7d,_7c,_6s,_6d
+ INFO coregame_log: Punteggio(igor060): tot = 3, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5s played from  Alex. Taken: _3d,_2b
+ INFO coregame_log: Table now: _Rs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _3s,_Ac,_2s,_Rc,_Rd,_As,_Ab,_4c,_4b,_Cb,_Cs,_5b,_2c,_3b,_6c,_6b,_Cc,_Cd,_5s,_3d,_2b
+ INFO coregame_log: Punteggio(Alex): tot = 8, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 2, spa = 1
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Last card played, igor060 take all the rest
+ INFO coregame_log: Card _Rb played from  igor060. Taken: _Rs
+ INFO coregame_log: Table now: 
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _5c,_5d,_7s,_7b,_Fs,_Fc,_Fb,_Fd,_4s,_4d,_3c,_2d,_Ad,_7d,_7c,_6s,_6d,_Rb,_Rs
+ INFO coregame_log: Punteggio(igor060): tot = 4, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 0, spa = 1
+DEBUG coregame_log: Giocata end beacuse no more cards are to be played
+ INFO coregame_log: giocata_end
+ INFO coregame_log: Points(Alex): tot = 8, spaz = 0, on = 1, nap = 3, pic = 1, bag = 0, car = 2, spa = 1, num cards: 21
+ INFO coregame_log: Points(igor060): tot = 4, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 0, spa = 1, num cards: 19
+ INFO coregame_log: gui_new_segno players confirmed: 1/2
+ INFO coregame_log: gui_new_segno Alex = 8 igor060 = 4 
+ INFO coregame_log: new_giocata
+DEBUG coregame_log: Create a deck with rank and points
+DEBUG coregame_log: RM: using rnd deck size: 40
+ INFO coregame_log: Current deck:
+_Ad,_3c,_Cs,_2b,_6d,_Fc,_2c,_4b,_Rs,_Fs,_Cc,_6b,_As,_7c,_Rd,_Fd,_5d,_Cb,_4c,_4d,_6c,_Rb,_3b,_5b,_5s,_5c,_4s,_6s,_Rc,_Fb,_3s,_2s,_2d,_7d,_3d,_7b,_7s,_Ab,_Ac,_Cd
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7d played from  igor060. Taken: _7s
+ INFO coregame_log: Table now: _Cd,_Ac,_Ab
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s
+ INFO coregame_log: Punteggio(igor060): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2d played from  Alex. Taken: _Ac,_Ab
+ INFO coregame_log: Table now: _Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab
+ INFO coregame_log: Punteggio(Alex): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3d played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_3d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3s played from  Alex. Taken: _3d
+ INFO coregame_log: Table now: _Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player Alex make picula
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7b played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2s played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7b,_2s
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 24
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fb played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7b,_2s,_Fb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4s played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7b,_2s,_Fb,_4s
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6s played from  igor060. Taken: _2s,_4s
+ INFO coregame_log: Table now: _Cd,_7b,_Fb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player igor060 make bager
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5c played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_5c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rc played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_5c,_Rc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5s played from  Alex. Taken: _5c
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_Rc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 18
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rb played from  igor060. Taken: _Rc
+ INFO coregame_log: Table now: _Cd,_7b,_Fb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4c played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_4c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3b played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_4c,_3b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4d played from  Alex. Taken: _4c
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_3b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c,_4d,_4c
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5b played from  igor060. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_3b,_5b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6c played from  Alex. 
+ INFO coregame_log: Table now: _Cd,_7b,_Fb,_3b,_5b,_6c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 12
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fd played from  igor060. Taken: _Fb
+ INFO coregame_log: Table now: _Cd,_7b,_3b,_5b,_6c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7c played from  Alex. Taken: _7b
+ INFO coregame_log: Table now: _Cd,_3b,_5b,_6c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c,_4d,_4c,_7c,_7b
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cb played from  igor060. Taken: _Cd
+ INFO coregame_log: Table now: _3b,_5b,_6c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _As played from  Alex. 
+ INFO coregame_log: Table now: _3b,_5b,_6c,_As
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5d played from  igor060. Taken: _5b
+ INFO coregame_log: Table now: _3b,_6c,_As
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd,_5d,_5b
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rd played from  Alex. 
+ INFO coregame_log: Table now: _3b,_6c,_As,_Rd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 6
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6b played from  igor060. Taken: _6c
+ INFO coregame_log: Table now: _3b,_As,_Rd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd,_5d,_5b,_6b,_6c
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rs played from  Alex. Taken: _Rd
+ INFO coregame_log: Table now: _3b,_As
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c,_4d,_4c,_7c,_7b,_Rs,_Rd
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cc played from  igor060. 
+ INFO coregame_log: Table now: _3b,_As,_Cc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2c played from  Alex. 
+ INFO coregame_log: Table now: _3b,_As,_Cc,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fs played from  igor060. 
+ INFO coregame_log: Table now: _3b,_As,_Cc,_2c,_Fs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4b played from  Alex. Taken: _3b,_As
+ INFO coregame_log: Table now: _Cc,_2c,_Fs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c,_4d,_4c,_7c,_7b,_Rs,_Rd,_4b,_3b,_As
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2b played from  igor060. Taken: _2c
+ INFO coregame_log: Table now: _Cc,_Fs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd,_5d,_5b,_6b,_6c,_2b,_2c
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 0, bag = 3, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cs played from  Alex. Taken: _Cc
+ INFO coregame_log: Table now: _Fs
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _2d,_Ac,_Ab,_3s,_3d,_5s,_5c,_4d,_4c,_7c,_7b,_Rs,_Rd,_4b,_3b,_As,_Cs,_Cc
+ INFO coregame_log: Punteggio(Alex): tot = 2, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 1
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fc played from  igor060. Taken: _Fs
+ INFO coregame_log: Table now: 
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player igor060 make spazzino
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd,_5d,_5b,_6b,_6c,_2b,_2c,_Fc,_Fs
+ INFO coregame_log: Punteggio(igor060): tot = 8, spaz = 1, on = 3, nap = 0, pic = 0, bag = 3, car = 0, spa = 1
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ad played from  Alex. 
+ INFO coregame_log: Table now: _Ad
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6d played from  igor060. 
+ INFO coregame_log: Table now: _Ad,_6d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Last card played, igor060 take all the rest
+ INFO coregame_log: Cards on table collected by opponent of the player playing
+ INFO coregame_log: Card _3c played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_6d,_3c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Last card on mano end: need to notify card on table are taken
+DEBUG coregame_log: Player igor060 take the rest on table: _Ad,_6d,_3c
+DEBUG coregame_log: Riepilogo carte prese da igor060: _7d,_7s,_6s,_2s,_4s,_Rb,_Rc,_Fd,_Fb,_Cb,_Cd,_5d,_5b,_6b,_6c,_2b,_2c,_Fc,_Fs,_Ad,_6d,_3c
+ INFO coregame_log: Punteggio(igor060): tot = 10, spaz = 1, on = 3, nap = 0, pic = 0, bag = 3, car = 2, spa = 1
+ INFO coregame_log: giocata_end
+ INFO coregame_log: Points(igor060): tot = 10, spaz = 1, on = 3, nap = 0, pic = 0, bag = 3, car = 2, spa = 1, num cards: 22
+ INFO coregame_log: Points(Alex): tot = 2, spaz = 0, on = 0, nap = 0, pic = 1, bag = 0, car = 0, spa = 1, num cards: 18
+ INFO coregame_log: gui_new_segno players confirmed: 1/2
+ INFO coregame_log: gui_new_segno Alex = 10 igor060 = 14 
+ INFO coregame_log: new_giocata
+DEBUG coregame_log: Create a deck with rank and points
+DEBUG coregame_log: RM: using rnd deck size: 40
+ INFO coregame_log: Current deck:
+_7b,_6c,_4b,_6s,_Cc,_6b,_3c,_5s,_Rs,_5c,_2c,_5d,_Rc,_7s,_5b,_Cd,_7c,_3s,_4d,_3d,_Fd,_Ad,_2b,_Cs,_Fc,_2s,_Fs,_7d,_Ab,_As,_4s,_Rd,_Ac,_6d,_Fb,_Cb,_3b,_2d,_Rb,_4c
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6d played from  Alex. Taken: _4c,_2d
+ INFO coregame_log: Table now: _Rb,_3b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d
+ INFO coregame_log: Punteggio(Alex): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rd played from  igor060. Taken: _Rb
+ INFO coregame_log: Table now: _3b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb
+ INFO coregame_log: Punteggio(igor060): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fb played from  Alex. 
+ INFO coregame_log: Table now: _3b,_Fb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ac played from  igor060. 
+ INFO coregame_log: Table now: _3b,_Fb,_Ac
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cb played from  Alex. 
+ INFO coregame_log: Table now: _3b,_Fb,_Ac,_Cb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4s played from  igor060. Taken: _3b,_Ac
+ INFO coregame_log: Table now: _Fb,_Cb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac
+ INFO coregame_log: Punteggio(igor060): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 24
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ab played from  Alex. 
+ INFO coregame_log: Table now: _Fb,_Cb,_Ab
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fs played from  igor060. Taken: _Fb
+ INFO coregame_log: Table now: _Cb,_Ab
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb
+ INFO coregame_log: Punteggio(igor060): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _As played from  Alex. Taken: _Ab
+ INFO coregame_log: Table now: _Cb
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab
+ INFO coregame_log: Punteggio(Alex): tot = 0, spaz = 0, on = 0, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fc played from  igor060. 
+ INFO coregame_log: Table now: _Cb,_Fc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7d played from  Alex. 
+ INFO coregame_log: Table now: _Cb,_Fc,_7d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2s played from  igor060. 
+ INFO coregame_log: Table now: _Cb,_Fc,_7d,_2s
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 18
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2b played from  Alex. Taken: _2s
+ INFO coregame_log: Table now: _Cb,_Fc,_7d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Fd played from  igor060. Taken: _Fc
+ INFO coregame_log: Table now: _Cb,_7d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc
+ INFO coregame_log: Punteggio(igor060): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cs played from  Alex. Taken: _Cb
+ INFO coregame_log: Table now: _7d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s,_Cs,_Cb
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4d played from  igor060. 
+ INFO coregame_log: Table now: _7d,_4d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Ad played from  Alex. 
+ INFO coregame_log: Table now: _7d,_4d,_Ad
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3d played from  igor060. 
+ INFO coregame_log: Table now: _7d,_4d,_Ad,_3d
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 12
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7c played from  Alex. Taken: _3d,_4d
+ INFO coregame_log: Table now: _7d,_Ad
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s,_Cs,_Cb,_7c,_3d,_4d
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _7s played from  igor060. Taken: _7d
+ INFO coregame_log: Table now: _Ad
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc,_7s,_7d
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 2, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3s played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_3s
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rc played from  igor060. 
+ INFO coregame_log: Table now: _Ad,_3s,_Rc
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cd played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_3s,_Rc,_Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5b played from  igor060. 
+ INFO coregame_log: Table now: _Ad,_3s,_Rc,_Cd,_5b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 6
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5d played from  Alex. Taken: _5b
+ INFO coregame_log: Table now: _Ad,_3s,_Rc,_Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s,_Cs,_Cb,_7c,_3d,_4d,_5d,_5b
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _3c played from  igor060. Taken: _3s
+ INFO coregame_log: Table now: _Ad,_Rc,_Cd
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc,_7s,_7d,_3c,_3s
+ INFO coregame_log: Punteggio(igor060): tot = 2, spaz = 0, on = 2, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _2c played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_Rc,_Cd,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Rs played from  igor060. Taken: _Rc
+ INFO coregame_log: Table now: _Ad,_Cd,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc,_7s,_7d,_3c,_3s,_Rs,_Rc
+ INFO coregame_log: Punteggio(igor060): tot = 3, spaz = 0, on = 2, nap = 0, pic = 0, bag = 0, car = 0, spa = 1
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5c played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_Cd,_2c,_5c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _5s played from  igor060. Taken: _5c
+ INFO coregame_log: Table now: _Ad,_Cd,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player igor060 make picula
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc,_7s,_7d,_3c,_3s,_Rs,_Rc,_5s,_5c
+ INFO coregame_log: Punteggio(igor060): tot = 5, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 0, spa = 2
+DEBUG coregame_log: pesca_carta
+ INFO coregame_log: Mazzo rimanenti: 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _Cc played from  Alex. Taken: _Cd
+ INFO coregame_log: Table now: _Ad,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s,_Cs,_Cb,_7c,_3d,_4d,_5d,_5b,_Cc,_Cd
+ INFO coregame_log: Punteggio(Alex): tot = 1, spaz = 0, on = 1, nap = 0, pic = 0, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6c played from  igor060. 
+ INFO coregame_log: Table now: _Ad,_2c,_6c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6s played from  Alex. Taken: _6c
+ INFO coregame_log: Table now: _Ad,_2c
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: player Alex make picula
+DEBUG coregame_log: Riepilogo carte prese da Alex: _6d,_4c,_2d,_As,_Ab,_2b,_2s,_Cs,_Cb,_7c,_3d,_4d,_5d,_5b,_Cc,_Cd,_6s,_6c
+ INFO coregame_log: Punteggio(Alex): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _4b played from  igor060. 
+ INFO coregame_log: Table now: _Ad,_2c,_4b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+ INFO coregame_log: Card _6b played from  Alex. 
+ INFO coregame_log: Table now: _Ad,_2c,_4b,_6b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: new_mano
+
+################## PROBLEMA sul client:
+# Qui ho cliccato sul 7b, poi si sono abilitate molte carte per
+# la selezione multipla. Ho cliccato sull'asse di denari ma non ha funzionato
+# Poi ho cliccato di nuovo sul sette, poi ancora sul sette e poi sul 4.
+# Quando ho cliccato sul 4 il programma ha funzionato
+# Da questo trace sul server non si nota nulla di particolare
+# SOL: in questo caso ci sono 2 problemi: 1 il giocatore alex ha giocato il 6b
+# che non è ammesso in quanto doveva prendere il 2 e il 4.
+# Il secondo problema è che cliccando l'asso di denari si ha la selezione
+# multipla la quale però non funziona.
+
+
+ WARN coregame_log: CHAT_T:Alex> ciao
+ WARN coregame_log: CHAT_T:igor060> errore nel programma
+ INFO coregame_log: Last card played, igor060 take all the rest
+ INFO coregame_log: Card _7b played from  igor060. Taken: _Ad,_2c,_4b,_6b
+ INFO coregame_log: Table now: _6b
+DEBUG coregame_log: mano_end
+DEBUG coregame_log: Riepilogo carte prese da igor060: _Rd,_Rb,_4s,_3b,_Ac,_Fs,_Fb,_Fd,_Fc,_7s,_7d,_3c,_3s,_Rs,_Rc,_5s,_5c,_7b,_Ad,_2c,_4b,_6b
+ INFO coregame_log: Punteggio(igor060): tot = 7, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 2, spa = 2
+DEBUG coregame_log: Giocata end beacuse no more cards are to be played
+ INFO coregame_log: giocata_end
+ INFO coregame_log: Points(Alex): tot = 2, spaz = 0, on = 1, nap = 0, pic = 1, bag = 0, car = 0, spa = 0, num cards: 18
+ INFO coregame_log: Points(igor060): tot = 7, spaz = 0, on = 2, nap = 0, pic = 1, bag = 0, car = 2, spa = 2, num cards: 22
+ INFO coregame_log: gui_new_segno players confirmed: 1/2
+ INFO coregame_log: gui_new_segno Alex = 12 igor060 = 21 
+ INFO coregame_log: gui_new_segno: aspetta inizio nuovo match
+ 

@@ -1,0 +1,105 @@
+--- 
+:giocate: 
+- :actions: 
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: igor047
+    :arg: 
+    - igor047
+    - :_Ad
+  - :type: :cardplayed
+    :pl_name: igor047
+    :arg: 
+    - igor047
+    - :_Ac
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_As
+  - :type: :change_briscola
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2s
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor047
+    :arg: 
+    - igor047
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: igor047
+    :arg: 
+    - igor047
+    - :_3s
+  - :type: :resign
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :disconnect
+  :deck: 
+  - :_Cc
+  - :_4c
+  - :_3c
+  - :_Fd
+  - :_2d
+  - :_3b
+  - :_Cs
+  - :_6d
+  - :_3d
+  - :_Fc
+  - :_4s
+  - :_5c
+  - :_Rs
+  - :_Ab
+  - :_7b
+  - :_Rc
+  - :_6c
+  - :_2b
+  - :_6s
+  - :_5s
+  - :_7c
+  - :_Rb
+  - :_4d
+  - :_5b
+  - :_3s
+  - :_4b
+  - :_7s
+  - :_7d
+  - :_Fs
+  - :_Ad
+  - :_6b
+  - :_Ac
+  - :_Cd
+  - :_2c
+  - :_Fb
+  - :_5d
+  - :_Rd
+  - :_Cb
+  - :_As
+  - :_2s
+  :first_plx: 1
+:game: 
+  :opt: 
+    :num_segni_match: 2
+    :target_points_segno: 41
+  :name: Mariazza
+:players: 
+- igor047
+- ospite1
+:match_winner: 
+- - igor047
+  - 0
+- - ospite1
+  - -1
+:date: 2008-02-29 20:14:39.273016 +01:00

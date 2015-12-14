@@ -1,0 +1,114 @@
+--- 
+:match_winner: 
+- - igor0500
+  - 0
+- - Perraz
+  - -1
+:players: 
+- igor0500
+- Perraz
+:giocate: 
+- :deck: 
+  - :_Cs
+  - :_Ad
+  - :_2s
+  - :_As
+  - :_7s
+  - :_Fc
+  - :_Ab
+  - :_5s
+  - :_Fd
+  - :_Rc
+  - :_6d
+  - :_6b
+  - :_3b
+  - :_3c
+  - :_6s
+  - :_2c
+  - :_7c
+  - :_Rd
+  - :_Cb
+  - :_Cc
+  - :_4s
+  - :_3d
+  - :_Fb
+  - :_Rb
+  - :_Rs
+  - :_4d
+  - :_7d
+  - :_4c
+  - :_Ac
+  - :_4b
+  - :_5b
+  - :_Cd
+  - :_3s
+  - :_5d
+  - :_6c
+  - :_7b
+  - :_2d
+  - :_Fs
+  - :_5c
+  - :_2b
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_4d
+  - :type: :resign
+    :pl_name: Perraz
+    :arg: 
+    - Perraz
+    - :abandon
+:game: 
+  :opt: 
+    :target_points_segno: 61
+    :num_segni_match: 2
+  :name: Briscola
+:date: 2008-04-23 20:30:14.306117 +02:00

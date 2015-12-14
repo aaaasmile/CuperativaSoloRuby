@@ -1,0 +1,1636 @@
+--- 
+:game: 
+  :name: Spazzino
+  :opt: 
+    :combi_sum_lesscard: false
+    :test_custom_deckname: 01.yaml
+    :test_with_custom_deck: false
+    :vale_napola: true
+    :gioco_private: false
+    :target_points: 31
+    :num_of_players: 2
+    :replay_game: false
+    :record_game: true
+    :shuffle_deck: true
+:giocate: 
+- :deck: 
+  - :_6b
+  - :_Rb
+  - :_2d
+  - :_2b
+  - :_Ac
+  - :_2s
+  - :_5d
+  - :_5c
+  - :_6d
+  - :_Rc
+  - :_Fb
+  - :_As
+  - :_7d
+  - :_Fc
+  - :_7s
+  - :_4d
+  - :_Cd
+  - :_Cs
+  - :_7b
+  - :_7c
+  - :_5b
+  - :_Fd
+  - :_4s
+  - :_6c
+  - :_Ad
+  - :_4b
+  - :_Ab
+  - :_Cb
+  - :_4c
+  - :_Rd
+  - :_Fs
+  - :_2c
+  - :_3s
+  - :_3d
+  - :_5s
+  - :_6s
+  - :_Cc
+  - :_Rs
+  - :_3c
+  - :_3b
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+      - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rd
+      - :_Rs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3d
+      - :_3b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_4c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4b
+      - :_4c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6c
+      - :_6s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cb
+      - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5b
+      - :_5s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_4s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ad
+      - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fd
+      - :_Fs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_4d
+      - :_4s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cs
+      - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7b
+      - :_7s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7c
+      - :_7d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2s
+      - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fb
+      - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5c
+      - :_5d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2d
+      - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rb
+      - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_As
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ac
+      - :_As
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6b
+      - :_6d
+  :giocata_winner: 
+  - - jason
+    - :spade: 1
+      :napola: 0
+      :fantespade: 1
+      :duespade: 1
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 8
+      :tombolon: 0
+      :setbel: 0
+      :tot: 11
+      :scopa_colore: 0
+  - - aaaasmile
+    - :spade: 0
+      :napola: 0
+      :fantespade: 0
+      :duespade: 0
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 1
+      :tot: 3
+      :scopa_colore: 0
+- :deck: 
+  - :_6s
+  - :_3d
+  - :_Rs
+  - :_Cb
+  - :_7b
+  - :_4c
+  - :_Fc
+  - :_5s
+  - :_2d
+  - :_6d
+  - :_2s
+  - :_Rd
+  - :_Ab
+  - :_7c
+  - :_3c
+  - :_3s
+  - :_2b
+  - :_4d
+  - :_Fb
+  - :_Cd
+  - :_7d
+  - :_5b
+  - :_6c
+  - :_Fs
+  - :_Cs
+  - :_7s
+  - :_Ad
+  - :_6b
+  - :_Fd
+  - :_Ac
+  - :_5c
+  - :_Rb
+  - :_Cc
+  - :_3b
+  - :_2c
+  - :_Rc
+  - :_4s
+  - :_5d
+  - :_4b
+  - :_As
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rb
+      - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ac
+      - :_As
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5c
+      - :_5d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7s
+      - :_3b
+      - :_4s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fs
+      - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cs
+      - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6c
+      - :_2c
+      - :_4b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ad
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7d
+      - :_Ad
+      - :_6b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+      - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_4d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7c
+      - :_2b
+      - :_5b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5s
+      - :_Ab
+      - :_4d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cb
+      - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2s
+      - :_2d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7b
+      - :_3d
+      - :_4c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fc
+      - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6s
+      - :_6d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rs
+      - :_Rd
+  :giocata_winner: 
+  - - aaaasmile
+    - :spade: 0
+      :napola: 0
+      :fantespade: 1
+      :duespade: 0
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 12
+      :tombolon: 0
+      :setbel: 1
+      :tot: 16
+      :scopa_colore: 0
+  - - jason
+    - :spade: 1
+      :napola: 0
+      :fantespade: 0
+      :duespade: 1
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 0
+      :tot: 2
+      :scopa_colore: 0
+- :deck: 
+  - :_As
+  - :_Rb
+  - :_3b
+  - :_5b
+  - :_2d
+  - :_5s
+  - :_5c
+  - :_Cb
+  - :_Fb
+  - :_Rd
+  - :_2c
+  - :_4d
+  - :_Cd
+  - :_Ad
+  - :_6b
+  - :_5d
+  - :_Ac
+  - :_7c
+  - :_4b
+  - :_Fc
+  - :_Cc
+  - :_6c
+  - :_2s
+  - :_2b
+  - :_3d
+  - :_7b
+  - :_Rc
+  - :_4c
+  - :_7s
+  - :_7d
+  - :_Fd
+  - :_3c
+  - :_Ab
+  - :_Cs
+  - :_4s
+  - :_3s
+  - :_6d
+  - :_Fs
+  - :_6s
+  - :_Rs
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7s
+      - :_Ab
+      - :_6s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3c
+      - :_3s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cs
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fd
+      - :_Fs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7b
+      - :_7d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rc
+      - :_Rs
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2s
+      - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4c
+      - :_4s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cc
+      - :_Cs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6c
+      - :_6d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7c
+      - :_3d
+      - :_4b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ad
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ac
+      - :_Ad
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cb
+      - :_Cd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5s
+      - :_5d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2d
+      - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fb
+      - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rd
+      - :_Rb
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_As
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5c
+      - :_As
+      - :_4d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3b
+  :giocata_winner: 
+  - - aaaasmile
+    - :spade: 0
+      :napola: 0
+      :fantespade: 0
+      :duespade: 0
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 1
+      :tot: 3
+      :scopa_colore: 0
+  - - jason
+    - :spade: 1
+      :napola: 0
+      :fantespade: 1
+      :duespade: 1
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 0
+      :tot: 3
+      :scopa_colore: 0
+- :deck: 
+  - :_6s
+  - :_4s
+  - :_5d
+  - :_Fb
+  - :_4d
+  - :_Cs
+  - :_Ad
+  - :_2s
+  - :_2c
+  - :_6b
+  - :_6c
+  - :_5b
+  - :_7c
+  - :_4b
+  - :_6d
+  - :_4c
+  - :_Rd
+  - :_Fd
+  - :_2d
+  - :_Cb
+  - :_3s
+  - :_Fc
+  - :_2b
+  - :_5c
+  - :_7d
+  - :_Cd
+  - :_7s
+  - :_Rb
+  - :_Ac
+  - :_7b
+  - :_Cc
+  - :_As
+  - :_3d
+  - :_Rs
+  - :_Fs
+  - :_3c
+  - :_3b
+  - :_5s
+  - :_Ab
+  - :_Rc
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rs
+      - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_As
+      - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3d
+      - :_3b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ac
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7s
+      - :_7b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fc
+      - :_Fs
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cd
+      - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+      - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5c
+      - :_5s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2d
+      - :_2b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7c
+      - :_7d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rd
+      - :_Rb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4b
+      - :_4c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6c
+      - :_6d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cs
+      - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5b
+      - :_5d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2s
+      - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4s
+      - :_4d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ad
+      - :_Ac
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fb
+      - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6s
+      - :_6b
+  :giocata_winner: 
+  - - aaaasmile
+    - :spade: 1
+      :napola: 0
+      :fantespade: 1
+      :duespade: 0
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 3
+      :tombolon: 0
+      :setbel: 1
+      :tot: 6
+      :scopa_colore: 0
+  - - jason
+    - :spade: 0
+      :napola: 0
+      :fantespade: 0
+      :duespade: 1
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 0
+      :tot: 3
+      :scopa_colore: 0
+- :deck: 
+  - :_4s
+  - :_7s
+  - :_2c
+  - :_5d
+  - :_Rd
+  - :_Rb
+  - :_Cd
+  - :_Fs
+  - :_4b
+  - :_3c
+  - :_Ac
+  - :_3b
+  - :_Cc
+  - :_As
+  - :_Fb
+  - :_Cb
+  - :_6c
+  - :_6s
+  - :_3s
+  - :_Rs
+  - :_7d
+  - :_Ad
+  - :_7b
+  - :_Cs
+  - :_7c
+  - :_Fc
+  - :_2b
+  - :_Ab
+  - :_2d
+  - :_5c
+  - :_6b
+  - :_Fd
+  - :_6d
+  - :_Rc
+  - :_2s
+  - :_5b
+  - :_5s
+  - :_4c
+  - :_4d
+  - :_3d
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5b
+      - :_5s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2d
+      - :_2s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6d
+      - :_6b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fc
+      - :_Fd
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7d
+      - :_3d
+      - :_4d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7b
+      - :_2b
+      - :_5c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ad
+      - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rs
+      - :_Rc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cc
+      - :_Cs
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6c
+      - :_6s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_As
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4b
+      - :_As
+      - :_3s
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7s
+      - :_7c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fs
+      - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_4s
+      - :_4c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3b
+      - :_3c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Cd
+      - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Ac
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rd
+      - :_Rb
+  :giocata_winner: 
+  - - jason
+    - :spade: 0
+      :napola: 0
+      :fantespade: 0
+      :duespade: 1
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 1
+      :tot: 11
+      :scopa_colore: 7
+  - - aaaasmile
+    - :spade: 1
+      :napola: 0
+      :fantespade: 1
+      :duespade: 0
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 0
+      :tot: 2
+      :scopa_colore: 0
+- :deck: 
+  - :_5b
+  - :_6b
+  - :_As
+  - :_4s
+  - :_3c
+  - :_7d
+  - :_Rb
+  - :_Cd
+  - :_2c
+  - :_Fs
+  - :_3d
+  - :_Ad
+  - :_Fd
+  - :_3s
+  - :_7b
+  - :_2b
+  - :_Fb
+  - :_5c
+  - :_6s
+  - :_7c
+  - :_Fc
+  - :_2d
+  - :_6d
+  - :_Rc
+  - :_Cc
+  - :_3b
+  - :_Rd
+  - :_2s
+  - :_4b
+  - :_Rs
+  - :_4c
+  - :_5s
+  - :_Ab
+  - :_6c
+  - :_Cs
+  - :_Cb
+  - :_Ac
+  - :_4d
+  - :_7s
+  - :_5d
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6c
+      - :_Ac
+      - :_5d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rs
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4c
+      - :_4d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cs
+      - :_Cb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ab
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5s
+      - :_Ab
+      - :_4b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Rc
+      - :_Rs
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3b
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2s
+      - :_2d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_6s
+      - :_6d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3s
+      - :_3b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_7c
+      - :_7s
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_Fd
+      - :_Fc
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_2b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_5c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7b
+      - :_2b
+      - :_5c
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Fs
+      - :_Fb
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_5b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Cd
+      - :_Cc
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_6b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_2c
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_7d
+      - :_2c
+      - :_5b
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Ad
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_As
+      - :_Ad
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_3d
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_3c
+      - :_3d
+  - :type: :cardplayedarr
+    :pl_name: jason
+    :arg: 
+    - jason
+    - - :_Rb
+      - :_Rd
+  - :type: :cardplayedarr
+    :pl_name: aaaasmile
+    :arg: 
+    - aaaasmile
+    - - :_4s
+  :giocata_winner: 
+  - - aaaasmile
+    - :spade: 0
+      :napola: 0
+      :fantespade: 0
+      :duespade: 0
+      :carte: 2
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 1
+      :tot: 3
+      :scopa_colore: 0
+  - - jason
+    - :spade: 1
+      :napola: 0
+      :fantespade: 1
+      :duespade: 1
+      :carte: 0
+      :extra_onori: 0
+      :scopa: 0
+      :tombolon: 0
+      :setbel: 0
+      :tot: 3
+      :scopa_colore: 0
+:match_winner: 
+- - aaaasmile
+  - 33
+- - jason
+  - 33
+:date: 2009-06-22 21:07:13.459177 +02:00
+:players: 
+- aaaasmile
+- jason

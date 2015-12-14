@@ -1,0 +1,303 @@
+--- 
+:players: 
+- Toro
+- Gino B.
+:game: 
+  :name: Briscola
+  :opt: 
+    :target_points_segno: 61
+    :num_segni_match: 2
+:date: 2008-03-05 00:49:27.884872 +01:00
+:giocate: 
+- :actions: 
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_4s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Ad
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_As
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Cc
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Rb
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Ac
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Rd
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_3s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Rc
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_6s
+  :deck: 
+  - :_3d
+  - :_2c
+  - :_4c
+  - :_6s
+  - :_Cs
+  - :_5b
+  - :_Fd
+  - :_Rc
+  - :_6b
+  - :_Rd
+  - :_3s
+  - :_5d
+  - :_Fb
+  - :_Ac
+  - :_6c
+  - :_Cd
+  - :_Fc
+  - :_5c
+  - :_Rb
+  - :_7s
+  - :_2s
+  - :_3b
+  - :_Fs
+  - :_4b
+  - :_Cb
+  - :_6d
+  - :_2d
+  - :_7b
+  - :_4d
+  - :_7c
+  - :_Ad
+  - :_7d
+  - :_3c
+  - :_Cc
+  - :_4s
+  - :_5s
+  - :_Rs
+  - :_2b
+  - :_As
+  - :_Ab
+  :giocata_winner: 
+  - - Toro
+    - 66
+  - - Gino B.
+    - 54
+  :first_plx: 0
+- :actions: []
+
+  :deck: 
+  - :_4c
+  - :_7d
+  - :_Ab
+  - :_Cb
+  - :_5c
+  - :_4d
+  - :_Fc
+  - :_Cs
+  - :_Ac
+  - :_7b
+  - :_Ad
+  - :_5s
+  - :_Cc
+  - :_5d
+  - :_3d
+  - :_Fs
+  - :_6b
+  - :_Rb
+  - :_5b
+  - :_3s
+  - :_6d
+  - :_7s
+  - :_6c
+  - :_7c
+  - :_As
+  - :_2s
+  - :_3c
+  - :_Rc
+  - :_6s
+  - :_Rs
+  - :_Cd
+  - :_Rd
+  - :_4s
+  - :_Fd
+  - :_2c
+  - :_3b
+  - :_2b
+  - :_2d
+  - :_4b
+  - :_Fb
+  :first_plx: 0

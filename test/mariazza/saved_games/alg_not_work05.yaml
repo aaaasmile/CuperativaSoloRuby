@@ -1,0 +1,308 @@
+--- 
+:players: 
+- Toro
+- Gino B.
+:game: 
+  :name: Mariazza
+  :opt: 
+    :target_points_segno: 41
+    :num_segni_match: 2
+:date: 2008-02-25 23:29:25.378940 +01:00
+:match_winner: 
+- - Toro
+  - 2
+- - Gino B.
+  - 0
+:giocate: 
+- :actions: 
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Ac
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Cd
+  - :type: :declare
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :mar_bas
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Rb
+  :first_plx: 0
+  :deck: 
+  - :_4s
+  - :_6b
+  - :_Rd
+  - :_Fb
+  - :_Ad
+  - :_Cc
+  - :_5d
+  - :_Cs
+  - :_2b
+  - :_2s
+  - :_3c
+  - :_2c
+  - :_Rc
+  - :_As
+  - :_Fc
+  - :_3s
+  - :_Fd
+  - :_Cb
+  - :_3d
+  - :_6s
+  - :_7d
+  - :_4d
+  - :_4c
+  - :_Rb
+  - :_Rs
+  - :_5c
+  - :_Cd
+  - :_6d
+  - :_7s
+  - :_Ab
+  - :_Fs
+  - :_5s
+  - :_Ac
+  - :_3b
+  - :_7c
+  - :_6c
+  - :_7b
+  - :_2d
+  - :_4b
+  - :_5b
+  :giocata_winner: 
+  - - Toro
+    - 47
+  - - Gino B.
+    - 13
+- :actions: 
+  - :type: :change_briscola
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3b
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3d
+  - :type: :declare
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :mar_spa
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3b
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: Toro
+    :arg: 
+    - Toro
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: Gino B.
+    :arg: 
+    - Gino B.
+    - :_3s
+  :first_plx: 1
+  :deck: 
+  - :_2c
+  - :_Rb
+  - :_Cc
+  - :_Rc
+  - :_7c
+  - :_Rd
+  - :_Fc
+  - :_7d
+  - :_As
+  - :_6b
+  - :_Ad
+  - :_6c
+  - :_4s
+  - :_Cd
+  - :_Ab
+  - :_2d
+  - :_Ac
+  - :_Cb
+  - :_5d
+  - :_Fs
+  - :_Cs
+  - :_3s
+  - :_4d
+  - :_3d
+  - :_2b
+  - :_6d
+  - :_6s
+  - :_7s
+  - :_4c
+  - :_Fb
+  - :_2s
+  - :_5b
+  - :_3c
+  - :_5c
+  - :_4b
+  - :_Fd
+  - :_5s
+  - :_Rs
+  - :_7b
+  - :_3b
+  :giocata_winner: 
+  - - Toro
+    - 42
+  - - Gino B.
+    - 40

@@ -1,0 +1,99 @@
+--- 
+:game: 
+  :name: Briscola
+  :opt: 
+    :num_segni_match: 2
+    :target_points_segno: 61
+:date: 2008-04-13 12:19:37.168636 +02:00
+:players: 
+- Toro
+- Gino B.
+:giocate: 
+- :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_7s
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Cb
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fb
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_6d
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_6s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_As
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_Rs
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_3b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fs
+    :pl_name: Gino B.
+  :deck: 
+  - :_Rb
+  - :_2d
+  - :_Rc
+  - :_2s
+  - :_Fc
+  - :_5c
+  - :_2c
+  - :_7d
+  - :_4b
+  - :_5b
+  - :_3s
+  - :_6c
+  - :_4c
+  - :_3d
+  - :_Fd
+  - :_Rd
+  - :_3c
+  - :_Cs
+  - :_7c
+  - :_7b
+  - :_5s
+  - :_Cd
+  - :_4d
+  - :_4s
+  - :_Ab
+  - :_2b
+  - :_5d
+  - :_Fs
+  - :_Ad
+  - :_As
+  - :_6s
+  - :_Cc
+  - :_3b
+  - :_Ac
+  - :_Cb
+  - :_Fb
+  - :_6d
+  - :_7s
+  - :_Rs
+  - :_6b

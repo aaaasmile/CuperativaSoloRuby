@@ -1,0 +1,543 @@
+# Inquesta partita ho riscontrato un problema dopo la prima smazzata.
+# Al momento di giocare la prima carta mi è stata assegnata una picula
+--- 
+:game: 
+  :opt: 
+    :target_points_segno: 
+    :num_segni_match: 
+  :name: Spazzino
+:giocate: 
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_As
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_6b
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Ad
+      - :_As
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_6s
+      - :_6b
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Fb
+      - :_Fc
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_7b
+      - :_4d
+      - :_3s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_2d
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_4c
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_5b
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Rb
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Rs
+      - :_Rb
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_2c
+      - :_2d
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Cd
+      - :_Cs
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_5c
+      - :_5b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_6d
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3c
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_7c
+      - :_4c
+      - :_3c
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_6c
+      - :_6d
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Fd
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Fs
+      - :_Fd
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_2s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_4s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_7s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Ac
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Ab
+      - :_Ac
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_5s
+      - :_2s
+      - :_3b
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_5d
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Cb
+      - :_Cc
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_7d
+      - :_7s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_4b
+      - :_4s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_2b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Rd
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3d
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Rc
+      - :_Rd
+    :pl_name: igor060
+  :giocata_winner: 
+  - - igor060
+    - :spazzino: 0
+      :tot: 10
+      :picula: 2
+      :carte: 2
+      :bager: 3
+      :spade: 2
+      :napola: 0
+      :onori: 1
+  - - Alex
+    - :spazzino: 0
+      :tot: 3
+      :picula: 1
+      :carte: 0
+      :bager: 0
+      :spade: 0
+      :napola: 0
+      :onori: 2
+  :deck: 
+  - :_Rc
+  - :_Rd
+  - :_4b
+  - :_3d
+  - :_2b
+  - :_7d
+  - :_Ab
+  - :_Cb
+  - :_5s
+  - :_3b
+  - :_5d
+  - :_Ac
+  - :_Fd
+  - :_7s
+  - :_2s
+  - :_4s
+  - :_6c
+  - :_Fs
+  - :_6d
+  - :_7c
+  - :_Cd
+  - :_2c
+  - :_5c
+  - :_3c
+  - :_2d
+  - :_5b
+  - :_Rs
+  - :_Rb
+  - :_4c
+  - :_7b
+  - :_6s
+  - :_Fb
+  - :_6b
+  - :_3s
+  - :_Ad
+  - :_As
+  - :_Fc
+  - :_4d
+  - :_Cs
+  - :_Cc
+  :first_plx: 1
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_3b
+      - :_3s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Rd
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Fc
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3c
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Rs
+      - :_Rd
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Cc
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_7d
+      - :_4s
+      - :_3c
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_6d
+      - :_6b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_5s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_7s
+      - :_2b
+      - :_5s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_2s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Fb
+      - :_Fc
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Cb
+      - :_Cc
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_5b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Ac
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_5d
+      - :_5b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Fs
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_6s
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_7b
+      - :_Ac
+      - :_6s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_As
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Ab
+      - :_As
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_3d
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_2d
+      - :_2s
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Cs
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Ad
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Fd
+      - :_Fs
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_4c
+      - :_3d
+      - :_Ad
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_2c
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_7c
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Rb
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_Cd
+      - :_Cs
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_Rc
+      - :_Rb
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_5c
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_4b
+    :pl_name: Alex
+  - :type: :cardplayedarr
+    :arg: 
+    - igor060
+    - - :_6c
+      - :_2c
+      - :_4b
+    :pl_name: igor060
+  - :type: :cardplayedarr
+    :arg: 
+    - Alex
+    - - :_4d
+    :pl_name: Alex
+  :giocata_winner: 
+  - - igor060
+    - :spazzino: 0
+      :tot: 12
+      :picula: 2
+      :carte: 2
+      :bager: 0
+      :spade: 2
+      :napola: 4
+      :onori: 2
+  - - Alex
+    - :spazzino: 0
+      :tot: 1
+      :picula: 0
+      :carte: 0
+      :bager: 0
+      :spade: 0
+      :napola: 0
+      :onori: 1
+  :deck: 
+  - :_4b
+  - :_Rc
+  - :_4d
+  - :_6c
+  - :_5c
+  - :_Cd
+  - :_Rb
+  - :_2c
+  - :_Fd
+  - :_7c
+  - :_Ad
+  - :_4c
+  - :_As
+  - :_Cs
+  - :_3d
+  - :_7b
+  - :_2d
+  - :_Ab
+  - :_5b
+  - :_5d
+  - :_6s
+  - :_Fs
+  - :_Ac
+  - :_Cb
+  - :_Fb
+  - :_7s
+  - :_6d
+  - :_7d
+  - :_5s
+  - :_2s
+  - :_Cc
+  - :_Rd
+  - :_3c
+  - :_Rs
+  - :_Fc
+  - :_3b
+  - :_6b
+  - :_3s
+  - :_4s
+  - :_2b
+  :first_plx: 0
+:players: 
+- igor060
+- Alex
+:match_winner: 
+- - igor060
+  - 22
+- - Alex
+  - 4
+:date: 2008-11-21 21:45:18.803238 +01:00

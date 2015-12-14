@@ -1,0 +1,1331 @@
+--- 
+:game: 
+  :opt: 
+    :target_points: 11
+    :test_with_custom_deck: false
+    :combi_sum_lesscard: true
+    :num_of_players: 2
+    :replay_game: false
+    :record_game: true
+    :shuffle_deck: true
+    :vale_napola: true
+    :gioco_private: false
+    :test_custom_deckname: scopet01.yaml
+  :name: Spazzino
+:giocate: 
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4d
+      - :_Ac
+      - :_3d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4b
+      - :_4c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3c
+      - :_3b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fb
+      - :_Fd
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Cb
+      - :_Cc
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rc
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ab
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_As
+      - :_Ab
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Rb
+      - :_Rc
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fs
+      - :_2s
+      - :_6c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fc
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7d
+      - :_7b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6s
+      - :_6d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rd
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7s
+      - :_3s
+      - :_4s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Rs
+      - :_Rd
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cs
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5b
+      - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cd
+      - :_Cs
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2c
+      - :_2b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5s
+      - :_5c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Ad
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6b
+    :pl_name: igor061
+  :giocata_winner: 
+  - - ospite1
+    - :napola: 0
+      :scopa: 0
+      :setbel: 1
+      :tot: 2
+      :denari: 0
+      :carte: 0
+      :primiera: 1
+  - - igor061
+    - :napola: 0
+      :scopa: 0
+      :setbel: 0
+      :tot: 1
+      :denari: 0
+      :carte: 1
+      :primiera: 0
+  :deck: 
+  - :_6b
+  - :_2d
+  - :_5s
+  - :_7c
+  - :_5c
+  - :_Ad
+  - :_5b
+  - :_Rs
+  - :_2c
+  - :_Cs
+  - :_2b
+  - :_Cd
+  - :_5d
+  - :_4s
+  - :_6s
+  - :_Rd
+  - :_7s
+  - :_7d
+  - :_Rb
+  - :_Fs
+  - :_Fc
+  - :_6d
+  - :_3s
+  - :_6c
+  - :_Ab
+  - :_7b
+  - :_Cb
+  - :_As
+  - :_Fb
+  - :_Rc
+  - :_4c
+  - :_2s
+  - :_3c
+  - :_4d
+  - :_3b
+  - :_4b
+  - :_Ac
+  - :_3d
+  - :_Cc
+  - :_Fd
+  :first_plx: 1
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7d
+      - :_Ab
+      - :_6b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rd
+      - :_Rb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_As
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3d
+      - :_As
+      - :_2s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fs
+      - :_2c
+      - :_6s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fb
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4b
+      - :_4d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Cc
+      - :_Cs
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2b
+      - :_2d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Rs
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Rc
+      - :_Rs
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5d
+      - :_5s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3s
+      - :_3b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6d
+      - :_6c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fc
+      - :_Fb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4s
+      - :_4c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ac
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5c
+      - :_5b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ad
+      - :_Ac
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7s
+      - :_7c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cd
+      - :_Cb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fd
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7b
+    :pl_name: ospite1
+  :giocata_winner: 
+  - - ospite1
+    - :napola: 0
+      :scopa: 0
+      :setbel: 0
+      :tot: 2
+      :denari: 1
+      :carte: 1
+      :primiera: 0
+  - - igor061
+    - :napola: 0
+      :scopa: 0
+      :setbel: 1
+      :tot: 2
+      :denari: 0
+      :carte: 0
+      :primiera: 1
+  :deck: 
+  - :_7b
+  - :_Cd
+  - :_7s
+  - :_Ad
+  - :_Fd
+  - :_3c
+  - :_Fc
+  - :_4s
+  - :_5c
+  - :_Ac
+  - :_6d
+  - :_4c
+  - :_3s
+  - :_5d
+  - :_Cb
+  - :_Rc
+  - :_5b
+  - :_6c
+  - :_3b
+  - :_2b
+  - :_4b
+  - :_Rs
+  - :_Fb
+  - :_Cc
+  - :_2c
+  - :_5s
+  - :_2d
+  - :_Fs
+  - :_4d
+  - :_7c
+  - :_3d
+  - :_2s
+  - :_Rd
+  - :_6s
+  - :_7d
+  - :_As
+  - :_Ab
+  - :_Cs
+  - :_6b
+  - :_Rb
+  :first_plx: 0
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rc
+      - :_Rd
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fc
+      - :_Ab
+      - :_2s
+      - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cs
+      - :_4d
+      - :_5b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_As
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7d
+      - :_7s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4c
+      - :_As
+      - :_3c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fb
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fd
+      - :_Fb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7c
+      - :_2d
+      - :_5c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cc
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6c
+      - :_6d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Cd
+      - :_Cc
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Ac
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3s
+      - :_Ac
+      - :_2c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rs
+      - :_Rb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7b
+      - :_3b
+      - :_4b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fs
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ad
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6s
+      - :_Ad
+      - :_5s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6b
+      - :_2b
+      - :_4s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3d
+    :pl_name: igor061
+  :giocata_winner: 
+  - - igor061
+    - :napola: 0
+      :scopa: 0
+      :setbel: 1
+      :tot: 2
+      :denari: 0
+      :carte: 0
+      :primiera: 1
+  - - ospite1
+    - :napola: 0
+      :scopa: 1
+      :setbel: 0
+      :tot: 1
+      :denari: 0
+      :carte: 0
+      :primiera: 0
+  :deck: 
+  - :_3d
+  - :_6b
+  - :_4s
+  - :_6s
+  - :_Cb
+  - :_2b
+  - :_7b
+  - :_Ad
+  - :_3b
+  - :_Rs
+  - :_Fs
+  - :_4b
+  - :_2c
+  - :_5s
+  - :_Cd
+  - :_3s
+  - :_Ac
+  - :_6c
+  - :_6d
+  - :_2d
+  - :_7c
+  - :_Rb
+  - :_Fd
+  - :_Cc
+  - :_7d
+  - :_Fb
+  - :_7s
+  - :_5c
+  - :_4c
+  - :_As
+  - :_2s
+  - :_3c
+  - :_Fc
+  - :_Rc
+  - :_4d
+  - :_Cs
+  - :_Ab
+  - :_5d
+  - :_5b
+  - :_Rd
+  :first_plx: 1
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3s
+      - :_3c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rc
+      - :_Rd
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fb
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fd
+      - :_Fb
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cc
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fs
+      - :_3b
+      - :_5b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cs
+      - :_Cc
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ab
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fc
+      - :_Ab
+      - :_7b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6d
+      - :_2c
+      - :_4d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_As
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3d
+      - :_As
+      - :_2b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7s
+      - :_7c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Ad
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Cb
+      - :_4c
+      - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6c
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7d
+      - :_Ad
+      - :_6c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rb
+      - :_Rs
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cd
+      - :_4s
+      - :_5s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6b
+      - :_6s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_2d
+      - :_2s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ac
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5c
+      - :_Ac
+      - :_4b
+    :pl_name: ospite1
+  :giocata_winner: 
+  - - igor061
+    - :napola: 0
+      :scopa: 0
+      :setbel: 1
+      :tot: 3
+      :denari: 1
+      :carte: 0
+      :primiera: 1
+  - - ospite1
+    - :napola: 0
+      :scopa: 1
+      :setbel: 0
+      :tot: 2
+      :denari: 0
+      :carte: 1
+      :primiera: 0
+  :deck: 
+  - :_2s
+  - :_5c
+  - :_2d
+  - :_Ac
+  - :_4b
+  - :_6b
+  - :_4s
+  - :_Rb
+  - :_Cd
+  - :_5s
+  - :_6s
+  - :_7d
+  - :_Ad
+  - :_3d
+  - :_6c
+  - :_4c
+  - :_Cb
+  - :_7s
+  - :_Fc
+  - :_2b
+  - :_As
+  - :_6d
+  - :_5d
+  - :_2c
+  - :_4d
+  - :_Cc
+  - :_Cs
+  - :_Fd
+  - :_Ab
+  - :_Fs
+  - :_Rc
+  - :_3s
+  - :_5b
+  - :_Fb
+  - :_3b
+  - :_3c
+  - :_7b
+  - :_7c
+  - :_Rs
+  - :_Rd
+  :first_plx: 0
+- :actions: 
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rs
+      - :_Rb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2s
+      - :_2c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fd
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rd
+      - :_3s
+      - :_7b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5s
+      - :_5b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_5d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_6b
+      - :_6s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Cd
+      - :_Cb
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2d
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_As
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fc
+      - :_Fd
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_3d
+      - :_As
+      - :_2d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ab
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_5c
+      - :_5d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_2b
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_7d
+      - :_Ab
+      - :_2b
+      - :_4b
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Ad
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_4d
+      - :_4s
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Ac
+      - :_Ad
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_3b
+      - :_3c
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Fs
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_6c
+      - :_6d
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_7c
+      - :_7s
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Fb
+      - :_Fs
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_Cc
+      - :_Cs
+    :pl_name: igor061
+  - :type: :cardplayedarr
+    :arg: 
+    - ospite1
+    - - :_Rc
+    :pl_name: ospite1
+  - :type: :cardplayedarr
+    :arg: 
+    - igor061
+    - - :_4c
+    :pl_name: igor061
+  :giocata_winner: 
+  - - ospite1
+    - :napola: 7
+      :scopa: 0
+      :setbel: 1
+      :tot: 11
+      :denari: 1
+      :carte: 1
+      :primiera: 1
+  - - igor061
+    - :napola: 0
+      :scopa: 1
+      :setbel: 0
+      :tot: 1
+      :denari: 0
+      :carte: 0
+      :primiera: 0
+  :deck: 
+  - :_4c
+  - :_7c
+  - :_Cc
+  - :_Fb
+  - :_6c
+  - :_Rc
+  - :_7s
+  - :_Fs
+  - :_3b
+  - :_4d
+  - :_Ac
+  - :_6d
+  - :_2b
+  - :_Ad
+  - :_3c
+  - :_7d
+  - :_4s
+  - :_5c
+  - :_2d
+  - :_Fc
+  - :_Ab
+  - :_As
+  - :_3d
+  - :_Cd
+  - :_5b
+  - :_5d
+  - :_6b
+  - :_5s
+  - :_Rd
+  - :_6s
+  - :_2c
+  - :_2s
+  - :_3s
+  - :_Rs
+  - :_Fd
+  - :_4b
+  - :_Rb
+  - :_7b
+  - :_Cs
+  - :_Cb
+  :first_plx: 1
+:players: 
+- igor061
+- ospite1
+:match_winner: 
+- - ospite1
+  - 18
+- - igor061
+  - 9
+:date: 2008-12-29 20:18:11.800510 +01:00

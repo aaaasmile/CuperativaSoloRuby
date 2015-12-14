@@ -1,0 +1,614 @@
+--- 
+:match_winner: 
+- - Parma
+  - 4
+- - igor0500
+  - 0
+:players: 
+- igor0500
+- Parma
+:giocate: 
+- :deck: 
+  - :_Fb
+  - :_3d
+  - :_4s
+  - :_Rs
+  - :_3b
+  - :_5d
+  - :_2b
+  - :_6s
+  - :_Ad
+  - :_6d
+  - :_2s
+  - :_7d
+  - :_Rb
+  - :_7c
+  - :_Fs
+  - :_Ab
+  - :_Fd
+  - :_Cc
+  - :_6c
+  - :_7s
+  - :_2c
+  - :_6b
+  - :_Rc
+  - :_Fc
+  - :_Cb
+  - :_7b
+  - :_3s
+  - :_5b
+  - :_Cd
+  - :_3c
+  - :_4b
+  - :_5c
+  - :_Rd
+  - :_4d
+  - :_Cs
+  - :_As
+  - :_2d
+  - :_4c
+  - :_5s
+  - :_Ac
+  :giocata_winner: 
+  - - Parma
+    - 44
+  - - igor0500
+    - 40
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Cc
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Rc
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Fc
+  - :type: :change_briscola
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Ac
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Ac
+  - :type: :declare
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :mar_bas
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Rb
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Ad
+- :deck: 
+  - :_Ad
+  - :_3b
+  - :_3d
+  - :_4s
+  - :_2d
+  - :_3c
+  - :_5b
+  - :_Cd
+  - :_Cb
+  - :_Rc
+  - :_Rb
+  - :_Fs
+  - :_7d
+  - :_4d
+  - :_2b
+  - :_7s
+  - :_7b
+  - :_Cs
+  - :_5c
+  - :_5d
+  - :_6c
+  - :_Fb
+  - :_Fd
+  - :_Rs
+  - :_4c
+  - :_2c
+  - :_7c
+  - :_Ac
+  - :_Fc
+  - :_6b
+  - :_Cc
+  - :_Ab
+  - :_2s
+  - :_As
+  - :_6s
+  - :_5s
+  - :_3s
+  - :_Rd
+  - :_4b
+  - :_6d
+  :giocata_winner: 
+  - - Parma
+    - 43
+  - - igor0500
+    - 27
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_As
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_3s
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4d
+  - :type: :declare
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :mar_cop
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Cc
+  - :type: :declare
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :mar_bas
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Rb
+- :deck: 
+  - :_4c
+  - :_Rs
+  - :_7d
+  - :_2b
+  - :_Cd
+  - :_Ab
+  - :_2s
+  - :_5c
+  - :_3d
+  - :_Ad
+  - :_6s
+  - :_Fb
+  - :_As
+  - :_4s
+  - :_7s
+  - :_3b
+  - :_Rd
+  - :_6b
+  - :_Cs
+  - :_Fs
+  - :_5d
+  - :_7c
+  - :_2c
+  - :_Cc
+  - :_Ac
+  - :_Cb
+  - :_3s
+  - :_Fc
+  - :_Fd
+  - :_6d
+  - :_Rb
+  - :_Rc
+  - :_4d
+  - :_5b
+  - :_6c
+  - :_2d
+  - :_4b
+  - :_3c
+  - :_5s
+  - :_7b
+  :giocata_winner: 
+  - - Parma
+    - 44
+  - - igor0500
+    - 2
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_4b
+  - :type: :declare
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :mar_bas
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Rb
+- :deck: 
+  - :_2c
+  - :_7c
+  - :_4d
+  - :_6c
+  - :_As
+  - :_5b
+  - :_Ab
+  - :_6s
+  - :_Cc
+  - :_Ad
+  - :_7s
+  - :_2s
+  - :_5s
+  - :_Fs
+  - :_Rb
+  - :_Ac
+  - :_2d
+  - :_Cd
+  - :_3c
+  - :_4c
+  - :_4b
+  - :_Fb
+  - :_Rc
+  - :_6d
+  - :_3s
+  - :_Fc
+  - :_3b
+  - :_Cs
+  - :_7b
+  - :_Fd
+  - :_Rd
+  - :_Rs
+  - :_4s
+  - :_2b
+  - :_5c
+  - :_3d
+  - :_Cb
+  - :_6b
+  - :_5d
+  - :_7d
+  :giocata_winner: 
+  - - Parma
+    - 71
+  - - igor0500
+    - 14
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4s
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Fd
+  - :type: :declare
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :mar_spa
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_3d
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: igor0500
+    :arg: 
+    - igor0500
+    - :_Fb
+  - :type: :declare
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :mar_den
+  - :type: :cardplayed
+    :pl_name: Parma
+    :arg: 
+    - Parma
+    - :_Rd
+:game: 
+  :opt: 
+    :target_points_segno: 41
+    :num_segni_match: 4
+  :name: Mariazza
+:date: 2008-05-08 21:14:35.909420 +02:00

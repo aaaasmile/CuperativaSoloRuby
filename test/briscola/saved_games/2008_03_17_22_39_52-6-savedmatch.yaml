@@ -1,0 +1,760 @@
+--- 
+:players: 
+- igor050
+- ospite1
+:match_winner: 
+- - ospite1
+  - 2
+- - igor050
+  - 1
+:giocate: 
+- :deck: 
+  - :_7s
+  - :_Fb
+  - :_3b
+  - :_Fd
+  - :_2c
+  - :_6d
+  - :_Fc
+  - :_6s
+  - :_Ac
+  - :_2s
+  - :_Cd
+  - :_Cc
+  - :_7d
+  - :_4s
+  - :_5b
+  - :_Cb
+  - :_Rs
+  - :_5c
+  - :_Rb
+  - :_2d
+  - :_As
+  - :_5d
+  - :_Cs
+  - :_3c
+  - :_4b
+  - :_Fs
+  - :_Rd
+  - :_6b
+  - :_4c
+  - :_7b
+  - :_4d
+  - :_3s
+  - :_7c
+  - :_Ad
+  - :_Rc
+  - :_6c
+  - :_Ab
+  - :_2b
+  - :_3d
+  - :_5s
+  :giocata_winner: 
+  - - igor050
+    - 68
+  - - ospite1
+    - 52
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Rd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Ad
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rb
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cc
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_3s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Ac
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_As
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5s
+- :deck: 
+  - :_6s
+  - :_3b
+  - :_7c
+  - :_7s
+  - :_6b
+  - :_2c
+  - :_4s
+  - :_As
+  - :_6c
+  - :_4c
+  - :_Rb
+  - :_2s
+  - :_2d
+  - :_7d
+  - :_3d
+  - :_5s
+  - :_6d
+  - :_Cc
+  - :_Rs
+  - :_3c
+  - :_3s
+  - :_Ad
+  - :_Ac
+  - :_5b
+  - :_Fb
+  - :_2b
+  - :_Rd
+  - :_Rc
+  - :_5c
+  - :_Cd
+  - :_7b
+  - :_5d
+  - :_Fd
+  - :_Cs
+  - :_Fs
+  - :_4d
+  - :_4b
+  - :_Fc
+  - :_Ab
+  - :_Cb
+  :giocata_winner: 
+  - - ospite1
+    - 80
+  - - igor050
+    - 40
+  :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rd
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cc
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Ad
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_3d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ac
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_As
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rb
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3b
+- :deck: 
+  - :_7c
+  - :_3d
+  - :_3s
+  - :_Rs
+  - :_4c
+  - :_As
+  - :_2d
+  - :_Cs
+  - :_Ac
+  - :_Ab
+  - :_7b
+  - :_Rc
+  - :_2s
+  - :_7s
+  - :_Cd
+  - :_5b
+  - :_3b
+  - :_7d
+  - :_Rb
+  - :_Ad
+  - :_Fs
+  - :_Fd
+  - :_Rd
+  - :_5s
+  - :_6d
+  - :_6b
+  - :_Cb
+  - :_3c
+  - :_2b
+  - :_6s
+  - :_Fc
+  - :_4b
+  - :_4s
+  - :_2c
+  - :_Fb
+  - :_Cc
+  - :_6c
+  - :_5c
+  - :_5d
+  - :_4d
+  :giocata_winner: 
+  - - ospite1
+    - 60
+  - - igor050
+    - 60
+  :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cc
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5c
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fb
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_6b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_6d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Fc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_3c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Fs
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cb
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rb
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Rd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Cd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_7s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2s
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Fd
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_5d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ad
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3b
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_7b
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_2d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Cs
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_4c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rc
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_3s
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_3d
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_7c
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_4d
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_As
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ab
+  - :type: :cardplayed
+    :pl_name: igor050
+    :arg: 
+    - igor050
+    - :_Rs
+  - :type: :cardplayed
+    :pl_name: ospite1
+    :arg: 
+    - ospite1
+    - :_Ac
+:game: 
+  :opt: 
+    :target_points_segno: 61
+    :num_segni_match: 2
+  :name: Briscola
+:date: 2008-03-17 22:55:55.486488 +01:00

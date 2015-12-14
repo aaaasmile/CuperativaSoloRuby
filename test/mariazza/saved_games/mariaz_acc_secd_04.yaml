@@ -1,0 +1,79 @@
+--- 
+:giocate: 
+- :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Cb
+    :pl_name: Gino B.
+  - :type: :declare
+    :arg: 
+    - Toro
+    - :mar_den
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_2b
+    :pl_name: Toro
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fd
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Toro
+    - :_Rd
+    :pl_name: Toro
+  :deck: 
+  - :_4b
+  - :_7b
+  - :_Ad
+  - :_7c
+  - :_6b
+  - :_Fb
+  - :_4c
+  - :_4d
+  - :_Rc
+  - :_5d
+  - :_3b
+  - :_Rb
+  - :_5b
+  - :_Cs
+  - :_Fc
+  - :_2s
+  - :_Ac
+  - :_As
+  - :_7s
+  - :_4s
+  - :_2d
+  - :_Ab
+  - :_2c
+  - :_Cc
+  - :_3c
+  - :_7d
+  - :_5c
+  - :_3d
+  - :_Fd
+  - :_Rs
+  - :_2b
+  - :_Fs
+  - :_Rd
+  - :_Cd
+  - :_Cb
+  - :_3s
+  - :_5s
+  - :_6s
+  - :_6d
+  - :_6c
+  :first_plx: 1
+:date: 2008-01-11 00:17:51.644428 +01:00
+:players: 
+- Toro
+- Gino B.
+:game: 
+  :name: Mariazza
+  :opt: 
+    :target_points_segno: 71
+    :num_segni_match: 2
