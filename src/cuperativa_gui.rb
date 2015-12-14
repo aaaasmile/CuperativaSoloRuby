@@ -233,7 +233,7 @@ class CuperativaGui < FXMainWindow
     
     ###  toolbar
     FXHorizontalSeparator.new(self, SEPARATOR_GROOVE|LAYOUT_FILL_X)
-    vv_main = self
+    vv_main = FXVerticalFrame.new(self, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
     toolbarShell = FXToolBarShell.new(self)
     toolbar = FXToolBar.new(vv_main, toolbarShell,LAYOUT_SIDE_TOP|LAYOUT_FILL_X, 0, 0, 0, 0, 3, 3, 0, 0)
     @icons_app = {}
@@ -286,23 +286,14 @@ class CuperativaGui < FXMainWindow
     # try to set a label on in the midlle of the toolbar
     @lbl_table_title = FXLabel.new(toolbar, "", nil, JUSTIFY_CENTER_X|LAYOUT_FILL_X|JUSTIFY_CENTER_Y|LAYOUT_FILL_Y)
     
-    # buttons for network and table
-    @bt_net_viewselect = FXButton.new(toolbar, "Rete", @icons_app[:netview_sm],nil, 0,ICON_BEFORE_TEXT|FRAME_RAISED,0, 0, 0, 0, 10, 10, 5, 5)
-    @bt_net_viewselect.connect(SEL_COMMAND, method(:view_select_network))
-    @bt_table_viewselect = FXButton.new(toolbar, "Inizio", @icons_app[:start_sm],nil, 0,ICON_BEFORE_TEXT|FRAME_RAISED,0, 0, 0, 0, 10, 10, 5, 5)
-    @bt_table_viewselect.connect(SEL_COMMAND, method(:view_select_table))
     ###### Toolbar end
     
     #--------------------- tabbook - start -----------------
-    # Switcher
-    @tabbook = FXTabBook.new(vv_main, nil, 0, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y|TABBOOK_LEFTTABS)#TABBOOK_BOTTOMTABS)
-    @tabbook.connect(SEL_COMMAND, method(:tab_table_clicked))
-    # (1)tab - chat table
-    @tab1 = FXTabItem.new(@tabbook, "", @icons_app[:start_sm])
     
     # presentation zone
     # buttons
-    center_pan = FXVerticalFrame.new(@tabbook, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    fullwin = FXHorizontalFrame.new(vv_main, LAYOUT_FILL_X)
+    center_pan = FXVerticalFrame.new(fullwin, LAYOUT_FILL_Y|LAYOUT_SIDE_RIGHT)
     
     btdetailed_frame = FXVerticalFrame.new(center_pan, 
                            LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH)
@@ -320,72 +311,12 @@ class CuperativaGui < FXMainWindow
     @btgamelist.connect(SEL_COMMAND, method(:mnu_giochi_list))
     @btgamelist.iconPosition = (@btgamelist.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
-    
-    # network game
-    if @network_enabled == true
-    	@btnetwork_button = FXButton.new(btdetailed_frame, "Gioca in Internet", icons_app[:icon_network], self, 0,
-              LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
-    	@btnetwork_button.connect(SEL_COMMAND, method(:mnu_network_con))
-    	@btnetwork_button.iconPosition = (@btnetwork_button.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
-    end
-    
     # logger
     log_panel = FXHorizontalFrame.new(center_pan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
     @logText = FXText.new(log_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
     @logText.editable = false
     @logText.backColor = Fox.FXRGB(231, 255, 231)
-        
-    # (2)tab - chat lobby network
-    if @network_enabled == true
-      @tab2 = FXTabItem.new(@tabbook, "", @icons_app[:netview_sm])
-      @split_horiz_netw = FXSplitter.new(@tabbook, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-                         LAYOUT_FILL_Y|SPLITTER_HORIZONTAL|SPLITTER_TRACKING))
-    
-    
-      sunkenFrame = FXHorizontalFrame.new(@split_horiz_netw, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    
-      group2 = FXVerticalFrame.new(sunkenFrame, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    
-      @txtrender_lobby_chat = FXText.new(group2, self, 3, TEXT_WORDWRAP|LAYOUT_FILL_X|LAYOUT_FILL_Y) #FXTextField.new(group2,2, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-      @txtrender_lobby_chat.backColor = Fox.FXRGB(255, 250, 205)
-      @txtrender_lobby_chat.textColor = Fox.FXRGB(0, 0, 0)
-    
-      matrix = FXMatrix.new(group2, 3, MATRIX_BY_COLUMNS|LAYOUT_FILL_X)
-      @txtchat_lobby_line = FXTextField.new(matrix, 2, nil, 0, (FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_CENTER_Y|LAYOUT_FILL_COLUMN))
-      @txtchat_lobby_line.connect(SEL_COMMAND, method(:onBtSend_chat_lobby_text))
-    end
-    
-    # MODEL / VIEW / CONTROLLER
-    
-    # network control
-    if @network_enabled == true
-    	@control_net_conn = ControlNetConnection.new(self)
-    	# network state model
-    	@model_net_data = ModelNetData.new
-    	# network cockpit view
-    	group3 = FXVerticalFrame.new(@split_horiz_netw, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    	@splitter_ntw_log = FXSplitter.new(group3, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-                       LAYOUT_FILL_Y|SPLITTER_VERTICAL|SPLITTER_TRACKING))
-    
-    	@network_cockpit_view = NetworkCockpitView.new("Giochi disponibili sul server", 
-             @splitter_ntw_log, self, @control_net_conn, @model_net_data)
-    	@control_net_conn.set_model_view(@model_net_data, @network_cockpit_view) 
-    	# add observer for network state change notification
-    	@model_net_data.add_observer("cuperativa_gui", self)
-    	@model_net_data.add_observer("control_net", @control_net_conn)
-    	@model_net_data.add_observer("network_cockpit_view", @network_cockpit_view)
-    
-     	# logger network
-    	log_panel_ntw = FXHorizontalFrame.new(@splitter_ntw_log, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
-    	@logTextNtw = FXText.new(log_panel_ntw, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    	@logTextNtw.editable = false
-    	@logTextNtw.backColor = Fox.FXRGB(231, 255, 231)
-    	@tab2.tabOrientation = TAB_LEFT #TAB_BOTTOM
-    end
-    
-    @tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
-    @tabbook.setCurrent(0)
-    @bt_table_viewselect.state = STATE_DOWN
+ 
     #--------------------- tabbook - END -----------------
     
     
@@ -883,35 +814,7 @@ class CuperativaGui < FXMainWindow
   # Terminate current game
   def mnu_maingui_fine_part(sender, sel, ptr)
   end
-  
-  ##
-  # Gui button state for table selected
-  def tab_table_clicked(sender, sel, ptr)
-    if ptr == 0
-      # on table tab
-      @bt_table_viewselect.state = STATE_DOWN
-      @bt_net_viewselect.state = STATE_UP
-    elsif ptr == 1
-      # on network tab
-      @bt_table_viewselect.state = STATE_UP
-      @bt_net_viewselect.state = STATE_DOWN
-    end
-  end
-  
-  ##
-  # Select view network
-  def view_select_network(sender, sel, ptr)
-    tab_table_clicked(0,0,1)
-    @tabbook.setCurrent(1)
-  end
-  
-  ##
-  # Select view table
-  def view_select_table(sender, sel, ptr)
-    tab_table_clicked(0,0,0)
-    @tabbook.setCurrent(0)
-  end
-  
+    
   ##
   # Save the current match
   def mnu_giochi_savegame (sender, sel, ptr)
@@ -1077,8 +980,7 @@ class CuperativaGui < FXMainWindow
   ##
   # Log text in the top window
   def log_sometext(msg)
-    logCtrl = @logTextNtw
-    logCtrl = @logText if @tabbook.getCurrent == 0
+    logCtrl = @logText
     log_msg_onctrl(msg, logCtrl)
   end
   
