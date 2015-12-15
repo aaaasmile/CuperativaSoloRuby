@@ -1,1 +1,9 @@
 src/gc.log
+*.config
+deploy/artifacts/starter/CupStarterConsoleSharp.pdb
+*.pdb
+deploy/CupStarterConsoleSharp/bin
+deploy/CupStarterConsoleSharp/obj
+deploy/CupStarterConsoleSharp/StarterLib/StarterLib/bin
+deploy/CupStarterConsoleSharp/StarterLib/StarterLib/obj
+deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.v12.suo

@@ -1,0 +1,6 @@
+# yaml used for deploy
+---
+
+:root_arch: D:\Biblio\ruby\ruby_win32_deployed\101
+:ruby_package: D:\Biblio\ruby\ruby_win32_deployed\common\ruby_0_0_1.zip
+:app_name: app_1_0_1.zip

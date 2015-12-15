@@ -1,0 +1,143 @@
+;NSIS Modern User Interface
+;Basic Example Script
+;Written by Joost Verburg
+;File template per creare un file nsi
+
+;--------------------------------
+;Include Modern UI
+
+  !include "MUI.nsh"
+
+;--------------------------------
+;General
+
+; Quando si pubblica una nuova versione basta cambiare i campi
+; relativi alla versione in questa sezione. In altre parti non 
+; vi sono riferimenti alla versione
+  ;Name and file
+  Name "Cuperativa_<%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>"
+  OutFile "cuperativa_<%="#{@ver_sw[0]}#{@ver_sw[1]}#{@ver_sw[2]}"%>_setup.exe"
+
+  ;Default installation folder
+  InstallDir "c:\cuperativa\ver_<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+  
+  ; Non uso il registro per non sovrascrivere vecchie versioni
+  ;Get installation folder from registry if available
+  ;InstallDirRegKey HKCU "Software\cuperativa" ""
+
+;--------------------------------
+;Interface Settings
+
+  !define MUI_ABORTWARNING
+
+;--------------------------------
+;Pages
+
+  !insertmacro MUI_PAGE_LICENSE "License.txt"
+  !insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_DIRECTORY
+  !insertmacro MUI_PAGE_INSTFILES
+  
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+  
+;--------------------------------
+;Languages
+ 
+  !insertmacro MUI_LANGUAGE "Italian"
+
+;--------------------------------
+;Installer Sections
+
+; prima di partire mostra una dialogbox che dice quello che si va a fare
+Function .onInit
+  Messagebox MB_YESNO|MB_ICONQUESTION \
+  "Questo setup sta per installare il programma Cuperativa <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>, una suite per giocare a carte. Vuoi continuare?" IDYES NoAbort
+     Abort ; causes installer to quit.
+   NoAbort:
+FunctionEnd
+
+; al termine dell'installazione si mostra il readme
+Function .onInstSuccess
+    MessageBox MB_YESNO "Installazione effettuata con successo. Vuoi lanciare il programma Cuperativa?" IDNO NoReadme
+      ;Exec "notepad.exe $INSTDIR\Readme.txt" ; view readme or whatever, if you want.
+    Exec "$INSTDIR\start_cuperativa.exe"
+    NoReadme:
+FunctionEnd
+
+
+
+Section "Cuperativa" SecCuperativa
+
+  SetOutPath "$INSTDIR"
+  
+  ;ADD YOUR OWN FILES HERE...
+  <% file_to_be_installed.each do |item| %>
+  <%# item is an hash where path could be also set. To use a particular output dir we 
+      need to set SetOutPath. i.e SetOutPath $INSTDIR\app\src\network  %>
+  <% if item[:out_path] %>
+  <%= "SetOutPath \"$INSTDIR#{item[:out_path]}\""%>
+  <% end %> 
+  <%= "File \"#{item[:filename]}\""%>  
+  <% end %>
+  
+  ; restore root path for shortcuts
+  SetOutPath "$INSTDIR"
+
+  ;Store installation folder
+  WriteRegStr HKCU "Software\cuperativa" "" $INSTDIR
+  
+  ;Create uninstaller
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+
+  ; crea un shortcut
+  CreateDirectory "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk" \
+    "$INSTDIR\CupStarterConsoleSharp.exe"
+  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk" \
+    "$INSTDIR\cuperativa.chm"
+  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk" \
+    "$INSTDIR\Uninstall.exe"
+
+
+SectionEnd
+
+;--------------------------------
+;Descriptions
+
+  ;Language strings
+  LangString DESC_SecCuperativa ${LANG_ITALIAN} "Il programma Cuperativa <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%> è una suite per giocare a carte. I giochi disponibili sono: <%=str_giochi_avail%> "
+
+  ;Assign language strings to sections
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecDummy} $(DESC_SecCuperativa)
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+;--------------------------------
+;Uninstaller Section
+
+Section "Uninstall"
+
+  ;ADD YOUR OWN FILES HERE...
+  <% file_to_be_installed.each do |item| %>
+  <%= "Delete \"$INSTDIR\\#{item[:filename]}\""%>
+  <% if item[:out_path] %>
+  <%= "RMDir \"$INSTDIR#{item[:delete_path]}\""%>
+  <% end %>  
+  <% end %>
+  Delete "$INSTDIR\*.yaml"
+  Delete "$INSTDIR\*.log"
+  Delete "$INSTDIR\*.exe"
+  Delete "$INSTDIR\*.txt"
+  ;Delete "$INSTDIR\Uninstall.exe"
+  ; remove shortcuts
+  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk"
+  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk"
+  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk"
+  RMDir  "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+
+  RMDir "$INSTDIR"
+
+  DeleteRegKey /ifempty HKCU "Software\cuperativa"
+
+SectionEnd
