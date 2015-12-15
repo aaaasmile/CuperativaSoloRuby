@@ -1,5 +1,5 @@
 #file: prepare_nsi_win32_noexe.rb
-# Generate a nsi script file to build the setup without using rubyscript2exe
+# Generate a nsi script file
 
 require 'rubygems'
 require 'deploy_app'
@@ -25,7 +25,7 @@ if opt and opt.class == Hash
   if opt[:root_arch]
     dep.root_arch = get_installerpath(opt[:root_arch])
     dep.read_sw_version(File.expand_path('../../src/cuperativa_gui.rb'))
-    dep.create_nsi_installer_noexe(opt[:ruby_package], get_fullapp(opt))
+    dep.create_nsi_installer_noexe(get_fullapp(opt), opt[:ruby_package])
     
     p0 = Pathname.new(dep.root_arch)
     puts "====> Now please create manually the setup.exe file #{p0.to_s}"
