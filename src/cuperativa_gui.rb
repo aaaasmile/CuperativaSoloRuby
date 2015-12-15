@@ -231,11 +231,7 @@ class CuperativaGui < FXMainWindow
     FXMenuTitle.new(@menubar, "Aggiorna", nil, @updatemenu)
     FXMenuTitle.new(@menubar, "&Info", nil, helpmenu)
     
-    ###  toolbar
-    FXHorizontalSeparator.new(self, SEPARATOR_GROOVE|LAYOUT_FILL_X)
-    vv_main = FXVerticalFrame.new(self, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    toolbarShell = FXToolBarShell.new(self)
-    toolbar = FXToolBar.new(vv_main, toolbarShell,LAYOUT_SIDE_TOP|LAYOUT_FILL_X, 0, 0, 0, 0, 3, 3, 0, 0)
+    #incons
     @icons_app = {}
     @icons_app[:icon_app] = loadIcon("icona_asso_trasp.png")
     @icons_app[:icon_start] = loadIcon("start2.png")
@@ -275,6 +271,13 @@ class CuperativaGui < FXMainWindow
     @icons_app[:eye] = loadIcon("eye.png")
     setIcon(@icons_app[:icon_app])
     
+    ###  toolbar
+    FXHorizontalSeparator.new(self, SEPARATOR_GROOVE|LAYOUT_FILL_X)
+    vv_main = FXVerticalFrame.new(self, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    toolbarShell = FXToolBarShell.new(self)
+    toolbar = FXToolBar.new(vv_main, toolbarShell,LAYOUT_SIDE_TOP|LAYOUT_FILL_X, 0, 0, 0, 0, 3, 3, 0, 0)
+    
+    
     ##### Toolbar buttons
     # options button
     @btoptions= FXButton.new(toolbar, "\tOpzioni\tOptioni", @icons_app[:options], nil,0,ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED,0,0,0,0,10,10,3,3)#,0, 0, 0, 0, 10, 10, 5, 5)
@@ -292,27 +295,26 @@ class CuperativaGui < FXMainWindow
     
     # presentation zone
     # buttons
-    fullwin = FXHorizontalFrame.new(vv_main, LAYOUT_FILL_X)
-    center_pan = FXVerticalFrame.new(fullwin, LAYOUT_FILL_Y|LAYOUT_SIDE_RIGHT)
+    fullwin = FXHorizontalFrame.new(vv_main, FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_CENTER_Y | LAYOUT_CENTER_X )
+    center_vpan = FXVerticalFrame.new(fullwin, LAYOUT_FILL_X | LAYOUT_FILL_Y) #needed to separate the btdetailed_frame with uniform width and log_panel
     
-    btdetailed_frame = FXVerticalFrame.new(center_pan, 
-                           LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y|PACK_UNIFORM_WIDTH)
+    btdetailed_frame = FXVerticalFrame.new(center_vpan,  LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_CENTER_X | PACK_UNIFORM_WIDTH  )
     
-    
+ 
     # local game
-    @btstart_button = FXButton.new(btdetailed_frame, "Gioca contro il computer", icons_app[:icon_start], self, 0,
+    @btstart_button = FXButton.new(btdetailed_frame, "Gioca", icons_app[:icon_start], self, 0,
               LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
     @btstart_button.connect(SEL_COMMAND, method(:mnu_start_offline_game))
     @btstart_button.iconPosition = (@btstart_button.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     # change game
-    @btgamelist = FXButton.new(btdetailed_frame, "Cambia gioco contro il computer", icons_app[:listgames], self, 0,
+    @btgamelist = FXButton.new(btdetailed_frame, "Cambia gioco", icons_app[:listgames], self, 0,
               LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
     @btgamelist.connect(SEL_COMMAND, method(:mnu_giochi_list))
     @btgamelist.iconPosition = (@btgamelist.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     # logger
-    log_panel = FXHorizontalFrame.new(center_pan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
+    log_panel = FXHorizontalFrame.new(center_vpan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FILL_X)
     @logText = FXText.new(log_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
     @logText.editable = false
     @logText.backColor = Fox.FXRGB(231, 255, 231)
