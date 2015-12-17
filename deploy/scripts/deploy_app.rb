@@ -142,9 +142,7 @@ class DeployLocalVersion
   
   ##
   # Create the nsi file for using the directory where also ruby is included
-  def create_nsi_installer_noexe(app_data_fullpath, rubypackage_fullpath)
-    p0 = Pathname.new(@root_arch)
-    target_dir = p0.to_s
+  def create_nsi_installer_noexe(target_dir, app_data_fullpath, rubypackage_fullpath)
     FileUtils.mkdir_p(target_dir) unless File.directory?(target_dir)
     
     # copy some extra file
@@ -230,8 +228,13 @@ class DeployLocalVersion
     return tmp[1]
   end
   
+  def get_int_pad2(val)
+    return "0#{val}" if val.to_i < 10
+    return "#{val}"
+  end
+  
   def get_version_suffix
-    return "#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"
+    return "#{get_int_pad2(@ver_sw[0])}_#{get_int_pad2(@ver_sw[1])}_#{get_int_pad2(@ver_sw[2])}"
   end
   
   ##
