@@ -3,6 +3,8 @@
 ;Written by Joost Verburg
 ;File template per creare un file nsi
 
+!define MUI_PRODUCT "Cuperativa"
+
 ;--------------------------------
 ;Include Modern UI
 
@@ -16,10 +18,10 @@
 ; vi sono riferimenti alla versione
   ;Name and file
   Name "Cuperativa_<%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>"
-  OutFile "cuperativa_<%="#{@ver_sw[0]}#{@ver_sw[1]}#{@ver_sw[2]}"%>_setup.exe"
+  OutFile "..\cuperativa_<%="#{@ver_sw[0]}#{@ver_sw[1]}#{@ver_sw[2]}"%>_setup.exe"
 
   ;Default installation folder
-  InstallDir "c:\cuperativa\ver_<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+  InstallDir "$PROGRAMFILES\invido_it\${MUI_PRODUCT}\ver_<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
   
   ; Non uso il registro per non sovrascrivere vecchie versioni
   ;Get installation folder from registry if available
@@ -51,20 +53,38 @@
 
 ; prima di partire mostra una dialogbox che dice quello che si va a fare
 Function .onInit
+  System::Call 'kernel32::CreateMutexA(i 0, i 0, t "myMutex") i .r1 ?e'
+  Pop $R0
+ 
+  StrCmp $R0 0 +3
+    MessageBox MB_OK|MB_ICONEXCLAMATION "The installer is already running."
+    Abort
+
   Messagebox MB_YESNO|MB_ICONQUESTION \
-  "Questo setup sta per installare il programma Cuperativa <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>, una suite per giocare a carte. Vuoi continuare?" IDYES NoAbort
+  "Questo setup sta per installare il programma ${MUI_PRODUCT} <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>, una suite per giocare a carte. Vuoi continuare?" IDYES NoAbort
      Abort ; causes installer to quit.
    NoAbort:
 FunctionEnd
 
-; al termine dell'installazione si mostra il readme
+; al termine dell'installazione si lancia il programma
 Function .onInstSuccess
     MessageBox MB_YESNO "Installazione effettuata con successo. Vuoi lanciare il programma Cuperativa?" IDNO NoReadme
-      ;Exec "notepad.exe $INSTDIR\Readme.txt" ; view readme or whatever, if you want.
-    Exec "$INSTDIR\start_cuperativa.exe"
+    Exec "$INSTDIR\CupStarterConsoleSharp.exe"
     NoReadme:
 FunctionEnd
 
+Function IsDotNETInstalled
+   Push $0
+   Push $1
+
+   StrCpy $0 1
+   System::Call "mscoree::GetCORVersion(w, i ${NSIS_MAX_STRLEN}, *i) i .r1"
+   StrCmp $1 0 +2
+     StrCpy $0 0
+
+   Pop $1
+   Exch $0
+ FunctionEnd
 
 
 Section "Cuperativa" SecCuperativa
@@ -85,18 +105,24 @@ Section "Cuperativa" SecCuperativa
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
-  WriteRegStr HKCU "Software\cuperativa" "" $INSTDIR
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "InstallDir" $INSTDIR
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver0" <%= @ver_sw[0]%>
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver1" <%= @ver_sw[1]%>
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver2" <%= @ver_sw[2]%>
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "RubyPackage" <%= @ruby_package%>
   
   ;Create uninstaller
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "DisplayName" "${MUI_PRODUCT} (remove only)"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "UninstallString" "$INSTDIR\Uninstall.exe"
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
   ; crea un shortcut
-  CreateDirectory "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
-  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk" \
+  CreateDirectory "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+  CreateShortCut "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk" \
     "$INSTDIR\CupStarterConsoleSharp.exe"
-  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk" \
+  CreateShortCut "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk" \
     "$INSTDIR\cuperativa.chm"
-  CreateShortCut "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk" \
+  CreateShortCut "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk" \
     "$INSTDIR\Uninstall.exe"
 
 
@@ -108,36 +134,25 @@ SectionEnd
   ;Language strings
   LangString DESC_SecCuperativa ${LANG_ITALIAN} "Il programma Cuperativa <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%> è una suite per giocare a carte. I giochi disponibili sono: <%=str_giochi_avail%> "
 
-  ;Assign language strings to sections
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecDummy} $(DESC_SecCuperativa)
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
-
+ 
 ;--------------------------------
 ;Uninstaller Section
 
 Section "Uninstall"
 
-  ;ADD YOUR OWN FILES HERE...
-  <% file_to_be_installed.each do |item| %>
-  <%= "Delete \"$INSTDIR\\#{item[:filename]}\""%>
-  <% if item[:out_path] %>
-  <%= "RMDir \"$INSTDIR#{item[:delete_path]}\""%>
-  <% end %>  
-  <% end %>
-  Delete "$INSTDIR\*.yaml"
-  Delete "$INSTDIR\*.log"
-  Delete "$INSTDIR\*.exe"
-  Delete "$INSTDIR\*.txt"
-  ;Delete "$INSTDIR\Uninstall.exe"
-  ; remove shortcuts
-  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk"
-  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk"
-  Delete "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk"
-  RMDir  "$SMPROGRAMS\Cuperativa<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
-
+  ;Delete Files 
+  RMDir /r "$INSTDIR\*.*"    
+ 
+  ;Remove the installation directory
   RMDir "$INSTDIR"
+  ; remove shortcuts
+  Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk"
+  Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk"
+  Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk"
+  RMDir  "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
 
-  DeleteRegKey /ifempty HKCU "Software\cuperativa"
+  ;Delete Uninstaller And Unistall Registry Entries
+  DeleteRegKey /ifempty HKCU "Software\invido_it\${MUI_PRODUCT}"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}"  
 
 SectionEnd

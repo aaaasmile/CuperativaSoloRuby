@@ -7,7 +7,6 @@ $:.unshift File.dirname(__FILE__) + '/../..'
 require 'rubygems'
 require 'erubis'
 require 'fileutils'
-require 'pack_filelist_in_zip'
 require 'zlib'
 require 'pathname'
 require 'yaml'
@@ -185,7 +184,7 @@ class DeployLocalVersion
       end
     end
     #copy ruby
-    copy_package(File.join(target_dir, ruby_dirname), rubypackage_fullpath)
+    @ruby_package = copy_package(File.join(target_dir, ruby_dirname), rubypackage_fullpath)
     #copy app
     copy_package(File.join(target_dir, app_dirname), app_data_fullpath)
      
@@ -219,7 +218,7 @@ class DeployLocalVersion
       aString = eruby_object.result(binding)
       File.open(nsi_out_name, "w"){|f| f << aString } 
     end
-    
+    return nsi_out_name
   end
   
   def copy_package(out_dir, full_sr)
@@ -228,6 +227,7 @@ class DeployLocalVersion
     dest_full = File.join(out_dir, tmp[1])
     FileUtils.cp(full_sr, dest_full)
     log "Copy #{dest_full}"
+    return tmp[1]
   end
   
   
@@ -331,6 +331,25 @@ class DeployLocalVersion
     read_sw_version(File.expand_path(@scrpt_with_sw_version))
     create_resource_pkg
     create_source_pkg
+  end
+  
+  def copy_app_subdir(sub_dir, target_dir)
+    fscd = FileScanDir.new
+    fscd.add_extension_filter([".yaml", ".yml", ".log"])
+    fscd.is_silent = true
+    start_dir = File.join( File.dirname(__FILE__), "../../#{sub_dir}")
+    start_dir = File.expand_path(start_dir)
+    target_res = File.join( target_dir, sub_dir)
+    fscd.scan_dir(start_dir)
+    copy_appl_to_dest(fscd.result_list, start_dir, target_res)
+    
+  end
+  
+  def prepare_src_indeploy(target_dir)
+    FileUtils.rm_rf(target_dir)
+    FileUtils.mkdir_p(target_dir) unless File.directory?(target_dir)
+    copy_app_subdir("res", target_dir)
+    copy_app_subdir("src", target_dir)
   end
   
   def create_appdata_zip(copy_file,zip_dir,move_zip,arch_name )
@@ -619,11 +638,11 @@ class DeployLocalVersion
   def copy_appl_to_dest(file_list, start_dir, dst_dir)
     file_list.each do |src_file|
       # name without start_dir
-      rel_file_name = src_file.gsub(start_dir, "")
+      p rel_file_name = src_file.gsub(start_dir, "")
       log "Copy #{rel_file_name}"
       # calculate destination name
-      dest_name_full = File.join(dst_dir, rel_file_name)
-      dir_dest = File.dirname(dest_name_full)
+      p dest_name_full = File.join(dst_dir, rel_file_name)
+      p dir_dest = File.dirname(dest_name_full)
       # make sure that a directory destination exist because cp don't create a new dir
       FileUtils.mkdir_p(dir_dest) unless File.directory?(dir_dest)
       FileUtils.cp(src_file, dest_name_full)

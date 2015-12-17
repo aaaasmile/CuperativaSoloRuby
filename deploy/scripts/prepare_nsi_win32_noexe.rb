@@ -16,6 +16,15 @@ def get_fullapp(opt)
   return File.join(opt[:root_arch], opt[:app_name])
 end
 
+def exec_mycmd(cmd)
+  puts "Exec #{cmd}"
+  IO.popen(cmd, "r") do |io|
+    io.each_line do |line|
+      puts line
+    end
+  end
+end
+
 dep = DeployLocalVersion.new
 # directory where to install the package. 
 # Pay attention that we need an app suffix dir
@@ -25,13 +34,12 @@ if opt and opt.class == Hash
   if opt[:root_arch]
     dep.root_arch = get_installerpath(opt[:root_arch])
     dep.read_sw_version(File.expand_path('../../src/cuperativa_gui.rb'))
-    dep.create_nsi_installer_noexe(get_fullapp(opt), opt[:ruby_package])
+    nsi_out_name = dep.create_nsi_installer_noexe(get_fullapp(opt), opt[:ruby_package])
     
-    p0 = Pathname.new(dep.root_arch)
-    puts "====> Now please create manually the setup.exe file #{p0.to_s}"
-    puts "==> To create setup, compile the nsi script  #{p0.to_s}#"
-    # questo dovrebbe essere il best compressor:
-    # The /SOLID lzma compressor created the smallest installer (9386911 bytes).
+    #nsi_cmd = "#{opt[:nsi_exe]} /X\"SetCompressor /FINAL lzma\" #{nsi_out_name}"
+    nsi_cmd = "#{opt[:nsi_exe]}  #{nsi_out_name}"
+    exec_mycmd(nsi_cmd)
+    
   end
 end
 

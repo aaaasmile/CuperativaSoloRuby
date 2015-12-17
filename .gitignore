@@ -7,3 +7,4 @@ deploy/CupStarterConsoleSharp/obj
 deploy/CupStarterConsoleSharp/StarterLib/StarterLib/bin
 deploy/CupStarterConsoleSharp/StarterLib/StarterLib/obj
 deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.v12.suo
+*.suo
