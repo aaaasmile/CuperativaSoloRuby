@@ -5,3 +5,4 @@
 :ruby_package: D:\Biblio\ruby\ruby_win32_deployed\common\ruby_0_0_1.zip
 :app_name: app_1_0_1.zip
 :nsi_exe: C:\Program Files (x86)\NSIS\makensis.exe
+:p7zip_exe: C:\Program Files\7-Zip\7z.exe

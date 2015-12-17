@@ -230,6 +230,9 @@ class DeployLocalVersion
     return tmp[1]
   end
   
+  def get_version_suffix
+    return "#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"
+  end
   
   ##
   # Parse a script filename and search version number to fill @ver_sw
@@ -638,11 +641,11 @@ class DeployLocalVersion
   def copy_appl_to_dest(file_list, start_dir, dst_dir)
     file_list.each do |src_file|
       # name without start_dir
-      p rel_file_name = src_file.gsub(start_dir, "")
+      rel_file_name = src_file.gsub(start_dir, "")
       log "Copy #{rel_file_name}"
       # calculate destination name
-      p dest_name_full = File.join(dst_dir, rel_file_name)
-      p dir_dest = File.dirname(dest_name_full)
+      dest_name_full = File.join(dst_dir, rel_file_name)
+      dir_dest = File.dirname(dest_name_full)
       # make sure that a directory destination exist because cp don't create a new dir
       FileUtils.mkdir_p(dir_dest) unless File.directory?(dir_dest)
       FileUtils.cp(src_file, dest_name_full)
