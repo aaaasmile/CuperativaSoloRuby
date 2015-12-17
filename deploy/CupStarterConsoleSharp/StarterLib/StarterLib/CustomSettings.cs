@@ -37,7 +37,7 @@ namespace StarterLib
 
         private static string _customStarterSettingsFname = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                @"Invido.it\Cupeartiva\starter_info.xml");
+                @"Invido.it\Cuperativa\starter_info.xml");
 
         public static string StarterSettingsFname
         {
