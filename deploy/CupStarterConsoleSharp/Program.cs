@@ -30,7 +30,7 @@ namespace CupStarterConsoleSharp
             }
             catch (Exception ex)
             {
-                _log.ErrorFormat("Fatal error, please reinstall the application. {0}", ex);
+                _log.ErrorFormat("Fatal error, please try reinstall the application or contact the cuperativa support. {0}", ex);
                 HideWindow(5);
                 Console.ReadKey();
             }

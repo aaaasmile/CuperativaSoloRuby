@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppPackageSettings.cs" />
     <Compile Include="AppStarter.cs" />
     <Compile Include="CupUserSettings.cs" />
     <Compile Include="Interfaces\ICupSettings.cs" />

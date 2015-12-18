@@ -27,7 +27,7 @@ namespace CupStarterConsoleSharp
             { _rootKey.Close(); }
         }
 
-        public T GetValue<T>(string key)
+        private T GetValue<T>(string key)
         {
             if (_rootKey == null) { return default(T); }
 
@@ -44,9 +44,30 @@ namespace CupStarterConsoleSharp
             {
                 return (T)(object)GetBooleanValue(key, (bool)(object)defaultValue);
             }
+            else if (typeof(T) == typeof(int))
+            {
+                return (T)(object)GetIntValue(key, (int)(object)defaultValue);
+            }
 
             if (_rootKey == null) { return defaultValue; }
             return (T)_rootKey.GetValue(key, defaultValue);
+        }
+
+        private object GetIntValue(string key, int defaultValue)
+        {
+            var valueString = GetValue<string>(key, null);
+            if (valueString == null) { return defaultValue; }
+
+            int intValue;
+            if (int.TryParse(valueString, out intValue))
+            {
+                return intValue;
+            }
+            else
+            {
+                _log.WarnFormat("Error parsing int: {0}", valueString);
+                return defaultValue;
+            }
         }
 
         private bool GetBooleanValue(string key, bool defaultValue)

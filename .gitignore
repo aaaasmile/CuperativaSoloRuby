@@ -1,5 +1,4 @@
 src/gc.log
-*.config
 deploy/artifacts/starter/CupStarterConsoleSharp.pdb
 *.pdb
 deploy/CupStarterConsoleSharp/bin
