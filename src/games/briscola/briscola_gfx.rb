@@ -972,7 +972,6 @@ class BriscolaGfx < BaseEngineGfx
   def game_end_stuff
     #@app_owner.free_all_btcmd
     @log.debug("Game end stuff") 
-    
     fname = File.join(@app_owner.get_app_data_folder(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
     log "Partita terminata\n"
@@ -985,6 +984,7 @@ class BriscolaGfx < BaseEngineGfx
       @composite_graph.add_component(:smazzata_end, @msgbox_smazzataend) if @msgbox_smazzataend
     end
     super # base class game_end_stuff
+    @log.debug "End stuff completed"
   end
   
   ##

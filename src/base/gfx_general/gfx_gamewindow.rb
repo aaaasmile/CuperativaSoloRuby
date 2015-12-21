@@ -16,7 +16,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
   
   include ModalMessageBox
   
-  def initialize( options)
+  def initialize(options)
     @win_height = 600
     @win_width = 800
     @state_model = :undefined
@@ -465,18 +465,24 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
   ##
   # send_leave_table_opt: if is :send_leave_table thed send also leave table
   def before_close_and_close(send_leave_table_opt)
-    store_settings 
-    @current_game_gfx.game_end_stuff
-    if send_leave_table_opt == :send_leave_table
-      @control_net_conn.leave_table_cmd if @control_net_conn
+    begin
+      store_settings 
+      @current_game_gfx.game_end_stuff
+      if send_leave_table_opt == :send_leave_table
+        @control_net_conn.leave_table_cmd if @control_net_conn
+      end
+      @timeout_cb[:notifier] = nil
+      @cup_gui.game_window_destroyed
+      if @model_net_data != nil
+        @model_net_data.remove_observer("game_window", self)
+      end
+      @sound_manager.stop_sound(:play_mescola)
+      close
+    rescue 
+      error_msg = "Error on closing. Please fix the before_close_and_close routine."
+      @log.error error_msg 
+      close
     end
-    @timeout_cb[:notifier] = nil
-    @cup_gui.game_window_destroyed
-    if @model_net_data != nil
-      @model_net_data.remove_observer("game_window", self)
-    end
-    @sound_manager.stop_sound(:play_mescola)
-    close
   end
   
   # +++++ model notification ++++++
@@ -550,7 +556,7 @@ end
                          "deck_name" => :piac
                        } 
       }
-      @log = Log4r::Logger.new("coregame_log")
+      @log = Log4r::Logger.new("coregame_log::DialogboxCreator")
       @log.debug "DialogboxCreator initialized"
     end
     
@@ -559,13 +565,7 @@ end
     def run
       @log.debug "Run the tester..."
       @dlg_box = CupSingleGameWin.new(@options)
-      @dlg_box.show
-      #players = []
-      #players << PlayerOnGame.new('me', nil, :human_local, 0)
-      #players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
-      #@app_settings = { "deck_name" => :piac}
-      #@dlg_box.start_new_game(players, @app_settings)
-      
+      @dlg_box.create
     end
     
     

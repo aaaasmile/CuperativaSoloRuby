@@ -59,6 +59,10 @@ class TestRunnerDialogBox < FXMainWindow
     return File.expand_path(res_path)
   end
   
+  def get_app_data_folder
+    return File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
+  end
+  
   # Load the named icon from a file
   def loadIcon(filename)
     begin
@@ -80,7 +84,11 @@ class TestRunnerDialogBox < FXMainWindow
   end
   
   def go_test(sender, sel, ptr)
-    runner.run if runner
+    begin
+      runner.run if runner
+    rescue => detail
+      puts "Error on run: #{detail.backtrace.join("\n")}"
+    end
   end
   
   def set_position(a,b,c,d)
@@ -147,6 +155,9 @@ class TestRunnerDialogBox < FXMainWindow
   
   def onCmdQuit(sender, sel, ptr)
     getApp().exit(0)
+  end
+  
+  def game_window_destroyed
   end
    
 end
