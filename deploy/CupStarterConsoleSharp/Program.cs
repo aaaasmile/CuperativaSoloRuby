@@ -6,7 +6,6 @@ using log4net.Config;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using StarterLib;
 
 namespace CupStarterConsoleSharp
 {
@@ -19,31 +18,37 @@ namespace CupStarterConsoleSharp
         static void Main(string[] args)
         {
             Console.Title = _consoleTitle;
-            //HideWindow(0);
             string filename = Log4NetConfigFileName();
             XmlConfigurator.ConfigureAndWatch(new FileInfo(filename));
-
+            _log.InfoFormat("*** Starting up version {0} ***",
+                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
             try
             {
                 AppStarter starter = new AppStarter();
+                starter.ApplicationStarting += Starter_ApplicationStarting;
                 starter.Run();
             }
             catch (Exception ex)
             {
                 _log.ErrorFormat("Fatal error, please try reinstall the application or contact the cuperativa support. {0}", ex);
-                HideWindow(5);
+                HideOrShowWindow(5);
                 Console.ReadKey();
             }
-            
+
+        }
+
+        private static void Starter_ApplicationStarting(object sender, EventArgs e)
+        {
+            HideOrShowWindow(0);
         }
 
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private static void HideWindow(int val)
+        private static void HideOrShowWindow(int val)
         {
-            IntPtr hWnd = FindWindow(null, _consoleTitle); 
+            IntPtr hWnd = FindWindow(null, _consoleTitle);
             if (hWnd != IntPtr.Zero)
             {
                 ShowWindow(hWnd, val); // 0 = SW_HIDE, 5 = SW_SHOW

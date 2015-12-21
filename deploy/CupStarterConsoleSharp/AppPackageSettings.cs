@@ -18,6 +18,8 @@ namespace CupStarterConsoleSharp
             if (MajorVer == 0 && MedVer == 0 && SmallVer == 0)
                 throw new ArgumentException("Version is not set");
 
+            AppStartScript = settings.GetValue<string>("StartScript", "");
+
             CalculateAppVersion();
             CalcualteAppZipName();
         }
@@ -37,5 +39,6 @@ namespace CupStarterConsoleSharp
         public int SmallVer { get; internal set; }
         public string AppVersion { get; internal set; }
         public string AppZipName { get; internal set; }
+        public string AppStartScript { get; internal set; }
     }
 }

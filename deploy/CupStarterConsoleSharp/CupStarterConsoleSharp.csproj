@@ -53,6 +53,7 @@
     <Compile Include="AppStarter.cs" />
     <Compile Include="CupUserSettings.cs" />
     <Compile Include="Interfaces\ICupSettings.cs" />
+    <Compile Include="ProcessStarter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,12 +63,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="StarterLib\StarterLib\StarterLib.csproj">
-      <Project>{20b9d6a7-3ffe-42bd-ba75-4571f5bee358}</Project>
-      <Name>StarterLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

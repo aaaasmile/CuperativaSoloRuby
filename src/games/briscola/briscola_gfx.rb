@@ -973,7 +973,6 @@ class BriscolaGfx < BaseEngineGfx
     #@app_owner.free_all_btcmd
     @log.debug("Game end stuff") 
     
-    #@core_game.save_curr_game("game_terminated_last.yaml")
     fname = File.join(@app_owner.get_app_data_folder(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
     log "Partita terminata\n"

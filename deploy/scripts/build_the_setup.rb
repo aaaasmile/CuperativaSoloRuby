@@ -35,12 +35,12 @@ if $0 == __FILE__
   FileUtils.mkdir_p(root_version_dir)
 
   puts "------- Copy src/res stuff "
-  app_dir = "app_#{ver_suffix}"
+  app_dir = "app"
   dst_dir = File.join(root_version_dir, "src_stuff/#{app_dir}")
   dep.prepare_src_in_deploy(dst_dir)
 
   puts "--------- Create a zip"
-  out_zip =  File.join(root_version_dir, app_dir + ".zip")
+  out_zip =  File.join(root_version_dir, app_dir + "_#{ver_suffix}.zip")
   cmd_zip = "#{opt[:p7zip_exe]} a #{out_zip} #{dst_dir} -tzip"
   dep.exec_mycmd(cmd_zip)
 

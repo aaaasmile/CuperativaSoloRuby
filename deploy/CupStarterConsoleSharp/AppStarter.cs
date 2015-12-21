@@ -13,6 +13,8 @@ namespace CupStarterConsoleSharp
     {
         private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(AppStarter));
 
+        public event EventHandler<EventArgs> ApplicationStarting = delegate { };
+
         internal void Run()
         {
             CupUserSettings settings = new CupUserSettings(Registry.CurrentUser.CreateSubKey(@"Software\invido_it\Cuperativa"), isReadOnly: false);
@@ -29,6 +31,19 @@ namespace CupStarterConsoleSharp
                 ExtractAppPackage(installDir, appPackageSettings.AppZipName, appPackageSettings.AppVersion);
                 settings.SetValue("AppPackgeUnzipped", true);
             }
+
+            string rubyExePath = GetRubyExePath(rubyZip);
+            if (!File.Exists(rubyExePath)) throw (
+                   new ArgumentException(string.Format("Ruby.exe  {0} not found", rubyExePath)));
+            _log.DebugFormat("Ruby cmd {0}", rubyExePath);
+
+            string startScriptFullPath = GetStartScript(appPackageSettings.AppVersion, appPackageSettings.AppStartScript);
+            if (!File.Exists(startScriptFullPath)) throw (
+                   new ArgumentException(string.Format("Start script  {0} not found", startScriptFullPath)));
+
+            ProcessStarter processStarter = new ProcessStarter();
+            ApplicationStarting(this, null);
+            processStarter.ExecuteCmd(rubyExePath, startScriptFullPath);
         }
 
         private void ExtractAppPackage(string installDir, string appZip, string appVersion)
@@ -37,7 +52,7 @@ namespace CupStarterConsoleSharp
             if (!File.Exists(appZipPackagePath)) throw (
                     new ArgumentException(string.Format("App package {0} not found", appZip)));
 
-            string appDestinationDir = GetAppDestinationDir(appZip, appVersion);
+            string appDestinationDir = GetAppDestinationDir(appVersion);
             ExtractFiles(appZipPackagePath, appDestinationDir);
         }
 
@@ -51,8 +66,6 @@ namespace CupStarterConsoleSharp
             ExtractFiles(rubyZipPackagePath, rubyDestinationDir);
         }
 
-        
-
         private string GetRootUnpackedData()
         {
             return Path.Combine(
@@ -60,11 +73,22 @@ namespace CupStarterConsoleSharp
                      @"invido_it\Cuperativa");
         }
 
-        private string GetAppDestinationDir(string appZip, string appVersion)
+        private string GetStartScript(string appVersion, string appStartScript)
         {
             return Path.Combine(
-                Path.Combine(GetRootUnpackedData(), appVersion),
-                appZip);
+                GetAppDestinationDir(appVersion),
+                string.Format(@"app/{0}", appStartScript));
+        }
+
+        private string GetAppDestinationDir(string appVersion)
+        {
+            return Path.Combine(GetRootUnpackedData(), appVersion);
+        }
+
+        private string GetRubyExePath(string rubyZip)
+        {
+            string root = GetRubyDestinationDir(rubyZip);
+            return Path.Combine(root, "ruby/bin/ruby.exe");
         }
 
         private string GetRubyDestinationDir(string rubyZip)
