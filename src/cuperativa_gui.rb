@@ -128,16 +128,16 @@ class CuperativaGui < FXMainWindow
   }
   
   def self.get_dir_appdata
+    res = ""
     if $g_os_type == :win32_system
       res = File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
     else
-      puts "We are on linux"
-      res = "~/.cuperativa"
+      res = File.expand_path("~/.cuperativa")
+      puts "We are on linux, data dir #{res}"
     end
     if !File.directory?(res)
       Dir.mkdir(res)
     end
-    
     return res
   end
    
