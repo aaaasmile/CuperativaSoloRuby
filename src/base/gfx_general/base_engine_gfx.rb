@@ -3,8 +3,10 @@
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__)+ '/..'
 
+require 'rubygems'
 require 'gfx_comp/graphical_composite'
 require 'core/deck_info'
+require 'yaml'
 
 ##
 # Graphic related to a generic card game
@@ -81,7 +83,7 @@ class BaseEngineGfx
   
   def game_end_stuff
     if @model_net_data != nil
-    	@model_net_data.event_cupe_raised(:ev_gfxgame_end)
+      @model_net_data.event_cupe_raised(:ev_gfxgame_end)
     end
   end
   

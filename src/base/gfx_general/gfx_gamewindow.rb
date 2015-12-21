@@ -44,7 +44,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     
     @model_net_data = options[:model_data]
     if @model_net_data != nil
-    	@model_net_data.add_observer("game_window", self)
+      @model_net_data.add_observer("game_window", self)
     end
     
     # number of players that play the current game
@@ -108,7 +108,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
       @network_ongame_cmds = NetworkOnGameCmds.new(bottom_panel, self, @control_net_conn)
       # network panel is also subscribet to networ event notification
       if @model_net_data != nil
-      	@model_net_data.add_observer("network_ongame_cmds", @network_ongame_cmds)
+        @model_net_data.add_observer("network_ongame_cmds", @network_ongame_cmds)
       end
     end
       
@@ -125,7 +125,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
       start_new_game(players, @app_settings)
       if options[:game_network_type] != :online
         if @model_net_data != nil
-        	@model_net_data.event_cupe_raised(:ev_start_local_game)
+          @model_net_data.event_cupe_raised(:ev_start_local_game)
         end
       end
     end
@@ -473,7 +473,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     @timeout_cb[:notifier] = nil
     @cup_gui.game_window_destroyed
     if @model_net_data != nil
-    	@model_net_data.remove_observer("game_window", self)
+      @model_net_data.remove_observer("game_window", self)
     end
     @sound_manager.stop_sound(:play_mescola)
     close
@@ -535,34 +535,40 @@ end
   
   ##
   # Launcher of the dialogbox
-  class TestMyDialogGfx
-		attr_accessor :main_app
-		
+  class DialogboxCreator
+    attr_accessor :main_app
+    
     def initialize(app)
       @main_app = app 
       app.runner = self
-      options = {:game_network_type => :offline,
+      @options = {:game_network_type => :offline,
         :owner => app, :comment => "Gioco", :gfx_enginename =>'BriscolaGfx', :num_of_players => 2,
         :app_options => {"games" => { :briscola_game =>
                                   { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541}}, 
                          "players" => [{:name => "Toro", :type => :human_local }, {:name => "Gino B.", :type => :cpu_local }],
-                         :games_opt => {}
+                         :games_opt => {},
+                         "deck_name" => :piac
                        } 
       }
-      @dlg_box = CupSingleGameWin.new(options)
+      @log = Log4r::Logger.new("coregame_log")
+      @log.debug "DialogboxCreator initialized"
     end
     
     ##
     # Method called from TestRunnerDialogBox when go button is pressed
     def run
+      @log.debug "Run the tester..."
+      @dlg_box = CupSingleGameWin.new(@options)
       @dlg_box.show
-      players = []
-      players << PlayerOnGame.new('me', nil, :human_local, 0)
-      players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
-      @app_settings = { "deck_name" => :piac}
-      @dlg_box.start_new_game(players, @app_settings)
+      #players = []
+      #players << PlayerOnGame.new('me', nil, :human_local, 0)
+      #players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+      #@app_settings = { "deck_name" => :piac}
+      #@dlg_box.start_new_game(players, @app_settings)
       
     end
+    
+    
     
   end
   
@@ -571,8 +577,10 @@ end
   mainwindow = TestRunnerDialogBox.new(theApp)
   mainwindow.set_position(0,0,300,300)
   
-  tester = TestMyDialogGfx.new(mainwindow)
+  theApp.addSignal("SIGINT", mainwindow.method(:onCmdQuit))
   theApp.create
-  
+  tester = DialogboxCreator.new(mainwindow)
   theApp.run
+  
+  
 end

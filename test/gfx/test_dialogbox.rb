@@ -144,6 +144,10 @@ class TestRunnerDialogBox < FXMainWindow
     end
     return 1
   end
+  
+  def onCmdQuit(sender, sel, ptr)
+    getApp().exit(0)
+  end
    
 end
 

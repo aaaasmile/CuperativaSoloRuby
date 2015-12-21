@@ -135,7 +135,7 @@ class CoreGameBriscola < CoreGameBase
   
   def set_specific_options(options)
     #p options
-    if options[:games_opt][:briscola_game]
+    if options[:games_opt] and options[:games_opt][:briscola_game]
       opt_briscola = options[:games_opt][:briscola_game]
       if opt_briscola[:num_segni_match]
         @game_opt[:num_segni_match] = opt_briscola[:num_segni_match][:val]
@@ -721,7 +721,7 @@ if $0 == __FILE__
   log.outputters << Outputter.stdout
   core = CoreGameBriscola.new
   rep = ReplayerManager.new(log)
-  match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/briscola/saved_games/test.yaml')
+  match_info = YAML::load_file(File.dirname(__FILE__) + '/../../../test/briscola/saved_games/2008_03_17_22_39_52-6-savedmatch.yaml')
   #p match_info
   player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
   alg_coll = { "Gino B." => nil } 

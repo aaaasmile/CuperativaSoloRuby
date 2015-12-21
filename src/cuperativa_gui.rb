@@ -81,7 +81,6 @@ class CuperativaGui < FXMainWindow
   SETTINGS_DEFAULT_APPGUI = { "guigfx" =>{ :ww_mainwin => 800,
                                            :hh_mainwin => 520,
                                            :splitter => 0,
-                                           :splitter_log_network => 358,
                                            :splitter_network => 138,
                                            :splitter_horiz => 0}, 
                               "deck_name" => :piac,   # note:
@@ -204,10 +203,6 @@ class CuperativaGui < FXMainWindow
     # Defined in custom menu of gfx engine
     @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi...")
     @menu_giochi_list.connect(SEL_COMMAND, method(:mnu_giochi_list ))
-    @menu_giochi_save = FXMenuCommand.new(@giochimenu, "Salva Partita")
-    @menu_giochi_save.connect(SEL_COMMAND, method(:mnu_giochi_savegame ))
-    @menu_giochi_end = FXMenuCommand.new(@giochimenu, "Fine Partita")
-    @menu_giochi_end.connect(SEL_COMMAND, method(:mnu_maingui_fine_part ))
         
     #Menu Help
     @menu_help = FXMenuCommand.new(helpmenu, "&Help")
@@ -720,7 +715,6 @@ class CuperativaGui < FXMainWindow
     #splitter position
     gfxgui_settings = @app_settings['guigfx']
     @split_horiz_netw.setSplit(0, gfxgui_settings[:splitter_network]) if @split_horiz_netw
-    @splitter_ntw_log.setSplit(0, gfxgui_settings[:splitter_log_network]) if @splitter_ntw_log
     
     # window size
     ww = gfxgui_settings[:ww_mainwin]
@@ -794,17 +788,8 @@ class CuperativaGui < FXMainWindow
     ##initialize a current local game
     init_local_game(game_type)
   end
-  
-  ##
-  # Terminate current game
-  def mnu_maingui_fine_part(sender, sel, ptr)
-  end
-    
-  ##
-  # Save the current match
-  def mnu_giochi_savegame (sender, sel, ptr)
-  end
-  
+ 
+ 
   ##
   # Select the current game from all game list
   def mnu_giochi_list (sender, sel, ptr)
@@ -924,9 +909,7 @@ class CuperativaGui < FXMainWindow
     end
     @app_settings['guigfx'][:ww_mainwin] = self.width
     @app_settings['guigfx'][:hh_mainwin] = self.height
-    if @splitter_ntw_log != nil
-      @app_settings['guigfx'][:splitter_log_network] =  @splitter_ntw_log.getSplit(0)
-    end
+   
     
     @app_settings["curr_game"] = @last_selected_gametype
    
@@ -961,10 +944,7 @@ class CuperativaGui < FXMainWindow
     end
   end
   
-  def log_network(msg)
-    log_msg_onctrl(msg, @logTextNtw)
-  end
-   
+
 end
 
 
