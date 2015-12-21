@@ -81,7 +81,7 @@ class SetupCreator
       tmp = File.split(file_src)
       base_name = tmp[1]
       ext = File.extname(base_name)
-      if(ext == ".dll" || ext == ".exe")
+      if(ext == ".dll" or ext == ".exe" or ext == ".config")
         log "Copy starter part: #{base_name}"
         dest_full = File.join(target_dir, base_name)
         FileUtils.cp(file_src, dest_full)

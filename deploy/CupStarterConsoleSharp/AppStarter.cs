@@ -35,7 +35,7 @@ namespace CupStarterConsoleSharp
             string rubyExePath = GetRubyExePath(rubyZip);
             if (!File.Exists(rubyExePath)) throw (
                    new ArgumentException(string.Format("Ruby.exe  {0} not found", rubyExePath)));
-            _log.DebugFormat("Ruby cmd {0}", rubyExePath);
+            _log.InfoFormat("Ruby cmd {0}", rubyExePath);
 
             string startScriptFullPath = GetStartScript(appPackageSettings.AppVersion, appPackageSettings.AppStartScript);
             if (!File.Exists(startScriptFullPath)) throw (
@@ -99,7 +99,7 @@ namespace CupStarterConsoleSharp
 
         private void ExtractFiles(string archPath, string destinationDir)
         {
-            _log.DebugFormat("Extracting {0} files into {1}", archPath, destinationDir);
+            _log.InfoFormat("Extracting {0} files into {1}", archPath, destinationDir);
 
             using (ZipFile zipFile = new ZipFile(archPath))
                 foreach (ZipEntry entry in zipFile.Entries)

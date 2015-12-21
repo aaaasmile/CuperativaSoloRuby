@@ -13,7 +13,12 @@ namespace CupStarterConsoleSharp
     {
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Program));
 
-        static string _consoleTitle = "CupStarter";
+        static string _consoleTitle = "Starter";
+        private enum WindowShowType
+        {
+            Hide = 0,
+            Show = 5
+        }
 
         static void Main(string[] args)
         {
@@ -22,6 +27,7 @@ namespace CupStarterConsoleSharp
             XmlConfigurator.ConfigureAndWatch(new FileInfo(filename));
             _log.InfoFormat("*** Starting up version {0} ***",
                  System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Console.WriteLine("Preparing the source...");
             try
             {
                 AppStarter starter = new AppStarter();
@@ -31,7 +37,7 @@ namespace CupStarterConsoleSharp
             catch (Exception ex)
             {
                 _log.ErrorFormat("Fatal error, please try reinstall the application or contact the cuperativa support. {0}", ex);
-                HideOrShowWindow(5);
+                HideOrShowWindow(WindowShowType.Show);
                 Console.ReadKey();
             }
 
@@ -39,19 +45,20 @@ namespace CupStarterConsoleSharp
 
         private static void Starter_ApplicationStarting(object sender, EventArgs e)
         {
-            HideOrShowWindow(0);
+            HideOrShowWindow(WindowShowType.Hide);
         }
 
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private static void HideOrShowWindow(int val)
+        private static void HideOrShowWindow(WindowShowType type)
         {
+            
             IntPtr hWnd = FindWindow(null, _consoleTitle);
             if (hWnd != IntPtr.Zero)
             {
-                ShowWindow(hWnd, val); // 0 = SW_HIDE, 5 = SW_SHOW
+                ShowWindow(hWnd, (int)type); // 0 = SW_HIDE, 5 = SW_SHOW
             }
 
         }

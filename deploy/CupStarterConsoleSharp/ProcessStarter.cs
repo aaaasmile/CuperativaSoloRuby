@@ -16,7 +16,7 @@ namespace CupStarterConsoleSharp
         {
             string cmdoptionComplete = string.Format("'{0}'", startScript);
 
-            _log.DebugFormat("Using comand: {0} {1}", rubyExe, cmdoptionComplete);
+            _log.InfoFormat("Using comand: {0} {1}", rubyExe, cmdoptionComplete);
 
             Process myProcess = new Process();
             myProcess.StartInfo.UseShellExecute = false;
@@ -28,7 +28,7 @@ namespace CupStarterConsoleSharp
             myProcess.OutputDataReceived += new DataReceivedEventHandler(myProcess_OutputDataReceived);
             myProcess.ErrorDataReceived += new DataReceivedEventHandler(myProcess_ErrorDataReceived);
             myProcess.Start();
-            _log.DebugFormat("Ruby process is started");
+            _log.InfoFormat("Ruby process is started");
             myProcess.BeginOutputReadLine();
 
             do
