@@ -66,7 +66,7 @@ class CuperativaGui < FXMainWindow
   # aplication name
   APP_CUPERATIVA_NAME = "Cuperativa"
   # version string (if you change format, spaces points..., chenge also parser)
-  VER_PRG_STR = "Ver 1.0.1 14122015"
+  VER_PRG_STR = "Ver 1.2.3 21122015"
   # yaml version, useful for restoring old version
   CUP_YAML_FILE_VERSION = '6.20'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
   # settings file
@@ -132,17 +132,17 @@ class CuperativaGui < FXMainWindow
   def self.get_dir_appdata
     if $g_os_type == :win32_system
       puts "We are on windows"
-	    res = File.join(ENV['APPDATA'], "cuperativa")
-	  else
-		  puts "We are on linux"
-		  res = "~/.cuperativa"
-	  end
-	  if !File.directory?(res)
-		  Dir.mkdir(res)
-	  end
-		
- 	  return res
-	end
+      res = File.join(ENV['APPDATA'], "cuperativa")
+    else
+      puts "We are on linux"
+      res = "~/.cuperativa"
+    end
+    if !File.directory?(res)
+      Dir.mkdir(res)
+    end
+    
+    return res
+  end
  
   ##
   # Init controls
@@ -780,8 +780,8 @@ class CuperativaGui < FXMainWindow
     end
     log_sometext("Benvenuta/o nella Cuperativa versione #{VER_PRG_STR}\n")
     if @model_net_data != nil  
-    	log_sometext("Ora puoi giocare a carte in internet oppure giocare contro il computer.\n")
-    	@model_net_data.event_cupe_raised(:ev_gui_controls_created)
+      log_sometext("Ora puoi giocare a carte in internet oppure giocare contro il computer.\n")
+      @model_net_data.event_cupe_raised(:ev_gui_controls_created)
     end
     @log.info("TheApp Create OK")  
   end
@@ -957,7 +957,7 @@ class CuperativaGui < FXMainWindow
     @app_settings['guigfx'][:ww_mainwin] = self.width
     @app_settings['guigfx'][:hh_mainwin] = self.height
     if @splitter_ntw_log != nil
-    	@app_settings['guigfx'][:splitter_log_network] =  @splitter_ntw_log.getSplit(0)
+      @app_settings['guigfx'][:splitter_log_network] =  @splitter_ntw_log.getSplit(0)
     end
     
     @app_settings["curr_game"] = @last_selected_gametype
@@ -988,8 +988,8 @@ class CuperativaGui < FXMainWindow
   
   def log_msg_onctrl(msg, logCtrl)
     if(logCtrl)
-    	logCtrl.text += msg
-    	logCtrl.makePositionVisible(logCtrl.rowStart(logCtrl.getLength))
+      logCtrl.text += msg
+      logCtrl.makePositionVisible(logCtrl.rowStart(logCtrl.getLength))
     end
   end
   

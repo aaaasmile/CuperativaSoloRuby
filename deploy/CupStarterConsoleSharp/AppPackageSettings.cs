@@ -29,7 +29,7 @@ namespace CupStarterConsoleSharp
 
         private void CalculateAppVersion()
         {
-            AppVersion = string.Format("{0}_{1}_{2}", MajorVer, MedVer, SmallVer);
+            AppVersion = string.Format("{0}_{1}_{2}", MajorVer.ToString("00"), MedVer.ToString("00"), SmallVer.ToString("00"));
         }
 
         public int MajorVer { get; internal set; }

@@ -59,6 +59,25 @@ Function .onInit
   StrCmp $R0 0 +3
     MessageBox MB_OK|MB_ICONEXCLAMATION "The installer is already running."
     Abort
+  
+  ; check se una versione vecchia è stata già installata  
+  ReadRegStr $R0 HKLM \
+  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" \
+  "UninstallString"
+  StrCmp $R0 "" done
+ 
+  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+  "${MUI_PRODUCT} è già installato. $\n$\nClick `OK` per rimuovere \
+  la versione precedente `Cancel` per cancellare questo aggiornamento." \
+  IDOK uninst
+  Abort
+ 
+;Run the uninstaller
+uninst:
+  ClearErrors
+  Exec $INSTDIR\uninst.exe ;Do not copy the uninstaller to a temp file
+ 
+done:
 
   Messagebox MB_YESNO|MB_ICONQUESTION \
   "Questo setup sta per installare il programma ${MUI_PRODUCT} <%="#{@ver_sw[0]}.#{@ver_sw[1]}.#{@ver_sw[2]}"%>, una suite per giocare a carte. Vuoi continuare?" IDYES NoAbort
@@ -110,6 +129,7 @@ Section "Cuperativa" SecCuperativa
   WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver1" <%= @ver_sw[1]%>
   WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver2" <%= @ver_sw[2]%>
   WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "RubyPackage" <%= @ruby_package%>
+  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "StartScript"  <%= @start_script%>
   
   ;Create uninstaller
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "DisplayName" "${MUI_PRODUCT} (remove only)"
@@ -141,7 +161,9 @@ SectionEnd
 Section "Uninstall"
 
   ;Delete Files 
-  RMDir /r "$INSTDIR\*.*"    
+  RMDir /r "$INSTDIR\*.*"
+  RMDir /r "$LOCALAPPDATA\invido_it\Cuperativa\*.*"
+  RMDir /r "$LOCALAPPDATA\invido_it\Cuperativa"        
  
   ;Remove the installation directory
   RMDir "$INSTDIR"

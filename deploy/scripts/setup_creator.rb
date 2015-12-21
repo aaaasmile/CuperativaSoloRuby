@@ -47,9 +47,10 @@ class SetupCreator
     copy_app_subdir("src", target_dir)
   end
   
-  def create_nsi_installer_script(target_dir, app_data_fullpath, rubypackage_fullpath)
+  def create_nsi_installer_script(target_dir, app_data_fullpath, rubypackage_fullpath, startscript)
     FileUtils.mkdir_p(target_dir) unless File.directory?(target_dir)
     
+    @start_script = startscript
     # copy some extra file
     license_name = "License.txt"
     manual_filename = "cuperativa.chm"

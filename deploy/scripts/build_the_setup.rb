@@ -46,8 +46,8 @@ if $0 == __FILE__
 
   puts "--------- Prepare installer files and compile it"
   installer_dir = File.join(root_version_dir, 'Installer')
-  nsi_out_name = dep.create_nsi_installer_script(installer_dir, out_zip, opt[:ruby_package])
+  nsi_out_name = dep.create_nsi_installer_script(installer_dir, out_zip, opt[:ruby_package], 'src/start_cuperativa.rb')
   nsi_cmd = "#{opt[:nsi_exe]}  #{nsi_out_name}"
   dep.exec_mycmd(nsi_cmd)
-  
+  puts "Setup #{nsi_out_name} successfully created"
 end
