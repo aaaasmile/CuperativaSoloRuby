@@ -81,7 +81,6 @@ class CuperativaGui < FXMainWindow
   SETTINGS_DEFAULT_APPGUI = { "guigfx" =>{ :ww_mainwin => 800,
                                            :hh_mainwin => 520,
                                            :splitter => 0,
-                                           :splitter_network => 138,
                                            :splitter_horiz => 0}, 
                               "deck_name" => :piac,   # note:
                               "versionyaml" => CUP_YAML_FILE_VERSION, # change this version 
@@ -714,7 +713,6 @@ class CuperativaGui < FXMainWindow
        
     #splitter position
     gfxgui_settings = @app_settings['guigfx']
-    @split_horiz_netw.setSplit(0, gfxgui_settings[:splitter_network]) if @split_horiz_netw
     
     # window size
     ww = gfxgui_settings[:ww_mainwin]
@@ -762,8 +760,6 @@ class CuperativaGui < FXMainWindow
     end
     @log.info("TheApp Create OK")  
   end
-  
-  
   
   def game_window_destroyed
     @log.debug "Game window is destroyed"
@@ -816,10 +812,7 @@ class CuperativaGui < FXMainWindow
   #def mnu_cuperativa_test(sender, sel, ptr)
     #@net_chat_table_view.show_panel
   #end
-  
-  #def mnu_cuperativa_test2(sender, sel, ptr)
-    #@net_chat_table_view.hide_panel
-  #end
+
   
   ##
   # Provides the help file path
@@ -882,12 +875,7 @@ class CuperativaGui < FXMainWindow
   def OnAppSizeChange(sender, sel, event)
     #set_splitterpos_onsize(width , height)
   end
-  
-  def login_error(info_str)
-    modal_errormessage_box("Errore nel collegamento", info_str)
-    log_sometext("<Server ERRORE>:#{info_str}\n")
-  end
-
+ 
   ##
   # Quit the application
   def onCmdQuit(sender, sel, ptr)
