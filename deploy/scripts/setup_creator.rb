@@ -135,7 +135,7 @@ class SetupCreator
   end
   
   def get_version_suffix
-    return "#{get_int_pad2(@ver_sw[0])}_#{get_int_pad2(@ver_sw[1])}_#{get_int_pad2(@ver_sw[2])}"
+    return "#{get_int_pad1(@ver_sw[0])}_#{get_int_pad1(@ver_sw[1])}_#{get_int_pad1(@ver_sw[2])}"
   end
   
 private
@@ -184,6 +184,10 @@ private
   
   def get_int_pad2(val)
     return "0#{val}" if val.to_i < 10
+    return "#{val}"
+  end
+  
+  def get_int_pad1(val)
     return "#{val}"
   end
   

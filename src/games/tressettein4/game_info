@@ -9,7 +9,7 @@
     :type: :textbox
     :name: Punti vittoria
     :val: 21
-:enabled: true
+:enabled: false
 :file_req: tressettein4_gfx.rb
 :num_of_players: 2
 

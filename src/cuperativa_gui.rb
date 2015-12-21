@@ -66,7 +66,7 @@ class CuperativaGui < FXMainWindow
   # aplication name
   APP_CUPERATIVA_NAME = "Cuperativa"
   # version string (if you change format, spaces points..., chenge also parser)
-  VER_PRG_STR = "Ver 1.2.3 21122015"
+  VER_PRG_STR = "Ver 1.2.4 21122015"
   # yaml version, useful for restoring old version
   CUP_YAML_FILE_VERSION = '6.20'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
   # settings file
@@ -131,8 +131,7 @@ class CuperativaGui < FXMainWindow
   
   def self.get_dir_appdata
     if $g_os_type == :win32_system
-      puts "We are on windows"
-      res = File.join(ENV['APPDATA'], "cuperativa")
+      res = File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
     else
       puts "We are on linux"
       res = "~/.cuperativa"
@@ -143,7 +142,7 @@ class CuperativaGui < FXMainWindow
     
     return res
   end
- 
+   
   ##
   # Init controls
   def initialize(anApp)
@@ -178,7 +177,6 @@ class CuperativaGui < FXMainWindow
       @log.outputters.clear
     elsif @log_device_output == :default
       out_log_name = File.join(base_dir_log,  mylogfname )
-      #out_log_name = File.expand_path(File.dirname(__FILE__) + "/../../#{mylogfname}")
       Log4r::Logger['coregame_log'].level = INFO
       FileOutputter.new('coregame_log', :filename=> out_log_name) 
       Log4r::Logger['coregame_log'].add 'coregame_log'
@@ -200,7 +198,6 @@ class CuperativaGui < FXMainWindow
     @menubar = FXMenuBar.new(self, LAYOUT_SIDE_TOP|LAYOUT_FILL_X)
     
     @giochimenu = FXMenuPane.new(self)
-    @updatemenu = FXMenuPane.new(self)
     helpmenu = FXMenuPane.new(self)
     
     # Menu Giochi
@@ -211,11 +208,7 @@ class CuperativaGui < FXMainWindow
     @menu_giochi_save.connect(SEL_COMMAND, method(:mnu_giochi_savegame ))
     @menu_giochi_end = FXMenuCommand.new(@giochimenu, "Fine Partita")
     @menu_giochi_end.connect(SEL_COMMAND, method(:mnu_maingui_fine_part ))
-      
-    # Menu Update 
-    @menu_update_patch = FXMenuCommand.new(@updatemenu, "Applica nuova versione...")
-    @menu_update_patch.connect(SEL_COMMAND, method(:mnu_update_applypatch))
-     
+        
     #Menu Help
     @menu_help = FXMenuCommand.new(helpmenu, "&Help")
     @menu_help.connect(SEL_COMMAND, method(:mnu_cuperativa_help))
@@ -228,7 +221,6 @@ class CuperativaGui < FXMainWindow
     # Titles on menupanels 
     FXMenuTitle.new(@menubar, "&Giochi", nil, @giochimenu)
     
-    FXMenuTitle.new(@menubar, "Aggiorna", nil, @updatemenu)
     FXMenuTitle.new(@menubar, "&Info", nil, helpmenu)
     
     #incons
@@ -340,8 +332,6 @@ class CuperativaGui < FXMainWindow
     
     srand(Time.now.to_i)
     
-    @dialog_sw = DlgSwUpdate.new(self, "Aggiorna software", "")
-    
     @sound_manager = SoundManager.new
     
     if $g_os_type == :win32_system
@@ -405,14 +395,7 @@ class CuperativaGui < FXMainWindow
     @singe_game_win.create
     return @singe_game_win
   end
-   
-  ##
-  # Provides modaless dialogbox for update progress
-  def get_sw_dlgdialog
-    return @dialog_sw
-  end
-  
-  
+    
   ##
   # Load all supported games
   def load_supported_games
@@ -900,22 +883,7 @@ class CuperativaGui < FXMainWindow
     ver_prog = CuperativaGui.sw_version_to_int
     return nomeprog, ver_prog
   end
-  
-  ##
-  # Check on remote server if a new udate is available
-  def mnu_update_check(sender, sel, ptr)
-    nomeprog = APP_CUPERATIVA_NAME
-    ver_prog = CuperativaGui.sw_version_to_int
-  end
-  
-  ##
-  # Apply a local patch 
-  def mnu_update_applypatch(sender, sel, ptr)
-    loadDialog = FXFileDialog.new(self, "Applica aggiornamento")
-    patterns = [ "Tgz (*.tar.gz)", "Cup (*.cup)", "All Files (*)"  ]
-    loadDialog.setPatternList(patterns)
-  end
-  
+   
   # Provides the resource path
   def get_resource_path
     res_path = File.dirname(__FILE__) + "/../res"

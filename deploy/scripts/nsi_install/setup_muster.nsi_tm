@@ -67,15 +67,22 @@ Function .onInit
   StrCmp $R0 "" done
  
   MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
-  "${MUI_PRODUCT} è già installato. $\n$\nClick `OK` per rimuovere \
-  la versione precedente `Cancel` per cancellare questo aggiornamento." \
+  "${MUI_PRODUCT} è già installato. $\n$\nClicca `OK` per rimuovere \
+  la versione precedente `Cancel` per interrompere questo aggiornamento." \
   IDOK uninst
   Abort
  
 ;Run the uninstaller
 uninst:
   ClearErrors
-  Exec $INSTDIR\uninst.exe ;Do not copy the uninstaller to a temp file
+  ExecWait '$R0 _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
+ 
+  IfErrors no_remove_uninstaller done
+    ;You can either use Delete /REBOOTOK in the uninstaller or add some code
+    ;here to remove the uninstaller. Use a registry key to check
+    ;whether the user has chosen to uninstall. If you are using an uninstaller
+    ;components page, make sure all sections are uninstalled.
+  no_remove_uninstaller:
  
 done:
 
@@ -163,7 +170,6 @@ Section "Uninstall"
   ;Delete Files 
   RMDir /r "$INSTDIR\*.*"
   RMDir /r "$LOCALAPPDATA\invido_it\Cuperativa\*.*"
-  RMDir /r "$LOCALAPPDATA\invido_it\Cuperativa"        
  
   ;Remove the installation directory
   RMDir "$INSTDIR"
