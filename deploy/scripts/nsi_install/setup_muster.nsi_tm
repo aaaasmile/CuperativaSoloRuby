@@ -179,7 +179,7 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Cuperativa.lnk"
   Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Manuale.lnk"
   Delete "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>\Uninstall.lnk"
-  RMDir  "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
+  RMDir /r  "$SMPROGRAMS\${MUI_PRODUCT}<%="#{@ver_sw[0]}_#{@ver_sw[1]}_#{@ver_sw[2]}"%>"
 
   ;Delete Uninstaller And Unistall Registry Entries
   DeleteRegKey /ifempty HKCU "Software\invido_it\${MUI_PRODUCT}"
