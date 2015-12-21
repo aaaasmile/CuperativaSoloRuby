@@ -29,6 +29,7 @@ namespace CupStarterConsoleSharp
             myProcess.ErrorDataReceived += new DataReceivedEventHandler(myProcess_ErrorDataReceived);
             myProcess.Start();
             _log.DebugFormat("Ruby process is started");
+            myProcess.BeginOutputReadLine();
 
             do
             {
