@@ -13,6 +13,7 @@ class InvPanel
     @canvas_disp = FXCanvas.new(owner, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
     @canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
     @canvas_disp.connect(SEL_CONFIGURE, method(:onCanvasSizeChange))
+    @canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
     @canvast_update_started = false
     @imgDbuffHeight = 0
     @imgDbuffWidth = 0
@@ -71,6 +72,16 @@ private
     end
   end
   
+  def onLMouseDown(sender, sel, event)
+    x = event.win_x
+    y = event.win_y
+    @widgets.each do |item|
+      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(:onLMouseDown)
+        handled = item.raise_event(:onLMouseDown, x, y)
+      end
+    end
+  end
+  
   def logdebug(txt)    
      @log.debug(txt) if @verbose
   end
@@ -93,6 +104,9 @@ if $0 == __FILE__
       @panel.verbose = true
       button = InvButton.new(20, 20, 100, 50)
       button.set_content("Play!")
+      button.connect(:onLMouseDown) {
+        |x,y| puts "Click is here!!!!"
+      }
       @panel.add(button)
     end
     

@@ -12,6 +12,24 @@ class InvWidget
     @z_order = zord
     @width = w
     @height = h
+    @map_handlers = {}
+  end
+  
+  def has_handler?(symbol)
+    return @map_handlers.has_key?(symbol)
+  end
+  
+  def raise_event(symbol, *args)
+    res = false
+    if(@map_handlers.has_key?(symbol))
+      handler = @map_handlers[symbol]
+      handler.send(symbol, args)
+    end
+    return res
+  end
+  
+  def connect(symbol, handler = nil)
+    @map_handlers[symbol] = handler
   end
   
   def point_is_inside?(x,y)
