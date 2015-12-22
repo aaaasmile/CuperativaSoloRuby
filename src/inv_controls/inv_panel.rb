@@ -1,9 +1,12 @@
 # file: inv_panel.rb
 
+require 'inv_theme'
+require 'inv_button'
+
 class InvPanel
   attr_accessor :verbose
     
-  def initialize(owner, fxapp)
+  def initialize(owner, fxapp, theme=nil)
     @log = Log4r::Logger.new("coregame_log::InvPanel")
     @verbose = false
     @fxapp = fxapp
@@ -14,11 +17,14 @@ class InvPanel
     @imgDbuffHeight = 0
     @imgDbuffWidth = 0
     @image_double_buff = nil
+    @theme = theme
+    @theme = InvTheme.create_default(fxapp) if theme == nil
+    @widgets = []
   end
   
-  def set_color_backround(color)
-    @color_backround = color
-    @canvas_disp.backColor = @color_backround
+  def add(widget)
+    @widgets << widget 
+    @widgets.sort! {|x,y| y.z_order <=> x.z_order}
   end
   
 private   
@@ -51,8 +57,11 @@ private
       @canvast_update_started = true
       logdebug("onCanvasPaint start")
       dc = FXDCWindow.new(@image_double_buff)
-      dc.foreground = @canvas_disp.backColor if @canvas_disp.backColor
+      dc.foreground = @theme.back_color
       dc.fillRectangle(0, 0, @image_double_buff.width, @image_double_buff.height)
+      
+      @widgets.each{|item| item.draw(dc, @theme)}
+      
       dc.end
       dc_canvas = FXDCWindow.new(@canvas_disp, event)
       dc_canvas.drawImage(@image_double_buff, 0, 0)
@@ -81,8 +90,10 @@ if $0 == __FILE__
       @log = Log4r::Logger.new("coregame_log::MyPanelContainer")
       @log.debug "MyButtonContainer initialized"
       @panel = InvPanel.new(self, owner.main_app)
-      @panel.set_color_backround(Fox.FXRGB(0xff, 0xaa, 0x00))
       @panel.verbose = true
+      button = InvButton.new(20, 20, 100, 50)
+      button.set_content("Play!")
+      @panel.add(button)
     end
     
     def run
