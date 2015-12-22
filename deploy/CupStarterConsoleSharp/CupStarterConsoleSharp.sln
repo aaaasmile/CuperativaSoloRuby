@@ -5,6 +5,177 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CupStarterConsoleSharp", "CupStarterConsoleSharp.csproj", "{09387ECA-A8E4-4808-876F-A99C1DEC26AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{AF898248-DFBD-4700-80C4-3BD8B5DC0921}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\cuperativa_gui.rb = ..\..\src\cuperativa_gui.rb
+		..\..\src\start_cuperativa.rb = ..\..\src\start_cuperativa.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{0F46C141-2036-49C1-A687-735599594BF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "games", "games", "{F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "crash_reporter", "crash_reporter", "{104BA244-C4BB-4F52-8C0F-F46A25385C47}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\crash_reporter\crash_reporter.rb = ..\..\src\crash_reporter\crash_reporter.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{72E7A632-55EC-4572-929A-954FC693A0C2}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\base\core\core_game_base.rb = ..\..\src\base\core\core_game_base.rb
+		..\..\src\base\core\cup_strings.rb = ..\..\src\base\core\cup_strings.rb
+		..\..\src\base\core\deck_info.rb = ..\..\src\base\core\deck_info.rb
+		..\..\src\base\core\game_replayer.rb = ..\..\src\base\core\game_replayer.rb
+		..\..\src\base\core\gameavail_hlp.rb = ..\..\src\base\core\gameavail_hlp.rb
+		..\..\src\base\core\mod_core_queue.rb = ..\..\src\base\core\mod_core_queue.rb
+		..\..\src\base\core\player_on_game.rb = ..\..\src\base\core\player_on_game.rb
+		..\..\src\base\core\sound_manager.rb = ..\..\src\base\core\sound_manager.rb
+		..\..\src\base\core\viewer_base.rb = ..\..\src\base\core\viewer_base.rb
+		..\..\src\base\core\web_launcher.rb = ..\..\src\base\core\web_launcher.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx_comp", "gfx_comp", "{EFBD2D51-EA02-41B2-B1B7-9603DC1F45E4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\base\gfx_comp\cardsdisapp_gfxc.rb = ..\..\src\base\gfx_comp\cardsdisapp_gfxc.rb
+		..\..\src\base\gfx_comp\cardsplayer_gfxc.rb = ..\..\src\base\gfx_comp\cardsplayer_gfxc.rb
+		..\..\src\base\gfx_comp\cardstaken_gxc.rb = ..\..\src\base\gfx_comp\cardstaken_gxc.rb
+		..\..\src\base\gfx_comp\component_base.rb = ..\..\src\base\gfx_comp\component_base.rb
+		..\..\src\base\gfx_comp\deckmain_gxc.rb = ..\..\src\base\gfx_comp\deckmain_gxc.rb
+		..\..\src\base\gfx_comp\graphical_composite.rb = ..\..\src\base\gfx_comp\graphical_composite.rb
+		..\..\src\base\gfx_comp\labels_gxc.rb = ..\..\src\base\gfx_comp\labels_gxc.rb
+		..\..\src\base\gfx_comp\messbox_gfxc.rb = ..\..\src\base\gfx_comp\messbox_gfxc.rb
+		..\..\src\base\gfx_comp\model_canvas_gfx.rb = ..\..\src\base\gfx_comp\model_canvas_gfx.rb
+		..\..\src\base\gfx_comp\smazzata_mbox_gfx.rb = ..\..\src\base\gfx_comp\smazzata_mbox_gfx.rb
+		..\..\src\base\gfx_comp\table_partecipate_gxc.rb = ..\..\src\base\gfx_comp\table_partecipate_gxc.rb
+		..\..\src\base\gfx_comp\tablecards_gxc.rb = ..\..\src\base\gfx_comp\tablecards_gxc.rb
+		..\..\src\base\gfx_comp\turnplayer_gfcx.rb = ..\..\src\base\gfx_comp\turnplayer_gfcx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx_elements", "gfx_elements", "{0105B093-5AF6-4321-8B6B-3A5AA5607398}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\base\gfx_elements\button_gfx.rb = ..\..\src\base\gfx_elements\button_gfx.rb
+		..\..\src\base\gfx_elements\card_gfx.rb = ..\..\src\base\gfx_elements\card_gfx.rb
+		..\..\src\base\gfx_elements\clickable_gfx.rb = ..\..\src\base\gfx_elements\clickable_gfx.rb
+		..\..\src\base\gfx_elements\label_gfx.rb = ..\..\src\base\gfx_elements\label_gfx.rb
+		..\..\src\base\gfx_elements\message_box_gfx.rb = ..\..\src\base\gfx_elements\message_box_gfx.rb
+		..\..\src\base\gfx_elements\points_shower_gfx.rb = ..\..\src\base\gfx_elements\points_shower_gfx.rb
+		..\..\src\base\gfx_elements\simple_image_gfx.rb = ..\..\src\base\gfx_elements\simple_image_gfx.rb
+		..\..\src\base\gfx_elements\taken_cards_gfx.rb = ..\..\src\base\gfx_elements\taken_cards_gfx.rb
+		..\..\src\base\gfx_elements\turn_marker_gfx.rb = ..\..\src\base\gfx_elements\turn_marker_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx_general", "gfx_general", "{608E629C-B043-455F-A9EF-7C9E5EF26224}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\base\gfx_general\about_dlg.rb = ..\..\src\base\gfx_general\about_dlg.rb
+		..\..\src\base\gfx_general\base_engine_gfx.rb = ..\..\src\base\gfx_general\base_engine_gfx.rb
+		..\..\src\base\gfx_general\gfx_elements.rb = ..\..\src\base\gfx_general\gfx_elements.rb
+		..\..\src\base\gfx_general\gfx_gamewindow.rb = ..\..\src\base\gfx_general\gfx_gamewindow.rb
+		..\..\src\base\gfx_general\listgames_dlg.rb = ..\..\src\base\gfx_general\listgames_dlg.rb
+		..\..\src\base\gfx_general\modal_msg_box.rb = ..\..\src\base\gfx_general\modal_msg_box.rb
+		..\..\src\base\gfx_general\swupdate_dlg.rb = ..\..\src\base\gfx_general\swupdate_dlg.rb
+		..\..\src\base\gfx_general\table_seat_gfx.rb = ..\..\src\base\gfx_general\table_seat_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "options", "options", "{C734B60D-9FEA-4AD3-AB43-5334C0ACBB06}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\base\options\basic_dlg_options_setter.rb = ..\..\src\base\options\basic_dlg_options_setter.rb
+		..\..\src\base\options\cards_options_dlg.rb = ..\..\src\base\options\cards_options_dlg.rb
+		..\..\src\base\options\cuperat_options_dlg.rb = ..\..\src\base\options\cuperat_options_dlg.rb
+		..\..\src\base\options\names_options_dlg.rb = ..\..\src\base\options\names_options_dlg.rb
+		..\..\src\base\options\netw_gen_options_dlg.rb = ..\..\src\base\options\netw_gen_options_dlg.rb
+		..\..\src\base\options\other_options_dlg.rb = ..\..\src\base\options\other_options_dlg.rb
+		..\..\src\base\options\proxy_options_dlg.rb = ..\..\src\base\options\proxy_options_dlg.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscola", "briscola", "{BA61030A-4C3B-4815-A637-5962FEB108E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\briscola\alg_cpu_briscola.rb = ..\..\src\games\briscola\alg_cpu_briscola.rb
+		..\..\src\games\briscola\briscola_gfx.rb = ..\..\src\games\briscola\briscola_gfx.rb
+		..\..\src\games\briscola\core_game_briscola.rb = ..\..\src\games\briscola\core_game_briscola.rb
+		..\..\src\games\briscola\game_info = ..\..\src\games\briscola\game_info
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscola5", "briscola5", "{E2EEA763-79E6-4271-A723-B326557E5459}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\briscola5\alg_cpu_briscola5.rb = ..\..\src\games\briscola5\alg_cpu_briscola5.rb
+		..\..\src\games\briscola5\briscola5_gfx.rb = ..\..\src\games\briscola5\briscola5_gfx.rb
+		..\..\src\games\briscola5\chiamata_mgr.rb = ..\..\src\games\briscola5\chiamata_mgr.rb
+		..\..\src\games\briscola5\core_game_briscola5.rb = ..\..\src\games\briscola5\core_game_briscola5.rb
+		..\..\src\games\briscola5\game_info = ..\..\src\games\briscola5\game_info
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscolone", "briscolone", "{E92A0841-2C6B-40DC-BE6E-97E9FB5726B9}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\briscolone\alg_cpu_briscolone.rb = ..\..\src\games\briscolone\alg_cpu_briscolone.rb
+		..\..\src\games\briscolone\briscolone_gfx.rb = ..\..\src\games\briscolone\briscolone_gfx.rb
+		..\..\src\games\briscolone\core_game_briscolone.rb = ..\..\src\games\briscolone\core_game_briscolone.rb
+		..\..\src\games\briscolone\game_info = ..\..\src\games\briscolone\game_info
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mariazza", "mariazza", "{75AEA403-67F9-41EB-83E5-2F890E52D1B7}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\mariazza\alg_cpu_mariazza.rb = ..\..\src\games\mariazza\alg_cpu_mariazza.rb
+		..\..\src\games\mariazza\core_game_mariazza.rb = ..\..\src\games\mariazza\core_game_mariazza.rb
+		..\..\src\games\mariazza\game_info = ..\..\src\games\mariazza\game_info
+		..\..\src\games\mariazza\mariazza_gfx.rb = ..\..\src\games\mariazza\mariazza_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scala40", "scala40", "{550A2D2B-B276-42A7-AEEC-9DF7831D7F72}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\scala40\alg_cpu_scala40.rb = ..\..\src\games\scala40\alg_cpu_scala40.rb
+		..\..\src\games\scala40\core_game_scala40.rb = ..\..\src\games\scala40\core_game_scala40.rb
+		..\..\src\games\scala40\game_info = ..\..\src\games\scala40\game_info
+		..\..\src\games\scala40\scala40_gfx.rb = ..\..\src\games\scala40\scala40_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scopetta", "scopetta", "{CA00B639-F77F-4443-B796-604A80B80B0F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\scopetta\alg_cpu_scopetta.rb = ..\..\src\games\scopetta\alg_cpu_scopetta.rb
+		..\..\src\games\scopetta\core_game_scopetta.rb = ..\..\src\games\scopetta\core_game_scopetta.rb
+		..\..\src\games\scopetta\game_info = ..\..\src\games\scopetta\game_info
+		..\..\src\games\scopetta\scopetta_gfx.rb = ..\..\src\games\scopetta\scopetta_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spazzino", "spazzino", "{C6EBBA39-D711-4FBC-92FE-B6D7FE489BBD}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\spazzino\alg_cpu_spazzino.rb = ..\..\src\games\spazzino\alg_cpu_spazzino.rb
+		..\..\src\games\spazzino\core_game_spazzino.rb = ..\..\src\games\spazzino\core_game_spazzino.rb
+		..\..\src\games\spazzino\game_info = ..\..\src\games\spazzino\game_info
+		..\..\src\games\spazzino\spazzino_gfx.rb = ..\..\src\games\spazzino\spazzino_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tombolon", "tombolon", "{A43584C8-D97B-4A2E-9ED0-7DEF702F3D35}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\tombolon\alg_cpu_tombolon.rb = ..\..\src\games\tombolon\alg_cpu_tombolon.rb
+		..\..\src\games\tombolon\core_game_tombolon.rb = ..\..\src\games\tombolon\core_game_tombolon.rb
+		..\..\src\games\tombolon\game_info = ..\..\src\games\tombolon\game_info
+		..\..\src\games\tombolon\tombolon_gfx.rb = ..\..\src\games\tombolon\tombolon_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tressette", "tressette", "{9B4470EA-3696-4424-8A70-72902CE337A5}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\tressette\alg_cpu_tressette.rb = ..\..\src\games\tressette\alg_cpu_tressette.rb
+		..\..\src\games\tressette\core_game_tressette.rb = ..\..\src\games\tressette\core_game_tressette.rb
+		..\..\src\games\tressette\game_info = ..\..\src\games\tressette\game_info
+		..\..\src\games\tressette\tressette_gfx.rb = ..\..\src\games\tressette\tressette_gfx.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{AF81F55B-2F35-4151-A731-95FA694784B8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\tressette\images\bambu_129.png = ..\..\src\games\tressette\images\bambu_129.png
+		..\..\src\games\tressette\images\sfondofoglie_98.png = ..\..\src\games\tressette\images\sfondofoglie_98.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tressettein4", "tressettein4", "{1E94E46F-6AAF-4095-BEA0-073150082259}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\games\tressettein4\alg_cpu_tressettein4.rb = ..\..\src\games\tressettein4\alg_cpu_tressettein4.rb
+		..\..\src\games\tressettein4\core_game_tressettein4.rb = ..\..\src\games\tressettein4\core_game_tressettein4.rb
+		..\..\src\games\tressettein4\game_info = ..\..\src\games\tressettein4\game_info
+		..\..\src\games\tressettein4\tressettein4_gfx.rb = ..\..\src\games\tressettein4\tressettein4_gfx.rb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +199,27 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AE696F8-8F1C-4D76-BD7D-BEB46638BD86} = {AF898248-DFBD-4700-80C4-3BD8B5DC0921}
+		{0F46C141-2036-49C1-A687-735599594BF8} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
+		{F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
+		{104BA244-C4BB-4F52-8C0F-F46A25385C47} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
+		{72E7A632-55EC-4572-929A-954FC693A0C2} = {0F46C141-2036-49C1-A687-735599594BF8}
+		{EFBD2D51-EA02-41B2-B1B7-9603DC1F45E4} = {0F46C141-2036-49C1-A687-735599594BF8}
+		{0105B093-5AF6-4321-8B6B-3A5AA5607398} = {0F46C141-2036-49C1-A687-735599594BF8}
+		{608E629C-B043-455F-A9EF-7C9E5EF26224} = {0F46C141-2036-49C1-A687-735599594BF8}
+		{C734B60D-9FEA-4AD3-AB43-5334C0ACBB06} = {0F46C141-2036-49C1-A687-735599594BF8}
+		{BA61030A-4C3B-4815-A637-5962FEB108E8} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{E2EEA763-79E6-4271-A723-B326557E5459} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{E92A0841-2C6B-40DC-BE6E-97E9FB5726B9} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{75AEA403-67F9-41EB-83E5-2F890E52D1B7} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{550A2D2B-B276-42A7-AEEC-9DF7831D7F72} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{CA00B639-F77F-4443-B796-604A80B80B0F} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{C6EBBA39-D711-4FBC-92FE-B6D7FE489BBD} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{A43584C8-D97B-4A2E-9ED0-7DEF702F3D35} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{9B4470EA-3696-4424-8A70-72902CE337A5} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{AF81F55B-2F35-4151-A731-95FA694784B8} = {9B4470EA-3696-4424-8A70-72902CE337A5}
+		{1E94E46F-6AAF-4095-BEA0-073150082259} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
 	EndGlobalSection
 EndGlobal

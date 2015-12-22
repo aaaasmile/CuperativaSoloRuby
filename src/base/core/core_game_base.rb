@@ -203,12 +203,6 @@ class CoreGameBase < CoreOnPlayer
   end
   
   ##
-  # Provides the card logical symbol (e.g for _7c the result is :set)
-  def get_card_logical_symb(card_lbl)
-    #return @deck_info[card_lbl][:symb]
-  end
-  
-  ##
   # Provides the player index before the provided
   def player_ix_beforethis(num_players, ix_player)
     ix_res = ix_player - 1
