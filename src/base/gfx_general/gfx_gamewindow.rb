@@ -524,20 +524,9 @@ end
 
 if $0 == __FILE__
   $:.unshift File.dirname(__FILE__) + '/../../..'
-  require 'log4r'
+  
   require 'test/gfx/test_dialogbox' 
   require 'src/games/briscola/briscola_gfx'
-  include Log4r
-  log = Log4r::Logger.new("coregame_log")
-  log.outputters << Outputter.stdout 
-  $g_os_type = :win32_system
-begin
-  require 'win32/sound'
-  include Win32
-rescue LoadError
-  $g_os_type = :linux
-end
-
   
   ##
   # Launcher of the dialogbox
@@ -546,7 +535,6 @@ end
     
     def initialize(app)
       @main_app = app 
-      app.runner = self
       @options = {:game_network_type => :offline,
         :owner => app, :comment => "Gioco", :gfx_enginename =>'BriscolaGfx', :num_of_players => 2,
         :app_options => {"games" => { :briscola_game =>
@@ -567,20 +555,9 @@ end
       @dlg_box = CupSingleGameWin.new(@options)
       @dlg_box.create
     end
-    
-    
-    
   end
   
   # create the runner: a window with one button that call runner.run
-  theApp = FXApp.new("TestRunnerDialogBox", "FXRuby")
-  mainwindow = TestRunnerDialogBox.new(theApp)
-  mainwindow.set_position(0,0,300,300)
-  
-  theApp.addSignal("SIGINT", mainwindow.method(:onCmdQuit))
-  theApp.create
-  tester = DialogboxCreator.new(mainwindow)
-  theApp.run
-  
+  TestRunnerDialogBox.create_app(DialogboxCreator)
   
 end

@@ -6,12 +6,37 @@ $:.unshift File.dirname(__FILE__) + '/../..'
 require 'rubygems'
 require 'fox16'
 require 'src/base/core/sound_manager'
+require 'log4r'
+
+$g_os_type = :win32_system
+begin
+  require 'win32/sound'
+  include Win32
+rescue LoadError
+  $g_os_type = :linux
+end
 
 include Fox
+
+include Log4r
+log = Log4r::Logger.new("coregame_log")
+log.outputters << Outputter.stdout 
+  
 
 class TestRunnerDialogBox < FXMainWindow
   attr_accessor :runner
   attr_reader :icons_app, :main_app, :sound_manager
+  
+  def self.create_app(runner)
+    theApp = FXApp.new("TestRunnerDialogBox", "FXRuby")
+    mainwindow = TestRunnerDialogBox.new(theApp)
+    mainwindow.set_position(0,0,300,300)
+  
+    theApp.addSignal("SIGINT", mainwindow.method(:onCmdQuit))
+    theApp.create
+    mainwindow.runner = runner.new(mainwindow)
+    theApp.run
+  end
     
   def initialize(anApp)
     @main_app = anApp 

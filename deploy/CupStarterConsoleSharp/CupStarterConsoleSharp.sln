@@ -176,6 +176,70 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tressettein4", "tressettein
 		..\..\src\games\tressettein4\tressettein4_gfx.rb = ..\..\src\games\tressettein4\tressettein4_gfx.rb
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AAE81AF3-4B33-4A59-9868-3E6AE191A24E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\fakestuff.rb = ..\..\test\fakestuff.rb
+		..\..\test\run_all_tests.rb = ..\..\test\run_all_tests.rb
+		..\..\test\test_canvas.rb = ..\..\test\test_canvas.rb
+		..\..\test\test_client_protocol.rb = ..\..\test\test_client_protocol.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscola", "briscola", "{623CF242-9634-485D-AFEA-F127A764840F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\briscola\test_alg_briscola.rb = ..\..\test\briscola\test_alg_briscola.rb
+		..\..\test\briscola\test_core_briscola.rb = ..\..\test\briscola\test_core_briscola.rb
+		..\..\test\briscola\test_viewer_briscola.rb = ..\..\test\briscola\test_viewer_briscola.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscola5", "briscola5", "{F3FDDBF2-BDF0-4261-8D37-871A6A9CBE7F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\briscola5\test_core_briscola5.rb = ..\..\test\briscola5\test_core_briscola5.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "briscolone", "briscolone", "{5983B11C-21B6-4399-ABC4-5572484A07E3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\briscolone\test_core_briscolone.rb = ..\..\test\briscolone\test_core_briscolone.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx", "gfx", "{0D43E6DE-7AB1-4B6C-B084-F96803129EC7}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\gfx\test_basecontrol_gfx.rb = ..\..\test\gfx\test_basecontrol_gfx.rb
+		..\..\test\gfx\test_canvasdraw.rb = ..\..\test\gfx\test_canvasdraw.rb
+		..\..\test\gfx\test_dialogbox.rb = ..\..\test\gfx\test_dialogbox.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mariazza", "mariazza", "{C2746A29-2C76-44F0-B12A-3E59A813656B}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\mariazza\test_alg_mariazza.rb = ..\..\test\mariazza\test_alg_mariazza.rb
+		..\..\test\mariazza\test_mariazza.rb = ..\..\test\mariazza\test_mariazza.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scopetta", "scopetta", "{4034AB47-8E26-4FEF-B3E8-DD49F1A3B14C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\scopetta\test_core_scopetta.rb = ..\..\test\scopetta\test_core_scopetta.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spazzino", "spazzino", "{EE3F9713-B6E5-4713-AADF-CD6B7A2E944D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\spazzino\test_core_spazzino.rb = ..\..\test\spazzino\test_core_spazzino.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tombolon", "tombolon", "{643814EF-F49E-4302-8D32-D7F830318814}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\tombolon\test_core_tombolon.rb = ..\..\test\tombolon\test_core_tombolon.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tressette", "tressette", "{2CA285FE-F80D-4719-A53B-B00ADCD016BD}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\tressette\test_core_tressette.rb = ..\..\test\tressette\test_core_tressette.rb
+		..\..\test\tressette\test_core_tressettein4.rb = ..\..\test\tressette\test_core_tressettein4.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inv_controls", "inv_controls", "{E97A3BB8-5E08-446B-A59A-7B5623265948}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\src\inv_controls\inv_panel.rb = ..\..\src\inv_controls\inv_panel.rb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,5 +285,16 @@ Global
 		{9B4470EA-3696-4424-8A70-72902CE337A5} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
 		{AF81F55B-2F35-4151-A731-95FA694784B8} = {9B4470EA-3696-4424-8A70-72902CE337A5}
 		{1E94E46F-6AAF-4095-BEA0-073150082259} = {F53EA5AA-6181-4DDC-BE94-46BEBE8BF6A6}
+		{AAE81AF3-4B33-4A59-9868-3E6AE191A24E} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
+		{623CF242-9634-485D-AFEA-F127A764840F} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{F3FDDBF2-BDF0-4261-8D37-871A6A9CBE7F} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{5983B11C-21B6-4399-ABC4-5572484A07E3} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{0D43E6DE-7AB1-4B6C-B084-F96803129EC7} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{C2746A29-2C76-44F0-B12A-3E59A813656B} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{4034AB47-8E26-4FEF-B3E8-DD49F1A3B14C} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{EE3F9713-B6E5-4713-AADF-CD6B7A2E944D} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{643814EF-F49E-4302-8D32-D7F830318814} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{2CA285FE-F80D-4719-A53B-B00ADCD016BD} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
+		{E97A3BB8-5E08-446B-A59A-7B5623265948} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
 	EndGlobalSection
 EndGlobal
