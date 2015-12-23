@@ -30,6 +30,9 @@ class InvContainer
     widget.connect(:EV_update_partial) {|sender, x,y,w,h| 
       @updates_req << {:x => x, :y => y, :w => w ,:h => h, :type => :EV_update_partial}
     }
+    widget.connect(:EV_update) {|sender| 
+      @updates_req << {:type => :EV_update}
+    }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
   end
