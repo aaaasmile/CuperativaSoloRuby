@@ -13,41 +13,27 @@ class InvWidget
     @z_order = zord
     @width = w
     @height = h
-    @map_handlers = {}
+    @map_handler = {} #panel callbacks
+    @widget_events = {} # widget events
     @verbose = false
   end
   
   def has_handler?(symbol)
-    return @map_handlers.has_key?(symbol)
+    return @map_handler.has_key?(symbol)
   end
   
-  def raise_event(symbol, *args)
-    logdebug "Event raised #{symbol}"
+  def handle_callback(symbol, *args)
+    logdebug "Callback for #{symbol}"
     res = false
-    if(@map_handlers.has_key?(symbol))
-      handlers = @map_handlers[symbol]
-      handlers.each do |item|
-        case args.length 
-        when 1  
-          item.call(args[0])
-        when 2 
-          item.call(args[0], args[1])
-        when 3 
-          item.call(args[0], args[1], args[2])
-        when 4
-          item.call(args[0], args[1], args[2], args[3])
-        else
-          raise "Too many arguments for the event handler"
-        end
-      end
+    if(@map_handler.has_key?(symbol))
+      res = call_fn_withargs(@map_handler[symbol], args)
     end
     return res
   end
   
-  
   def connect(symbol, handler = nil, &block) #&block: captures any passed block into that object
-    @map_handlers[symbol] = [] unless (@map_handlers.has_key?(symbol))
-    @map_handlers[symbol] << handler == nil ? handler : block
+    @widget_events[symbol] = [] unless (@widget_events.has_key?(symbol))
+    @widget_events[symbol] << handler != nil ? handler : block
   end
   
   def point_is_inside?(x,y)
@@ -59,9 +45,32 @@ class InvWidget
     end
     return binside
   end
+  
 private
+
   def logdebug(txt)    
      @log.debug(txt) if @verbose
   end
+  
+  def map_container_callbacks(symbol, handler = nil, &block)
+    @map_handler[symbol] = handler != nil ? handler : block
+  end
+  
+  def call_fn_withargs(item, args)
+    res = false
+    case args.length 
+      when 1  
+        res = item.call(args[0])
+      when 2 
+        res = item.call(args[0], args[1])
+      when 3 
+        res = item.call(args[0], args[1], args[2])
+      when 4
+        res = item.call(args[0], args[1], args[2], args[3])
+      else
+        raise "Too many arguments for the event handler"
+      end
+  end
+  
 end
 

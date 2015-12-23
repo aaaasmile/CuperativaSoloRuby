@@ -12,7 +12,7 @@ class InvButton < InvWidget
     @min_height = 30
     check_min_height
     check_min_width
-    connect(:EV_LMouseDown, method(:onLMouseDown))
+    map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
   end
   
   def set_content(cont)
@@ -51,6 +51,7 @@ private
   
   def onLMouseDown(x,y)
     logdebug("Button handle mouse down event: x #{x}, y #{y}")
+    return true
   end
   
 end

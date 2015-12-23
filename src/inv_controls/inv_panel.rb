@@ -75,9 +75,14 @@ private
   def onLMouseDown(sender, sel, event)
     x = event.win_x
     y = event.win_y
+    event_sym = :CB_LMouseDown 
     @widgets.each do |item|
-      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(:EV_LMouseDown)
-        handled = item.raise_event(:EV_LMouseDown, x, y)
+      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(event_sym)
+        handled = item.handle_callback(event_sym, x, y)
+        if handled != false
+          logdebug("Event #{event_sym} handled")
+          return
+        end
       end
     end
   end
