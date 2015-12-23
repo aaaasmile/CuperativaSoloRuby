@@ -10,7 +10,7 @@ require 'modal_msg_box'
 
 include Fox
 
-class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
+class CupSingleGameWin < FXMainWindow 
   attr_reader :model_net_data, :current_game_gfx, :icons_app, :sound_manager, :cup_gui
   
   
@@ -31,7 +31,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     
     super(owner.main_app, comment, nil, nil, DECOR_ALL, 50,50, @win_width, @win_height)
     
-    # timeout callback info hash
     @timeout_cb = {:locked => false, :queue => []}
     @cup_gui = owner
     @log = Log4r::Logger["coregame_log"]
@@ -133,11 +132,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     end
     
   end
-  
-  def get_app_data_folder
-    return @cup_gui.get_app_data_folder()
-  end
-  
+    
   def submit_idle_handler
     tgt = FXPseudoTarget.new
     tgt.pconnect(SEL_CHORE, nil, method(:onChore))

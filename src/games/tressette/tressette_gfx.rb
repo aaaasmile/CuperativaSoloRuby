@@ -773,10 +773,9 @@ class TressetteGfx < BaseEngineGfx
   ##
   # Game end stuff
   def game_end_stuff
-    fname = File.join(@app_owner.get_app_data_folder,  "game_terminated_last.yaml")
+    fname = File.join(CuperativaGui.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
-    log "Partita terminata\n"
-    # don't need anymore core
+    log "Partita terminata"
     @core_game = nil
     @state_gfx = :game_end
     if @composite_graph

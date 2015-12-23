@@ -9,8 +9,6 @@ require 'fileutils'
 
 require 'fox16'
 require 'log4r'
-require 'singleton' 
-require 'socket'
 require 'yaml'
 
 
@@ -22,7 +20,6 @@ require 'base/core/gameavail_hlp'
 require 'base/gfx_general/gfx_gamewindow'
 require 'base/gfx_general/modal_msg_box'
 require 'base/core/sound_manager'
-require 'base/gfx_general/swupdate_dlg'
 
 # other method could be inspect the  Object::PLATFORM or RUBY_PLATFORM
 $g_os_type = :win32_system
@@ -59,7 +56,7 @@ include Fox
 # Class for a fox gui Cuperativa 
 class CuperativaGui < FXMainWindow
   attr_accessor :giochimenu, :settings_filename, :icons_app, :app_settings, :sound_manager
-  attr_accessor :restart_need, :corelogger, :last_selected_gametype, :banned_words, :main_app
+  attr_accessor :restart_need, :corelogger, :last_selected_gametype, :main_app
   
   
   include ModalMessageBox
@@ -651,7 +648,6 @@ class CuperativaGui < FXMainWindow
     #@net_chat_table_view.show_panel
   #end
 
-  
   ##
   # Provides the help file path
   def get_help_path
@@ -706,14 +702,6 @@ class CuperativaGui < FXMainWindow
     return File.expand_path(res_path)
   end
   
-  def get_app_data_folder
-    return CuperativaGui.get_dir_appdata()
-  end
-  
-  def OnAppSizeChange(sender, sel, event)
-    #set_splitterpos_onsize(width , height)
-  end
- 
   ##
   # Quit the application
   def onCmdQuit(sender, sel, ptr)
@@ -742,12 +730,6 @@ class CuperativaGui < FXMainWindow
     getApp().exit(0)
   end
   
-  def MainApp
-    return getApp()
-  end
- 
-  ##
-  # Log text in the top window
   def log_sometext(msg)
     logCtrl = @logText
     log_msg_onctrl(msg, logCtrl)
@@ -759,7 +741,6 @@ class CuperativaGui < FXMainWindow
       logCtrl.makePositionVisible(logCtrl.rowStart(logCtrl.getLength))
     end
   end
-  
 
 end
 

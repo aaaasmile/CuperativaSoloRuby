@@ -84,10 +84,6 @@ class TestRunnerDialogBox < FXMainWindow
     return File.expand_path(res_path)
   end
   
-  def get_app_data_folder
-    return File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
-  end
-  
   # Load the named icon from a file
   def loadIcon(filename)
     begin
