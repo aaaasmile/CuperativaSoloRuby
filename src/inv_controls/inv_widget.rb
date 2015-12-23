@@ -41,11 +41,17 @@ class InvWidget
   
   def point_is_inside?(x,y)
     binside = false
-    if x > @pos_x && x < (@pos_x + @width) &&
-       y > @pos_y && y < (@pos_y + @height)
+    if x >= @pos_x && x <= (@pos_x + @width) &&
+       y >= @pos_y && y <= (@pos_y + @height)
       binside = true
     end
     return binside
+  end
+  
+  def is_rect_inside?(x,y,w,h)
+    top = point_is_inside?(x, y)
+    bottom_right = point_is_inside?(x + w, y + h)
+    return top && bottom_right
   end
   
 private

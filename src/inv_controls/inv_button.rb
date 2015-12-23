@@ -26,6 +26,7 @@ class InvButton < InvWidget
     
   def draw(dc, theme)
     return if @content == nil
+    logdebug("Draw the button")
     @border_thik = 1
     width_content = @content.calculate_width(theme)
     height_content = @content.calculate_height(theme)

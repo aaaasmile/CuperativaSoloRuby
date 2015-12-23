@@ -13,14 +13,9 @@ class InvContainer
     @canvas_disp = FXCanvas.new(owner, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
     @canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
     @canvas_disp.connect(SEL_CONFIGURE, method(:onCanvasSizeChange))
-    @canvas_disp.connect(SEL_LEFTBUTTONPRESS){|sender, sel, event|
-      check_mouse_callback(:CB_LMouseDown, event.win_x, event.win_y)
-    }
-    @canvas_disp.connect(SEL_LEFTBUTTONRELEASE){|sender, sel, event|
-      check_mouse_callback(:CB_LMouseUp, event.win_x, event.win_y){|widget, event_sym| 
-        widget.visible && widget.has_handler?(event_sym)
-      }
-    }
+    @canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
+    @canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
+    
     @canvast_update_started = false
     @imgDbuffHeight = 0
     @imgDbuffWidth = 0
@@ -28,11 +23,12 @@ class InvContainer
     @theme = theme
     @theme = InvTheme.create_default(fxapp) if theme == nil
     @widgets = []
+    @updates_req = []
   end
   
   def add(widget)
     widget.connect(:EV_update_partial) {|sender, x,y,w,h| 
-      @canvas_disp.update(x,y,w,h)
+      @updates_req << {:x => x, :y => y, :w => w ,:h => h, :type => :EV_update_partial}
     }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
@@ -62,11 +58,33 @@ private
       @image_double_buff.create
     end
   end
+  
+  def drawPartial(event, x,y,w,h)
+    @canvast_update_started = true
+    logdebug("Canvas Paint partial")
+    dc = FXDCWindow.new(@image_double_buff)
+    @widgets.each do |item|
+      if item.is_rect_inside?(x,y,w,h)
+        item.draw(dc, @theme)
+      end
+    end
+    dc.end
+    
+    dc_canvas = FXDCWindow.new(@canvas_disp, event)
+    dc_canvas.drawImage(@image_double_buff, 0, 0)
+    dc_canvas.end
+    @updates_req = [] 
+    @canvast_update_started = false
+  end
     
   def onCanvasPaint(sender, sel, event)
     unless @canvast_update_started
+      if @updates_req.size == 1 and @updates_req[0][:type] == :EV_update_partial
+        drawPartial(event, event.rect.x, event.rect.y, event.rect.w, event.rect.h)
+        return
+      end
+      @updates_req = [] 
       @canvast_update_started = true
-      p "paint", event.rect.x, event.rect.y, event.rect.w, event.rect.h 
       logdebug("onCanvasPaint start")
       dc = FXDCWindow.new(@image_double_buff)
       dc.foreground = @theme.back_color
@@ -83,20 +101,42 @@ private
     end
   end
   
-  def check_mouse_callback(event_sym, x, y, &block)
+  def onLMouseDown(sender, sel, event)
+    x = event.win_x
+    y = event.win_y
+    event_sym = :CB_LMouseDown 
     @widgets.each do |item|
-      #NOTE: brackets needed because 'condition = true and false' is different from 'condition = (true and false)'. Using && instead of 'and' does not needs brackets.
-      condition = block != nil ? yield(item, event_sym) :  
-        (item.visible && item.point_is_inside?(x,y) && item.has_handler?(event_sym)) 
-      if condition == true
+      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(event_sym)
         handled = item.handle_callback(event_sym, x, y)
         if handled != false
-          logdebug("Event #{event_sym} handled")
-          return
+          logdebug("Event #{event_sym} L mouse down handled")
+          break
         end
       end
     end
+    check_for_canvas_update
   end
+  
+  def onLMouseUp(sender, sel, event)
+    x = event.win_x
+    y = event.win_y
+    event_sym = :CB_LMouseUp
+    @widgets.each do |item|
+      if item.visible and item.has_handler?(event_sym)
+        item.handle_callback(event_sym, x, y)
+      end
+    end
+    check_for_canvas_update
+  end
+  
+  def check_for_canvas_update
+    if @updates_req.size == 1 and @updates_req[0][:type] == :EV_update_partial
+      @canvas_disp.update(@updates_req[0][:x], @updates_req[0][:y], @updates_req[0][:w], @updates_req[0][:h])
+    elsif @updates_req.size > 0
+      @canvas_disp.update
+    end
+  end
+  
   
   def logdebug(txt)    
      @log.debug(txt) if @verbose
@@ -119,12 +159,19 @@ if $0 == __FILE__
       @container = InvContainer.new(self, owner.main_app)
       @container.verbose = true
       button = InvButton.new(20, 20, 100, 50)
-      button.set_content("Play!")
+      button.set_content("Gooo!")
       button.verbose = true
       button.connect(:EV_click) {
-        |sender| puts "Click is here!!!!"
+        |sender| puts "Click GOOOO is here!!!!"
       }
       @container.add(button)
+      
+      button2 = InvButton.new(20, 90, 100, 50)
+      button2.set_content("Stop")
+      button2.connect(:EV_click) {
+        |sender| puts "Click STOOOOP is here!"
+      }
+      @container.add(button2)
     end
     
     def run
