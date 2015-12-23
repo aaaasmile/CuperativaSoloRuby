@@ -76,8 +76,8 @@ private
     x = event.win_x
     y = event.win_y
     @widgets.each do |item|
-      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(:onLMouseDown)
-        handled = item.raise_event(:onLMouseDown, x, y)
+      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(:EV_LMouseDown)
+        handled = item.raise_event(:EV_LMouseDown, x, y)
       end
     end
   end
@@ -104,7 +104,8 @@ if $0 == __FILE__
       @panel.verbose = true
       button = InvButton.new(20, 20, 100, 50)
       button.set_content("Play!")
-      button.connect(:onLMouseDown) {
+      button.verbose = true
+      button.connect(:click) {
         |x,y| puts "Click is here!!!!"
       }
       @panel.add(button)
