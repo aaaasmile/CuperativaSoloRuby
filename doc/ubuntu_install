@@ -1,0 +1,52 @@
+== Sistema Ubuntu 14.04
+Per usare CuperativaSoloRuby bisogna avere ruby 1.8.6 o 1.8.7. Con apt-get install ruby1.8 
+non sono andato da nessuna parte.
+
+== Ruby
+Ho provato ad installare ruby 1.8.6-p420 dai sorgenti ma non ci sono riuscito.
+Allora ho provato ad usare rbenv (installato manualmente usando github), che ho installato seguendo questo link:
+https://github.com/rbenv
+Anche con rbenv non sono riuscito ad installare la versione ruby 1.8.6-p420,
+ma però sono riuscito ad installare la versione 1.8.7-p375:
+rbenv install 1.8.7-p375
+rbenv global 1.8.7-p375
+Dopodiché con ruby -v
+ruby 1.8.7 (2013-12-22 patchlevel 375) [i686-linux]
+
+== Fox
+Occorre installare fox lib e bisogna usare i sorgenti.
+Per installare fox-gui in /home/igor/tmp/cuperativa/fox-1.6.50:
+./configure --without-opengl
+Poi ho compilato la libreriy jpg (http://www.ijg.org/files/jpegsrc.v8c.tar.gz):
+cd /home/igor/tmp/cuperativa/jpeg-8c
+tar xvfz jpeg-8c.tar.gz
+cd jpeg-8c
+./configure --enable-shared --prefix=$CONFIGURE_PREFIX
+make
+sudo make install
+
+Poi ho installato due librerie che mi mancavano per compilare FxRuby (installate con synaptic):
+libxrandr
+libxcursor
+
+Per quanto riguarda FXruby, sono riuscito ad installare (non 1.6.33) questo gem:
+gem install fxruby --version 1.6.20
+anche se non ha funzionato di primo acchito.
+Allora sono andato qui:
+/home/igor/.rbenv/versions/1.8.7-p375/lib/ruby/gems/1.8/gems/fxruby-1.6.20-x86-linux/ext/fox16
+ho lanciato:
+ruby extconf.rb
+make && make install
+e finalmente ho il gem fox16 installato.
+
+== Altri gem
+Mi sembra che l'unico gem rimasto da installare sia log4r (1.1.10 quella che ho installato):
+gem install log4r
+
+== Editor
+In passato ho usato Arachno, ma la vecchia versione per linux Linux_installer_beta_0_7_1.exe non va con
+ubuntu 14.04. Visual Studio Code funziona molto bene con la sua integrazione in git.
+
+== Run
+Ora si può lanciare:
+ruby src/cuperativa_gui.rb
