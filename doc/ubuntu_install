@@ -14,10 +14,7 @@ Dopodiché con ruby -v
 ruby 1.8.7 (2013-12-22 patchlevel 375) [i686-linux]
 
 == Fox
-Occorre installare fox lib e bisogna usare i sorgenti.
-Per installare fox-gui in /home/igor/tmp/cuperativa/fox-1.6.50:
-./configure --without-opengl
-Poi ho compilato la libreriy jpg (http://www.ijg.org/files/jpegsrc.v8c.tar.gz):
+Ho compilato la libreriy jpg (http://www.ijg.org/files/jpegsrc.v8c.tar.gz):
 cd /home/igor/tmp/cuperativa/jpeg-8c
 tar xvfz jpeg-8c.tar.gz
 cd jpeg-8c
@@ -25,11 +22,17 @@ cd jpeg-8c
 make
 sudo make install
 
+Occorre installare fox lib e bisogna usare i sorgenti.
+Per installare fox-gui in /home/igor/tmp/cuperativa/fox-1.6.50 senza opengl:
+./configure --without-opengl
+make
+sudo make install
+
 Poi ho installato due librerie che mi mancavano per compilare FxRuby (installate con synaptic):
 libxrandr
 libxcursor
 
-Per quanto riguarda FXruby, sono riuscito ad installare (non 1.6.33) questo gem:
+Per quanto riguarda FXruby, sono riuscito ad installare (non la 1.6.33) questo gem:
 gem install fxruby --version 1.6.20
 anche se non ha funzionato di primo acchito.
 Allora sono andato qui:
@@ -45,7 +48,7 @@ gem install log4r
 
 == Editor
 In passato ho usato Arachno, ma la vecchia versione per linux Linux_installer_beta_0_7_1.exe non va con
-ubuntu 14.04. Visual Studio Code funziona molto bene con la sua integrazione in git.
+ubuntu 14.04. Visual Studio Code funziona molto ed ha un'ottima integrazione con github.
 
 == Run
 Ora si può lanciare:
