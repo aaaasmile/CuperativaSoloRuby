@@ -149,13 +149,11 @@ class CuperativaGui < FXMainWindow
     @main_app = anApp 
     @app_settings = {}
     @settings_filename =  File.join(CuperativaGui.get_dir_appdata(), FILE_APP_SETTINGS)
-    # initialize logger
     @log = Log4r::Logger.new("coregame_log")
-    # restart needed flag
     @restart_need = false
   
     @logger_mode_filename = File.join(CuperativaGui.get_dir_appdata(), LOGGER_MODE_FILE)
-    @log_detailed_info = load_loginfo_from_file(@logger_mode_filename)
+    @log_detailed_info = load_log_info_from_file(@logger_mode_filename)
     @log_device_output = :default
     @log_device_output = @log_detailed_info[:shortcut][:val] if @log_detailed_info[:shortcut][:is_set]
     
@@ -202,7 +200,7 @@ class CuperativaGui < FXMainWindow
     # Menu Giochi
     # Defined in custom menu of gfx engine
     @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi...")
-    @menu_giochi_list.connect(SEL_COMMAND, method(:mnu_giochi_list ))
+    @menu_giochi_list.connect(SEL_COMMAND, method(:mnu_game_list ))
         
     #Menu Help
     @menu_help = FXMenuCommand.new(helpmenu, "&Help")
@@ -297,7 +295,7 @@ class CuperativaGui < FXMainWindow
     # change game
     @btgamelist = FXButton.new(btdetailed_frame, "Cambia gioco", icons_app[:listgames], self, 0,
               LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
-    @btgamelist.connect(SEL_COMMAND, method(:mnu_giochi_list))
+    @btgamelist.connect(SEL_COMMAND, method(:mnu_game_list))
     @btgamelist.iconPosition = (@btgamelist.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     # logger
@@ -312,7 +310,6 @@ class CuperativaGui < FXMainWindow
     # Make a tool tip
     FXToolTip.new(getApp(), TOOLTIP_NORMAL)
     
-   
     # container of all installed gfx games
     @coll_game_gfx = {}
     
@@ -324,38 +321,16 @@ class CuperativaGui < FXMainWindow
     # timeout callback info hash
     @timeout_cb = {:locked => false, :queue => []}
     
-    
     srand(Time.now.to_i)
     
     @sound_manager = SoundManager.new
-    
-    if $g_os_type == :win32_system
-      submit_idle_handler # on fxruby 1.6.6 on windows repeat => true is not available
-    else
-      # idle routine
-      anApp.addChore(:repeat => true) do |sender, sel, data|
-       
-      end
-    end
     
   end #end  initialize
   
   def self.prgversion
     return VER_PRG_STR
   end
-  
-  def submit_idle_handler
-    tgt = FXPseudoTarget.new
-    tgt.pconnect(SEL_CHORE, nil, method(:onChore))
-    @main_app.addChoreOrig(tgt, 0)
-  end
-  
-  def onChore(sender, sel, data)
-    #p 'chore is called'
-   
-    submit_idle_handler
-  end
-  
+ 
   ##
   # Shows username on the title
   def show_username(str_name)
@@ -396,11 +371,9 @@ class CuperativaGui < FXMainWindow
   def load_supported_games
     @supported_game_map = InfoAvilGames.info_supported_games(@log)
     #p @supported_game_map
-    # execute require 'mygame'
     SETTINGS_DEFAULT_APPGUI[:games_opt] = {}
     @supported_game_map.each do |k, game_item|
       if game_item[:enabled] == true
-        # game enabled
         require game_item[:file_req]
         @log.debug("Game #{game_item[:name]} is enabled")
         SETTINGS_DEFAULT_APPGUI[:games_opt][k] = game_item[:opt]
@@ -426,81 +399,8 @@ class CuperativaGui < FXMainWindow
     game_info = @supported_game_map[game_type]
     @lbl_table_title.text += game_info[:name]
     @num_of_players = game_info[:num_of_players]
-
   end
-  
-  ##
-  # Notification from current gfx that game is started
-  def ntfy_gfx_gamestarted 
-    hide_startbutton
-  end
-  ##
-  # Hide the start button
-  def hide_startbutton
-    @btstart_button.disable
-  end
-  
-  # shows start button
-  def show_startbutton
-    @btstart_button.enable
-  end
-  
-  ##
-  # Register a timer. Register only one timer, all other are queued and submitted
-  # after timeout
-  # timeout: timeout time in milliseconds
-  # met_sym_tocall: method to be called after timeout
-  # met_notifier: object that implement method after timeout event
-  #def registerTimeout(timeout, met_sym_tocall, met_notifier=@current_game_gfx)
-  def registerTimeout(timeout, met_sym_tocall, met_notifier)
-    #p "register timer for msec #{timeout}"
-    unless @timeout_cb[:locked]
-      # register only one timeout at the same time
-      @timeout_cb[:meth] = met_sym_tocall
-      @timeout_cb[:notifier] = met_notifier
-      @timeout_cb[:locked] = true
-      getApp().addTimeout(timeout, method(:onTimeout))
-    else
-      #@log.debug("registerTimeout on timeout pending, put it on the queue")
-      # store info about timeout in order to submit after  a timeout
-      @timeout_cb[:queue] << {:timeout => timeout, 
-                              :meth => met_sym_tocall, 
-                              :notifier => met_notifier, 
-                              :started => Time.now
-      }
-    end
-  end
-  
-  ##
-  # Timer exausted
-  def onTimeout(sender, sel, ptr)
-    #p "Timeout"
-    #p @timeout_cb
-    #@current_game_gfx.send(@timeout_cb)
-    @timeout_cb[:notifier].send(@timeout_cb[:meth])
-    # pick a queued timer
-    next_timer_info = @timeout_cb[:queue].slice!(0)
-    if next_timer_info
-      # submit the next timer
-      @timeout_cb[:meth] = next_timer_info[:meth]
-      @timeout_cb[:notifier] = next_timer_info[:notifier]
-      @timeout_cb[:locked] = true
-      timeout_orig = next_timer_info[:timeout]
-      # remove already elapsed time
-      already_elapsed_time_ms = (Time.now - next_timer_info[:started]) * 1000
-      timeout_adjusted = timeout_orig - already_elapsed_time_ms
-      # minimum timeout always set
-      timeout_adjusted = 10 if timeout_adjusted <= 0
-      getApp().addTimeout(timeout_adjusted, method(:onTimeout))
-      #@log.debug("Timer to register found in the timer queue (Resume with timeout #{timeout_adjusted})")
-    else
-      # no more timer to submit, free it
-      #@log.debug("onTimeout terminated ok")
-      @timeout_cb[:locked] = false
-      @timeout_cb[:queue] = []
-    end
-    return 1
-  end
+ 
     
   # Load the named icon from a file
   def loadIcon(filename)
@@ -523,16 +423,9 @@ class CuperativaGui < FXMainWindow
   end
  
   ##
-  #
-  def detach
-    super
-    #@current_game_gfx.detach
-  end
-  
-  ##
   # Load debug info from yaml file.
   # return the shortcut mode (:debug, :default, :nothing)
-  def load_loginfo_from_file(fname)
+  def load_log_info_from_file(fname)
     base_dir_log = File.join(CuperativaGui.get_dir_appdata(), "clientlogs")
     info_hash = {:is_set_by_user => false, 
          :stdout => false, :logfile => false,
@@ -703,10 +596,6 @@ class CuperativaGui < FXMainWindow
       end
     end
     log_sometext("Benvenuta/o nella Cuperativa versione #{VER_PRG_STR}\n")
-    if @model_net_data != nil  
-      log_sometext("Ora puoi giocare a carte in internet oppure giocare contro il computer.\n")
-      @model_net_data.event_cupe_raised(:ev_gui_controls_created)
-    end
     @log.info("TheApp Create OK")  
   end
   
@@ -737,7 +626,7 @@ class CuperativaGui < FXMainWindow
  
   ##
   # Select the current game from all game list
-  def mnu_giochi_list (sender, sel, ptr)
+  def mnu_game_list (sender, sel, ptr)
     dlg = DlgListGames.new(self,@supported_game_map, @last_selected_gametype, @app_settings)
     if dlg.execute != 0
       k = dlg.get_activatedgame_key
