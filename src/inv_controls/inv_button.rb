@@ -32,7 +32,10 @@ class InvButton < InvWidget
     dc.foreground = theme.border_color
     dc.drawRectangle(@pos_x, @pos_y, @width, @height)
     
+    
     dc.foreground = theme.main_color
+    dc.foreground = theme.accent_color if @state_bt == :pressed
+    
     dc.fillRectangle(@pos_x + @border_thik, @pos_y + @border_thik, 
                      @width - @border_thik * 2, 
                      @height - @border_thik * 2)
@@ -54,12 +57,14 @@ private
   def onLMouseDown(x,y)
     logdebug("Button handle mouse down event: x #{x}, y #{y}")
     @state_bt = :pressed
+    fire_event(:EV_update_partial, self, @pos_x, @pos_y, @width, @height)
   end
   
   def onLMouseUp(x,y)
     logdebug("Button handle mouse up event: x #{x}, y #{y}")
-    if @state_bt == :pressed and point_is_inside?(x,y)
-      fire_event(:EV_click, self)
+    if @state_bt == :pressed 
+      fire_event(:EV_click, self) if point_is_inside?(x,y)
+      fire_event(:EV_update_partial, self, @pos_x, @pos_y, @width, @height)
     end
     @state_bt = :normal
   end

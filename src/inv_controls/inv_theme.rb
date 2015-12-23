@@ -1,7 +1,7 @@
 # file: inv_theme.rb
 
 class InvTheme
-  attr_reader :back_color, :fore_color, :border_color, :main_color, :fonts_text
+  attr_reader :back_color, :fore_color, :border_color, :main_color, :fonts_text, :accent_color
   
   def self.create_default(fxapp)
     theme = InvTheme.new(fxapp)
@@ -24,6 +24,7 @@ class InvTheme
     @fore_color = Fox.FXRGB(0xff, 0xff, 0xff)
     @border_color = Fox.FXRGB(0x99, 0xe6, 0xb8)
     @main_color = Fox.FXRGB(0x14, 0x52, 0x2d)
+    @accent_color = Fox.FXRGB(0x28, 0xa4, 0x5a)
   end
   
 end

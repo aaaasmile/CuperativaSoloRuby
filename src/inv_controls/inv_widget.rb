@@ -77,6 +77,10 @@ private
         res = item.call(args[0], args[1], args[2])
       when 4
         res = item.call(args[0], args[1], args[2], args[3])
+      when 5
+        res = item.call(args[0], args[1], args[2], args[3], args[4])
+      when 6
+        res = item.call(args[0], args[1], args[2], args[3], args[4], args[5])
       else
         raise "Too many arguments for the event handler"
       end

@@ -31,6 +31,9 @@ class InvContainer
   end
   
   def add(widget)
+    widget.connect(:EV_update_partial) {|sender, x,y,w,h| 
+      @canvas_disp.update(x,y,w,h)
+    }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
   end
@@ -63,6 +66,7 @@ private
   def onCanvasPaint(sender, sel, event)
     unless @canvast_update_started
       @canvast_update_started = true
+      p "paint", event.rect.x, event.rect.y, event.rect.w, event.rect.h 
       logdebug("onCanvasPaint start")
       dc = FXDCWindow.new(@image_double_buff)
       dc.foreground = @theme.back_color
