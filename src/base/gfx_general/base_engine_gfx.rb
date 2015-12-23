@@ -150,8 +150,8 @@ class BaseEngineGfx
     end 
     begin
       # Il modo di caricare le immagini con una linea l'ho copiato dall'esempio FxGui dctest.rb
-      # In quell'esempio l'immagine png era già trasperente di per se. Non dimenticare di chiamare create prima di usare drawimage
-      # dctest.rb è un esempio fake, in quanto l'immagine viene riprodotta col suo background originale bianco, che è anche lo sfondo del canvas
+      # In quell'esempio l'immagine png era giï¿½ trasperente di per se. Non dimenticare di chiamare create prima di usare drawimage
+      # dctest.rb ï¿½ un esempio fake, in quanto l'immagine viene riprodotta col suo background originale bianco, che ï¿½ anche lo sfondo del canvas
       # Per rendere l'immmagine veramente trasparente bisogna usare il metodo blend prima di create
       @cards = []
       @cards_rotated = []
@@ -435,7 +435,7 @@ class BaseEngineGfx
   end
   
   def log(str)
-    @app_owner.log_sometext(str)
+    @log.debug(str)
   end
   
   ##

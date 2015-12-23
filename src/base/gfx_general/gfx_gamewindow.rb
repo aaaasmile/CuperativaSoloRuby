@@ -266,14 +266,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     end 
   end
  
-  ##
-  # Log text in the top window
-  def log_sometext(msg)
-    @logText.text += msg
-    # ugly autoscrolling... 
-    @logText.makePositionVisible(@logText.rowStart(@logText.getLength))
-  end
-  
   # Provides the resource path
   def get_resource_path
     return @cup_gui.get_resource_path
@@ -349,7 +341,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
   ##
   # Mouse left down event on canvas
   def onLMouseDown(sender, sel, event)
-    #log_sometext("onLMouseDown\n")
      @current_game_gfx.onLMouseDown(event)
   end
   
@@ -360,7 +351,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
   ##
   # Size of canvas is changing
   def OnCanvasSizeChange(sender, sel, event)
-    #log_sometext("OnSizeChange w:#{@canvas_disp.width}, h:#{@canvas_disp.height}\n")
     adapt_to_canvas = false
     
     resolution = 3
@@ -414,9 +404,11 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     @log.debug "Game window is closing"
     if @state_model == :state_on_localgame
       if modal_yesnoquestion_box("Termina partita?", "Partita in corso, vuoi davvero abbandonarla?")
-        log_sometext "Utente termina la partita\n"
-        before_close_and_close(:send_leave_table)
+        @log.debug "Utente termina la partita"
+        before_close_and_close()
       end
+    else
+      before_close_and_close()
     end
   end
  

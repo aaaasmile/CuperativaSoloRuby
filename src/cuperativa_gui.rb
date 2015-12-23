@@ -501,59 +501,7 @@ class CuperativaGui < FXMainWindow
     end
     return 1
   end
- 
-  
-  ##
-  # Update the game canvas display
-  def update_dsp
-    #@canvas_disp.update
-  end
-  
-  ##
-  # Recalculate the canvas. This is needed when a new control is added
-  # and the canvas need to be recalculated
-  def activate_canvas_frame
-    #@canvasFrame.show
-    #@canvasFrame.recalc
-    #@canvas_disp.recalc
-  end
-  
-  def deactivate_canvas_frame
-    #@canvasFrame.hide
-    #@canvasFrame.recalc 
-    #@canvas_disp.recalc if @canvas_disp
-  end
-  
-  ##
-  # Paint event on canvas
-  def onCanvasPaint(sender, sel, event)
     
-  end
-  
-  ##
-  # Mouse left up event on canvas
-  def onLMouseUp(sender, sel, event)
-    #p 'onLMouseUp'
-    #@current_game_gfx.onLMouseUp(event)
-  end
-  
-  ##
-  # Mouse left down event on canvas
-  def onLMouseDown(sender, sel, event)
-    #log_sometext("onLMouseDown\n")
-    # @current_game_gfx.onLMouseDown(event)
-  end
-  
-  def onLMouseMotion(sender, sel, event)
-    #@current_game_gfx.onLMouseMotion(event)
-  end
-  
-  ##
-  # Size of canvas is changing
-  def OnCanvasSizeChange(sender, sel, event)
-    
-  end
-  
   # Load the named icon from a file
   def loadIcon(filename)
     begin
@@ -880,16 +828,6 @@ class CuperativaGui < FXMainWindow
   ##
   # Quit the application
   def onCmdQuit(sender, sel, ptr)
-    if @singe_game_win != nil
-      if !modal_yesnoquestion_box("Termina la Cuperativa?", "Partita in corso, vuoi davvero terminare il programma?")
-        log_sometext "Utente non vuole terminare la partita\n" 
-        #@current_game_gfx.game_end_stuff
-        return 1
-      else
-        @singe_game_win.user_isgoing_toexit
-      end
-    end
-    
     
     #p self.methods
     begin
