@@ -31,6 +31,7 @@ begin
   include Win32
 rescue LoadError
   $g_os_type = :linux
+  $VERBOSE = nil
 end
 
 include Log4r

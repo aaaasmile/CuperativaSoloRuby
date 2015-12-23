@@ -42,10 +42,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     # canvas painting event
     @canvast_update_started = false
     
-    @model_net_data = options[:model_data]
-    if @model_net_data != nil
-      @model_net_data.add_observer("game_window", self)
-    end
+   
     
     # number of players that play the current game
     @num_of_players = options[:num_of_players]
@@ -99,19 +96,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     @logText.backColor = Fox.FXRGB(231, 255, 231)
     
     
-    if options[:game_network_type] == :online
-      @control_net_conn = options[:control_net_conn]
-      # network chat table
-      ctrlframe_chatcmd = @split_horiz_netw
-      @net_chat_table_view = ChatTableView.new(ctrlframe_chatcmd, self, @control_net_conn, @cup_gui.banned_words)
-      # network ongame commands, handle as a view
-      @network_ongame_cmds = NetworkOnGameCmds.new(bottom_panel, self, @control_net_conn)
-      # network panel is also subscribet to networ event notification
-      if @model_net_data != nil
-        @model_net_data.add_observer("network_ongame_cmds", @network_ongame_cmds)
-      end
-    end
-      
+   
     
     # start commands
     start_btframe = FXVerticalFrame.new(ctrlframe, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
@@ -123,11 +108,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     @bt_start_game.connect(SEL_COMMAND) do |sender, sel, ptr|
       players = create_players
       start_new_game(players, @app_settings)
-      if options[:game_network_type] != :online
-        if @model_net_data != nil
-          @model_net_data.event_cupe_raised(:ev_start_local_game)
-        end
-      end
     end
     
     @tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
@@ -415,13 +395,6 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
    
   end
   
-  ##
-  # Render text in the render tavolo chat control
-  def render_chat_tavolo(msg)
-    #check_chatpanel_visibility()
-    @tabbook.setCurrent(1)       
-    @net_chat_table_view.render_chat_tavolo(msg)
-  end
   
   def store_settings
     if @app_settings_gametype
@@ -439,43 +412,22 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
   
   def on_close_win(sender, sel, ptr)
     @log.debug "Game window is closing"
-    if @state_model == :state_on_localgame or
-       @state_model == :state_on_netgame
+    if @state_model == :state_on_localgame
       if modal_yesnoquestion_box("Termina partita?", "Partita in corso, vuoi davvero abbandonarla?")
         log_sometext "Utente termina la partita\n"
         before_close_and_close(:send_leave_table)
       end
-    else
-      @control_net_conn.leave_table_cmd if @control_net_conn
-      before_close_and_close(:no_send_leave_table)
     end
   end
+ 
   
-  ##
-  # User is being exit to the application
-  def user_isgoing_toexit
-    @control_net_conn.leave_table_cmd if @control_net_conn
-    @log.debug("User exit from application but gamewindow is still open...")
-  end
-  
-  def leave_table_cmd
-    before_close_and_close(:no_send_leave_table)
-  end
-  
-  ##
-  # send_leave_table_opt: if is :send_leave_table thed send also leave table
-  def before_close_and_close(send_leave_table_opt)
+  def before_close_and_close()
     begin
       store_settings 
       @current_game_gfx.game_end_stuff
-      if send_leave_table_opt == :send_leave_table
-        @control_net_conn.leave_table_cmd if @control_net_conn
-      end
       @timeout_cb[:notifier] = nil
       @cup_gui.game_window_destroyed
-      if @model_net_data != nil
-        @model_net_data.remove_observer("game_window", self)
-      end
+      
       @sound_manager.stop_sound(:play_mescola)
       close
     rescue 
@@ -485,39 +437,7 @@ class CupSingleGameWin < FXMainWindow #FXTopWindow # FXDialogBox
     end
   end
   
-  # +++++ model notification ++++++
   
-  def ntfy_state_no_network
-   @state_model = :state_no_network
-   @bt_start_game.enable
-  end
-  
-  def ntfy_state_on_localgame
-    @bt_start_game.disable
-    @state_model = :state_on_localgame
-  end
-  
-  def ntfy_state_on_netgame
-    @bt_start_game.hide
-    @state_model = :state_on_netgame
-  end
-  
-  def ntfy_state_logged_on
-    @bt_start_game.hide
-    @state_model = :state_logged_on
-  end
-  
-  def ntfy_state_on_table_game_end
-    @state_model = :state_on_table_game_end
-  end
-  
-  def ntfy_state_ontable_lessplayers
-    @state_model = :state_ontable_lessplayers
-  end
-  
-  def ntfy_state_onupdate
-    @state_model = :state_onupdate
-  end
   
 end
 
