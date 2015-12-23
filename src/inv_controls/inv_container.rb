@@ -1,19 +1,26 @@
-# file: inv_panel.rb
+# file: inv_container.rb
 
 require 'inv_theme'
 require 'inv_button'
 
-class InvPanel
+class InvContainer
   attr_accessor :verbose
     
   def initialize(owner, fxapp, theme=nil)
-    @log = Log4r::Logger.new("coregame_log::InvPanel")
+    @log = Log4r::Logger.new("coregame_log::InvContainer")
     @verbose = false
     @fxapp = fxapp
     @canvas_disp = FXCanvas.new(owner, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
     @canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
     @canvas_disp.connect(SEL_CONFIGURE, method(:onCanvasSizeChange))
-    @canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
+    @canvas_disp.connect(SEL_LEFTBUTTONPRESS){|sender, sel, event|
+      check_mouse_callback(:CB_LMouseDown, event.win_x, event.win_y)
+    }
+    @canvas_disp.connect(SEL_LEFTBUTTONRELEASE){|sender, sel, event|
+      check_mouse_callback(:CB_LMouseUp, event.win_x, event.win_y){|widget, event_sym| 
+        widget.visible && widget.has_handler?(event_sym)
+      }
+    }
     @canvast_update_started = false
     @imgDbuffHeight = 0
     @imgDbuffWidth = 0
@@ -72,12 +79,12 @@ private
     end
   end
   
-  def onLMouseDown(sender, sel, event)
-    x = event.win_x
-    y = event.win_y
-    event_sym = :CB_LMouseDown 
+  def check_mouse_callback(event_sym, x, y, &block)
     @widgets.each do |item|
-      if item.visible and item.point_is_inside?(x,y) and item.has_handler?(event_sym)
+      #NOTE: brackets needed because 'condition = true and false' is different from 'condition = (true and false)'. Using && instead of 'and' does not needs brackets.
+      condition = block != nil ? yield(item, event_sym) :  
+        (item.visible && item.point_is_inside?(x,y) && item.has_handler?(event_sym)) 
+      if condition == true
         handled = item.handle_callback(event_sym, x, y)
         if handled != false
           logdebug("Event #{event_sym} handled")
@@ -98,22 +105,22 @@ if $0 == __FILE__
   
   require 'test/gfx/test_dialogbox' 
   
-  class MyPanelContainer < FXDialogBox
+  class SimpleContainerTest < FXDialogBox
     
     def initialize(owner)
-      super(owner, "Panel Tester", DECOR_TITLE|DECOR_BORDER|DECOR_RESIZE|DECOR_CLOSE,
+      super(owner, "Container Tester", DECOR_TITLE|DECOR_BORDER|DECOR_RESIZE|DECOR_CLOSE,
           0, 0, 300, 300, 0, 0, 0, 0, 4, 4)
-      @log = Log4r::Logger.new("coregame_log::MyPanelContainer")
-      @log.debug "MyButtonContainer initialized"
-      @panel = InvPanel.new(self, owner.main_app)
-      @panel.verbose = true
+      @log = Log4r::Logger.new("coregame_log::SimpleContainerTest")
+      @log.debug "Initialized"
+      @container = InvContainer.new(self, owner.main_app)
+      @container.verbose = true
       button = InvButton.new(20, 20, 100, 50)
       button.set_content("Play!")
       button.verbose = true
-      button.connect(:click) {
-        |x,y| puts "Click is here!!!!"
+      button.connect(:EV_click) {
+        |sender| puts "Click is here!!!!"
       }
-      @panel.add(button)
+      @container.add(button)
     end
     
     def run
@@ -123,6 +130,6 @@ if $0 == __FILE__
   end
   
   
-  TestRunnerDialogBox.create_app(MyPanelContainer)
+  TestRunnerDialogBox.create_app(SimpleContainerTest)
   
 end

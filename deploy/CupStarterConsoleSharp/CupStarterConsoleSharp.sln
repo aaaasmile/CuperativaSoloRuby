@@ -238,8 +238,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inv_controls", "inv_controls", "{E97A3BB8-5E08-446B-A59A-7B5623265948}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\src\inv_controls\inv_button.rb = ..\..\src\inv_controls\inv_button.rb
+		..\..\src\inv_controls\inv_container.rb = ..\..\src\inv_controls\inv_container.rb
 		..\..\src\inv_controls\inv_label.rb = ..\..\src\inv_controls\inv_label.rb
-		..\..\src\inv_controls\inv_panel.rb = ..\..\src\inv_controls\inv_panel.rb
 		..\..\src\inv_controls\inv_theme.rb = ..\..\src\inv_controls\inv_theme.rb
 		..\..\src\inv_controls\inv_widget.rb = ..\..\src\inv_controls\inv_widget.rb
 	EndProjectSection

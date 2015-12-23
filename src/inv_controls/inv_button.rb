@@ -6,13 +6,15 @@ require 'inv_label'
 class InvButton < InvWidget
   
   def initialize(x=0, y=0, w=0, h=0, zord=0, visb=true, rot=false)
-    super(x,y,w,h,zord,visb,rot)
+    super(x,y,w,h,zord,visb,rot,"InvButton")
     
     @min_width = 70
     @min_height = 30
     check_min_height
     check_min_width
     map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
+    map_container_callbacks(:CB_LMouseUp, method(:onLMouseUp))
+    @state_bt = :normal
   end
   
   def set_content(cont)
@@ -51,7 +53,15 @@ private
   
   def onLMouseDown(x,y)
     logdebug("Button handle mouse down event: x #{x}, y #{y}")
-    return true
+    @state_bt = :pressed
+  end
+  
+  def onLMouseUp(x,y)
+    logdebug("Button handle mouse up event: x #{x}, y #{y}")
+    if @state_bt == :pressed and point_is_inside?(x,y)
+      fire_event(:EV_click, self)
+    end
+    @state_bt = :normal
   end
   
 end
