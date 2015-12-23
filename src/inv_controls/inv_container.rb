@@ -175,6 +175,14 @@ if $0 == __FILE__
         |sender| puts "Click STOOOOP is here!"
       }
       @container.add(button2)
+      
+      button3 = InvButton.new(20, 170, 100, 50)
+      button3.set_content(owner.icons_app[:ok])
+      button3.verbose = true
+      button3.connect(:EV_click) {
+        |sender| puts "Click OOOK is here!"
+      }
+      @container.add(button3)
     end
     
     def run

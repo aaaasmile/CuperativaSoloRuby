@@ -123,6 +123,9 @@ class TestRunnerDialogBox < FXMainWindow
   ##
   # Create
   def create
+    @icons_app.each do |k,v|
+      v.create
+    end
     position(@pos_start_x, @pos_start_y, @pos_ww, @pos_hh)
     super
     show(PLACEMENT_SCREEN)

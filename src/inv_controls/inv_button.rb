@@ -2,6 +2,7 @@
 
 require 'inv_widget'
 require 'inv_label'
+require 'inv_image'
 
 class InvButton < InvWidget
   
@@ -21,6 +22,9 @@ class InvButton < InvWidget
     if cont.kind_of?(String)
       @content = InvLabel.new
       @content.set_text(cont, :medium)
+    elsif cont.kind_of?(FXPNGIcon)
+      @content = InvImage.new
+      @content.set_icon(cont)
     end
   end
     
@@ -43,7 +47,11 @@ class InvButton < InvWidget
     
     @content.pos_x = @pos_x + (@width - width_content) / 2
     @content.pos_y = @pos_y + (@height - height_content) / 2
-    @content.draw(dc, theme)
+    if @state_bt == :pressed and @content.respond_to?(:draw_sunken) 
+      @content.draw_sunken(dc)
+    else
+      @content.draw(dc, theme)
+    end
   end
   
 private
