@@ -325,17 +325,6 @@ class MariazzaGfx < BriscolaGfx
     @app_owner.update_dsp
   end
   
-  ###
-  ## Overwrite background
-  #def on_draw_backgrounfinished(dc)
-    #dc.foreground = @color_back_table
-    #dc.fillRectangle(0, 0, @curr_canvas_info[:width], @curr_canvas_info[:height])
-  #end
-  
-  #def evgfx_click_on_card(card)
-     #@core_game.alg_player_cardplayed(@player_on_gui[:player], '_Ab') 
-  #end
-  
 end
  
 
