@@ -47,13 +47,7 @@ class CupCrashReporter < FXMainWindow
     email_bt.iconPosition = (email_bt.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     email_bt.connect(SEL_COMMAND, method(:go_email)) 
     
-    
-     # forum
-    forum_bt = FXButton.new(toolbar, "Forum", @icons_app[:forum], self, 0,
-              LAYOUT_LEFT | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
-    forum_bt.iconPosition = (forum_bt.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
-    
-    forum_bt.connect(SEL_COMMAND, method(:go_forum))
+   
     #copy clipboard
     copy_bt = FXButton.new(toolbar, "Copia testo errore", nil, self, 0,
               LAYOUT_LEFT | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
@@ -129,11 +123,6 @@ class CupCrashReporter < FXMainWindow
     prepare_soggetto
     url = "mailto:6colpiunbucosolo@gmx.net?body=#{@body}&subject=#{@soggetto}"
     goto_generic_url(url)
-  end
-  
-   def go_forum(sender, sel, ptr)
-    # using forum on briscola rubyforge
-    goto_generic_url("http://cuperativa.invido.it/forums/2")
   end
   
   ##

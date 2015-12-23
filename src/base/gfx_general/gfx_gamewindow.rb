@@ -95,8 +95,6 @@ class CupSingleGameWin < FXMainWindow
     @logText.backColor = Fox.FXRGB(231, 255, 231)
     
     
-   
-    
     # start commands
     start_btframe = FXVerticalFrame.new(ctrlframe, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
     # start game button

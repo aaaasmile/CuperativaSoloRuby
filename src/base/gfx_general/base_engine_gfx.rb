@@ -24,7 +24,7 @@ class BaseEngineGfx
   # wnd: windows owner
   def initialize(wnd)
     @app_owner = wnd
-    @resource_path = @app_owner.get_resource_path
+    @resource_path = CuperativaGui.get_resource_path
     @color_backround = Fox.FXRGB(255, 255, 255) #dummy color
     # deck information
     @deck_information = GamesDeckInfo.new

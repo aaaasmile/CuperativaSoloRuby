@@ -403,7 +403,7 @@ class CuperativaGui < FXMainWindow
   def loadIcon(filename)
     begin
       #dirname = File.join(File.dirname(__FILE__), "/../res/icons")
-      dirname = File.join(get_resource_path, "icons")
+      dirname = File.join(CuperativaGui.get_resource_path, "icons")
       filename = File.join(dirname, filename)
       icon = nil
       File.open(filename, "rb") { |f|
@@ -697,7 +697,7 @@ class CuperativaGui < FXMainWindow
   end
    
   # Provides the resource path
-  def get_resource_path
+  def self.get_resource_path
     res_path = File.dirname(__FILE__) + "/../res"
     return File.expand_path(res_path)
   end
