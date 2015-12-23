@@ -351,7 +351,6 @@ class CuperativaGui < FXMainWindow
   def create_new_singlegame_window(game_network_type)
     game_info = @supported_game_map[@last_selected_gametype]
     options = {:game_network_type => game_network_type, :app_options => @app_settings,
-        :model_data => @model_net_data,
         :game_type => @last_selected_gametype,
         :owner => self, :comment => game_info[:desc], 
         :num_of_players => game_info[:num_of_players],

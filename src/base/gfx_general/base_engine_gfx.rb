@@ -73,8 +73,6 @@ class BaseEngineGfx
     @cards_scaled = {}
     # scaled card info. expect something like {:lblname => {:w => width, :h => height}}
     @cards_scaled_info = {}
-    # model network data
-    @model_net_data = @app_owner.model_net_data
     # information about canvas
     @model_canvas_gfx = ModelCanvasGfx.new
     # sound manager
@@ -82,9 +80,7 @@ class BaseEngineGfx
   end
   
   def game_end_stuff
-    if @model_net_data != nil
-      @model_net_data.event_cupe_raised(:ev_gfxgame_end)
-    end
+    
   end
   
   ##

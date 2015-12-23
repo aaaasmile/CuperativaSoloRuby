@@ -11,7 +11,7 @@ require 'modal_msg_box'
 include Fox
 
 class CupSingleGameWin < FXMainWindow 
-  attr_reader :model_net_data, :current_game_gfx, :icons_app, :sound_manager, :cup_gui
+  attr_reader :current_game_gfx, :icons_app, :sound_manager, :cup_gui
   
   
   include ModalMessageBox
@@ -259,11 +259,6 @@ class CupSingleGameWin < FXMainWindow
     end 
   end
  
-  # Provides the resource path
-  def get_resource_path
-    return @cup_gui.get_resource_path
-  end
-  
   ##
   # Update the game canvas display
   def update_dsp
@@ -398,15 +393,14 @@ class CupSingleGameWin < FXMainWindow
     if @state_model == :state_on_localgame
       if modal_yesnoquestion_box("Termina partita?", "Partita in corso, vuoi davvero abbandonarla?")
         @log.debug "Utente termina la partita"
-        before_close_and_close()
+        do_close()
       end
     else
-      before_close_and_close()
+      do_close()
     end
   end
  
-  
-  def before_close_and_close()
+  def do_close()
     begin
       store_settings 
       @current_game_gfx.game_end_stuff
@@ -416,7 +410,7 @@ class CupSingleGameWin < FXMainWindow
       @sound_manager.stop_sound(:play_mescola)
       close
     rescue 
-      error_msg = "Error on closing. Please fix the before_close_and_close routine."
+      error_msg = "Error on closing. Please fix the do_close routine."
       @log.error error_msg 
       close
     end
