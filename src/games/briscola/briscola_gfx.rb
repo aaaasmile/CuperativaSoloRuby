@@ -376,7 +376,7 @@ class BriscolaGfx < BaseEngineGfx
     @composite_graph.add_component(:cards_players, @cards_players)
     
     # message box
-    @msg_box_info = MsgBoxComponent.new(@app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
+    @msg_box_info = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
     if @option_gfx[:autoplayer_gfx]
       @msg_box_info.autoremove = true
     end 
