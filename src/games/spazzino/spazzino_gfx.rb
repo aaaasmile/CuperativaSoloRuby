@@ -523,7 +523,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     
     # composite object
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
     
     # card players
     @cards_players = CardsPlayersGraph.new(@app_owner, self, @core_game.num_of_cards_onhandplayer)

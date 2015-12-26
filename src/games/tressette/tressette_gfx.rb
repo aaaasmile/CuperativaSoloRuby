@@ -339,7 +339,7 @@ class TressetteGfx < BaseEngineGfx
     load_specific_resource()
     
     # composite object
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
     
     # cards on table played
     @table_cards_played = TablePlayedCardsGraph.new(@app_owner, self, players.size)
@@ -407,7 +407,7 @@ class TressetteGfx < BaseEngineGfx
     build_gui_player_onnewgame(players)
     build_controls_onnewgame(players)
     
-     @labels_graph.build()
+    @labels_graph.build()
     
     @msg_box_info.build(nil)
     

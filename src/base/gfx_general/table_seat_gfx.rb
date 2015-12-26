@@ -54,7 +54,7 @@ class TableSeatGfx
     
     @color_text_label = Fox.FXRGB(0, 0, 0)
     
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
     @labels_graph = LabelsGxc.new(@app_owner, self, @color_text_label, @font_text_curr[:big], @font_text_curr[:small])
     @composite_graph.add_component(:labels_graph, @labels_graph)
 

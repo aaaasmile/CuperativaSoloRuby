@@ -26,10 +26,10 @@ require 'turnplayer_gfcx'
 # Collect  graphical component
 class GraphicalComposite
   
-  def initialize(gui)
+  def initialize(game_gfx)
     @list_gfx_component = {}
     @sorted_list = []
-    @cupera_gui = gui
+    @gfx = game_gfx
     @component_on_front = nil
     @log = Log4r::Logger["coregame_log"] 
   end
@@ -41,7 +41,7 @@ class GraphicalComposite
       ele_clickable = true
       break if bres
     end
-    @cupera_gui.update_dsp if ele_clickable
+    @gfx.update_dsp if ele_clickable
   end
    
   def get_component(sym_name)
