@@ -236,7 +236,7 @@ class CardsPlayersGraph < ComponentBase
   
   # Le funzioni build_with_info e resize_with_info sono una miglioria alle build e resize
   # Queste nuove usano l'hash info_tag per ancorare la posizione ad un elemento
-  # già creato. Così si ottiene un posizionamento relativo senza avere numeri
+  # giï¿½ creato. Cosï¿½ si ottiene un posizionamento relativo senza avere numeri
   # magici in questo file e assunzioni che possono variare da gioco a gioco
   
   def build_with_info(player_name, img_coperto_sym, are_clickable, info_tag)
@@ -569,7 +569,7 @@ class CardsPlayersGraph < ComponentBase
       @app_owner.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
     end
     # refresh the display
-    @app_owner.update_dsp 
+    @gfx_res.update_dsp 
   end #end onTimeoutAniDistrCards1
   
   def is_animation_terminated?

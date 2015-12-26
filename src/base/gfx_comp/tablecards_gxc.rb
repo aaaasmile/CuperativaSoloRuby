@@ -658,7 +658,7 @@ class TablePlayedCardsGraph < ComponentBase
     end
     
     # refresh the display
-    @cupera_gui.update_dsp
+    @gfx_res.update_dsp
   end
   
   ##
@@ -696,7 +696,7 @@ class TablePlayedCardsGraph < ComponentBase
       @cupera_gui.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
     end
     # refresh the display
-    @cupera_gui.update_dsp
+    @gfx_res.update_dsp
   end
 
 
