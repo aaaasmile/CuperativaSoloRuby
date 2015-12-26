@@ -1,4 +1,4 @@
-#file: gfx_gamewindow.rb
+#file: cup_single_game_win.rb
 
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'

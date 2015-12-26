@@ -376,7 +376,7 @@ class CardsPlayersGraph < ComponentBase
   def on_mouse_lclick(x,y)
     #p "cards_players on_mouse_lclick"
     bres = false
-    @widget_list_clickable.sort! {|x,y| y.z_order <=> x.z_order}
+    @widget_list_clickable.sort! {|x1,y1| y1.z_order <=> x1.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
         #p item
