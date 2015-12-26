@@ -80,6 +80,9 @@ class BaseEngineGfx < InvWidget
     @model_canvas_gfx = ModelCanvasGfx.new
     # sound manager
     @sound_manager = @app_owner.sound_manager
+    #mouse events from container
+    #map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
+    #map_container_callbacks(:CB_LMouseUp, method(:onLMouseUp))
   end
   
   def game_end_stuff
@@ -288,10 +291,7 @@ class BaseEngineGfx < InvWidget
     @log.error "create_wait_for_play_screen: not implemented\n"
   end
   
-  ##
-  # Left mouse button event up
-  # Event handler used to recognize click on card
-  def onLMouseUp(event)
+  def onLMouseUp(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|
@@ -304,15 +304,12 @@ class BaseEngineGfx < InvWidget
     update_dsp if ele_clickable
   end
   
-  ##
-  # Left mouse button event down
-  # Event handler used to recognize click on card
-  def onLMouseDown(event)
+  def onLMouseDown(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x, y)
         ele_clickable = true
         break if bres
       end

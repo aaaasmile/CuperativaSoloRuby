@@ -83,7 +83,7 @@ class TableSeatGfx
     @app_owner.update_dsp if ele_clickable
   end
   
-  def onLMouseUp(event)
+  def onLMouseUp(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|

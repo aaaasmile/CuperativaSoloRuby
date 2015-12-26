@@ -74,6 +74,16 @@ private
       @image_double_buff = FXImage.new(@fxapp, nil, 
              IMAGE_SHMI|IMAGE_SHMP, @imgDbuffWidth, @imgDbuffHeight)
       @image_double_buff.create
+      begin
+        @widgets.each do |item|
+          if item.respond_to?(:onSizeChange)
+            item.onSizeChange(@imgDbuffWidth, @imgDbuffHeight )
+          end
+        end  
+      rescue => detail
+        @log.error "onSizeChange error (#{$!})"
+        @log.error detail.backtrace.join("\n")
+      end
     end
   end
   
