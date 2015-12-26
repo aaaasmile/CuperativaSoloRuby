@@ -34,10 +34,10 @@ class GraphicalComposite
     @log = Log4r::Logger["coregame_log"] 
   end
   
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     ele_clickable = false
     @sorted_list.reverse.each do |component|
-      bres = component.on_mouse_lclick(event)
+      bres = component.on_mouse_lclick(x,y)
       ele_clickable = true
       break if bres
     end

@@ -70,12 +70,12 @@ class TableSeatGfx
     end
   end
   
-  def onLMouseDown(event)
+  def onLMouseDown(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         ele_clickable = true
         break if bres
       end

@@ -373,14 +373,14 @@ class CardsPlayersGraph < ComponentBase
   
   ##
   # Handle the left mouse click
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     #p "cards_players on_mouse_lclick"
     bres = false
     @widget_list_clickable.sort! {|x,y| y.z_order <=> x.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
         #p item
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         ele_clickable = true
         break if bres
       end

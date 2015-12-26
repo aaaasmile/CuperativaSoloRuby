@@ -28,11 +28,11 @@ class MsgBoxComponent < ComponentBase
     @msg_box_info.creator = self 
   end
   
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     #@log.debug "messagebox click..."
     return false unless @msg_box_info
     return false unless @msg_box_info.visible
-    bres = @msg_box_info.on_mouse_lclick(event.win_x, event.win_y)
+    bres = @msg_box_info.on_mouse_lclick(x, y)
     return bres 
   end
   

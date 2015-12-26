@@ -227,8 +227,8 @@ class TressetteGfx < BaseEngineGfx
   
   ##
   # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(event)
-    @composite_graph.on_mouse_lclick(event) if @composite_graph
+  def onLMouseDown(x,y)
+    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
   end
   
   ##

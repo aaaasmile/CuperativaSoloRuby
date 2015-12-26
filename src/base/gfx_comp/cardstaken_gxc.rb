@@ -232,11 +232,11 @@ class CardsTakenGraph < ComponentBase
     end
   end
   
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     bres = false
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         ele_clickable = true
         break if bres
       end
