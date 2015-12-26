@@ -54,8 +54,6 @@ class BaseEngineGfx < InvWidget
     @labels_to_disp = {}
     # logger for debug
     @log = Log4r::Logger.new("coregame_log::BaseEngineGfx") 
-    # widget list receiving clicks
-    @widget_list_clickable = []
     # nal client gfx class name
     @nal_client_gfx_name = 'NalClientGfx'
     # rotated deck also
@@ -82,7 +80,6 @@ class BaseEngineGfx < InvWidget
     @sound_manager = @app_owner.sound_manager
     #mouse events from container
     map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
-    map_container_callbacks(:CB_LMouseUp, method(:onLMouseUp))
   end
   
   def game_end_stuff
@@ -291,30 +288,8 @@ class BaseEngineGfx < InvWidget
     @log.error "create_wait_for_play_screen: not implemented\n"
   end
   
-  def onLMouseUp(x,y)
-    ele_clickable = false
-    @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
-    @widget_list_clickable.each do |item|
-      if item.visible
-        bres = item.on_mouse_lclick_up
-        ele_clickable = true
-        break if bres
-      end
-    end
-    update_dsp if ele_clickable
-  end
-  
   def onLMouseDown(x,y)
-    ele_clickable = false
-    @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
-    @widget_list_clickable.each do |item|
-      if item.visible
-        bres = item.on_mouse_lclick(x, y)
-        ele_clickable = true
-        break if bres
-      end
-    end
-    update_dsp if ele_clickable
+    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
   end
   
   ##

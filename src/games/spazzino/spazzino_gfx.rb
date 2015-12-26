@@ -365,12 +365,7 @@ class SpazzinoGfx < BaseEngineGfx
     @app_owner.update_dsp
   end
   
-   ##
-  # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(x,y)
-    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
-  end
-  
+ 
   ##
   # User have to choose wich card want take. Go in state multiple choice active
   def multiplechoice_activate(card, list_options)

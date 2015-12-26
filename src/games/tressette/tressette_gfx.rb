@@ -223,14 +223,7 @@ class TressetteGfx < BaseEngineGfx
     @turn_marker.set_all_marker_invisible
     @core_game.continue_process_events if @core_game
   end
-  
-  
-  ##
-  # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(x,y)
-    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
-  end
-  
+   
   ##
   # Shows a splash screen
   def create_wait_for_play_screen

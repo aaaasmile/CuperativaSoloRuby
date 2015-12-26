@@ -326,12 +326,6 @@ class BriscolaGfx < BaseEngineGfx
       @log.warn("player_ready_to_start(GFX) don't have recognized player: #{user_name}")
     end
   end
-  
-  ##
-  # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(x,y)
-    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
-  end
  
   ##
   # Briscola is started. Notification from base class that gui want to start
