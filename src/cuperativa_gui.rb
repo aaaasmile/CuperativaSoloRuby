@@ -17,7 +17,7 @@ require 'base/options/cuperat_options_dlg'
 require 'base/gfx_general/listgames_dlg'
 require 'base/gfx_general/about_dlg'
 require 'base/core/gameavail_hlp'
-require 'base/gfx_general/gfx_gamewindow'
+require 'base/gfx_general/cup_single_game_win'
 require 'base/gfx_general/modal_msg_box'
 require 'base/core/sound_manager'
 
