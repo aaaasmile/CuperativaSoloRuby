@@ -82,7 +82,7 @@ class BaseEngineGfx < InvWidget
     @sound_manager = @app_owner.sound_manager
     #mouse events from container
     map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
-    #map_container_callbacks(:CB_LMouseUp, method(:onLMouseUp))
+    map_container_callbacks(:CB_LMouseUp, method(:onLMouseUp))
   end
   
   def game_end_stuff

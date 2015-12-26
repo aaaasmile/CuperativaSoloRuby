@@ -331,8 +331,6 @@ class BriscolaGfx < BaseEngineGfx
   # Overrride method because we want to use @composite_graph mouse handler
   def onLMouseDown(x,y)
     @composite_graph.on_mouse_lclick(x,y) if @composite_graph
-    p "mouse down in briscola"
-    return false
   end
  
   ##

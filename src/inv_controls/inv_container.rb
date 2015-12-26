@@ -130,10 +130,11 @@ private
   end
   
   def onLMouseDown(sender, sel, event)
+    event_sym = :CB_LMouseDown
+    ws = @widgets.sort{|x1,y1| x1.z_order <=> y1.z_order}
     x = event.win_x
     y = event.win_y
-    event_sym = :CB_LMouseDown 
-    @widgets.each do |item|
+    ws.each do |item|
       if item.visible and item.point_is_inside?(x,y) and item.has_handler?(event_sym)
         handled = item.handle_callback(event_sym, x, y)
         if handled != false
