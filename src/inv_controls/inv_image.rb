@@ -23,7 +23,7 @@ class InvImage < InvWidget
     return @height
   end
   
-  def draw(dc, theme)
+  def draw(dc, theme, width_cont, height_cont)
     if @image_type == :icon
       dc.drawIcon(@image, @pos_x, @pos_y)
     else

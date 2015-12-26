@@ -1,5 +1,6 @@
 # file: inv_container.rb
 
+$:.unshift File.dirname(__FILE__)
 require 'inv_theme'
 require 'inv_button'
 
@@ -21,7 +22,9 @@ class InvContainer
     @imgDbuffWidth = 0
     @image_double_buff = nil
     @theme = theme
-    @theme = InvTheme.create_default(fxapp) if theme == nil
+    if theme == nil
+      @theme = InvTheme.create_default(fxapp)
+    end 
     @widgets = []
     @updates_req = []
   end
@@ -35,6 +38,14 @@ class InvContainer
     }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
+  end
+  
+  def height
+    return @canvas_disp.height
+  end
+  
+  def width
+    return @canvas_disp.width
   end
   
 private   
@@ -68,7 +79,7 @@ private
     dc = FXDCWindow.new(@image_double_buff)
     @widgets.each do |item|
       if item.is_rect_inside?(x,y,w,h)
-        item.draw(dc, @theme)
+        item.draw(dc, @theme, @image_double_buff.width, @image_double_buff.height)
       end
     end
     dc.end
@@ -93,7 +104,7 @@ private
       dc.foreground = @theme.back_color
       dc.fillRectangle(0, 0, @image_double_buff.width, @image_double_buff.height)
       
-      @widgets.each{|item| item.draw(dc, @theme)}
+      @widgets.each{|item| item.draw(dc, @theme, @image_double_buff.width, @image_double_buff.height)}
       
       dc.end
       dc_canvas = FXDCWindow.new(@canvas_disp, event)

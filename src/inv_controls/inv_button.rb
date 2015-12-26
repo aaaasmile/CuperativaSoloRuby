@@ -28,7 +28,7 @@ class InvButton < InvWidget
     end
   end
     
-  def draw(dc, theme)
+  def draw(dc, theme, width_cont, height_cont)
     return if @content == nil
     logdebug("Draw the button")
     @border_thik = 1
@@ -50,7 +50,7 @@ class InvButton < InvWidget
     if @state_bt == :pressed and @content.respond_to?(:draw_sunken) 
       @content.draw_sunken(dc)
     else
-      @content.draw(dc, theme)
+      @content.draw(dc, theme, width_cont, height_cont)
     end
   end
   
