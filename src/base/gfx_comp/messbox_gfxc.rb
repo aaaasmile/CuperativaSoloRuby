@@ -6,11 +6,12 @@
 class MsgBoxComponent < ComponentBase
   attr_accessor :autoremove, :box_pos_x, :box_pos_y
   
-  def initialize(gui, core, timeout, font)
+  def initialize(game_gfx, gui, core, timeout, font)
     super(15)
     @comp_name = "MsgBoxComponent"
     @msg_box_info = nil
     @cupera_gui = gui
+    @gfx = game_gfx
     @core_game = core
     @timeout_msgbox = timeout
     @font = font
@@ -28,11 +29,11 @@ class MsgBoxComponent < ComponentBase
     @msg_box_info.creator = self 
   end
   
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     #@log.debug "messagebox click..."
     return false unless @msg_box_info
     return false unless @msg_box_info.visible
-    bres = @msg_box_info.on_mouse_lclick(event.win_x, event.win_y)
+    bres = @msg_box_info.on_mouse_lclick(x, y)
     return bres 
   end
   
@@ -83,7 +84,7 @@ class MsgBoxComponent < ComponentBase
       @msg_box_info.blocking = true
       @core_game.suspend_proc_gevents
     end
-    @cupera_gui.update_dsp
+    @gfx.update_dsp
   end
   
   ##
@@ -105,7 +106,7 @@ class MsgBoxComponent < ComponentBase
     if @msg_box_info
       @msg_box_info.set_visible(false)
       # refresh the display
-      @cupera_gui.update_dsp
+      @gfx.update_dsp
     end 
   end
   

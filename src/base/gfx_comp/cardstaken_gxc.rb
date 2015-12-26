@@ -232,11 +232,11 @@ class CardsTakenGraph < ComponentBase
     end
   end
   
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     bres = false
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         ele_clickable = true
         break if bres
       end
@@ -300,7 +300,7 @@ class CardsTakenGraph < ComponentBase
     @taken_card_info_last[:curr_playersym_shown] = player_sym
     @cupera_gui.registerTimeout(@timeout_lastcardshow, :onTimeoutLastCardTakenShow1, self)
     # refresh the display
-    @cupera_gui.update_dsp 
+    @gfx_res.update_dsp 
   end
   
   ##
@@ -311,7 +311,7 @@ class CardsTakenGraph < ComponentBase
     player_sym = @taken_card_info_last[:curr_playersym_shown]
     @player_gfx_info[player_sym][:card_lasttaken_arr].each{|e_gfx| e_gfx.visible = false}
     # refresh the display
-    @cupera_gui.update_dsp 
+    @gfx_res.update_dsp 
   end
   
   ##

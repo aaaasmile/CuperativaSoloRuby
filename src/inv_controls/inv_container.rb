@@ -1,5 +1,6 @@
 # file: inv_container.rb
 
+$:.unshift File.dirname(__FILE__)
 require 'inv_theme'
 require 'inv_button'
 
@@ -21,7 +22,9 @@ class InvContainer
     @imgDbuffWidth = 0
     @image_double_buff = nil
     @theme = theme
-    @theme = InvTheme.create_default(fxapp) if theme == nil
+    if theme == nil
+      @theme = InvTheme.create_default(fxapp)
+    end 
     @widgets = []
     @updates_req = []
   end
@@ -31,10 +34,22 @@ class InvContainer
       @updates_req << {:x => x, :y => y, :w => w ,:h => h, :type => :EV_update_partial}
     }
     widget.connect(:EV_update) {|sender| 
-      @updates_req << {:type => :EV_update}
+      @canvas_disp.update
     }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
+  end
+  
+  def remove(widget)
+    @widgets.delete(widget)
+  end
+  
+  def height
+    return @canvas_disp.height
+  end
+  
+  def width
+    return @canvas_disp.width
   end
   
 private   
@@ -59,6 +74,16 @@ private
       @image_double_buff = FXImage.new(@fxapp, nil, 
              IMAGE_SHMI|IMAGE_SHMP, @imgDbuffWidth, @imgDbuffHeight)
       @image_double_buff.create
+      begin
+        @widgets.each do |item|
+          if item.respond_to?(:onSizeChange)
+            item.onSizeChange(@imgDbuffWidth, @imgDbuffHeight )
+          end
+        end  
+      rescue => detail
+        @log.error "onSizeChange error (#{$!})"
+        @log.error detail.backtrace.join("\n")
+      end
     end
   end
   
@@ -68,7 +93,7 @@ private
     dc = FXDCWindow.new(@image_double_buff)
     @widgets.each do |item|
       if item.is_rect_inside?(x,y,w,h)
-        item.draw(dc, @theme)
+        item.draw(dc, @theme, @image_double_buff.width, @image_double_buff.height)
       end
     end
     dc.end
@@ -93,7 +118,7 @@ private
       dc.foreground = @theme.back_color
       dc.fillRectangle(0, 0, @image_double_buff.width, @image_double_buff.height)
       
-      @widgets.each{|item| item.draw(dc, @theme)}
+      @widgets.each{|item| item.draw(dc, @theme, @image_double_buff.width, @image_double_buff.height)}
       
       dc.end
       dc_canvas = FXDCWindow.new(@canvas_disp, event)
@@ -105,10 +130,11 @@ private
   end
   
   def onLMouseDown(sender, sel, event)
+    event_sym = :CB_LMouseDown
+    ws = @widgets.sort{|x1,y1| x1.z_order <=> y1.z_order}
     x = event.win_x
     y = event.win_y
-    event_sym = :CB_LMouseDown 
-    @widgets.each do |item|
+    ws.each do |item|
       if item.visible and item.point_is_inside?(x,y) and item.has_handler?(event_sym)
         handled = item.handle_callback(event_sym, x, y)
         if handled != false

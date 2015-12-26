@@ -54,7 +54,7 @@ class TableSeatGfx
     
     @color_text_label = Fox.FXRGB(0, 0, 0)
     
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
     @labels_graph = LabelsGxc.new(@app_owner, self, @color_text_label, @font_text_curr[:big], @font_text_curr[:small])
     @composite_graph.add_component(:labels_graph, @labels_graph)
 
@@ -70,12 +70,12 @@ class TableSeatGfx
     end
   end
   
-  def onLMouseDown(event)
+  def onLMouseDown(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         ele_clickable = true
         break if bres
       end
@@ -83,7 +83,7 @@ class TableSeatGfx
     @app_owner.update_dsp if ele_clickable
   end
   
-  def onLMouseUp(event)
+  def onLMouseUp(x,y)
     ele_clickable = false
     @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
     @widget_list_clickable.each do |item|

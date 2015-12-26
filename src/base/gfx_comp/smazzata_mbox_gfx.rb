@@ -251,10 +251,8 @@ class SmazzataInfoMbox < ComponentBase
   
   ##
   # User click with left button
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     return false unless @visible
-    x = event.win_x
-    y = event.win_y
     if @bt_ok.point_is_inside?(x,y)
       @visible = false
       return true

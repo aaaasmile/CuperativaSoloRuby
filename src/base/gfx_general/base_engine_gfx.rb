@@ -2,15 +2,17 @@
 # Generic class for each game grafic engine
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__)+ '/..'
+$:.unshift File.dirname(__FILE__)+ '/../..'
 
 require 'rubygems'
 require 'gfx_comp/graphical_composite'
 require 'core/deck_info'
 require 'yaml'
+require 'inv_controls/inv_widget'
 
 ##
 # Graphic related to a generic card game
-class BaseEngineGfx
+class BaseEngineGfx < InvWidget
   attr_accessor :color_backround, :curr_canvas_info
   attr_reader :nal_client_gfx_name, :model_canvas_gfx
   
@@ -23,6 +25,7 @@ class BaseEngineGfx
   ##
   # wnd: windows owner
   def initialize(wnd)
+    super(0,0, 100, 100, 1000)
     @app_owner = wnd
     @resource_path = CuperativaGui.get_resource_path
     @color_backround = Fox.FXRGB(255, 255, 255) #dummy color
@@ -51,8 +54,6 @@ class BaseEngineGfx
     @labels_to_disp = {}
     # logger for debug
     @log = Log4r::Logger.new("coregame_log::BaseEngineGfx") 
-    # widget list receiving clicks
-    @widget_list_clickable = []
     # nal client gfx class name
     @nal_client_gfx_name = 'NalClientGfx'
     # rotated deck also
@@ -77,6 +78,8 @@ class BaseEngineGfx
     @model_canvas_gfx = ModelCanvasGfx.new
     # sound manager
     @sound_manager = @app_owner.sound_manager
+    #mouse events from container
+    map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
   end
   
   def game_end_stuff
@@ -101,12 +104,12 @@ class BaseEngineGfx
   end
   
   ##
-  # Draw a game static scene
+  # Draw the widget
   # dc: Canvas to draw
+  # theme: current theme
   # width: canvas width
   # height: canvas height
-  def draw_static_scene(dc, width, height)
-    # draw the static scene
+  def draw(dc, theme, width, height)
     meth_handl = @graphic_handler[@state_gfx]
     send(meth_handl, dc, width, height) if meth_handl
   end
@@ -285,39 +288,8 @@ class BaseEngineGfx
     @log.error "create_wait_for_play_screen: not implemented\n"
   end
   
-  ##
-  # Left mouse button event up
-  # Event handler used to recognize click on card
-  def onLMouseUp(event)
-    ele_clickable = false
-    @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
-    @widget_list_clickable.each do |item|
-      if item.visible
-        bres = item.on_mouse_lclick_up
-        ele_clickable = true
-        break if bres
-      end
-    end
-    @app_owner.update_dsp if ele_clickable
-  end
-  
-  def onLMouseMotion(event)
-  end
-
-  ##
-  # Left mouse button event down
-  # Event handler used to recognize click on card
-  def onLMouseDown(event)
-    ele_clickable = false
-    @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
-    @widget_list_clickable.each do |item|
-      if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
-        ele_clickable = true
-        break if bres
-      end
-    end
-    @app_owner.update_dsp if ele_clickable
+  def onLMouseDown(x,y)
+    @composite_graph.on_mouse_lclick(x,y) if @composite_graph
   end
   
   ##
@@ -425,9 +397,8 @@ class BaseEngineGfx
     
     #call custom game implementation on child view
     ntfy_base_gui_start_new_game(players, options)
-     
-    #update the screen
-    @app_owner.update_dsp
+    
+    update_dsp
   end
   
   def log(str)
@@ -485,7 +456,14 @@ class BaseEngineGfx
       @mnu_salva_part.enable if @mnu_salva_part
     end
   end
-    
+  
+  def update_dsp
+    fire_event(:EV_update, self)
+  end
+  
+  def point_is_inside?(x,y)
+    true
+  end
 end 
 
 

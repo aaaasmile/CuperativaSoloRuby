@@ -15,7 +15,7 @@ class ComponentBase
   def draw(dc) end
   def build(player) end
   def resize(player)end
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     return false 
   end
   

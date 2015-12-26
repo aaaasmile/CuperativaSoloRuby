@@ -1,12 +1,15 @@
-#file: gfx_gamewindow.rb
+#file: cup_single_game_win.rb
 
-$:.unshift File.dirname(__FILE__) + '/..'
 $:.unshift File.dirname(__FILE__)
+$:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../../inv_controls'
+
 
 require 'rubygems'
 require 'fox16'
 
 require 'modal_msg_box'
+require 'inv_container'
 
 include Fox
 
@@ -39,83 +42,87 @@ class CupSingleGameWin < FXMainWindow
     @sound_manager = @cup_gui.sound_manager
     
     # canvas painting event
-    @canvast_update_started = false
-    
+    #@canvast_update_started = false
    
-    
     # number of players that play the current game
     @num_of_players = options[:num_of_players]
       
-    @main_vertical = FXVerticalFrame.new(self, 
-                           LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y)
+    #@main_vertical = FXVerticalFrame.new(self, 
+    #                       LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y)
     
     ##### main splitter
     # split up/down
-    @splitter = FXSplitter.new(@main_vertical, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-                       LAYOUT_FILL_Y|SPLITTER_VERTICAL|SPLITTER_TRACKING))
-    center_pan = @splitter
-    @canvas_panel_H = FXHorizontalFrame.new(center_pan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    @canvasFrame = FXVerticalFrame.new(@canvas_panel_H, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_RIGHT)
+    #@splitter = FXSplitter.new(@main_vertical, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
+    #                   LAYOUT_FILL_Y|SPLITTER_VERTICAL|SPLITTER_TRACKING))
+    #center_pan = @splitter
+    #@canvas_panel_H = FXHorizontalFrame.new(center_pan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    #@canvasFrame = FXVerticalFrame.new(@canvas_panel_H, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_RIGHT)
     
     
     # canvas for core_gfx
     ### Label for table name
     ##canvas
-    @canvas_disp = FXCanvas.new(@canvas_panel_H, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
-    @canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
-    @canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
-    @canvas_disp.connect(SEL_CONFIGURE, method(:OnCanvasSizeChange))
-    @canvas_disp.connect(SEL_MOTION, method(:onLMouseMotion))
-    @canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
-    @color_backround = Fox.FXRGB(0x22, 0x8a, 0x4c) #Fox.FXRGB(103, 203, 103) #Fox.FXRGB(50, 170, 10) 
-    @canvas_disp.backColor = @color_backround
+    #@canvas_disp = FXCanvas.new(@canvas_panel_H, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
+    #@canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
+    #@canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
+    #@canvas_disp.connect(SEL_CONFIGURE, method(:OnCanvasSizeChange))
+    #@canvas_disp.connect(SEL_MOTION, method(:onLMouseMotion))
+    #@canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
+    #@color_backround = Fox.FXRGB(0x22, 0x8a, 0x4c) #Fox.FXRGB(103, 203, 103) #Fox.FXRGB(50, 170, 10) 
+    #@canvas_disp.backColor = @color_backround
     setIcon(@cup_gui.icons_app[:cardgame_sm])
     
     # double buffer image for canvas
-    @imgDbuffHeight = 0
-    @imgDbuffWidth = 0
-    @image_double_buff = nil
+    #@imgDbuffHeight = 0
+    #@imgDbuffWidth = 0
+    #@image_double_buff = nil
 
     # *************  BOTTOM part ***************
-    bottom_panel = FXHorizontalFrame.new(@splitter, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    #bottom_panel = FXHorizontalFrame.new(@splitter, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
     
-    @tabbook = FXTabBook.new(bottom_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|TABBOOK_LEFTTABS)
+    #@tabbook = FXTabBook.new(bottom_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|TABBOOK_LEFTTABS)
      # (1)tab - log
-    @tab1 = FXTabItem.new(@tabbook, "Log", nil)
+    #@tab1 = FXTabItem.new(@tabbook, "Log", nil)
     
-    @split_horiz_netw = FXSplitter.new(@tabbook, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-                       LAYOUT_FILL_Y|SPLITTER_HORIZONTAL|SPLITTER_TRACKING))
+    #@split_horiz_netw = FXSplitter.new(@tabbook, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
+    #                   LAYOUT_FILL_Y|SPLITTER_HORIZONTAL|SPLITTER_TRACKING))
     
     #log text control
-    ctrlframe = FXHorizontalFrame.new(@split_horiz_netw, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y)
+    #ctrlframe = FXHorizontalFrame.new(@split_horiz_netw, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y)
     
     
-    @logText = FXText.new(ctrlframe, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    @logText.editable = false
-    @logText.backColor = Fox.FXRGB(231, 255, 231)
+    #@logText = FXText.new(ctrlframe, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
+    #@logText.editable = false
+    #@logText.backColor = Fox.FXRGB(231, 255, 231)
     
     
     # start commands
-    start_btframe = FXVerticalFrame.new(ctrlframe, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    #start_btframe = FXVerticalFrame.new(ctrlframe, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
     # start game button
-    @bt_start_game = FXButton.new(start_btframe, "Inizia", icons_app[:icon_start], nil, 0,
-             LAYOUT_LEFT | FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
-    @bt_start_game.iconPosition = (@bt_start_game.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
+    #@bt_start_game = FXButton.new(start_btframe, "Inizia", icons_app[:icon_start], nil, 0,
+    #         LAYOUT_LEFT | FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
+    #@bt_start_game.iconPosition = (@bt_start_game.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
-    @bt_start_game.connect(SEL_COMMAND) do |sender, sel, ptr|
+    @container = InvContainer.new(self, owner.main_app)
+    #@container.verbose = true
+    bt_start_game = InvButton.new(10, 10, 100, 50, 0)
+    bt_start_game.set_content(owner.icons_app[:icon_start])
+    bt_start_game.connect(:EV_click) do |sender|
+      @container.remove(bt_start_game)
       players = create_players
       start_new_game(players, @app_settings)
     end
+    @container.add(bt_start_game)
     
-    @tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
+    #@tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
     
     
     self.connect(SEL_CLOSE, method(:on_close_win))
     
-    set_splitterpos_initial(@win_width, @win_height)
-    if @app_settings_gametype
-      @splitter.setSplit(0,@app_settings_gametype[:splitter]) if @app_settings_gametype[:splitter]
-    end   
+    #set_splitterpos_initial(@win_width, @win_height)
+    #if @app_settings_gametype
+    #  @splitter.setSplit(0,@app_settings_gametype[:splitter]) if @app_settings_gametype[:splitter]
+    #end   
     create_game_gfx(options)
     
     ## idle routine
@@ -148,8 +155,6 @@ class CupSingleGameWin < FXMainWindow
     super
     # players on the table
     set_players_ontable
-    @current_game_gfx.set_canvas_frame(@canvasFrame) if @current_game_gfx
-    @split_horiz_netw.setSplit(0, 400)
     
     show(PLACEMENT_SCREEN)
   end
@@ -245,7 +250,6 @@ class CupSingleGameWin < FXMainWindow
     return 1
   end
   
-  
   def start_new_game(palyers, app_settings)
     @app_settings = app_settings
     @current_game_gfx.start_new_game(palyers, @app_settings)
@@ -254,17 +258,12 @@ class CupSingleGameWin < FXMainWindow
   def create_game_gfx(options)
     if options[:gfx_enginename] != nil
       @current_game_gfx =  eval(options[:gfx_enginename]).new(self)
-      @current_game_gfx.model_canvas_gfx.info[:canvas] = {:height => @canvas_disp.height, :width => @canvas_disp.width, :pos_x => 0, :pos_y => 0 }
+      @container.add(@current_game_gfx)
+      @current_game_gfx.model_canvas_gfx.info[:canvas] = {:height => @container.height, :width => @container.width, :pos_x => 0, :pos_y => 0 }
       @current_game_gfx.create_wait_for_play_screen
     end 
   end
  
-  ##
-  # Update the game canvas display
-  def update_dsp
-    @canvas_disp.update
-  end
-  
   def set_splitterpos_initial(ww, hh )
     posy = hh - hh/3 + 3
     @splitter.setSplit(0, posy)
@@ -378,7 +377,6 @@ class CupSingleGameWin < FXMainWindow
     if @app_settings_gametype
       @app_settings_gametype[:ww_mainwin] = self.width
       @app_settings_gametype[:hh_mainwin] = self.height
-      @app_settings_gametype[:splitter] = @splitter.getSplit(0)
     end
     @app_settings["players"] = []
     @players_on_table.each_index do |ix|
@@ -409,9 +407,11 @@ class CupSingleGameWin < FXMainWindow
       
       @sound_manager.stop_sound(:play_mescola)
       close
-    rescue 
+    rescue => detail
       error_msg = "Error on closing. Please fix the do_close routine."
-      @log.error error_msg 
+      @log.error error_msg
+      @log.error "do_close error (#{$!})"
+      @log.error detail.backtrace.join("\n")
       close
     end
   end

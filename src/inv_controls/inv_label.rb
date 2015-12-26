@@ -25,7 +25,7 @@ class InvLabel < InvWidget
     return @height
   end
   
-  def draw(dc, theme)
+  def draw(dc, theme, width_cont, height_cont)
     @font = theme.fonts_text[@font_size_class]
     @text_col = theme.fore_color
     @pos_y = @pos_y + @height * 3 / 4 # draw text start near to the bottom

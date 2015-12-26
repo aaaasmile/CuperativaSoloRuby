@@ -398,13 +398,13 @@ class TablePlayedCardsGraph < ComponentBase
   
   ##
   # Handle the left mouse click
-  def on_mouse_lclick(event)
+  def on_mouse_lclick(x,y)
     #p "cards_players on_mouse_lclick"
     bres = false
-    @widget_list_clickable.sort! {|x,y| x.z_order <=> y.z_order}
+    @widget_list_clickable.sort! {|x1,y1| x1.z_order <=> y1.z_order}
     @widget_list_clickable.each do |item|
       if item.visible
-        bres = item.on_mouse_lclick(event.win_x, event.win_y)
+        bres = item.on_mouse_lclick(x,y)
         break if bres
       end
     end
@@ -658,7 +658,7 @@ class TablePlayedCardsGraph < ComponentBase
     end
     
     # refresh the display
-    @cupera_gui.update_dsp
+    @gfx_res.update_dsp
   end
   
   ##
@@ -696,7 +696,7 @@ class TablePlayedCardsGraph < ComponentBase
       @cupera_gui.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
     end
     # refresh the display
-    @cupera_gui.update_dsp
+    @gfx_res.update_dsp
   end
 
 

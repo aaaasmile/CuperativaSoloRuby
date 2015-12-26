@@ -205,8 +205,6 @@ class ScopettaGfx < SpazzinoGfx
     @msgbox_smazzataend.name_p2 = names_arr[1]
     
     @msgbox_smazzataend.set_visible(true)
-    #@widget_list_clickable << @msgbox_smazzataend
-    #@msgbox_smazzataend.creator = self 
   end
   
 end #end ScopettaGfx

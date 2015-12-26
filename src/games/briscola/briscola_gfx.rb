@@ -125,7 +125,7 @@ class BriscolaGfx < BaseEngineGfx
       img.create
       @splash_image = img    
     end
-    @app_owner.update_dsp
+    update_dsp
   end 
   
  
@@ -258,7 +258,7 @@ class BriscolaGfx < BaseEngineGfx
       card.blit_reverse = true
       @card_reversed_gfx = card
       @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
-      @app_owner.update_dsp
+      update_dsp
     end    
   end #end click_on_card
   
@@ -283,7 +283,7 @@ class BriscolaGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
     
-    @app_owner.update_dsp
+    update_dsp
     #@core_game.suspend_if_noyet_suspendet
   end
   
@@ -293,7 +293,7 @@ class BriscolaGfx < BaseEngineGfx
     if @state_gfx == :on_game and @card_reversed_gfx
       @card_reversed_gfx.blit_reverse = false
       @card_reversed_gfx = nil
-      @app_owner.update_dsp
+      update_dsp
     end
   end
   
@@ -306,7 +306,7 @@ class BriscolaGfx < BaseEngineGfx
     lbl_gfx = @labels_to_disp[lbl_displ_pl]
     if lbl_gfx
       lbl_gfx.text = "(Posto vuoto)"
-      @app_owner.update_dsp
+      update_dsp
     else
       @log.warn("player_leave(GFX) don't have recognized player: #{user_name}")
     end
@@ -325,12 +325,6 @@ class BriscolaGfx < BaseEngineGfx
     else
       @log.warn("player_ready_to_start(GFX) don't have recognized player: #{user_name}")
     end
-  end
-  
-  ##
-  # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(event)
-    @composite_graph.on_mouse_lclick(event) if @composite_graph
   end
  
   ##
@@ -368,7 +362,7 @@ class BriscolaGfx < BaseEngineGfx
     load_specific_resource
     
     # composite object
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
    
      # cards on table played
     @table_cards_played = TablePlayedCardsGraph.new(@app_owner, self, players.size)
@@ -382,7 +376,7 @@ class BriscolaGfx < BaseEngineGfx
     @composite_graph.add_component(:cards_players, @cards_players)
     
     # message box
-    @msg_box_info = MsgBoxComponent.new(@app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
+    @msg_box_info = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
     if @option_gfx[:autoplayer_gfx]
       @msg_box_info.autoremove = true
     end 
@@ -700,9 +694,7 @@ class BriscolaGfx < BaseEngineGfx
       if @mano_end_player_taker
         @table_cards_played.all_card_played_tocardtaken2(@mano_end_player_taker) 
       end
-    
-      # refresh the display
-      @app_owner.update_dsp
+      update_dsp
     end
   end
   
@@ -794,8 +786,7 @@ class BriscolaGfx < BaseEngineGfx
     # suspend core event process untill animation_cards_distr_end is called
     @core_game.suspend_proc_gevents
       
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def build_deck_on_newgiocata
@@ -892,9 +883,7 @@ class BriscolaGfx < BaseEngineGfx
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_pesca_carta(carte_player)
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -918,9 +907,7 @@ class BriscolaGfx < BaseEngineGfx
     end
     
     show_smazzata_end(best_pl_points )
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # continue the game
     @core_game.gui_new_segno
@@ -1019,9 +1006,7 @@ class BriscolaGfx < BaseEngineGfx
       # suspend core event process untill timeout
       @core_game.suspend_proc_gevents
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -1083,14 +1068,7 @@ class BriscolaGfx < BaseEngineGfx
     
     # update index of mano
     @player_on_gui[:mano_ix] += 1
-    
-    # Does alg_auto_player missed???????
-    #if @option_gfx[:autoplayer_gfx]
-    #  @alg_auto_player.onalg_player_has_played(player, arr_lbl_card)
-    #end
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # suspend core processes
     @core_game.suspend_proc_gevents

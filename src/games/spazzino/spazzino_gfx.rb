@@ -365,12 +365,7 @@ class SpazzinoGfx < BaseEngineGfx
     @app_owner.update_dsp
   end
   
-   ##
-  # Overrride method because we want to use @composite_graph mouse handler
-  def onLMouseDown(event)
-    @composite_graph.on_mouse_lclick(event) if @composite_graph
-  end
-  
+ 
   ##
   # User have to choose wich card want take. Go in state multiple choice active
   def multiplechoice_activate(card, list_options)
@@ -528,7 +523,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     
     # composite object
-    @composite_graph = GraphicalComposite.new(@app_owner)
+    @composite_graph = GraphicalComposite.new(self)
     
     # card players
     @cards_players = CardsPlayersGraph.new(@app_owner, self, @core_game.num_of_cards_onhandplayer)
@@ -539,7 +534,7 @@ class SpazzinoGfx < BaseEngineGfx
     @composite_graph.add_component(:cards_players, @cards_players)
     
     # message box
-    @msg_box_info = MsgBoxComponent.new(@app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
+    @msg_box_info = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
     if @option_gfx[:autoplayer_gfx]
       @msg_box_info.autoremove = true
     end

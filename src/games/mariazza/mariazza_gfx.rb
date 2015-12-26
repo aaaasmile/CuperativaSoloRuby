@@ -95,7 +95,7 @@ class MariazzaGfx < BriscolaGfx
   # Add more components to be displayed
   def add_components_tocompositegraph
     # smazzata end
-    @msgbox_smazzataend = MsgBoxComponent.new(@app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
+    @msgbox_smazzataend = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
     if @option_gfx[:autoplayer_gfx]
       @msgbox_smazzataend.autoremove = true
     end
@@ -201,7 +201,7 @@ class MariazzaGfx < BriscolaGfx
     end
     
     # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -266,7 +266,7 @@ class MariazzaGfx < BriscolaGfx
     @deck_main.set_briscola(card_on_hand)
     
     # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -301,7 +301,7 @@ class MariazzaGfx < BriscolaGfx
     end
     
     # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -322,7 +322,7 @@ class MariazzaGfx < BriscolaGfx
     end
     
     # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
 end
