@@ -34,10 +34,14 @@ class InvContainer
       @updates_req << {:x => x, :y => y, :w => w ,:h => h, :type => :EV_update_partial}
     }
     widget.connect(:EV_update) {|sender| 
-      @updates_req << {:type => :EV_update}
+      @canvas_disp.update
     }
     @widgets << widget 
     @widgets.sort! {|x,y| y.z_order <=> x.z_order}
+  end
+  
+  def remove(widget)
+    @widgets.delete(widget)
   end
   
   def height

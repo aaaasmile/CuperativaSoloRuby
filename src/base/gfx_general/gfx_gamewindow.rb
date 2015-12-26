@@ -105,12 +105,14 @@ class CupSingleGameWin < FXMainWindow
     
     @container = InvContainer.new(self, owner.main_app)
     #@container.verbose = true
-    bt_start_game = InvButton.new(10, 10, 100, 50)
+    bt_start_game = InvButton.new(10, 10, 100, 50, 0)
     bt_start_game.set_content(owner.icons_app[:icon_start])
     bt_start_game.connect(:EV_click) do |sender|
+      @container.remove(bt_start_game)
       players = create_players
       start_new_game(players, @app_settings)
     end
+    @container.add(bt_start_game)
     
     #@tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
     
@@ -375,7 +377,6 @@ class CupSingleGameWin < FXMainWindow
     if @app_settings_gametype
       @app_settings_gametype[:ww_mainwin] = self.width
       @app_settings_gametype[:hh_mainwin] = self.height
-      @app_settings_gametype[:splitter] = @splitter.getSplit(0)
     end
     @app_settings["players"] = []
     @players_on_table.each_index do |ix|
@@ -406,9 +407,11 @@ class CupSingleGameWin < FXMainWindow
       
       @sound_manager.stop_sound(:play_mescola)
       close
-    rescue 
+    rescue => detail
       error_msg = "Error on closing. Please fix the do_close routine."
-      @log.error error_msg 
+      @log.error error_msg
+      @log.error "do_close error (#{$!})"
+      @log.error detail.backtrace.join("\n")
       close
     end
   end

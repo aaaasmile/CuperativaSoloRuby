@@ -25,7 +25,7 @@ class BaseEngineGfx < InvWidget
   ##
   # wnd: windows owner
   def initialize(wnd)
-    super
+    super(0,0, 100, 100, 1000)
     @app_owner = wnd
     @resource_path = CuperativaGui.get_resource_path
     @color_backround = Fox.FXRGB(255, 255, 255) #dummy color
