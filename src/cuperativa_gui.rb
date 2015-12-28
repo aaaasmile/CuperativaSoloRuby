@@ -683,8 +683,6 @@ class CuperativaGui < FXMainWindow
     return nomeprog, ver_prog
   end
    
-  
-  
   ##
   # Quit the application
   def onCmdQuit(sender, sel, ptr)
