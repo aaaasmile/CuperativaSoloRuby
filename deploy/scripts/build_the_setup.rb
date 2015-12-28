@@ -16,7 +16,7 @@ if $0 == __FILE__
   # Write those full paths into the target_deploy_info.yaml
   
   dep = SetupCreator.new
-  options_filename = 'target_deploy_info.yaml'
+  options_filename = 'jim_target.yaml'
   opt = YAML::load_file( options_filename )
   if opt == nil or opt.class != Hash
     puts "Target file not recognized"
