@@ -2,31 +2,41 @@
 # File used to test gfx game engine into a standalone canvas
 # It was created the first time to test spazzino_gfx.rb
 
+$:.unshift File.dirname(__FILE__)
+$:.unshift File.dirname(__FILE__) + '/..'
 
+require 'rubygems'
+require 'fox16'
+require 'log4r'
+
+require 'src/inv_controls/inv_container'
+require 'src/base/core/sound_manager'
+
+include Fox
 
 ##
 # Test container for canvas
 class TestCanvas < FXMainWindow
   attr_accessor :app_settings, :current_game_gfx, :icons_app, 
-  :model_net_data, :sound_manager
+  :sound_manager
   
   def initialize(anApp)
     super(anApp, "TestCanvas", nil, nil, DECOR_ALL, 30, 20, 640, 480)
-    canvas_panel = FXHorizontalFrame.new(self, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    @canvasFrame = FXVerticalFrame.new(canvas_panel, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    @canvas_disp = FXCanvas.new(canvas_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
-    @canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
-    @canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
-    @canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
-    @canvas_disp.connect(SEL_MOTION, method(:onLMouseMotion))
-    @canvas_disp.connect(SEL_CONFIGURE, method(:OnSizeChange))
-    @color_backround = Fox.FXRGB(0, 170, 0) 
-    @canvas_disp.backColor = @color_backround
+    
+    @container = InvContainer.new(self, anApp)
+    #canvas_panel = FXHorizontalFrame.new(self, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    #@canvasFrame = FXVerticalFrame.new(canvas_panel, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
+    #@canvas_disp = FXCanvas.new(canvas_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
+    #@canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
+    #@canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
+    #@canvas_disp.connect(SEL_CONFIGURE, method(:OnSizeChange))
+    #@color_backround = Fox.FXRGB(0, 170, 0) 
+    #@canvas_disp.backColor = @color_backround
     @icons_app = {}
     # double buffer image for canvas
-    @imgDbuffHeight = 0
-    @imgDbuffWidth = 0
-    @image_double_buff = nil
+    #@imgDbuffHeight = 0
+    #@imgDbuffWidth = 0
+    #@image_double_buff = nil
     @state_game = :splash
     @players_on_table = []
     @app_settings = {
@@ -47,8 +57,9 @@ class TestCanvas < FXMainWindow
     # array of button for command panel
     @game_cmd_bt_list = []
     
-    @model_net_data = ModelNetData.new
     @sound_manager = SoundManager.new
+    @container = InvContainer.new(self, anApp)
+    
     ## specific game commands
     #@buttonFrame = main_vertical
     #matrix = FXMatrix.new(@buttonFrame, 3, MATRIX_BY_COLUMNS|LAYOUT_FILL_X)
@@ -63,17 +74,7 @@ class TestCanvas < FXMainWindow
     # idle routine
     @anApp = anApp
     #MyaddChore(:repeat => true) do |sender, sel, data|
-    if $g_os_type == :win32_system
-      submit_idle_handler
-    else
-      anApp.addChore(:repeat => true) do |sender, sel, data|
-      #anApp.addChore() do |sender, sel, data|
-        #p 'chore is called'
-        if @current_game_gfx
-          @current_game_gfx.do_core_process
-        end
-      end
-    end
+    
     
   end
   
@@ -135,22 +136,14 @@ class TestCanvas < FXMainWindow
   
   def onLMouseDown(sender, sel, event)
     if @state_game == :game_started
-      @current_game_gfx.onLMouseDown(event) if @current_game_gfx
+      @current_game_gfx.onLMouseDown(event.win_x, event.win_y) if @current_game_gfx
     else
       @current_game_gfx.start_new_game @players_on_table, @app_settings
       @state_game = :game_started
     end
   end
-  
-  def onLMouseMotion(sender, sel, event)
-    @current_game_gfx.onLMouseMotion(event)
-  end
-  
-  def onLMouseUp(sender, sel, event)
-    #p 'onLMouseUp'
-    @current_game_gfx.onLMouseUp(event)
-  end
-  
+   
+ 
   def update_dsp
     @canvas_disp.update
   end
@@ -242,6 +235,17 @@ class TestCanvas < FXMainWindow
   end
   
   def init_gfx(gfx_class, players)
+    if $g_os_type == :win32_system
+      submit_idle_handler
+    else
+      anApp.addChore(:repeat => true) do |sender, sel, data|
+      #anApp.addChore() do |sender, sel, data|
+        #p 'chore is called'
+        if @current_game_gfx
+          @current_game_gfx.do_core_process
+        end
+      end
+    end
     deactivate_canvas_frame
     @current_game_gfx = gfx_class.new(self)
     @current_game_gfx.color_backround = @color_backround
@@ -342,4 +346,18 @@ class TestCanvas < FXMainWindow
   end
   
 end#end TestCanvas
+
+
+if $0 == __FILE__
+  include Log4r
+  log = Log4r::Logger.new("coregame_log")
+  log.outputters << Outputter.stdout
+  
+	theApp = FXApp.new("TestCanvas", "FXRuby")
+  mainwindow = TestCanvas.new(theApp)
+  mainwindow.set_position(0,0,950,530)
+  
+  theApp.create()
+  theApp.run
+end
   

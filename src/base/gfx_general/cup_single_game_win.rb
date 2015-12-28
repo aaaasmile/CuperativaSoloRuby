@@ -2,14 +2,14 @@
 
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
-$:.unshift File.dirname(__FILE__) + '/../../inv_controls'
+$:.unshift File.dirname(__FILE__) + '/../..'
 
 
 require 'rubygems'
 require 'fox16'
 
 require 'modal_msg_box'
-require 'inv_container'
+require 'inv_controls/inv_container'
 
 include Fox
 
