@@ -20,6 +20,7 @@ require 'base/core/gameavail_hlp'
 require 'base/gfx_general/cup_single_game_win'
 require 'base/gfx_general/modal_msg_box'
 require 'base/core/sound_manager'
+require 'base/gfx_general/resource_info'
 
 # other method could be inspect the  Object::PLATFORM or RUBY_PLATFORM
 $g_os_type = :win32_system
@@ -125,19 +126,7 @@ class CuperativaGui < FXMainWindow
                               },
   }
   
-  def self.get_dir_appdata
-    res = ""
-    if $g_os_type == :win32_system
-      res = File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
-    else
-      res = File.expand_path("~/.cuperativa")
-      puts "We are on linux, data dir #{res}"
-    end
-    if !File.directory?(res)
-      Dir.mkdir(res)
-    end
-    return res
-  end
+  
    
   ##
   # Init controls
@@ -145,11 +134,11 @@ class CuperativaGui < FXMainWindow
     super(anApp, APP_CUPERATIVA_NAME, nil, nil, DECOR_ALL, 30, 20, 640, 480)
     @main_app = anApp 
     @app_settings = {}
-    @settings_filename =  File.join(CuperativaGui.get_dir_appdata(), FILE_APP_SETTINGS)
+    @settings_filename =  File.join(ResourceInfo.get_dir_appdata(), FILE_APP_SETTINGS)
     @log = Log4r::Logger.new("coregame_log")
     @restart_need = false
   
-    @logger_mode_filename = File.join(CuperativaGui.get_dir_appdata(), LOGGER_MODE_FILE)
+    @logger_mode_filename = File.join(ResourceInfo.get_dir_appdata(), LOGGER_MODE_FILE)
     @log_detailed_info = load_log_info_from_file(@logger_mode_filename)
     @log_device_output = :default
     @log_device_output = @log_detailed_info[:shortcut][:val] if @log_detailed_info[:shortcut][:is_set]
@@ -401,8 +390,7 @@ class CuperativaGui < FXMainWindow
   # Load the named icon from a file
   def loadIcon(filename)
     begin
-      #dirname = File.join(File.dirname(__FILE__), "/../res/icons")
-      dirname = File.join(CuperativaGui.get_resource_path, "icons")
+      dirname = File.join(ResourceInfo.get_resource_path, "icons")
       filename = File.join(dirname, filename)
       icon = nil
       File.open(filename, "rb") { |f|
@@ -422,7 +410,7 @@ class CuperativaGui < FXMainWindow
   # Load debug info from yaml file.
   # return the shortcut mode (:debug, :default, :nothing)
   def load_log_info_from_file(fname)
-    base_dir_log = File.join(CuperativaGui.get_dir_appdata(), "clientlogs")
+    base_dir_log = File.join(ResourceInfo.get_dir_appdata(), "clientlogs")
     info_hash = {:is_set_by_user => false, 
          :stdout => false, :logfile => false,
          :base_dir_log => base_dir_log, 
@@ -695,11 +683,7 @@ class CuperativaGui < FXMainWindow
     return nomeprog, ver_prog
   end
    
-  # Provides the resource path
-  def self.get_resource_path
-    res_path = File.dirname(__FILE__) + "/../res"
-    return File.expand_path(res_path)
-  end
+  
   
   ##
   # Quit the application

@@ -9,7 +9,6 @@ if $0 == __FILE__
   require '../../cuperativa_gui.rb' 
 end
 
-#require 'fox16'
 require 'base/gfx_general/base_engine_gfx'
 require 'base/gfx_general/gfx_elements'
 require 'core_game_briscola'
@@ -23,7 +22,6 @@ class BriscolaGfx < BaseEngineGfx
   # parent_wnd : application gui     
   def initialize(parent_wnd)
     super(parent_wnd)
-    
     @core_game = nil
     @splash_name = File.join(@resource_path, "icons/briscola_title_trasp.png")
     
@@ -959,7 +957,7 @@ class BriscolaGfx < BaseEngineGfx
   def game_end_stuff
     #@app_owner.free_all_btcmd
     @log.debug("Game end stuff") 
-    fname = File.join(CuperativaGui.get_dir_appdata(),  "game_terminated_last.yaml")
+    fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
     log "Partita terminata\n"
     # don't need core anymore

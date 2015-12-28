@@ -16,7 +16,7 @@ $cuperativa_restart = false
 
 begin
   puts "initialize result"
-  cup_app_data_dir = CuperativaGui.get_dir_appdata()
+  cup_app_data_dir = ResourceInfo.get_dir_appdata()
   Result_fname = File.join(cup_app_data_dir, 'result_exe')
   begin
     File.open(Result_fname, "w") do |file|

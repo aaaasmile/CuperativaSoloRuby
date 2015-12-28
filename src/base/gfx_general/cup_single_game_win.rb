@@ -34,6 +34,7 @@ class CupSingleGameWin < FXMainWindow
     
     super(owner.main_app, comment, nil, nil, DECOR_ALL, 50,50, @win_width, @win_height)
     
+    
     @timeout_cb = {:locked => false, :queue => []}
     @cup_gui = owner
     @log = Log4r::Logger["coregame_log"]
@@ -46,6 +47,7 @@ class CupSingleGameWin < FXMainWindow
    
     # number of players that play the current game
     @num_of_players = options[:num_of_players]
+    
       
     #@main_vertical = FXVerticalFrame.new(self, 
     #                       LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y)
@@ -70,8 +72,9 @@ class CupSingleGameWin < FXMainWindow
     #@canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
     #@color_backround = Fox.FXRGB(0x22, 0x8a, 0x4c) #Fox.FXRGB(103, 203, 103) #Fox.FXRGB(50, 170, 10) 
     #@canvas_disp.backColor = @color_backround
-    setIcon(@cup_gui.icons_app[:cardgame_sm])
     
+    #p @cup_gui.icons_app[:cardgame_sm]
+    setIcon(@cup_gui.icons_app[:cardgame_sm])
     # double buffer image for canvas
     #@imgDbuffHeight = 0
     #@imgDbuffWidth = 0
@@ -113,6 +116,7 @@ class CupSingleGameWin < FXMainWindow
       start_new_game(players, @app_settings)
     end
     @container.add(bt_start_game)
+    
     
     #@tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
     
@@ -434,7 +438,7 @@ if $0 == __FILE__
     
     def initialize(app)
       @main_app = app 
-      @options = {:game_network_type => :offline,
+      @options = {:game_network_type => :offline, :game_type => :briscola_game, 
         :owner => app, :comment => "Gioco", :gfx_enginename =>'BriscolaGfx', :num_of_players => 2,
         :app_options => {"games" => { :briscola_game =>
                                   { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541}}, 

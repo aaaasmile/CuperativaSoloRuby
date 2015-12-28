@@ -9,6 +9,7 @@ require 'gfx_comp/graphical_composite'
 require 'core/deck_info'
 require 'yaml'
 require 'inv_controls/inv_widget'
+require 'resource_info'
 
 ##
 # Graphic related to a generic card game
@@ -25,9 +26,10 @@ class BaseEngineGfx < InvWidget
   ##
   # wnd: windows owner
   def initialize(wnd)
+    begin
     super(0,0, 100, 100, 1000)
     @app_owner = wnd
-    @resource_path = CuperativaGui.get_resource_path
+    @resource_path = ResourceInfo.get_resource_path
     @color_backround = Fox.FXRGB(255, 255, 255) #dummy color
     # deck information
     @deck_information = GamesDeckInfo.new
@@ -80,6 +82,10 @@ class BaseEngineGfx < InvWidget
     @sound_manager = @app_owner.sound_manager
     #mouse events from container
     map_container_callbacks(:CB_LMouseDown, method(:onLMouseDown))
+  rescue => detail
+    @log.error "base gfx error (#{$!})"
+    @log.error detail.backtrace.join("\n")
+  end
   end
   
   def game_end_stuff
