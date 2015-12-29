@@ -49,62 +49,8 @@ class CupSingleGameWin < FXMainWindow
     @num_of_players = options[:num_of_players]
     
       
-    #@main_vertical = FXVerticalFrame.new(self, 
-    #                       LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    
-    ##### main splitter
-    # split up/down
-    #@splitter = FXSplitter.new(@main_vertical, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-    #                   LAYOUT_FILL_Y|SPLITTER_VERTICAL|SPLITTER_TRACKING))
-    #center_pan = @splitter
-    #@canvas_panel_H = FXHorizontalFrame.new(center_pan, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    #@canvasFrame = FXVerticalFrame.new(@canvas_panel_H, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_RIGHT)
-    
-    
-    # canvas for core_gfx
-    ### Label for table name
-    ##canvas
-    #@canvas_disp = FXCanvas.new(@canvas_panel_H, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
-    #@canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
-    #@canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
-    #@canvas_disp.connect(SEL_CONFIGURE, method(:OnCanvasSizeChange))
-    #@canvas_disp.connect(SEL_MOTION, method(:onLMouseMotion))
-    #@canvas_disp.connect(SEL_LEFTBUTTONRELEASE, method(:onLMouseUp))
-    #@color_backround = Fox.FXRGB(0x22, 0x8a, 0x4c) #Fox.FXRGB(103, 203, 103) #Fox.FXRGB(50, 170, 10) 
-    #@canvas_disp.backColor = @color_backround
-    
-    #p @cup_gui.icons_app[:cardgame_sm]
+  
     setIcon(@cup_gui.icons_app[:cardgame_sm])
-    # double buffer image for canvas
-    #@imgDbuffHeight = 0
-    #@imgDbuffWidth = 0
-    #@image_double_buff = nil
-
-    # *************  BOTTOM part ***************
-    #bottom_panel = FXHorizontalFrame.new(@splitter, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    
-    #@tabbook = FXTabBook.new(bottom_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|TABBOOK_LEFTTABS)
-     # (1)tab - log
-    #@tab1 = FXTabItem.new(@tabbook, "Log", nil)
-    
-    #@split_horiz_netw = FXSplitter.new(@tabbook, (LAYOUT_SIDE_TOP|LAYOUT_FILL_X|
-    #                   LAYOUT_FILL_Y|SPLITTER_HORIZONTAL|SPLITTER_TRACKING))
-    
-    #log text control
-    #ctrlframe = FXHorizontalFrame.new(@split_horiz_netw, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    
-    
-    #@logText = FXText.new(ctrlframe, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y)
-    #@logText.editable = false
-    #@logText.backColor = Fox.FXRGB(231, 255, 231)
-    
-    
-    # start commands
-    #start_btframe = FXVerticalFrame.new(ctrlframe, LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    # start game button
-    #@bt_start_game = FXButton.new(start_btframe, "Inizia", icons_app[:icon_start], nil, 0,
-    #         LAYOUT_LEFT | FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT)
-    #@bt_start_game.iconPosition = (@bt_start_game.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     @container = InvContainer.new(self, owner.main_app)
     #@container.verbose = true
@@ -117,16 +63,8 @@ class CupSingleGameWin < FXMainWindow
     end
     @container.add(bt_start_game)
     
-    
-    #@tab1.tabOrientation = TAB_LEFT #TAB_BOTTOM
-    
-    
     self.connect(SEL_CLOSE, method(:on_close_win))
     
-    #set_splitterpos_initial(@win_width, @win_height)
-    #if @app_settings_gametype
-    #  @splitter.setSplit(0,@app_settings_gametype[:splitter]) if @app_settings_gametype[:splitter]
-    #end   
     create_game_gfx(options)
     
     ## idle routine
@@ -267,115 +205,6 @@ class CupSingleGameWin < FXMainWindow
       @current_game_gfx.create_wait_for_play_screen
     end 
   end
- 
-  def set_splitterpos_initial(ww, hh )
-    posy = hh - hh/3 + 3
-    @splitter.setSplit(0, posy)
-  end
-  
-  ##
-  # Check if the splitter position is conform to the window size
-  def set_splitterpos_onsize(ww, hh )
-    #@log.debug "Set splitter position to #{ww}, #{hh}"
-    splitpos_y = @splitter.getSplit(0)
-    ratio_y = hh - hh/3 + 3
-    if splitpos_y > hh - 5
-      posy = ratio_y 
-      @splitter.setSplit(0, posy)
-    elsif splitpos_y < ratio_y
-      @splitter.setSplit(0, ratio_y)
-    end
-    
-  end
-  
-  def activate_canvas_frame
-    @canvasFrame.show
-    @canvasFrame.recalc
-    @canvas_disp.recalc
-  end
-
-  ##
-  # Paint event on canvas
-  def onCanvasPaint(sender, sel, event)
-    unless @canvast_update_started
-      # avoid multiple call of update display until processed
-      @canvast_update_started = true
-      #@corelogger.debug("onCanvasPaint start")
-      dc = FXDCWindow.new(@image_double_buff)
-      #dc = FXDCWindow.new(@canvas_disp, event)
-      dc.foreground = @canvas_disp.backColor
-      #erase canvas
-      dc.fillRectangle(0, 0, @image_double_buff.width, @image_double_buff.height)
-    
-      # draw scene into the picture
-      @current_game_gfx.draw_static_scene(dc, @image_double_buff.width, @image_double_buff.height)
-      
-      dc.end #don't forget this, otherwise  problems on exit
-      
-      # blit image into the canvas
-      dc_canvas = FXDCWindow.new(@canvas_disp, event)
-      dc_canvas.drawImage(@image_double_buff, 0, 0)
-      dc_canvas.end
-      
-      @canvast_update_started = false
-      #@corelogger.debug("onCanvasPaint stop")
-    end
-  end
-  
-  ##
-  # Mouse left up event on canvas
-  def onLMouseUp(sender, sel, event)
-    #p 'onLMouseUp'
-    @current_game_gfx.onLMouseUp(event)
-  end
-  
-  ##
-  # Mouse left down event on canvas
-  def onLMouseDown(sender, sel, event)
-     @current_game_gfx.onLMouseDown(event)
-  end
-  
-  def onLMouseMotion(sender, sel, event)
-    @current_game_gfx.onLMouseMotion(event)
-  end
-  
-  ##
-  # Size of canvas is changing
-  def OnCanvasSizeChange(sender, sel, event)
-    adapt_to_canvas = false
-    
-    resolution = 3
-    #check height
-    if @imgDbuffHeight + resolution < @canvas_disp.height
-      adapt_to_canvas = true
-    elsif @imgDbuffHeight > @canvas_disp.height + resolution
-      adapt_to_canvas = true
-    end
-    # check width
-    if @imgDbuffWidth + resolution < @canvas_disp.width
-      adapt_to_canvas = true
-    elsif  @imgDbuffWidth > @canvas_disp.width + resolution
-      adapt_to_canvas = true
-    end
-    if adapt_to_canvas
-      # need to recreate a new image double buffer 
-      @imgDbuffHeight = @canvas_disp.height
-      @imgDbuffWidth = @canvas_disp.width
-      
-      @image_double_buff = FXImage.new(getApp(), nil, 
-             IMAGE_SHMI|IMAGE_SHMP, @imgDbuffWidth, @imgDbuffHeight)
-      @image_double_buff.create
-      #notify change to the current gfx
-      begin
-        @current_game_gfx.onSizeChange(@imgDbuffWidth, @imgDbuffHeight ) if @current_game_gfx
-      rescue => detail
-        @log.error "onSizeChange error (#{$!})"
-        @log.error detail.backtrace.join("\n")
-      end
-    end
-   
-  end
-  
   
   def store_settings
     if @app_settings_gametype
@@ -420,9 +249,7 @@ class CupSingleGameWin < FXMainWindow
     end
   end
   
-  
-  
-end
+end #end CupSingleGameWin
 
 
 if $0 == __FILE__
