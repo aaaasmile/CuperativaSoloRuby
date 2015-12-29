@@ -175,7 +175,7 @@ class SpazzinoGfx < BaseEngineGfx
         @log.error "ERROR on create_wait_for_play_screen: #{$!}"
       end    
     end
-    @app_owner.update_dsp
+    update_dsp
   end 
  
   ##
@@ -301,7 +301,7 @@ class SpazzinoGfx < BaseEngineGfx
         else
           # Multiple choice not yet active
           multiplechoice_activate(card, list_options)
-          @app_owner.update_dsp
+          update_dsp
           return
         end #list_options.size <= 1
       elsif @player_on_gui[:mult_choice][:state] == :active_pl_tbl or
@@ -329,7 +329,7 @@ class SpazzinoGfx < BaseEngineGfx
       card.blit_reverse = true
       @card_reversed_gfx = card
       @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
-      @app_owner.update_dsp
+      update_dsp
     end    
   end #end click_on_card
   
@@ -362,7 +362,7 @@ class SpazzinoGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
     
-    @app_owner.update_dsp
+    update_dsp
   end
   
  
@@ -457,7 +457,7 @@ class SpazzinoGfx < BaseEngineGfx
   def onTimeoutRverseBlitEnd
     @card_reversed_gfx.blit_reverse = false
     @card_reversed_gfx = nil
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -469,7 +469,7 @@ class SpazzinoGfx < BaseEngineGfx
     lbl_gfx = @labels_to_disp[lbl_displ_pl]
     if lbl_gfx
       lbl_gfx.text = "(Posto vuoto)"
-      @app_owner.update_dsp
+      update_dsp
     else
       @log.warn("player_leave(GFX) don't have recognized player: #{user_name}")
     end
@@ -833,7 +833,7 @@ class SpazzinoGfx < BaseEngineGfx
     @taken_card_info_last[:curr_playersym_shown] = player_sym
     @app_owner.registerTimeout(@option_gfx[:timeout_lastcardshow], :onTimeoutLastCardTakenShow)
     # refresh the display
-    @app_owner.update_dsp 
+    update_dsp 
   end
  
   
@@ -1145,10 +1145,7 @@ class SpazzinoGfx < BaseEngineGfx
       # suspend core event process untill animation_cards_distr_end is called
       @core_game.suspend_proc_gevents("onalg_new_giocata")
     end
-    
-      
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def build_deck_on_newgiocata(initial_cards_on_table)
@@ -1353,9 +1350,7 @@ class SpazzinoGfx < BaseEngineGfx
     if !@cards_players.is_animation_terminated?
       @core_game.suspend_proc_gevents("onalg_pesca_carta")
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -1407,9 +1402,8 @@ class SpazzinoGfx < BaseEngineGfx
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_giocataend(best_pl_points)
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+
+    update_dsp
     
     # continue the game
     @core_game.gui_new_segno if @core_game
@@ -1497,8 +1491,7 @@ class SpazzinoGfx < BaseEngineGfx
       @core_game.suspend_proc_gevents("onalg_have_to_play")
     end
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -1617,8 +1610,7 @@ class SpazzinoGfx < BaseEngineGfx
       @alg_auto_player.onalg_player_has_played(player, arr_lbl_card)
     end
      
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # suspend core processes
     @core_game.suspend_proc_gevents("onalg_player_has_played 2")

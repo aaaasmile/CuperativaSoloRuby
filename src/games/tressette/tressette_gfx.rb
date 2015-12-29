@@ -166,7 +166,7 @@ class TressetteGfx < BaseEngineGfx
       card.blit_reverse = true
       @card_reversed_gfx = card
       @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
-      @app_owner.update_dsp
+      update_dsp
     end    
   end #end click_on_card
   
@@ -195,7 +195,7 @@ class TressetteGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
     
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def animation_pickcards_end
@@ -240,7 +240,7 @@ class TressetteGfx < BaseEngineGfx
         @log.error "ERROR on create_wait_for_play_screen: #{$!}"
       end    
     end
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -613,8 +613,7 @@ class TressetteGfx < BaseEngineGfx
   def player_leave(user_name)
     # when player leave the game, his label becomes empty
     @labels_graph.change_text_label(user_name, "(Posto vuoto)")
-    @app_owner.update_dsp
-    
+    update_dsp
   end
   
   
@@ -658,9 +657,7 @@ class TressetteGfx < BaseEngineGfx
         @table_cards_played.all_card_played_tocardtaken2(@mano_end_player_taker) 
         #@table_cards_played.start_ani_cards_taken
       end
-      
-      # refresh the display
-      @app_owner.update_dsp
+      update_dsp
     end
   end
   
@@ -710,7 +707,7 @@ class TressetteGfx < BaseEngineGfx
     if @state_gfx == :on_game and @card_reversed_gfx
       @card_reversed_gfx.blit_reverse = false
       @card_reversed_gfx = nil
-      @app_owner.update_dsp
+      update_dsp
     end
   end
   
@@ -735,8 +732,7 @@ class TressetteGfx < BaseEngineGfx
     @alg_auto_player.onalg_giocataend(best_pl_points)
     set_player_points
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # continue the game
     @core_game.gui_new_segno if @core_game
@@ -811,8 +807,7 @@ class TressetteGfx < BaseEngineGfx
     
     @alg_auto_player.onalg_player_pickcards(player, cards_arr)
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def onalg_new_match(players)
@@ -876,8 +871,7 @@ class TressetteGfx < BaseEngineGfx
       @core_game.suspend_proc_gevents
     end
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def onalg_newmano(player) 
@@ -947,8 +941,7 @@ class TressetteGfx < BaseEngineGfx
       @core_game.suspend_proc_gevents
     end
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def onalg_player_cardsnot_allowed(player, card_arr)
@@ -1005,8 +998,7 @@ class TressetteGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
   
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # suspend core processes
     @core_game.suspend_proc_gevents

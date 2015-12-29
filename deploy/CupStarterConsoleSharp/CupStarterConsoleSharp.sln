@@ -76,7 +76,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx_general", "gfx_general"
 		..\..\src\base\gfx_general\modal_msg_box.rb = ..\..\src\base\gfx_general\modal_msg_box.rb
 		..\..\src\base\gfx_general\resource_info.rb = ..\..\src\base\gfx_general\resource_info.rb
 		..\..\src\base\gfx_general\swupdate_dlg.rb = ..\..\src\base\gfx_general\swupdate_dlg.rb
-		..\..\src\base\gfx_general\table_seat_gfx.rb = ..\..\src\base\gfx_general\table_seat_gfx.rb
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "options", "options", "{C734B60D-9FEA-4AD3-AB43-5334C0ACBB06}"

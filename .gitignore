@@ -7,3 +7,4 @@ deploy/CupStarterConsoleSharp/StarterLib/StarterLib/bin
 deploy/CupStarterConsoleSharp/StarterLib/StarterLib/obj
 deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.v12.suo
 *.suo
+/src/err_app_2015_12_29_19_46_07.log
