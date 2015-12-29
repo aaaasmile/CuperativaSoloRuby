@@ -185,7 +185,7 @@ class CuperativaGui < FXMainWindow
     
     # Menu Giochi
     # Defined in custom menu of gfx engine
-    @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi...")
+    @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi con opzioni...")
     @menu_giochi_list.connect(SEL_COMMAND, method(:mnu_game_list ))
         
     #Menu Help
@@ -279,7 +279,7 @@ class CuperativaGui < FXMainWindow
     @btstart_button.iconPosition = (@btstart_button.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     # change game
-    @btgamelist = FXButton.new(btdetailed_frame, "Cambia gioco", icons_app[:listgames], self, 0,
+    @btgamelist = FXButton.new(btdetailed_frame, "Setta il gioco (opzioni e tipo)", icons_app[:listgames], self, 0,
               LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
     @btgamelist.connect(SEL_COMMAND, method(:mnu_game_list))
     @btgamelist.iconPosition = (@btgamelist.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
@@ -333,6 +333,13 @@ class CuperativaGui < FXMainWindow
   def mnu_start_offline_game(sender, sel, ptr)
     initialize_current_gfx(@last_selected_gametype)
     create_new_singlegame_window(:offline)
+  end
+  
+  def save_settings_in_yaml
+    File.open( @settings_filename, 'w' ) do |out|
+      YAML.dump( @app_settings, out )
+    end
+    @log.debug("Settings saved to #{@settings_filename}")
   end
   
   ##
@@ -617,6 +624,7 @@ class CuperativaGui < FXMainWindow
       if @app_settings[:games_opt] != nil and @app_settings[:games_opt][k] != nil
         @app_settings[:games_opt][k] = dlg.get_curr_options
         @log.debug("opzioni del gioco #{k}: #{@app_settings[:games_opt][k].inspect} ")
+        save_settings_in_yaml()
       end
       initialize_current_gfx(k)
       log_sometext("Attivato il gioco #{@supported_game_map[k][:name]}\n") 
@@ -703,11 +711,8 @@ class CuperativaGui < FXMainWindow
     # yaml file version
     @app_settings["versionyaml"] = CUP_YAML_FILE_VERSION
     
-    #save settings in a yaml file
-    #p @settings_filename
-    File.open( @settings_filename, 'w' ) do |out|
-      YAML.dump( @app_settings, out )
-    end
+    save_settings_in_yaml()
+
     getApp().exit(0)
   end
   
