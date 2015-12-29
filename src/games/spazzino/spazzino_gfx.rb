@@ -983,7 +983,7 @@ class SpazzinoGfx < BaseEngineGfx
       when :spazzino
         str_points = "Spazzini: #{s1}"
       when :bager
-        str_points = "Bager   : #{s1}"
+        str_points = "Bagher   : #{s1}"
       when :tot
         tot_points = @core_game.game_opt[:target_points]
         str_points = "Punti : #{s1} (#{tot_points})"       
