@@ -675,7 +675,7 @@ class TressetteGfx < BaseEngineGfx
   end
   
   def show_smazzata_end(best_pl_points )
-    str = "** Vince smazzata: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}\n"
+    str = "** Vince smazzata: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
     #@msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
     @msgbox_smazzataend.set_shortcuts_tressette
@@ -723,7 +723,7 @@ class TressetteGfx < BaseEngineGfx
   # e.g. [["rudy", 45], ["zorro", 33]]
   def onalg_giocataend(best_pl_points)
     @log.debug("gfx: onalg_giocataend #{best_pl_points}")
-    str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}\n"
+    str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}"
     log str
     if @option_gfx[:use_dlg_on_core_info]
       show_smazzata_end(best_pl_points )
@@ -745,9 +745,9 @@ class TressetteGfx < BaseEngineGfx
     str = "*** Vince la partita: #{winner[0]}\n" 
     str += "#{winner[0]} punti #{winner[1]}\n"
     if loser[1] == -1
-      str += "#{loser[0]} abbandona\n"
+      str += "#{loser[0]} abbandona"
     else
-      str += "#{loser[0]} punti #{loser[1]}\n"
+      str += "#{loser[0]} punti #{loser[1]}"
     end 
     log str
     if @option_gfx[:use_dlg_on_core_info]
@@ -811,8 +811,8 @@ class TressetteGfx < BaseEngineGfx
   end
   
   def onalg_new_match(players)
-    log "Nuova partita. Numero gioc: #{players.size}\n"
-    players.each{|pl| log " Nome: #{pl.name}\n"}
+    log "Nuova partita. Numero gioc: #{players.size}"
+    players.each{|pl| log " Nome: #{pl.name}"}
     @alg_auto_player.onalg_new_match(players)
   end
   
@@ -888,7 +888,7 @@ class TressetteGfx < BaseEngineGfx
   # carte_prese_mano: cards taken on this hand
   # punti_presi: points collectd in this hand
   def onalg_manoend(player_best, carte_prese_mano, punti_presi)
-    log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}\n"
+    log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}"
     @player_picked_count = 0
     @mano_end_player_taker = player_best
     
@@ -923,7 +923,7 @@ class TressetteGfx < BaseEngineGfx
     # mark player that have to play
     @turn_marker.set_marker_state_invisible_allother(player.name, :is_on)
     
-    log "Tocca a: #{player.name}.\n"
+    log "Tocca a: #{player.name}."
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
       #log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
@@ -952,7 +952,6 @@ class TressetteGfx < BaseEngineGfx
   # lbl_card: label of card played
   # player: player that have played
   def onalg_player_has_played(player, lbl_card)
-    log "#{player.name} ha giocato la carta [#{nome_carta_ita(lbl_card)}]\n"
     @log.debug("onalg_player_has_played: #{player.name}, #{lbl_card}")
     
     # check card on player hand

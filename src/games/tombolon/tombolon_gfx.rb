@@ -158,13 +158,13 @@ class TombolonGfx < SpazzinoGfx
       if pt_item[:scopa_colore]
         @points_status[player_label][:scopa_colore] += pt_item[:scopa_colore]
         @points_status[player_label][:widg_scopa_colore].font_color = @color_signal
-        log "#{player.name} ha fatto scopa di colore\n"
+        log "#{player.name} ha fatto scopa di colore"
       end
     
       if pt_item[:scopa]
         @points_status[player_label][:scopa] += pt_item[:scopa]
         @points_status[player_label][:widg_scopa].font_color = @color_signal
-        log "#{player.name} ha fatto scopa\n"
+        log "#{player.name} ha fatto scopa"
       end
     end
   end

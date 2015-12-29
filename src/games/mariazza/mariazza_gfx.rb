@@ -109,7 +109,7 @@ class MariazzaGfx < BriscolaGfx
   # Shows a dilogbox for the end of the smazzata
   def show_smazzata_end(best_pl_points )
     @log.debug "Show smazzata end dialogbox"
-    str = "** Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}\n"
+    str = "** Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
    
     if @option_gfx[:use_dlg_on_core_info]
@@ -183,10 +183,10 @@ class MariazzaGfx < BriscolaGfx
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = true
     
-    log "Tocca a: #{player.name}.\n"
+    log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-       log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
+       log "#{player.name} comandi: #{decl_str}" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
@@ -243,12 +243,12 @@ class MariazzaGfx < BriscolaGfx
   # Player has changed the briscola on table with a 7
   def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
     str_msg =  "#{player.name} ha scambiato [#{nome_carta_ita(card_on_hand)}] " + 
-        "con  [#{nome_carta_ita(card_briscola)}]\n"
+        "con  [#{nome_carta_ita(card_briscola)}]"
     log(str_msg) 
   
     # check if it was gui player
     if @player_on_gui[:player] == player
-      log "Scambio briscola OK [#{nome_carta_ita(card_on_hand)}] -> [#{nome_carta_ita(card_briscola)}]\n"
+      log "Scambio briscola OK [#{nome_carta_ita(card_on_hand)}] -> [#{nome_carta_ita(card_briscola)}]"
       player_sym = player.name.to_sym
       @cards_players.swap_card_player(player_sym, card_on_hand,  card_briscola)
     else
@@ -273,7 +273,7 @@ class MariazzaGfx < BriscolaGfx
   # Player has played a card not allowed
   def onalg_player_cardsnot_allowed(player, cards)
     lbl_card = cards[0]
-    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]\n"
+    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]"
     @player_on_gui[:can_play] = true
   end
   
@@ -284,11 +284,11 @@ class MariazzaGfx < BriscolaGfx
   # name_decl: mariazza declared name (e.g :mar_den)
   # points: points of the declared mariazza
   def onalg_player_has_declared(player, name_decl, points)
-    log "#{player.name} ha dichiarato #{nome_mariazza(name_decl)}\n"
+    log "#{player.name} ha dichiarato #{nome_mariazza(name_decl)}"
     #if @player_on_gui[:player] == player
       #@app_owner.disable_bt(name_decl)
     #end
-    str = "Il giocatore #{player.name} ha accusato la\n#{nome_mariazza(name_decl)}\n"
+    str = "Il giocatore #{player.name} ha accusato la\n#{nome_mariazza(name_decl)}"
     str.concat("da #{points} punti") if points > 0
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Mariazza accusata", str, false)
@@ -308,7 +308,7 @@ class MariazzaGfx < BriscolaGfx
   # Player has become points. This usally when he has declared a mariazza 
   # as a second player 
   def onalg_player_has_getpoints(player,  points)
-    log str =  "#{player.name} ha fatto #{points} punti di accusa\n"
+    log str =  "#{player.name} ha fatto #{points} punti di accusa"
     
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Punti ricevuti", str, false)

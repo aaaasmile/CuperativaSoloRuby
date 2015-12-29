@@ -98,26 +98,6 @@ class CoreGameSpazzino < CoreGameBase
   # Build deck before shuffle
   def create_deck
     @log.debug("Create a deck with rank and points")
-    ## array di simboli delle carte(:_Ac :_4c ...) gestisce il mazzo delle carte durante la partita
-    #@mazzo_gioco = []
-    #@game_deckinfo = {}
-    ## set card values and points
-    #val_arr_rank   = [1 , 2, 3, 4, 5, 6, 7, 8, 9,10] # card value order
-    #val_arr_points = [16,12,13,14,15,18,21,10,10,10] # card points
-    ## modifica il mazzo aggiungendo punti e valore delle carte per il gioco specifico della briscola
-    #@@deck_info.each do |k, card|  
-      #curr_index = card[:ix]
-      ##card[:rank] = val_arr_rank[curr_index % 10]
-      ##card[:points] = val_arr_points[curr_index % 10]
-      #@game_deckinfo[k] = card.dup
-      #@game_deckinfo[k][:rank] = val_arr_rank[curr_index % 10]
-      #@game_deckinfo[k][:points] = val_arr_points[curr_index % 10]
-      ## mazzo viene gestito solo coi simboli
-      #@mazzo_gioco << k
-    #end
-    ##p "RANK random on create_deck"
-    ##p @game_deckinfo[:_Ab][:rank]
-    ##p @game_deckinfo
     
     @mazzo_gioco = []
     
