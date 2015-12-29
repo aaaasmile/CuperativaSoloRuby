@@ -6,6 +6,7 @@ using System.Text;
 using CupStarterConsoleSharp.Interfaces;
 using Ionic.Zip;
 using Microsoft.Win32;
+using System.Security.AccessControl;
 
 namespace CupStarterConsoleSharp
 {
@@ -14,22 +15,26 @@ namespace CupStarterConsoleSharp
         private static log4net.ILog _log = log4net.LogManager.GetLogger(typeof(AppStarter));
 
         public event EventHandler<EventArgs> ApplicationStarting = delegate { };
+        private string _keyRootName = @"Software\invido_it\Cuperativa";
 
         internal void Run()
         {
-            CupUserSettings settings = new CupUserSettings(Registry.CurrentUser.CreateSubKey(@"Software\invido_it\Cuperativa"), isReadOnly: false);
-            string installDir = settings.GetValue<string>("InstallDir", null);
-            string rubyZip = settings.GetValue<string>("RubyPackage", null);
-            if (!settings.GetValue<bool>("RubyPackgeUnzipped", false))
+            CupUserSettings currentUserSettings = new CupUserSettings(Registry.CurrentUser.CreateSubKey(_keyRootName), isReadOnly: false);
+            CupUserSettings applicationSettings = new CupUserSettings(
+                Registry.LocalMachine.OpenSubKey(_keyRootName), isReadOnly: true);
+
+            string installDir = applicationSettings.GetValue<string>("InstallDir", null);
+            string rubyZip = applicationSettings.GetValue<string>("RubyPackage", null);
+            if (!currentUserSettings.GetValue<bool>("RubyPackgeUnzipped", false))
             {
                 ExtractRubyPackage(installDir, rubyZip);
-                settings.SetValue("RubyPackgeUnzipped", true);
+                currentUserSettings.SetValue("RubyPackgeUnzipped", true);
             }
-            AppPackageSettings appPackageSettings = new AppPackageSettings(settings);
-            if (!settings.GetValue<bool>("AppPackgeUnzipped", false))
+            AppPackageSettings appPackageSettings = new AppPackageSettings(applicationSettings);
+            if (!currentUserSettings.GetValue<bool>("AppPackgeUnzipped", false))
             {
                 ExtractAppPackage(installDir, appPackageSettings.AppZipName, appPackageSettings.AppVersion);
-                settings.SetValue("AppPackgeUnzipped", true);
+                currentUserSettings.SetValue("AppPackgeUnzipped", true);
             }
 
             string rubyExePath = GetRubyExePath(rubyZip);
