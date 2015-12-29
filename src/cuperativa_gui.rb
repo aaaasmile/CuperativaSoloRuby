@@ -623,6 +623,7 @@ class CuperativaGui < FXMainWindow
       k = dlg.get_activatedgame_key
       if @app_settings[:games_opt] != nil and @app_settings[:games_opt][k] != nil
         @app_settings[:games_opt][k] = dlg.get_curr_options
+        @app_settings["curr_game"] = k
         @log.debug("opzioni del gioco #{k}: #{@app_settings[:games_opt][k].inspect} ")
         save_settings_in_yaml()
       end

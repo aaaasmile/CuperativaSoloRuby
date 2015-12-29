@@ -25,12 +25,19 @@ class CoreGameTombolon < CoreGameSpazzino
       :replay_game => false, # if true we are using information already stored
       :record_game => true,  # if true record the game
       :vale_napola => true, # if true count also the napola
-      :combi_sum_lesscard => false # if true (e.g. on scopetta) combi card is restricted to the minimun number of cards
+      :combi_sum_lesscard => false, # if true (e.g. on scopetta) combi card is restricted to the minimun number of cards
+      :padova_rule => false
     }
     @option_core_name = :tombolon_game
     @test_deck_path = File.dirname(__FILE__) + '/../../test/tombolon/saved_games'
     @num_of_cards_onhandplayer = 4
     @lastcard_ondeck = nil
+  end
+  
+  # overload of set_specific_options in base class
+  def on_set_specific_options(tombolon_opt)
+    @game_opt[:padova_rule] = tombolon_opt[:padova_rule][:val] if tombolon_opt[:padova_rule]
+    @log.debug("Core tombolon options #{@game_opt.inspect}")
   end
   
   ##
