@@ -24,27 +24,6 @@ class ScopettaGfx < SpazzinoGfx
     @splash_name = File.join(@resource_path, "icons/scopetta.png")
     @algorithm_name = "AlgCpuScopetta"
     
-    ## option for graphic engine on spazzino gfx
-    #@option_gfx = {
-      #:timout_manoend => 800, 
-      #:timeout_player => 400, # not used
-      #:timeout_manoend_continue => 200,
-      #:timeout_manoend_viewtaken => 900,
-      #:timeout_msgbox => 3000,
-      #:timeout_autoplay => 1000,
-      #:timeout_animation_cardtaken => 20,
-      #:timeout_animation_cardplayed => 20,
-      #:timeout_animation_carddistr => 20,
-      #:timeout_reverseblit => 100,
-      #:timeout_lastcardshow => 1200,
-      #:carte_avvers => true,
-      #:use_dlg_on_core_info => true,
-      ## automatic player
-      #:autoplayer_gfx => false,
-      ## disappear msgbox after timeout when using automatic player
-      #:autoplayer_gfx_nomsgbox => true
-    #}
-    
   end
   
   ##
@@ -167,16 +146,10 @@ class ScopettaGfx < SpazzinoGfx
   # Provides a new instance of the current core. On iherited game you can overwrite
   # this function
   def create_instance_core() 
-    @log.debug("Create an automate AlgCpuScopetta for gfx player")
+    @log.debug("Create core scopetta")
     return CoreGameScopetta.new
   end
-  
-  ###
-  ## Create a scopetta automate
-  #def create_algorithm_player(player, core, gui)
-    #return AlgCpuScopetta.new(player, core, gui)
-  #end
-  
+ 
   ##
   # Shows the messagebox for smazzata end
   def show_smazzata_end(best_pl_points )

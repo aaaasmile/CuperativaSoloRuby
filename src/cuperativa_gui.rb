@@ -616,7 +616,7 @@ class CuperativaGui < FXMainWindow
       k = dlg.get_activatedgame_key
       if @app_settings[:games_opt] != nil and @app_settings[:games_opt][k] != nil
         @app_settings[:games_opt][k] = dlg.get_curr_options
-        @log.debug("opzioni del gico #{k}: #{@app_settings[:games_opt][k]} ")
+        @log.debug("opzioni del gioco #{k}: #{@app_settings[:games_opt][k].inspect} ")
       end
       initialize_current_gfx(k)
       log_sometext("Attivato il gioco #{@supported_game_map[k][:name]}\n") 

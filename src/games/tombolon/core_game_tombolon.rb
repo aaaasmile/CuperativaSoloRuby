@@ -27,6 +27,7 @@ class CoreGameTombolon < CoreGameSpazzino
       :vale_napola => true, # if true count also the napola
       :combi_sum_lesscard => false # if true (e.g. on scopetta) combi card is restricted to the minimun number of cards
     }
+    @option_core_name = :tombolon_game
     @test_deck_path = File.dirname(__FILE__) + '/../../test/tombolon/saved_games'
     @num_of_cards_onhandplayer = 4
     @lastcard_ondeck = nil

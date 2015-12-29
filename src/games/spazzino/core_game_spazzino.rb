@@ -9,7 +9,8 @@ require 'alg_cpu_spazzino'
 
 # Class to manage the core card game
 class CoreGameSpazzino < CoreGameBase
-  attr_accessor :game_opt, :rnd_mgr, :points_curr_match, :num_of_cards_onhandplayer
+  attr_accessor :rnd_mgr, :points_curr_match, :num_of_cards_onhandplayer
+  attr_reader :game_opt
 
   def initialize
     super
@@ -25,7 +26,8 @@ class CoreGameSpazzino < CoreGameBase
       :combi_sum_lesscard => false # if true combi card is allowed with less card then all other 
     }
     @test_deck_path = File.dirname(__FILE__) + '/../../test/spazzino/saved_games'
-    
+    @option_core_name = :spazzino_game
+
     # players (instance of class PlayerOnGame) order that have to play
     @round_players = []
     #p @mazzo_gioco
@@ -80,10 +82,11 @@ class CoreGameSpazzino < CoreGameBase
   # Set options from external, for example from user using @app_settings
   # options: the cuperativa.app_settings hash
   def set_specific_options(options)
-    if options[:games_opt][:spazzino_game]
-      if options[:games_opt][:spazzino_game][:target_points]
-        @game_opt[:target_points] = options[:games_opt][:spazzino_game][:target_points]
+    if options[:games_opt][@option_core_name]
+      if options[:games_opt][@option_core_name][:target_points]
+        @game_opt[:target_points] = options[:games_opt][@option_core_name][:target_points][:val]
       end
+      on_set_specific_options(options[:games_opt][@option_core_name]) if respond_to?(:on_set_specific_options)
     end
   end
   
@@ -883,7 +886,7 @@ class CoreGameSpazzino < CoreGameBase
       submit_next_event(:new_giocata)
       return :new_giocata
     elsif arr_points.size > 1
-      @log.debug "Game over the target points of #{@game_opt[:target_points]} but deuced, continue."
+      @log.debug "Game over the target points of #{@game_opt[:target_points]} but draw, continue."
       submit_next_event(:new_giocata)
       return :new_giocata
     else

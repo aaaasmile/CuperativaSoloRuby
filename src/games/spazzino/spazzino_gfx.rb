@@ -731,6 +731,7 @@ class SpazzinoGfx < BaseEngineGfx
   # Provides a new instance of the current core. On iherited game you can overwrite
   # this function
   def create_instance_core() 
+    @log.debug "create core spazzino"
     return CoreGameSpazzino.new
   end
   
