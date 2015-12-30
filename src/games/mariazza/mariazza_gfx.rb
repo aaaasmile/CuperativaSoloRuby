@@ -338,13 +338,13 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,950,530)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,950,530)
   
   # start game using a custom deck
   deck =  RandomManager.new
   deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rd,_6d',0)
-  mainwindow.set_custom_deck(deck)
+  testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
@@ -353,13 +353,13 @@ if $0 == __FILE__
   players << PlayerOnGame.new('me', nil, :human_local, 0)
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
   
-  #mainwindow.app_settings["autoplayer"][:auto_gfx] = true
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
-  mainwindow.init_gfx(MariazzaGfx, players)
-  maria_gfx = mainwindow.current_game_gfx
+  testCanvas.init_gfx(MariazzaGfx, players)
+  maria_gfx = testCanvas.current_game_gfx
   maria_gfx.option_gfx[:timeout_autoplay] = 50
   maria_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
-  mainwindow.start_new_game
+  testCanvas.start_new_game
   
   theApp.run
 end

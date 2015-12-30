@@ -66,49 +66,7 @@ class TestCanvas < FXMainWindow
     end
     submit_idle_handler
   end
-  
-  def MyaddChore(*args, &block)
-    params = {}
-    params = args.pop if args.last.is_a? Hash
-    tgt, sel = nil, 0
-    if args.length > 0
-      if args[0].respond_to? :call
-        tgt = params[:target] || FXPseudoTarget.new
-        tgt.pconnect(SEL_CHORE, args[0], params)
-      else
-        tgt, sel = args[0], args[1]
-      end
-    else
-      tgt = params[:target] || FXPseudoTarget.new
-      tgt.pconnect(SEL_CHORE, block, params)
-    end
-    @anApp.addChoreOrig(tgt, sel)
-    params[:target] = tgt
-    params[:selector] = sel
-    params
-  end
-  
-  ##
-  # Disable button
-  # bt_name: button name
-  def disable_bt(bt_name)
-    @game_cmd_bt_list.each do |bt|
-      if bt[:name] == bt_name
-        bt[:bt_wnd].disable
-        return bt
-      end 
-    end
-  end
-  
-  def free_all_btcmd
-    @game_cmd_bt_list.each do |bt| 
-      bt[:bt_wnd].hide
-      bt[:bt_wnd].enable
-#  bt[:bt_wnd].show #only for test
-      bt[:status] = :not_used
-    end
-  end
-  
+ 
   def get_resource_path
     res_path = File.dirname(__FILE__) + "../../res"
     return File.expand_path(res_path)
@@ -116,33 +74,6 @@ class TestCanvas < FXMainWindow
   
   def set_position(a,b,c,d)
     @pos_start_x = a; @pos_start_y = b; @pos_ww = c; @pos_hh = d
-  end
-  
-  ##
-  # Provides the next free button
-  def get_next_btcmd
-    @game_cmd_bt_list.each do |bt|
-      if bt[:status] == :not_used
-        bt[:status] = :used 
-        return bt
-      end 
-    end
-    nil
-  end
-  
-  def create_bt_cmd(cmd_name, params, cb_btcmd)
-    # get the cmd button ready to be used
-    bt_cmd_created = get_next_btcmd()
-    #p bt_cmd_created[:bt_wnd].methods
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:name] = cmd_name
-    bt_cmd_created[:bt_wnd].show
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:bt_wnd].text = cmd_name.to_s
-    bt_cmd_created[:bt_wnd].connect(SEL_COMMAND) do
-      @current_game_gfx.send(cb_btcmd, params)
-    end
-    
   end
   
   ##
@@ -242,24 +173,6 @@ class TestCanvas < FXMainWindow
     @app_settings[:custom_deck] = { :deck => deck_info }
   end
  
-  ##
-  # Paint
-  def onCanvasPaint(sender, sel, event)
-    dc = FXDCWindow.new(@image_double_buff)
-    dc.foreground = @canvas_disp.backColor
-    dc.fillRectangle(0, 0, @image_double_buff.width, @image_double_buff.height)
-    if @current_game_gfx
-      @current_game_gfx.draw_static_scene(dc, @image_double_buff.width, @image_double_buff.height)
-    end
-    dc.end #don't forget this, otherwise  problems on exit
-
-    # blit image into the canvas
-    dc_canvas = FXDCWindow.new(@canvas_disp, event)
-    dc_canvas.drawImage(@image_double_buff, 0, 0)
-    dc_canvas.end
-    
-  end #end onCanvasPaint
-  
   def mycritical_error(str)
     FXMessageBox.error(self, MBOX_OK, "Errore applicazione", str)
     exit
