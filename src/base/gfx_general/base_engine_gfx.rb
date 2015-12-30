@@ -105,11 +105,6 @@ class BaseEngineGfx < InvWidget
   end
   
   ##
-  # Give the current game the chance to build an own frame near to the canvas
-  def set_canvas_frame(canvasFrame)
-  end
-  
-  ##
   # Draw the widget
   # dc: Canvas to draw
   # theme: current theme

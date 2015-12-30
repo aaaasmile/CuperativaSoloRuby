@@ -23,20 +23,7 @@ class TestCanvas < FXMainWindow
   def initialize(anApp)
     super(anApp, "TestCanvas", nil, nil, DECOR_ALL, 30, 20, 640, 480)
     
-    @container = InvContainer.new(self, anApp)
-    #canvas_panel = FXHorizontalFrame.new(self, FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    #@canvasFrame = FXVerticalFrame.new(canvas_panel, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    #@canvas_disp = FXCanvas.new(canvas_panel, nil, 0, LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT )
-    #@canvas_disp.connect(SEL_PAINT, method(:onCanvasPaint))
-    #@canvas_disp.connect(SEL_LEFTBUTTONPRESS, method(:onLMouseDown))
-    #@canvas_disp.connect(SEL_CONFIGURE, method(:OnSizeChange))
-    #@color_backround = Fox.FXRGB(0, 170, 0) 
-    #@canvas_disp.backColor = @color_backround
     @icons_app = {}
-    # double buffer image for canvas
-    #@imgDbuffHeight = 0
-    #@imgDbuffWidth = 0
-    #@image_double_buff = nil
     @state_game = :splash
     @players_on_table = []
     @app_settings = {
@@ -60,21 +47,9 @@ class TestCanvas < FXMainWindow
     @sound_manager = SoundManager.new
     @container = InvContainer.new(self, anApp)
     
-    ## specific game commands
-    #@buttonFrame = main_vertical
-    #matrix = FXMatrix.new(@buttonFrame, 3, MATRIX_BY_COLUMNS|LAYOUT_FILL_X)
-    #(0..8).each do |ix|
-      #bt_wnd = FXButton.new(matrix, "Test#{ix}", nil, nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-      #bt_wnd.iconPosition = (bt_wnd.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
-      #bt_hash = {:bt_wnd => bt_wnd, :status => :not_used}
-      #@game_cmd_bt_list << bt_hash
-    #end
-    #free_all_btcmd # hide all commands buttons
     @log = Log4r::Logger["coregame_log"]
     # idle routine
     @anApp = anApp
-    #MyaddChore(:repeat => true) do |sender, sel, data|
-    
     
   end
   
@@ -134,47 +109,6 @@ class TestCanvas < FXMainWindow
     end
   end
   
-  def onLMouseDown(sender, sel, event)
-    if @state_game == :game_started
-      @current_game_gfx.onLMouseDown(event.win_x, event.win_y) if @current_game_gfx
-    else
-      @current_game_gfx.start_new_game @players_on_table, @app_settings
-      @state_game = :game_started
-    end
-  end
-   
- 
-  def update_dsp
-    @canvas_disp.update
-  end
-  
-  def OnSizeChange(sender, sel, event)
-    adapt_to_canvas = false
-    #check height
-    if @imgDbuffHeight + 10 < @canvas_disp.height
-      adapt_to_canvas = true
-    elsif @imgDbuffHeight > @canvas_disp.height + 20
-      adapt_to_canvas = true
-    end
-    # check width
-    if @imgDbuffWidth + 10 < @canvas_disp.width
-      adapt_to_canvas = true
-    elsif  @imgDbuffWidth > @canvas_disp.width + 20
-      adapt_to_canvas = true
-    end
-    if adapt_to_canvas
-      # need to recreate a new image double buffer 
-      @imgDbuffHeight = @canvas_disp.height
-      @imgDbuffWidth = @canvas_disp.width
-      
-      @image_double_buff = FXImage.new(getApp(), nil, 
-             IMAGE_SHMI|IMAGE_SHMP, @imgDbuffWidth, @imgDbuffHeight)
-      @image_double_buff.create
-      #notify change to the current gfx
-      @current_game_gfx.onSizeChange(@imgDbuffWidth, @imgDbuffHeight ) if @current_game_gfx
-    end
-  end
-  
   def get_resource_path
     res_path = File.dirname(__FILE__) + "../../res"
     return File.expand_path(res_path)
@@ -218,42 +152,28 @@ class TestCanvas < FXMainWindow
     super
     show(PLACEMENT_SCREEN)
   end
-  
-  def deactivate_canvas_frame
-    @canvasFrame.hide
-    @canvasFrame.recalc 
-    @canvas_disp.recalc if @canvas_disp
-  end
-  
-  ##
-  # Recalculate the canvas. This is needed when a new control is added
-  # and the canvas need to be recalculated
-  def activate_canvas_frame
-    @canvasFrame.show
-    @canvasFrame.recalc
-    @canvas_disp.recalc
-  end
-  
+   
   def init_gfx(gfx_class, players)
     if $g_os_type == :win32_system
       submit_idle_handler
     else
       anApp.addChore(:repeat => true) do |sender, sel, data|
-      #anApp.addChore() do |sender, sel, data|
         #p 'chore is called'
         if @current_game_gfx
           @current_game_gfx.do_core_process
         end
       end
     end
-    deactivate_canvas_frame
     @current_game_gfx = gfx_class.new(self)
-    @current_game_gfx.color_backround = @color_backround
-    
+    @container.add(@current_game_gfx)
+    @current_game_gfx.model_canvas_gfx.info[:canvas] = {:height => @container.height, :width => @container.width, :pos_x => 0, :pos_y => 0 }
     @players_on_table = players
-    @current_game_gfx.set_canvas_frame(@canvasFrame)
     @current_game_gfx.create_wait_for_play_screen
-     
+    @log.debug "Game #{gfx_class} initialized" 
+  end
+
+  def start_new_game
+    @current_game_gfx.start_new_game(@players_on_table, @app_settings)
   end
   
   def ntfy_gfx_gamestarted() end

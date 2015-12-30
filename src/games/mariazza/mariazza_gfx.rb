@@ -359,6 +359,7 @@ if $0 == __FILE__
   maria_gfx = mainwindow.current_game_gfx
   maria_gfx.option_gfx[:timeout_autoplay] = 50
   maria_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  mainwindow.start_new_game
   
   theApp.run
 end
