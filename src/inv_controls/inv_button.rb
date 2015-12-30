@@ -5,6 +5,7 @@ require 'inv_label'
 require 'inv_image'
 
 class InvButton < InvWidget
+  attr_reader :content
   
   def initialize(x=0, y=0, w=0, h=0, zord=0, visb=true, rot=false)
     super(x,y,w,h,zord,visb,rot,"InvButton")

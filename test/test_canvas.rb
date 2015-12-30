@@ -45,6 +45,7 @@ class TestCanvas < FXMainWindow
     @game_cmd_bt_list = []
     
     @sound_manager = SoundManager.new
+    @sound_manager.disable_sound
     @container = InvContainer.new(self, anApp)
     
     @log = Log4r::Logger["coregame_log"]

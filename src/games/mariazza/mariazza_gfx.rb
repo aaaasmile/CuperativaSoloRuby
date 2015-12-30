@@ -56,53 +56,58 @@ class MariazzaGfx < BriscolaGfx
       @game_cmd_bt_list << bt_hash
     end
   end
-  
-  ##
-  # Give the current game the chance to build an own frame near to the canvas
-  def set_canvas_frame(canvasFrame_wnd)
-    canvasFrame = FXVerticalFrame.new(canvasFrame_wnd, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    canvasFrame.create
-    
-    #p "**** set frame..."
-    if @game_cmd_bt_list.size > 0 
-      # send canvas size changed
-      @app_owner.activate_canvas_frame
-      return
-    end
-    
-    label_wnd = FXLabel.new(canvasFrame, "Comandi gioco  ", nil, JUSTIFY_LEFT|LAYOUT_FILL_X)
-    label_wnd.create
-    
-    bt_wnd_list = []
-    bt_wnd_list << FXButton.new(canvasFrame, "uno", @app_owner.icons_app[:numero_uno], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    bt_wnd_list <<  FXButton.new(canvasFrame, "due", @app_owner.icons_app[:numero_due], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    bt_wnd_list << FXButton.new(canvasFrame, "tre", @app_owner.icons_app[:numero_tre], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    
-    bt_wnd_list.each do |bt_wnd|
-      bt_wnd.iconPosition = (bt_wnd.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
-      bt_hash = {:bt_wnd => bt_wnd, :status => :not_used}
-      @game_cmd_bt_list << bt_hash
-      bt_wnd.create
-    end
-    free_all_btcmd # hide all commands buttons
-    
-    # send canvas size changed
-    @app_owner.activate_canvas_frame
-  end
-  
+   
   ##
   # Free and hide all game specific cmd buttons
   def free_all_btcmd
     container = @model_canvas_gfx.info[:main_container]
     @game_cmd_bt_list.each do |bt| 
       if bt[:status] != :not_used
-        @log.debug "Free button #{bt.inspect}"
+        @log.debug "Free button #{bt[:name]}"
         container.remove(bt[:bt_wnd])
         block = bt[:bt_wnd_block]
         bt[:bt_wnd].disconnect(:EV_click, block) if block 
       end
       bt[:status] = :not_used
     end
+  end
+  
+  ##
+  # Create a new command in the game command pannel
+  # params: array of parameters
+  # cb_btcmd: callback implemented in the game gfx
+  def create_bt_cmd(cmd_name, params, cb_btcmd)
+    bt_cmd_created = get_next_btcmd()
+    #p bt_cmd_created[:bt_wnd].methods
+    #p bt_cmd_created[:bt_wnd].shown?
+    bt_cmd_created[:name] = cmd_name
+    container = @model_canvas_gfx.info[:main_container]
+    
+    #p bt_cmd_created[:bt_wnd].shown?
+    bt_wnd = bt_cmd_created[:bt_wnd]
+    bt_wnd.content.caption = cmd_name.to_s
+     
+    block = bt_wnd.connect(:EV_click) do |sender|
+    	@log.debug "Handle command #{cb_btcmd}"
+    	bt_wnd.disconnect(:EV_click, block)
+    	container.remove(bt_cmd_created[:bt_wnd])
+    	bt_cmd_created[:status] = :not_used
+      send(cb_btcmd, params)
+    end
+    bt_cmd_created[:bt_wnd_block] = block
+    container.add(bt_wnd)
+  end
+  
+  ##
+  # Provides the next free button
+  def get_next_btcmd
+    @game_cmd_bt_list.each do |bt|
+      if bt[:status] == :not_used
+        bt[:status] = :used 
+        return bt
+      end 
+    end
+    nil
   end
   
   ##
@@ -218,43 +223,7 @@ class MariazzaGfx < BriscolaGfx
     update_dsp
   end
   
-  ##
-  # Create a new command in the game command pannel
-  # params: array of parameters
-  # cb_btcmd: callback implemented in the game gfx
-  def create_bt_cmd(cmd_name, params, cb_btcmd)
-    bt_cmd_created = get_next_btcmd()
-    #p bt_cmd_created[:bt_wnd].methods
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:name] = cmd_name
-    container = @model_canvas_gfx.info[:main_container]
-    
-    #p bt_cmd_created[:bt_wnd].shown?
-    #bt_cmd_created[:bt_wnd].text = cmd_name.to_s
-    #bt_cmd_created[:bt_wnd].enable
-    bt_wnd = bt_cmd_created[:bt_wnd] 
-    block = bt_wnd.connect(:EV_click) do |sender|
-    	@log.debug "Handle command #{cb_btcmd}"
-    	bt_wnd.disconnect(:EV_click, block)
-    	container.remove(bt_cmd_created[:bt_wnd])
-    	bt_cmd_created[:status] = :not_used
-      send(cb_btcmd, params)
-    end
-    bt_cmd_created[:bt_wnd_block] = block
-    container.add(bt_cmd_created[:bt_wnd])
-  end
   
-  ##
-  # Provides the next free button
-  def get_next_btcmd
-    @game_cmd_bt_list.each do |bt|
-      if bt[:status] == :not_used
-        bt[:status] = :used 
-        return bt
-      end 
-    end
-    nil
-  end
   
   ##
   # Player has changed the briscola on table with a 7
