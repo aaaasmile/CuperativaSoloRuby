@@ -32,14 +32,14 @@ class CoreGameMariazza < CoreGameBriscola
   end
   
   def set_specific_options(options)
-    #p options[:games][:mariazza]
-    if options[:games_opt][:mariazza]
-      opt_briscola = options[:games_opt][:mariazza]
-      if opt_briscola[:num_segni_match]
-        @game_opt[:num_segni_match] = opt_briscola[:num_segni_match][:val]
+    p options[:games_opt][:mariazza_game]
+    if options[:games_opt][:mariazza_game]
+      opt_game = options[:games_opt][:mariazza_game]
+      if opt_game[:num_segni_match]
+        @game_opt[:num_segni_match] = opt_game[:num_segni_match][:val]
       end
-      if opt_briscola[:target_points_segno]
-        @game_opt[:target_points_segno] = opt_briscola[:target_points_segno][:val]
+      if opt_game[:target_points_segno]
+        @game_opt[:target_points_segno] = opt_game[:target_points_segno][:val]
       end
     end
     #p @game_opt[:num_segni_match]
