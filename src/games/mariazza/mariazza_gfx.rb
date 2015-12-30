@@ -40,25 +40,15 @@ class MariazzaGfx < BriscolaGfx
     @core_name_class = 'CoreGameMariazza'
     @log = Log4r::Logger.new("coregame_log::MariazzaGfx") 
     
-    @game_cmd_bt_list = []
-  end
-
-  def onalg_new_match(players)
     init_command_buttons
-    super
   end
   
   def init_command_buttons
-    return if @game_cmd_bt_list.size > 0
+    @game_cmd_bt_list = []
     @log.debug "Create command buttons"
-    container = @model_canvas_gfx.info[:main_container]
     bt1 = InvButton.new(10, 10, 100, 50, 0)
     bt1.set_content('uno')
-    bt1.connect(:EV_click) do |sender|
-      container.remove(bt1)
-      @log.debug "*** Handle click event on  bt1"
-    end
-
+    
     bt_wnd_list = []
     bt_wnd_list << bt1
     bt_wnd_list.each do |bt_wnd|
@@ -106,7 +96,10 @@ class MariazzaGfx < BriscolaGfx
     container = @model_canvas_gfx.info[:main_container]
     @game_cmd_bt_list.each do |bt| 
       if bt[:status] != :not_used
-        container.remove(bt)
+        @log.debug "Free button #{bt.inspect}"
+        container.remove(bt[:bt_wnd])
+        block = bt[:bt_wnd_block]
+        bt[:bt_wnd].disconnect(:EV_click, block) if block 
       end
       bt[:status] = :not_used
     end
@@ -239,10 +232,15 @@ class MariazzaGfx < BriscolaGfx
     #p bt_cmd_created[:bt_wnd].shown?
     #bt_cmd_created[:bt_wnd].text = cmd_name.to_s
     #bt_cmd_created[:bt_wnd].enable
-    #bt_cmd_created[:bt_wnd].connect(SEL_COMMAND) do
-    #  bt_cmd_created[:bt_wnd].disable
-    #  send(cb_btcmd, params)
-    #end
+    bt_wnd = bt_cmd_created[:bt_wnd] 
+    block = bt_wnd.connect(:EV_click) do |sender|
+    	@log.debug "Handle command #{cb_btcmd}"
+    	bt_wnd.disconnect(:EV_click, block)
+    	container.remove(bt_cmd_created[:bt_wnd])
+    	bt_cmd_created[:status] = :not_used
+      send(cb_btcmd, params)
+    end
+    bt_cmd_created[:bt_wnd_block] = block
     container.add(bt_cmd_created[:bt_wnd])
   end
   
