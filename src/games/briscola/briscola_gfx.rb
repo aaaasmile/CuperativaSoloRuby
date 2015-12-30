@@ -753,7 +753,6 @@ class BriscolaGfx < BaseEngineGfx
     end    
     # set static elements that need to be update on each giocata
     build_deck_on_newgiocata
-    
 
     @cards_players.init_position_ani_distrcards
     
@@ -913,9 +912,9 @@ class BriscolaGfx < BaseEngineGfx
   ##
   # Shows a dilogbox for the end of the smazzata
   def show_smazzata_end(best_pl_points )
-    str = "** Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
+    str = "Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     if best_pl_points[0][1] == best_pl_points[1][1]
-      str = "** Partita finita in pareggio"
+      str = "Partita finita in pareggio"
     end 
     log str
    

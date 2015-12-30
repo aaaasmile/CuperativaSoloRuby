@@ -23,10 +23,11 @@ class MariazzaGfx < BriscolaGfx
      :y_off_plgui_lx => 15, :y_off_plg_card => 10
   }
   
-  MARIAZZA_NAME = {:mar_den => {:name_lbl => "Mariazza di denari"}, 
+  DECL_NAMES = {:mar_den => {:name_lbl => "Mariazza di denari"}, 
                      :mar_spa => {:name_lbl => "Mariazza di spade"},
                      :mar_cop => {:name_lbl => "Mariazza di coppe"},
-                     :mar_bas => {:name_lbl => "Mariazza di bastoni"}
+                     :mar_bas => {:name_lbl => "Mariazza di bastoni"},
+                     :change_brisc => {:name_lbl => "Cambia birscola"}
                    }
   
   # constructor 
@@ -46,11 +47,14 @@ class MariazzaGfx < BriscolaGfx
   def init_command_buttons
     @game_cmd_bt_list = []
     @log.debug "Create command buttons"
-    bt1 = InvButton.new(10, 10, 100, 50, 0)
+    bt1 = InvButton.new(10, 10, 140, 50, 0)
     bt1.set_content('uno')
+    bt2 = InvButton.new(10, 70, 140, 50, 0)
+    bt2.set_content('due')
+    bt3 = InvButton.new(10, 130, 140, 50, 0)
+    bt3.set_content('tre')
     
-    bt_wnd_list = []
-    bt_wnd_list << bt1
+    bt_wnd_list = [bt1, bt2, bt3]
     bt_wnd_list.each do |bt_wnd|
       bt_hash = {:bt_wnd => bt_wnd, :status => :not_used}
       @game_cmd_bt_list << bt_hash
@@ -85,7 +89,7 @@ class MariazzaGfx < BriscolaGfx
     
     #p bt_cmd_created[:bt_wnd].shown?
     bt_wnd = bt_cmd_created[:bt_wnd]
-    bt_wnd.content.caption = cmd_name.to_s
+    bt_wnd.content.caption = get_declaration_name(cmd_name)
      
     block = bt_wnd.connect(:EV_click) do |sender|
     	@log.debug "Handle command #{cb_btcmd}"
@@ -167,8 +171,8 @@ class MariazzaGfx < BriscolaGfx
   ##
   # Provides the name of the mariazza declaration
   # name_decl: mariazza name as label (e.g :mar_den)
-  def nome_mariazza(name_decl)
-    return MARIAZZA_NAME[name_decl][:name_lbl]
+  def get_declaration_name(name_decl)
+    return DECL_NAMES[name_decl][:name_lbl]
   end
   
   ##
@@ -187,12 +191,12 @@ class MariazzaGfx < BriscolaGfx
           # change briscola command
           decl_str += "possibile scambio briscola"
           # create command button to change the briscola
-          create_bt_cmd("Cambia bri", 
-         [ player, cmd[:change_briscola][:briscola], cmd[:change_briscola][:on_hand]  ], 
+          create_bt_cmd(cmd[:name], 
+         [ player, cmd[:change_briscola][:briscola], cmd[:change_briscola][:on_hand]], 
                :onBtPlayerChangeBriscola)
         else
           # mariazza declaration command
-          decl_str += "#{nome_mariazza(cmd[:name])}, punti: #{cmd[:points]} "
+          decl_str += "#{get_declaration_name(cmd[:name])}, punti: #{cmd[:points]} "
           # create a button with the declaration of this mariazza
           create_bt_cmd(cmd[:name], [player, cmd[:name]], :onBtPlayerDeclare)
         end
@@ -270,11 +274,11 @@ class MariazzaGfx < BriscolaGfx
   # name_decl: mariazza declared name (e.g :mar_den)
   # points: points of the declared mariazza
   def onalg_player_has_declared(player, name_decl, points)
-    log "#{player.name} ha dichiarato #{nome_mariazza(name_decl)}"
+    log "#{player.name} ha dichiarato #{get_declaration_name(name_decl)}"
     #if @player_on_gui[:player] == player
       #@app_owner.disable_bt(name_decl)
     #end
-    str = "Il giocatore #{player.name} ha accusato la\n#{nome_mariazza(name_decl)}"
+    str = "Il giocatore #{player.name} ha accusato la\n#{get_declaration_name(name_decl)}"
     str.concat("da #{points} punti") if points > 0
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Mariazza accusata", str, false)
@@ -329,7 +333,7 @@ if $0 == __FILE__
   
   # start game using a custom deck
   deck =  RandomManager.new
-  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rd,_6d',0)
+  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Rs,_Cs,_Cb,_7d,_Rb,_6d',0)
   testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
