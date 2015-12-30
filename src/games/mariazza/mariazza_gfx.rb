@@ -162,17 +162,22 @@ class MariazzaGfx < BriscolaGfx
     card_on_hand = params[2]
     @core_game.alg_player_change_briscola(player, card_briscola, card_on_hand )
   end
+
+  ##
+  # Provides the name of the mariazza declaration
+  # name_decl: mariazza name as label (e.g :mar_den)
+  def get_declaration_name(name_decl)
+    return DECL_NAMES[name_decl][:name_lbl]
+  end
   
   ############### implements methods of AlgCpuPlayerBase
   #############################################
   #algorithm calls (gfx is a kind of algorithm)
   #############################################
  
-  ##
-  # Provides the name of the mariazza declaration
-  # name_decl: mariazza name as label (e.g :mar_den)
-  def get_declaration_name(name_decl)
-    return DECL_NAMES[name_decl][:name_lbl]
+  def onalg_giocataend(best_pl_points)
+    free_all_btcmd()
+    super 
   end
   
   ##
@@ -227,8 +232,6 @@ class MariazzaGfx < BriscolaGfx
     update_dsp
   end
   
-  
-  
   ##
   # Player has changed the briscola on table with a 7
   def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
@@ -279,7 +282,7 @@ class MariazzaGfx < BriscolaGfx
       #@app_owner.disable_bt(name_decl)
     #end
     str = "Il giocatore #{player.name} ha accusato la\n#{get_declaration_name(name_decl)}"
-    str.concat("da #{points} punti") if points > 0
+    str.concat(" da #{points} punti") if points > 0
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Mariazza accusata", str, false)
     end
@@ -325,7 +328,9 @@ if $0 == __FILE__
   include Log4r
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
-  
+  out_log_name = File.join(ResourceInfo.get_dir_appdata(), 'logs/mariazza_test.log')
+  FileOutputter.new('coregame_log', :filename=> out_log_name)
+  Logger['coregame_log'].add 'coregame_log'
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
   testCanvas = TestCanvas.new(theApp)
@@ -333,15 +338,16 @@ if $0 == __FILE__
   
   # start game using a custom deck
   deck =  RandomManager.new
-  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_Rd,_7d,_Cd,_Rs,_Cs,_Cb,_4d,_Rb,_6d',0)
+  deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_7s,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Ac,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_As,_Fc,_Cc,_Rc,_Fd,_6s,_4d,_2c',0)
   testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
   theApp.create()
   players = []
-  players << PlayerOnGame.new('me', nil, :human_local, 0)
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('me', nil, :human_local, 0)
+  
   
   #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
