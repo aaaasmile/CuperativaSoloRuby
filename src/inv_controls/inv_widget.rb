@@ -1,5 +1,6 @@
 #file: inv_widget.rb
 
+require 'rubygems'
 
 class InvWidget
   attr_accessor :pos_x, :pos_y,  :visible, :rotated, :z_order, :verbose
@@ -93,5 +94,35 @@ private
     return res
   end
   
+end
+
+if $0 == __FILE__
+  require 'log4r'
+  include Log4r
+  log = Log4r::Logger.new("coregame_log")
+  log.outputters << Outputter.stdout
+  
+  class TestWidget < InvWidget
+    def initialize
+      super
+      @log = Log4r::Logger.new("coregame_log::TestWidget") 
+    end
+    def raise_click
+      @log.debug "fire :EV_click"
+      fire_event(:EV_click, self)
+    end
+  end
+  w1 = TestWidget.new
+  w1.connect(:EV_click) do |sender|
+    log.debug "*** Handle click event 1"
+  end
+  
+  w1.raise_click
+  
+  w1.connect(:EV_click) do |sender|
+    log.debug "*** Handle click event 2"
+  end
+  
+  w1.raise_click
 end
 
