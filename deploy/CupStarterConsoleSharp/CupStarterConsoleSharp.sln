@@ -245,6 +245,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inv_controls", "inv_control
 		..\..\src\inv_controls\inv_widget.rb = ..\..\src\inv_controls\inv_widget.rb
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "inv_controls", "inv_controls", "{6891122A-0D26-42B1-9425-BFE6C065E047}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\test\inv_controls\test_widget.rb = ..\..\test\inv_controls\test_widget.rb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -301,5 +306,6 @@ Global
 		{643814EF-F49E-4302-8D32-D7F830318814} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
 		{2CA285FE-F80D-4719-A53B-B00ADCD016BD} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
 		{E97A3BB8-5E08-446B-A59A-7B5623265948} = {3AE696F8-8F1C-4D76-BD7D-BEB46638BD86}
+		{6891122A-0D26-42B1-9425-BFE6C065E047} = {AAE81AF3-4B33-4A59-9868-3E6AE191A24E}
 	EndGlobalSection
 EndGlobal
