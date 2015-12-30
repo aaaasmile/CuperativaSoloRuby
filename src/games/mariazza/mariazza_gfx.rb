@@ -37,13 +37,34 @@ class MariazzaGfx < BriscolaGfx
     @core_game = nil
     @splash_name = File.join(@resource_path, "icons/mariazza_title_trasp.png")
     @algorithm_name = "AlgCpuMariazza"  
-    #core game name (created on base class)
     @core_name_class = 'CoreGameMariazza'
+    @log = Log4r::Logger.new("coregame_log::MariazzaGfx") 
     
-    # game commands
     @game_cmd_bt_list = []
+  end
 
-    ## NOTE: don't forget to initialize variables also in ntfy_base_gui_start_new_game
+  def onalg_new_match(players)
+    init_command_buttons
+    super
+  end
+  
+  def init_command_buttons
+    return if @game_cmd_bt_list.size > 0
+    @log.debug "Create command buttons"
+    container = @model_canvas_gfx.info[:main_container]
+    bt1 = InvButton.new(10, 10, 100, 50, 0)
+    bt1.set_content('uno')
+    bt1.connect(:EV_click) do |sender|
+      container.remove(bt1)
+      @log.debug "*** Handle click event on  bt1"
+    end
+
+    bt_wnd_list = []
+    bt_wnd_list << bt1
+    bt_wnd_list.each do |bt_wnd|
+      bt_hash = {:bt_wnd => bt_wnd, :status => :not_used}
+      @game_cmd_bt_list << bt_hash
+    end
   end
   
   ##
@@ -82,13 +103,13 @@ class MariazzaGfx < BriscolaGfx
   ##
   # Free and hide all game specific cmd buttons
   def free_all_btcmd
+    container = @model_canvas_gfx.info[:main_container]
     @game_cmd_bt_list.each do |bt| 
-      bt[:bt_wnd].hide
-      bt[:bt_wnd].enable
-#  bt[:bt_wnd].show #only for test
+      if bt[:status] != :not_used
+        container.remove(bt)
+      end
       bt[:status] = :not_used
     end
-    #@app_owner.deactivate_canvas_frame
   end
   
   ##
@@ -109,11 +130,11 @@ class MariazzaGfx < BriscolaGfx
   # Shows a dilogbox for the end of the smazzata
   def show_smazzata_end(best_pl_points )
     @log.debug "Show smazzata end dialogbox"
-    str = "** Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
+    str = "Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
    
     if @option_gfx[:use_dlg_on_core_info]
-      @msgbox_smazzataend.show_message_box("Smazzata finita", str.gsub("** ", ""), true)
+      @msgbox_smazzataend.show_message_box("Smazzata finita", str, true)
       @msgbox_smazzataend.set_visible(true)
     end
     
@@ -209,22 +230,20 @@ class MariazzaGfx < BriscolaGfx
   # params: array of parameters
   # cb_btcmd: callback implemented in the game gfx
   def create_bt_cmd(cmd_name, params, cb_btcmd)
-    # get the cmd button ready to be used
     bt_cmd_created = get_next_btcmd()
     #p bt_cmd_created[:bt_wnd].methods
     #p bt_cmd_created[:bt_wnd].shown?
     bt_cmd_created[:name] = cmd_name
-    bt_cmd_created[:bt_wnd].show
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:bt_wnd].text = cmd_name.to_s
-    bt_cmd_created[:bt_wnd].enable
-    bt_cmd_created[:bt_wnd].connect(SEL_COMMAND) do
-      bt_cmd_created[:bt_wnd].disable
-      send(cb_btcmd, params)
-    end
+    container = @model_canvas_gfx.info[:main_container]
     
-    # send canvas size changed
-    @app_owner.activate_canvas_frame
+    #p bt_cmd_created[:bt_wnd].shown?
+    #bt_cmd_created[:bt_wnd].text = cmd_name.to_s
+    #bt_cmd_created[:bt_wnd].enable
+    #bt_cmd_created[:bt_wnd].connect(SEL_COMMAND) do
+    #  bt_cmd_created[:bt_wnd].disable
+    #  send(cb_btcmd, params)
+    #end
+    container.add(bt_cmd_created[:bt_wnd])
   end
   
   ##

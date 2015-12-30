@@ -317,7 +317,7 @@ class Test_Spazzino_core < Test::Unit::TestCase
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
-    @log.debug "******* end of segno **********************"
+    @log.debug "end of segno"
     # here segno is finished, 
     @core.points_curr_match.each do |k,v|
       #force deuce

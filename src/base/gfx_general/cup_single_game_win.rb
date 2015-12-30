@@ -202,6 +202,7 @@ class CupSingleGameWin < FXMainWindow
       @current_game_gfx =  eval(options[:gfx_enginename]).new(self)
       @container.add(@current_game_gfx)
       @current_game_gfx.model_canvas_gfx.info[:canvas] = {:height => @container.height, :width => @container.width, :pos_x => 0, :pos_y => 0 }
+      @current_game_gfx.model_canvas_gfx.info[:main_container] = @container
       @current_game_gfx.create_wait_for_play_screen
     end 
   end

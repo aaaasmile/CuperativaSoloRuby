@@ -742,7 +742,7 @@ class TressetteGfx < BaseEngineGfx
     #p match_points
     winner = match_points[0]
     loser =  match_points[1]
-    str = "*** Vince la partita: #{winner[0]}\n" 
+    str = "Vince la partita: #{winner[0]}\n" 
     str += "#{winner[0]} punti #{winner[1]}\n"
     if loser[1] == -1
       str += "#{loser[0]} abbandona"
@@ -751,7 +751,7 @@ class TressetteGfx < BaseEngineGfx
     end 
     log str
     if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Partita finita", str.gsub("*** ", ""), false)
+      @msg_box_info.show_message_box("Partita finita", str, false)
     end
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_game_end(match_points)

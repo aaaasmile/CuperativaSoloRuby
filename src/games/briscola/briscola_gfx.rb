@@ -932,18 +932,16 @@ class BriscolaGfx < BaseEngineGfx
   def onalg_game_end(best_pl_segni)
     winner = best_pl_segni.first
     loser =  best_pl_segni[1]
-    str = "*** Vince la partita: #{winner[0]}\n" 
+    str = "Vince la partita: #{winner[0]}\n" 
     str += "#{winner[0]} punti #{winner[1]}\n"
     if loser[1] == -1
       str += "#{loser[0]} abbandona"
     else
       str += "#{loser[0]} punti #{loser[1]}"
     end 
-    #str = "*** Vince la partita: #{winner[0]} segni #{winner[1]} a #{loser[1]}\n" 
     log str
     if @option_gfx[:use_dlg_on_core_info]
-      #show_message_box("Partita finita", str.gsub("*** ", ""), false)
-      @msg_box_info.show_message_box("Partita finita", str.gsub("*** ", ""), false)
+      @msg_box_info.show_message_box("Partita finita", str, false)
     end
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_game_end(best_pl_segni)

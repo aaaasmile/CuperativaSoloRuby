@@ -265,14 +265,14 @@ end
 # Algorithm cpu base. Used to define algorithm notifications
 # Please consider that a change done here has an impact with:
 # Add a new message in ParserCmdDef
-# *** prot_parsmsg
+# - prot_parsmsg
 #  ==> On the server:
-# *** NAL_Srv_Algorithm
+# - NAL_Srv_Algorithm
 #  ==> On the client:
-# *** ControlNetConnection
-# *** NalClientGfx
-# *** every class that inherit BaseEngineGfx if necessary
-# *** GameBasebot
+# - ControlNetConnection
+# - NalClientGfx
+# - every class that inherit BaseEngineGfx if necessary
+# - GameBasebot
 
 # To check  if all interfaces are right use the test case on Test_Botbase
 # Note: if you change the meaning of members of this interface,
