@@ -373,11 +373,13 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   def play_as_master_first
     @pending_points = 0
     w_cards = []
+    curr_points_me = @team_mates.inject(0){ |result, name_pl| result + @points_segno[name_pl] }
     @cards_on_hand.each do |card_lbl|
       card_s = card_lbl.to_s # something like '_Ab'
-      segno = card_s[2,1] # character with index 2 and string len 1 
+      segno = card_s[2,1] # character with index 2 and string len 1
+      is_card_lbl_briscola = card_s[2] == @briscola.to_s[2] 
       curr_w = 0
-      curr_w += 70 if  card_s[2] == @briscola.to_s[2]
+      curr_w += 70 if is_card_lbl_briscola
       # check if it is an asso or 3
       curr_w += 220 if card_s[1] == "A"[0]
       curr_w += 200 if card_s[1] == "3"[0] 
@@ -404,6 +406,11 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       end
       # penalty for cards wich are not stroz free
       curr_w += 10 * @strozzi_on_suite[segno].size
+      if (curr_points_me + @deck_info.get_card_info(card_lbl)[:points]) > @target_points
+        curr_w -= (@deck_info.get_card_info(card_lbl)[:points] + 100)
+        curr_w -= 200 if is_card_lbl_briscola
+        curr_w -= 1000 if is_card_lbl_briscola and card_s[1] == "A"[0]
+      end
       
       w_cards << [card_lbl, curr_w ]  
     end
