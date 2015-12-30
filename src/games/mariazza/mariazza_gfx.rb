@@ -27,7 +27,7 @@ class MariazzaGfx < BriscolaGfx
                      :mar_spa => {:name_lbl => "Mariazza di spade"},
                      :mar_cop => {:name_lbl => "Mariazza di coppe"},
                      :mar_bas => {:name_lbl => "Mariazza di bastoni"},
-                     :change_brisc => {:name_lbl => "Cambia birscola"}
+                     :change_briscola => {:name_lbl => "Cambia birscola"}
                    }
   
   # constructor 
@@ -187,7 +187,7 @@ class MariazzaGfx < BriscolaGfx
       @log.debug("player #{player.name} have to play")
       free_all_btcmd()
       command_decl_avail.each do |cmd| 
-        if cmd[:name] == :change_brisc
+        if cmd[:name] == :change_briscola
           # change briscola command
           decl_str += "possibile scambio briscola"
           # create command button to change the briscola
@@ -333,7 +333,7 @@ if $0 == __FILE__
   
   # start game using a custom deck
   deck =  RandomManager.new
-  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Rs,_Cs,_Cb,_7d,_Rb,_6d',0)
+  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_Rd,_7d,_Cd,_Rs,_Cs,_Cb,_4d,_Rb,_6d',0)
   testCanvas.set_custom_deck(deck)
   # end test a custom deck
   

@@ -143,7 +143,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       command_decl_avail.each do |item| 
         if item[:change_briscola]
           # we have only set the change briscola hash {:briscola => lbl, :on_hand => lbl}
-          cmd_change_brisc_def = item[:change_briscola] 
+          cmd_change_brisc_def = item[:change_briscola]
+          rank_b = @deck_info.get_card_info(cmd_change_brisc_def[:briscola])[:rank] 
+          rank_hand = @deck_info.get_card_info(cmd_change_brisc_def[:on_hand])[:rank]
+          if rank_hand > rank_b
+            cmd_change_brisc_def = nil # avoid change briscola because is smaller
+          end
         end 
       end
       if cmd_change_brisc_def
@@ -154,12 +159,14 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         # mariazza declaration
         # look on the max mariazza
         mar_max = command_decl_avail.max{|a,b| a[:points] <=> b[:points]}
-        @log.info "#{@alg_player.name} declare #{mar_max[:name]}"
-        # make declaration
-        @core_game.alg_player_declare(player, mar_max[:name] )
-        # now wait for confirm to continue
-        # IMPORTANT return, otherwise we get called two time
-        return
+        if mar_max[:name] != :change_briscola
+          @log.info "#{@alg_player.name} declare #{mar_max[:name]}"
+          # make declaration
+          @core_game.alg_player_declare(player, mar_max[:name] )
+          # now wait for confirm to continue
+          # IMPORTANT return, otherwise we get called two time
+          return
+        end
       end
     end
     case @level_alg 
