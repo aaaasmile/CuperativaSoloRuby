@@ -298,7 +298,10 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @log.debug("play_as_master_second, apply R4 #{max_card_take}")
       return max_card_take
     end
-    best_leave_it = best_leaveit_card(leave_it)
+    best_leave_it = nil
+    if leave_it.size > 0
+    	best_leave_it = best_leaveit_card(leave_it)
+    end
     if take_it.size > 0
       # we can take it
       if curr_points_opp > 28 and max_points_take > 0
@@ -307,7 +310,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         @log.debug("play_as_master_second, apply R5 #{card_to_play}")
         return card_to_play
       end
-      if @deck_info.get_card_info(best_leave_it)[:points] > 2 or min_points_leave > 3
+      if (best_leave_it and @deck_info.get_card_info(best_leave_it)[:points] > 2) or min_points_leave > 3
         # I am loosing too many points?
         card_to_play = best_taken_card(take_it)
         @log.debug("play_as_master_second, apply R6 #{card_to_play}")
@@ -315,8 +318,13 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       end
     end 
     # leave it
-    @log.debug("play_as_master_second, apply R7 #{best_leave_it}, points #{min_points_leave}")
-    return best_leave_it 
+    if best_leave_it
+    	@log.debug("play_as_master_second, apply R7 #{best_leave_it}")
+    	return best_leave_it
+    end
+    
+    @log.debug("play_as_master_second, apply R8 #{min_card_leave}")
+    return min_card_leave 
     #crash
   end
   
