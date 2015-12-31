@@ -1,6 +1,7 @@
 #file: inv_widget.rb
 
 
+
 class InvWidget
   attr_accessor :pos_x, :pos_y,  :visible, :rotated, :z_order, :verbose
   
@@ -37,6 +38,12 @@ class InvWidget
     return unless item 
     @widget_events[symbol] = [] unless (@widget_events.has_key?(symbol)) 
     @widget_events[symbol] << item
+    return item #provided to be used with disconnect
+  end
+  
+  def disconnect(symbol, item) 
+    return unless item and @widget_events[symbol]
+    @widget_events[symbol].delete(item)
   end
   
   def point_is_inside?(x,y)
@@ -93,5 +100,28 @@ private
     return res
   end
   
+end
+
+if $0 == __FILE__
+  $:.unshift File.dirname(__FILE__) + '/../..'
+  require 'test/inv_controls/test_widget'
+  
+  w1 = TestWidget.new
+  block1 = w1.connect(:EV_click) do |sender|
+    w1.log "*** Handle click event 1"
+  end
+  
+  w1.raise_click
+  
+  w1.disconnect(:EV_click, block1)
+  
+  block2 = w1.connect(:EV_click) do |sender|
+    w1.log "*** Handle click event 2"
+  end
+  
+  w1.raise_click
+  w1.disconnect(:EV_click, block2)
+  
+  w1.raise_click
 end
 

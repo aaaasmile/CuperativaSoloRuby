@@ -1,5 +1,6 @@
 #file: basic_dlg_options_setter.rb
 
+require 'rubygems'
 require 'fox16'
 
 include Fox
@@ -8,6 +9,8 @@ include Fox
 # Basic options setter
 class BasicDlgOptionsSetter < FXDialogBox
   def initialize(owner, title, settings, cup_gui, x,y,w,h)
+    begin
+    @log = Log4r::Logger.new("coregame_log::BasicDlgOptionsSetter")
     super(owner, title, DECOR_TITLE|DECOR_BORDER|DECOR_RESIZE|DECOR_CLOSE,
       x, y, w, h, 0, 0, 0, 0, 4, 4)
     
@@ -43,7 +46,10 @@ class BasicDlgOptionsSetter < FXDialogBox
       LAYOUT_RIGHT | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
     apply_bt.connect(SEL_COMMAND, method(:bt_apply))
     apply_bt.iconPosition = (apply_bt.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
-    
+    rescue => detail
+    	@log.error "BasicDlgOptionsSetter error (#{$!})"
+    	@log.error detail.backtrace.join("\n")
+  	end
   end
   
   ##

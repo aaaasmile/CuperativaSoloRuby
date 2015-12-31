@@ -144,7 +144,7 @@ class CoreGameBriscola < CoreGameBase
         @game_opt[:target_points_segno] = opt_briscola[:target_points_segno][:val]
       end
     end
-    p @game_opt[:num_segni_match]
+    #p @game_opt[:num_segni_match]
   end
   
   ##

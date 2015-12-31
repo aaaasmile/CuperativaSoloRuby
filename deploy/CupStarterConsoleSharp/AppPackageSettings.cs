@@ -9,16 +9,16 @@ namespace CupStarterConsoleSharp
     {
         private CupUserSettings settings;
 
-        public AppPackageSettings(CupUserSettings settings)
+        public AppPackageSettings(CupUserSettings appSettings)
         {
-            this.settings = settings;
-            MajorVer = settings.GetValue<int>("Ver0", 0);
-            MedVer = settings.GetValue<int>("Ver1", 0);
-            SmallVer = settings.GetValue<int>("Ver2", 0);
+            this.settings = appSettings;
+            MajorVer = appSettings.GetValue<int>("Ver0", 0);
+            MedVer = appSettings.GetValue<int>("Ver1", 0);
+            SmallVer = appSettings.GetValue<int>("Ver2", 0);
             if (MajorVer == 0 && MedVer == 0 && SmallVer == 0)
                 throw new ArgumentException("Version is not set");
 
-            AppStartScript = settings.GetValue<string>("StartScript", "");
+            AppStartScript = appSettings.GetValue<string>("StartScript", "");
 
             CalculateAppVersion();
             CalcualteAppZipName();

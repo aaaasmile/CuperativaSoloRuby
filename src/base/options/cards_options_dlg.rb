@@ -1,6 +1,9 @@
 #file: cards_options_dlg.rb
+$:.unshift File.dirname(__FILE__)
+$:.unshift File.dirname(__FILE__) + '/..'
 
 require 'basic_dlg_options_setter'
+require 'gfx_general/resource_info'
 
 ##
 # Card deck option setter
@@ -8,7 +11,7 @@ class CardsOptionsDlg < BasicDlgOptionsSetter
   
   def initialize(owner, settings, cup_gui)
     @cupera_gui = cup_gui
-    @resource_path = @cupera_gui.get_resource_path
+    @resource_path = ResourceInfo.get_resource_path
     super(owner, "Mazzi di carte Cuperativa",settings,@cupera_gui, 30, 30, 500, 300)  
   end
   

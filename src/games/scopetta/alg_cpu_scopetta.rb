@@ -20,7 +20,7 @@ class AlgCpuScopetta < AlgCpuSpazzino
   def onalg_new_match(players)
     super
     #p @deck_info
-    @log.debug "**** Playing using level #{@level_alg} *****"
+    @log.debug "Playing using level #{@level_alg} *****"
   end
   
   def play_like_a_master

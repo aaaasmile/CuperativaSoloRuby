@@ -20,6 +20,7 @@ require 'base/core/gameavail_hlp'
 require 'base/gfx_general/cup_single_game_win'
 require 'base/gfx_general/modal_msg_box'
 require 'base/core/sound_manager'
+require 'base/gfx_general/resource_info'
 
 # other method could be inspect the  Object::PLATFORM or RUBY_PLATFORM
 $g_os_type = :win32_system
@@ -64,7 +65,7 @@ class CuperativaGui < FXMainWindow
   # aplication name
   APP_CUPERATIVA_NAME = "Cuperativa"
   # version string (if you change format, spaces points..., chenge also parser)
-  VER_PRG_STR = "Ver 1.2.4 21122015"
+  VER_PRG_STR = "Ver 1.2.6 29122015"
   # yaml version, useful for restoring old version
   CUP_YAML_FILE_VERSION = '6.20'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
   # settings file
@@ -125,19 +126,7 @@ class CuperativaGui < FXMainWindow
                               },
   }
   
-  def self.get_dir_appdata
-    res = ""
-    if $g_os_type == :win32_system
-      res = File.join(ENV['LOCALAPPDATA'], "Invido_it/CupUserData")
-    else
-      res = File.expand_path("~/.cuperativa")
-      puts "We are on linux, data dir #{res}"
-    end
-    if !File.directory?(res)
-      Dir.mkdir(res)
-    end
-    return res
-  end
+  
    
   ##
   # Init controls
@@ -145,11 +134,11 @@ class CuperativaGui < FXMainWindow
     super(anApp, APP_CUPERATIVA_NAME, nil, nil, DECOR_ALL, 30, 20, 640, 480)
     @main_app = anApp 
     @app_settings = {}
-    @settings_filename =  File.join(CuperativaGui.get_dir_appdata(), FILE_APP_SETTINGS)
+    @settings_filename =  File.join(ResourceInfo.get_dir_appdata(), FILE_APP_SETTINGS)
     @log = Log4r::Logger.new("coregame_log")
     @restart_need = false
   
-    @logger_mode_filename = File.join(CuperativaGui.get_dir_appdata(), LOGGER_MODE_FILE)
+    @logger_mode_filename = File.join(ResourceInfo.get_dir_appdata(), LOGGER_MODE_FILE)
     @log_detailed_info = load_log_info_from_file(@logger_mode_filename)
     @log_device_output = :default
     @log_device_output = @log_detailed_info[:shortcut][:val] if @log_detailed_info[:shortcut][:is_set]
@@ -196,7 +185,7 @@ class CuperativaGui < FXMainWindow
     
     # Menu Giochi
     # Defined in custom menu of gfx engine
-    @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi...")
+    @menu_giochi_list = FXMenuCommand.new(@giochimenu, "Lista giochi con opzioni...")
     @menu_giochi_list.connect(SEL_COMMAND, method(:mnu_game_list ))
         
     #Menu Help
@@ -290,7 +279,7 @@ class CuperativaGui < FXMainWindow
     @btstart_button.iconPosition = (@btstart_button.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
     
     # change game
-    @btgamelist = FXButton.new(btdetailed_frame, "Cambia gioco", icons_app[:listgames], self, 0,
+    @btgamelist = FXButton.new(btdetailed_frame, "Setta il gioco (opzioni e tipo)", icons_app[:listgames], self, 0,
               LAYOUT_CENTER_X | FRAME_RAISED|FRAME_THICK , 0, 0, 0, 0, 30, 30, 4, 4)
     @btgamelist.connect(SEL_COMMAND, method(:mnu_game_list))
     @btgamelist.iconPosition = (@btgamelist.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
@@ -344,6 +333,13 @@ class CuperativaGui < FXMainWindow
   def mnu_start_offline_game(sender, sel, ptr)
     initialize_current_gfx(@last_selected_gametype)
     create_new_singlegame_window(:offline)
+  end
+  
+  def save_settings_in_yaml
+    File.open( @settings_filename, 'w' ) do |out|
+      YAML.dump( @app_settings, out )
+    end
+    @log.debug("Settings saved to #{@settings_filename}")
   end
   
   ##
@@ -401,8 +397,7 @@ class CuperativaGui < FXMainWindow
   # Load the named icon from a file
   def loadIcon(filename)
     begin
-      #dirname = File.join(File.dirname(__FILE__), "/../res/icons")
-      dirname = File.join(CuperativaGui.get_resource_path, "icons")
+      dirname = File.join(ResourceInfo.get_resource_path, "icons")
       filename = File.join(dirname, filename)
       icon = nil
       File.open(filename, "rb") { |f|
@@ -422,7 +417,7 @@ class CuperativaGui < FXMainWindow
   # Load debug info from yaml file.
   # return the shortcut mode (:debug, :default, :nothing)
   def load_log_info_from_file(fname)
-    base_dir_log = File.join(CuperativaGui.get_dir_appdata(), "clientlogs")
+    base_dir_log = File.join(ResourceInfo.get_dir_appdata(), "clientlogs")
     info_hash = {:is_set_by_user => false, 
          :stdout => false, :logfile => false,
          :base_dir_log => base_dir_log, 
@@ -628,7 +623,9 @@ class CuperativaGui < FXMainWindow
       k = dlg.get_activatedgame_key
       if @app_settings[:games_opt] != nil and @app_settings[:games_opt][k] != nil
         @app_settings[:games_opt][k] = dlg.get_curr_options
-        @log.debug("opzioni del gico #{k}: #{@app_settings[:games_opt][k]} ")
+        @app_settings["curr_game"] = k
+        @log.debug("opzioni del gioco #{k}: #{@app_settings[:games_opt][k].inspect} ")
+        save_settings_in_yaml()
       end
       initialize_current_gfx(k)
       log_sometext("Attivato il gioco #{@supported_game_map[k][:name]}\n") 
@@ -695,12 +692,6 @@ class CuperativaGui < FXMainWindow
     return nomeprog, ver_prog
   end
    
-  # Provides the resource path
-  def self.get_resource_path
-    res_path = File.dirname(__FILE__) + "/../res"
-    return File.expand_path(res_path)
-  end
-  
   ##
   # Quit the application
   def onCmdQuit(sender, sel, ptr)
@@ -721,11 +712,8 @@ class CuperativaGui < FXMainWindow
     # yaml file version
     @app_settings["versionyaml"] = CUP_YAML_FILE_VERSION
     
-    #save settings in a yaml file
-    #p @settings_filename
-    File.open( @settings_filename, 'w' ) do |out|
-      YAML.dump( @app_settings, out )
-    end
+    save_settings_in_yaml()
+
     getApp().exit(0)
   end
   

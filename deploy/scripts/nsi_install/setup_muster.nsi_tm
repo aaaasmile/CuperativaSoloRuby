@@ -131,12 +131,12 @@ Section "Cuperativa" SecCuperativa
   SetOutPath "$INSTDIR"
 
   ;Store installation folder
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "InstallDir" $INSTDIR
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver0" <%= @ver_sw[0]%>
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver1" <%= @ver_sw[1]%>
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "Ver2" <%= @ver_sw[2]%>
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "RubyPackage" <%= @ruby_package%>
-  WriteRegStr HKCU "Software\invido_it\${MUI_PRODUCT}" "StartScript"  <%= @start_script%>
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "InstallDir" $INSTDIR
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "Ver0" <%= @ver_sw[0]%>
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "Ver1" <%= @ver_sw[1]%>
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "Ver2" <%= @ver_sw[2]%>
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "RubyPackage" <%= @ruby_package%>
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}" "StartScript"  <%= @start_script%>
   
   ;Create uninstaller
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}" "DisplayName" "${MUI_PRODUCT} (remove only)"
@@ -183,6 +183,7 @@ Section "Uninstall"
 
   ;Delete Uninstaller And Unistall Registry Entries
   DeleteRegKey /ifempty HKCU "Software\invido_it\${MUI_PRODUCT}"
+  DeleteRegKey /ifempty HKEY_LOCAL_MACHINE "Software\invido_it\${MUI_PRODUCT}"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${MUI_PRODUCT}"  
 
 SectionEnd

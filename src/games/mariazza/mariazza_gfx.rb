@@ -23,10 +23,11 @@ class MariazzaGfx < BriscolaGfx
      :y_off_plgui_lx => 15, :y_off_plg_card => 10
   }
   
-  MARIAZZA_NAME = {:mar_den => {:name_lbl => "Mariazza di denari"}, 
+  DECL_NAMES = {:mar_den => {:name_lbl => "Mariazza di denari"}, 
                      :mar_spa => {:name_lbl => "Mariazza di spade"},
                      :mar_cop => {:name_lbl => "Mariazza di coppe"},
-                     :mar_bas => {:name_lbl => "Mariazza di bastoni"}
+                     :mar_bas => {:name_lbl => "Mariazza di bastoni"},
+                     :change_briscola => {:name_lbl => "Cambia birscola"}
                    }
   
   # constructor 
@@ -37,58 +38,80 @@ class MariazzaGfx < BriscolaGfx
     @core_game = nil
     @splash_name = File.join(@resource_path, "icons/mariazza_title_trasp.png")
     @algorithm_name = "AlgCpuMariazza"  
-    #core game name (created on base class)
     @core_name_class = 'CoreGameMariazza'
+    @log = Log4r::Logger.new("coregame_log::MariazzaGfx") 
     
-    # game commands
-    @game_cmd_bt_list = []
-
-    ## NOTE: don't forget to initialize variables also in ntfy_base_gui_start_new_game
+    init_command_buttons
   end
   
-  ##
-  # Give the current game the chance to build an own frame near to the canvas
-  def set_canvas_frame(canvasFrame_wnd)
-    canvasFrame = FXVerticalFrame.new(canvasFrame_wnd, FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_TOP|LAYOUT_LEFT)
-    canvasFrame.create
+  def init_command_buttons
+    @game_cmd_bt_list = []
+    @log.debug "Create command buttons"
+    bt1 = InvButton.new(10, 10, 140, 50, 0)
+    bt1.set_content('uno')
+    bt2 = InvButton.new(10, 70, 140, 50, 0)
+    bt2.set_content('due')
+    bt3 = InvButton.new(10, 130, 140, 50, 0)
+    bt3.set_content('tre')
     
-    #p "**** set frame..."
-    if @game_cmd_bt_list.size > 0 
-      # send canvas size changed
-      @app_owner.activate_canvas_frame
-      return
-    end
-    
-    label_wnd = FXLabel.new(canvasFrame, "Comandi gioco  ", nil, JUSTIFY_LEFT|LAYOUT_FILL_X)
-    label_wnd.create
-    
-    bt_wnd_list = []
-    bt_wnd_list << FXButton.new(canvasFrame, "uno", @app_owner.icons_app[:numero_uno], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    bt_wnd_list <<  FXButton.new(canvasFrame, "due", @app_owner.icons_app[:numero_due], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    bt_wnd_list << FXButton.new(canvasFrame, "tre", @app_owner.icons_app[:numero_tre], nil, 0,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_X|LAYOUT_BOTTOM|LAYOUT_LEFT,0, 0, 0, 0, 10, 10, 5, 5)
-    
+    bt_wnd_list = [bt1, bt2, bt3]
     bt_wnd_list.each do |bt_wnd|
-      bt_wnd.iconPosition = (bt_wnd.iconPosition|ICON_BEFORE_TEXT) & ~ICON_AFTER_TEXT
       bt_hash = {:bt_wnd => bt_wnd, :status => :not_used}
       @game_cmd_bt_list << bt_hash
-      bt_wnd.create
     end
-    free_all_btcmd # hide all commands buttons
-    
-    # send canvas size changed
-    @app_owner.activate_canvas_frame
   end
-  
+   
   ##
   # Free and hide all game specific cmd buttons
   def free_all_btcmd
+    container = @model_canvas_gfx.info[:main_container]
     @game_cmd_bt_list.each do |bt| 
-      bt[:bt_wnd].hide
-      bt[:bt_wnd].enable
-#  bt[:bt_wnd].show #only for test
+      if bt[:status] != :not_used
+        @log.debug "Free button #{bt[:name]}"
+        container.remove(bt[:bt_wnd])
+        block = bt[:bt_wnd_block]
+        bt[:bt_wnd].disconnect(:EV_click, block) if block 
+      end
       bt[:status] = :not_used
     end
-    #@app_owner.deactivate_canvas_frame
+  end
+  
+  ##
+  # Create a new command in the game command pannel
+  # params: array of parameters
+  # cb_btcmd: callback implemented in the game gfx
+  def create_bt_cmd(cmd_name, params, cb_btcmd)
+    bt_cmd_created = get_next_btcmd()
+    #p bt_cmd_created[:bt_wnd].methods
+    #p bt_cmd_created[:bt_wnd].shown?
+    bt_cmd_created[:name] = cmd_name
+    container = @model_canvas_gfx.info[:main_container]
+    
+    #p bt_cmd_created[:bt_wnd].shown?
+    bt_wnd = bt_cmd_created[:bt_wnd]
+    bt_wnd.content.caption = get_declaration_name(cmd_name)
+     
+    block = bt_wnd.connect(:EV_click) do |sender|
+    	@log.debug "Handle command #{cb_btcmd}"
+    	bt_wnd.disconnect(:EV_click, block)
+    	container.remove(bt_cmd_created[:bt_wnd])
+    	bt_cmd_created[:status] = :not_used
+      send(cb_btcmd, params)
+    end
+    bt_cmd_created[:bt_wnd_block] = block
+    container.add(bt_wnd)
+  end
+  
+  ##
+  # Provides the next free button
+  def get_next_btcmd
+    @game_cmd_bt_list.each do |bt|
+      if bt[:status] == :not_used
+        bt[:status] = :used 
+        return bt
+      end 
+    end
+    nil
   end
   
   ##
@@ -109,11 +132,11 @@ class MariazzaGfx < BriscolaGfx
   # Shows a dilogbox for the end of the smazzata
   def show_smazzata_end(best_pl_points )
     @log.debug "Show smazzata end dialogbox"
-    str = "** Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}\n"
+    str = "Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
    
     if @option_gfx[:use_dlg_on_core_info]
-      @msgbox_smazzataend.show_message_box("Smazzata finita", str.gsub("** ", ""), true)
+      @msgbox_smazzataend.show_message_box("Smazzata finita", str, true)
       @msgbox_smazzataend.set_visible(true)
     end
     
@@ -139,17 +162,22 @@ class MariazzaGfx < BriscolaGfx
     card_on_hand = params[2]
     @core_game.alg_player_change_briscola(player, card_briscola, card_on_hand )
   end
+
+  ##
+  # Provides the name of the mariazza declaration
+  # name_decl: mariazza name as label (e.g :mar_den)
+  def get_declaration_name(name_decl)
+    return DECL_NAMES[name_decl][:name_lbl]
+  end
   
   ############### implements methods of AlgCpuPlayerBase
   #############################################
   #algorithm calls (gfx is a kind of algorithm)
   #############################################
  
-  ##
-  # Provides the name of the mariazza declaration
-  # name_decl: mariazza name as label (e.g :mar_den)
-  def nome_mariazza(name_decl)
-    return MARIAZZA_NAME[name_decl][:name_lbl]
+  def onalg_giocataend(best_pl_points)
+    free_all_btcmd()
+    super 
   end
   
   ##
@@ -164,16 +192,16 @@ class MariazzaGfx < BriscolaGfx
       @log.debug("player #{player.name} have to play")
       free_all_btcmd()
       command_decl_avail.each do |cmd| 
-        if cmd[:name] == :change_brisc
+        if cmd[:name] == :change_briscola
           # change briscola command
           decl_str += "possibile scambio briscola"
           # create command button to change the briscola
-          create_bt_cmd("Cambia bri", 
-         [ player, cmd[:change_briscola][:briscola], cmd[:change_briscola][:on_hand]  ], 
+          create_bt_cmd(cmd[:name], 
+         [ player, cmd[:change_briscola][:briscola], cmd[:change_briscola][:on_hand]], 
                :onBtPlayerChangeBriscola)
         else
           # mariazza declaration command
-          decl_str += "#{nome_mariazza(cmd[:name])}, punti: #{cmd[:points]} "
+          decl_str += "#{get_declaration_name(cmd[:name])}, punti: #{cmd[:points]} "
           # create a button with the declaration of this mariazza
           create_bt_cmd(cmd[:name], [player, cmd[:name]], :onBtPlayerDeclare)
         end
@@ -183,10 +211,10 @@ class MariazzaGfx < BriscolaGfx
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = true
     
-    log "Tocca a: #{player.name}.\n"
+    log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-       log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
+       log "#{player.name} comandi: #{decl_str}" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
@@ -205,50 +233,15 @@ class MariazzaGfx < BriscolaGfx
   end
   
   ##
-  # Create a new command in the game command pannel
-  # params: array of parameters
-  # cb_btcmd: callback implemented in the game gfx
-  def create_bt_cmd(cmd_name, params, cb_btcmd)
-    # get the cmd button ready to be used
-    bt_cmd_created = get_next_btcmd()
-    #p bt_cmd_created[:bt_wnd].methods
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:name] = cmd_name
-    bt_cmd_created[:bt_wnd].show
-    #p bt_cmd_created[:bt_wnd].shown?
-    bt_cmd_created[:bt_wnd].text = cmd_name.to_s
-    bt_cmd_created[:bt_wnd].enable
-    bt_cmd_created[:bt_wnd].connect(SEL_COMMAND) do
-      bt_cmd_created[:bt_wnd].disable
-      send(cb_btcmd, params)
-    end
-    
-    # send canvas size changed
-    @app_owner.activate_canvas_frame
-  end
-  
-  ##
-  # Provides the next free button
-  def get_next_btcmd
-    @game_cmd_bt_list.each do |bt|
-      if bt[:status] == :not_used
-        bt[:status] = :used 
-        return bt
-      end 
-    end
-    nil
-  end
-  
-  ##
   # Player has changed the briscola on table with a 7
   def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
     str_msg =  "#{player.name} ha scambiato [#{nome_carta_ita(card_on_hand)}] " + 
-        "con  [#{nome_carta_ita(card_briscola)}]\n"
+        "con  [#{nome_carta_ita(card_briscola)}]"
     log(str_msg) 
   
     # check if it was gui player
     if @player_on_gui[:player] == player
-      log "Scambio briscola OK [#{nome_carta_ita(card_on_hand)}] -> [#{nome_carta_ita(card_briscola)}]\n"
+      log "Scambio briscola OK [#{nome_carta_ita(card_on_hand)}] -> [#{nome_carta_ita(card_briscola)}]"
       player_sym = player.name.to_sym
       @cards_players.swap_card_player(player_sym, card_on_hand,  card_briscola)
     else
@@ -273,7 +266,7 @@ class MariazzaGfx < BriscolaGfx
   # Player has played a card not allowed
   def onalg_player_cardsnot_allowed(player, cards)
     lbl_card = cards[0]
-    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]\n"
+    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]"
     @player_on_gui[:can_play] = true
   end
   
@@ -284,12 +277,12 @@ class MariazzaGfx < BriscolaGfx
   # name_decl: mariazza declared name (e.g :mar_den)
   # points: points of the declared mariazza
   def onalg_player_has_declared(player, name_decl, points)
-    log "#{player.name} ha dichiarato #{nome_mariazza(name_decl)}\n"
+    log "#{player.name} ha dichiarato #{get_declaration_name(name_decl)}"
     #if @player_on_gui[:player] == player
       #@app_owner.disable_bt(name_decl)
     #end
-    str = "Il giocatore #{player.name} ha accusato la\n#{nome_mariazza(name_decl)}\n"
-    str.concat("da #{points} punti") if points > 0
+    str = "Il giocatore #{player.name} ha accusato la\n#{get_declaration_name(name_decl)}"
+    str.concat(" da #{points} punti") if points > 0
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Mariazza accusata", str, false)
     end
@@ -308,7 +301,7 @@ class MariazzaGfx < BriscolaGfx
   # Player has become points. This usally when he has declared a mariazza 
   # as a second player 
   def onalg_player_has_getpoints(player,  points)
-    log str =  "#{player.name} ha fatto #{points} punti di accusa\n"
+    log str =  "#{player.name} ha fatto #{points} punti di accusa"
     
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Punti ricevuti", str, false)
@@ -335,16 +328,19 @@ if $0 == __FILE__
   include Log4r
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
-  
+  out_log_name = File.join(ResourceInfo.get_dir_appdata(), 'logs/mariazza_test.log')
+  FileOutputter.new('coregame_log', :filename=> out_log_name)
+  Logger['coregame_log'].add 'coregame_log'
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,950,530)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,950,530)
   
   # start game using a custom deck
   deck =  RandomManager.new
-  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rs,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rd,_6d',0)
-  mainwindow.set_custom_deck(deck)
+  #deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_7s,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_As,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_2c',0) # mazzo OK
+  deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_7s,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_Cc,_As,_2d,_5d,_Rd,_6c,_Rb,_Rd,_As,_Ad,_4d',0) #deck fake to test the first hand alg
+  testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
@@ -353,12 +349,14 @@ if $0 == __FILE__
   players << PlayerOnGame.new('me', nil, :human_local, 0)
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
   
-  #mainwindow.app_settings["autoplayer"][:auto_gfx] = true
   
-  mainwindow.init_gfx(MariazzaGfx, players)
-  maria_gfx = mainwindow.current_game_gfx
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  
+  testCanvas.init_gfx(MariazzaGfx, players)
+  maria_gfx = testCanvas.current_game_gfx
   maria_gfx.option_gfx[:timeout_autoplay] = 50
   maria_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  testCanvas.start_new_game
   
   theApp.run
 end

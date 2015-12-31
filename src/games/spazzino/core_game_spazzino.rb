@@ -9,7 +9,8 @@ require 'alg_cpu_spazzino'
 
 # Class to manage the core card game
 class CoreGameSpazzino < CoreGameBase
-  attr_accessor :game_opt, :rnd_mgr, :points_curr_match, :num_of_cards_onhandplayer
+  attr_accessor :rnd_mgr, :points_curr_match, :num_of_cards_onhandplayer
+  attr_reader :game_opt
 
   def initialize
     super
@@ -25,7 +26,8 @@ class CoreGameSpazzino < CoreGameBase
       :combi_sum_lesscard => false # if true combi card is allowed with less card then all other 
     }
     @test_deck_path = File.dirname(__FILE__) + '/../../test/spazzino/saved_games'
-    
+    @option_core_name = :spazzino_game
+
     # players (instance of class PlayerOnGame) order that have to play
     @round_players = []
     #p @mazzo_gioco
@@ -80,10 +82,11 @@ class CoreGameSpazzino < CoreGameBase
   # Set options from external, for example from user using @app_settings
   # options: the cuperativa.app_settings hash
   def set_specific_options(options)
-    if options[:games_opt][:spazzino_game]
-      if options[:games_opt][:spazzino_game][:target_points]
-        @game_opt[:target_points] = options[:games_opt][:spazzino_game][:target_points]
+    if options[:games_opt][@option_core_name]
+      if options[:games_opt][@option_core_name][:target_points]
+        @game_opt[:target_points] = options[:games_opt][@option_core_name][:target_points][:val]
       end
+      on_set_specific_options(options[:games_opt][@option_core_name]) if respond_to?(:on_set_specific_options)
     end
   end
   
@@ -98,26 +101,6 @@ class CoreGameSpazzino < CoreGameBase
   # Build deck before shuffle
   def create_deck
     @log.debug("Create a deck with rank and points")
-    ## array di simboli delle carte(:_Ac :_4c ...) gestisce il mazzo delle carte durante la partita
-    #@mazzo_gioco = []
-    #@game_deckinfo = {}
-    ## set card values and points
-    #val_arr_rank   = [1 , 2, 3, 4, 5, 6, 7, 8, 9,10] # card value order
-    #val_arr_points = [16,12,13,14,15,18,21,10,10,10] # card points
-    ## modifica il mazzo aggiungendo punti e valore delle carte per il gioco specifico della briscola
-    #@@deck_info.each do |k, card|  
-      #curr_index = card[:ix]
-      ##card[:rank] = val_arr_rank[curr_index % 10]
-      ##card[:points] = val_arr_points[curr_index % 10]
-      #@game_deckinfo[k] = card.dup
-      #@game_deckinfo[k][:rank] = val_arr_rank[curr_index % 10]
-      #@game_deckinfo[k][:points] = val_arr_points[curr_index % 10]
-      ## mazzo viene gestito solo coi simboli
-      #@mazzo_gioco << k
-    #end
-    ##p "RANK random on create_deck"
-    ##p @game_deckinfo[:_Ab][:rank]
-    ##p @game_deckinfo
     
     @mazzo_gioco = []
     
@@ -903,7 +886,7 @@ class CoreGameSpazzino < CoreGameBase
       submit_next_event(:new_giocata)
       return :new_giocata
     elsif arr_points.size > 1
-      @log.debug "Game over the target points of #{@game_opt[:target_points]} but deuced, continue."
+      @log.debug "Game over the target points of #{@game_opt[:target_points]} but draw, continue."
       submit_next_event(:new_giocata)
       return :new_giocata
     else

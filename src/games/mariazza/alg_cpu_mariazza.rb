@@ -54,6 +54,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @cupera_gui = cup_gui
     # store commands when usign delay player
     @command_decl_avail = []
+    # points pendings because declared as second
+    @pending_points = 0
     # algorithm options
     @option_gfx = {
       :timeout_haveplay => 700
@@ -69,10 +71,13 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @cards_on_hand.each_index do |ix|
         if @cards_on_hand[ix] == card_on_hand
           @cards_on_hand[ix] = card_briscola
+          check_strozza(card_briscola.to_s)
           @log.debug("onalg_player_has_changed_brisc, hand adjusted: #{@cards_on_hand.to_s}")
           break
         end
       end
+    else
+      check_mariazza_for_card_gone(card_briscola.to_s)
     end
   end
   
@@ -81,7 +86,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   # hand and briscola at the end
   def onalg_new_giocata(carte_player)
     ["b", "d", "s", "c"].each do |segno|
-      @strozzi_on_suite[segno] = 2
+      @strozzi_on_suite[segno] = [:_A, :_3]
       @mariazz_on_suite[segno] = true
     end
     @alg_is_waiting = false
@@ -90,12 +95,14 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @cards_on_hand = []
     carte_player.each do |card| 
       @cards_on_hand << card
+      check_strozza(card.to_s)
     end
     @briscola = @cards_on_hand.pop
     @cards_on_hand.each{|card| str_card << "#{card.to_s} "}
     @players.each do |pl|
       @points_segno[pl.name] = 0
     end 
+    @pending_points = 0
     @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
   end
   
@@ -143,7 +150,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       command_decl_avail.each do |item| 
         if item[:change_briscola]
           # we have only set the change briscola hash {:briscola => lbl, :on_hand => lbl}
-          cmd_change_brisc_def = item[:change_briscola] 
+          cmd_change_brisc_def = item[:change_briscola]
+          rank_b = @deck_info.get_card_info(cmd_change_brisc_def[:briscola])[:rank] 
+          rank_hand = @deck_info.get_card_info(cmd_change_brisc_def[:on_hand])[:rank]
+          if rank_hand > rank_b
+            cmd_change_brisc_def = nil # avoid change briscola because is smaller
+          end
         end 
       end
       if cmd_change_brisc_def
@@ -154,12 +166,15 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         # mariazza declaration
         # look on the max mariazza
         mar_max = command_decl_avail.max{|a,b| a[:points] <=> b[:points]}
-        @log.info "#{@alg_player.name} declare #{mar_max[:name]}"
-        # make declaration
-        @core_game.alg_player_declare(player, mar_max[:name] )
-        # now wait for confirm to continue
-        # IMPORTANT return, otherwise we get called two time
-        return
+        if mar_max[:name] != :change_briscola
+          @log.info "#{@alg_player.name} declare #{mar_max[:name]}"
+          # make declaration
+          @pending_points += mar_max[:points]
+          @core_game.alg_player_declare(player, mar_max[:name] )
+          # now wait for confirm to continue
+          # IMPORTANT return, otherwise we get called two time
+          return
+        end
       end
     end
     case @level_alg 
@@ -178,6 +193,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   # Play like mariazza master
   def play_like_a_master
     card = nil
+    @log.debug "Cards on hand " + @cards_on_hand.inject(""){|res, card| res + "#{card.to_s} "}
+    
     case @card_played.size
       when 0
         card = play_as_master_first
@@ -202,7 +219,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     max_points_take = 0
     max_card_take = @cards_on_hand[0]
     min_card_leave = @cards_on_hand[0]
-    min_points_leave = 120
+    min_points_leave = @deck_info.get_card_info(min_card_leave)[:points] + card_avv_info[:points]
     take_it = []
     leave_it = []
     # build takeit leaveit arrays
@@ -235,12 +252,15 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         end
       else
         # leave it as minimum
-        if points < min_points_leave
-          min_card_leave = card_lbl
-          min_points_leave = points
+        if points < min_points_leave or (points == min_points_leave and
+              card_curr_info[:rank]  < @deck_info.get_card_info(min_card_leave)[:rank] )
+           min_card_leave = card_lbl
+           min_points_leave = points
         end
       end
     end
+    #p min_points_leave
+    #p min_card_leave
     curr_points_me = 0
     @team_mates.each{ |name_pl| curr_points_me += @points_segno[name_pl] }
     tot_points_if_take = curr_points_me + max_points_take
@@ -253,45 +273,77 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     #p min_points_leave
     if take_it.size == 0
       #take_it is not possibile, use leave it
-      @log.debug("play_as_master_second, apply R1")
+      @log.debug("play_as_master_second, apply R1 #{min_card_leave}")
       return min_card_leave  
     end
     max_card_take_s = max_card_take.to_s
     if tot_points_if_take >= @target_points
       # take it, we win
-      @log.debug("play_as_master_second, apply R2")
+      @log.debug("play_as_master_second, apply R2 #{max_card_take}")
       return max_card_take
+    end
+    if @pending_points > 0
+      card_to_play = best_taken_card(take_it)
+      @log.debug("play_as_master_second, apply R2-decl #{card_to_play}")
+      return card_to_play 
     end
     if max_card_take_s[2] == @briscola.to_s[2]
       # card that take is briscola, pay attention to play it
       if max_points_take >= 20
-        @log.debug("play_as_master_second, apply R3")
+        @log.debug("play_as_master_second, apply R3 #{max_card_take}")
         return max_card_take
       end
     elsif max_points_take >= 10
       # take it, strosa!
-      @log.debug("play_as_master_second, apply R4")
+      @log.debug("play_as_master_second, apply R4 #{max_card_take}")
       return max_card_take
     end
+    best_leave_it = best_leaveit_card(leave_it)
     if take_it.size > 0
       # we can take it
       if curr_points_opp > 28 and max_points_take > 0
         # try to take it
-        @log.debug("play_as_master_second, apply R5")
-        return best_taken_card(take_it)
+        card_to_play = best_taken_card(take_it)
+        @log.debug("play_as_master_second, apply R5 #{card_to_play}")
+        return card_to_play
       end
-      if min_points_leave > 3
+      if @deck_info.get_card_info(best_leave_it)[:points] > 2 or min_points_leave > 3
         # I am loosing too many points?
-        @log.debug("play_as_master_second, apply R6")
-        return best_taken_card(take_it)
+        card_to_play = best_taken_card(take_it)
+        @log.debug("play_as_master_second, apply R6 #{card_to_play}")
+        return card_to_play
       end
     end 
     # leave it
-    @log.debug("play_as_master_second, apply R7")
-    return min_card_leave 
+    @log.debug("play_as_master_second, apply R7 #{best_leave_it}, points #{min_points_leave}")
+    return best_leave_it 
     #crash
   end
   
+  ##
+  # Provides the best leave it card
+  def best_leaveit_card(leave_it)
+    @log.debug("calculate best_leaveit_card") 
+    w_cards = []
+    leave_it.each do |card_lbl|
+      card_s = card_lbl.to_s # something like '_Ab'
+      segno = card_s[2,1] 
+
+      curr_w = 0
+      curr_w += 200 if  card_s[2] == @briscola.to_s[2]
+      curr_w += 500 if card_s[1] == "A"[0]
+      curr_w += 400 if card_s[1] == "3"[0] 
+      curr_w += 300 if card_s[1] == "R"[0] 
+      curr_w += 280 if card_s[1] == "C"[0] 
+      curr_w += @deck_info.get_card_info(card_lbl)[:rank]
+
+      w_cards << [card_lbl, curr_w ]
+    end
+    min_list = w_cards.min{|a,b| a[1]<=>b[1]}
+    @log.debug("Best card to play on leave it cards is #{min_list[0]}, w_cards = #{w_cards.to_s}")
+    return min_list[0]
+  end
+
   ##
   # Provides the best card from the take_it list
   # take_it: array of cards that ha to be played
@@ -304,8 +356,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       curr_w = 0
       curr_w += 200 if  card_s[2] == @briscola.to_s[2]
       # check if it is an asso or 3
-      curr_w += 9 if card_s[1] == "A"[0]
-      curr_w += 7 if card_s[1] == "3"[0] 
+      curr_w += 0 if card_s[1] == "A"[0]
+      curr_w += 5 if card_s[1] == "3"[0] 
       if card_s =~ /[24567]/
         # liscio value
         lisc_val = (card_s[1] - '0'[0]).to_i
@@ -315,14 +367,14 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       # mariazza is possible?, horse and king has a different value
       if card_s[1] == "C"[0]
         if is_mariazz_possible?(segno)
-          curr_w += 90
+          curr_w += 290
         else
           curr_w += 30
         end
       end 
       if card_s[1] == "R"[0]
         if is_mariazz_possible?(segno)
-          curr_w += 100
+          curr_w += 300
         else
           curr_w += 20
         end
@@ -339,12 +391,15 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   ##
   # Play as master first
   def play_as_master_first
+    @pending_points = 0
     w_cards = []
+    curr_points_me = @team_mates.inject(0){ |result, name_pl| result + @points_segno[name_pl] }
     @cards_on_hand.each do |card_lbl|
       card_s = card_lbl.to_s # something like '_Ab'
-      segno = card_s[2,1] # character with index 2 and string len 1 
+      segno = card_s[2,1] # character with index 2 and string len 1
+      is_card_lbl_briscola = card_s[2] == @briscola.to_s[2] 
       curr_w = 0
-      curr_w += 70 if  card_s[2] == @briscola.to_s[2]
+      curr_w += 70 if is_card_lbl_briscola
       # check if it is an asso or 3
       curr_w += 220 if card_s[1] == "A"[0]
       curr_w += 200 if card_s[1] == "3"[0] 
@@ -370,14 +425,19 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         end
       end
       # penalty for cards wich are not stroz free
-      curr_w += 10 * @strozzi_on_suite[segno]
+      curr_w += 10 * @strozzi_on_suite[segno].size
+      if (curr_points_me + @deck_info.get_card_info(card_lbl)[:points]) > @target_points
+        curr_w -= (@deck_info.get_card_info(card_lbl)[:points] + 100)
+        curr_w -= 200 if is_card_lbl_briscola
+        curr_w -= 1000 if is_card_lbl_briscola and card_s[1] == "A"[0]
+      end
       
       w_cards << [card_lbl, curr_w ]  
     end
     # find a minimum
     #p w_cards
     min_list = w_cards.min{|a,b| a[1]<=>b[1]}
-    @log.debug("Play as first: best card#{min_list[0]}, (w_cards = #{w_cards.to_s})")
+    @log.debug("Play as first: best card#{min_list[0]}, (w_cards = #{w_cards.inspect})")
     return min_list[0]
   end
   
@@ -394,7 +454,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   def onalg_pesca_carta(carte_player)
     #expect only one card
     @log.info "Algorithm card picked #{carte_player.first}"
-    @cards_on_hand << carte_player.first    
+    @cards_on_hand << carte_player.first 
+    check_strozza(carte_player.first.to_s)   
   end
   
   def onalg_player_has_played(player, card)
@@ -404,13 +465,26 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @cards_on_hand.delete(card)
     end
     card_s = card.to_s
+    
+    check_mariazza_for_card_gone(card_s)
+    check_strozza(card_s)
+  end
+
+  def check_mariazza_for_card_gone(card_s)
     segno = card_s[2,1]
     if card_s[1] == "C"[0] or card_s[1] == "R"[0]
       # if a player play a Horse or a King there is no more declaration  
       @mariazz_on_suite[segno] = false
     end 
-    if card_s[1] == "A"[0] or card_s[1] == "3"[0]
-      @strozzi_on_suite[segno] -= 1
+  end
+
+  def check_strozza(card_s)
+    segno = card_s[2,1]
+    if card_s[1] == "A"[0]
+      @strozzi_on_suite[segno].delete(:_A)
+    end
+    if card_s[1] == "3"[0]
+      @strozzi_on_suite[segno].delete(:_3)
     end
   end
   

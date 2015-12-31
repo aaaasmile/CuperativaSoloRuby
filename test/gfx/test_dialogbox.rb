@@ -31,15 +31,16 @@ class TestRunnerDialogBox < FXMainWindow
     theApp = FXApp.new("TestRunnerDialogBox", "FXRuby")
     mainwindow = TestRunnerDialogBox.new(theApp)
     mainwindow.set_position(0,0,300,300)
-  
+    
     theApp.addSignal("SIGINT", mainwindow.method(:onCmdQuit))
-    theApp.create
+    theApp.create    
     mainwindow.runner = runner.new(mainwindow)
     theApp.run
   end
     
   def initialize(anApp)
     @main_app = anApp 
+    @log = Log4r::Logger.new("coregame_log::TestRunnerDialogBox")
     super(anApp, "TestRunnerDialogBox", nil, nil, DECOR_ALL, 30, 20, 640, 480)
     @runner = nil
     @sound_manager = SoundManager.new
@@ -73,6 +74,8 @@ class TestRunnerDialogBox < FXMainWindow
     @icons_app[:mail] = loadIcon("mail.png")
     @icons_app[:help] = loadIcon("help_index.png")
     @icons_app[:icon_update] = loadIcon("update.png")
+
+	  @log = Log4r::Logger["coregame_log"]
     
     # timeout callback info hash
     @timeout_cb = {:locked => false, :queue => []}
@@ -108,7 +111,8 @@ class TestRunnerDialogBox < FXMainWindow
     begin
       runner.run if runner
     rescue => detail
-      puts "Error on run: #{detail.backtrace.join("\n")}"
+      @log.error "go_test error (#{$!})"
+      @log.error "Error on run: #{detail.backtrace.join("\n")}"
     end
   end
   
@@ -122,6 +126,7 @@ class TestRunnerDialogBox < FXMainWindow
     @icons_app.each do |k,v|
       v.create
     end
+	  @log.debug "All icons created"
     position(@pos_start_x, @pos_start_y, @pos_ww, @pos_hh)
     super
     show(PLACEMENT_SCREEN)

@@ -175,7 +175,7 @@ class SpazzinoGfx < BaseEngineGfx
         @log.error "ERROR on create_wait_for_play_screen: #{$!}"
       end    
     end
-    @app_owner.update_dsp
+    update_dsp
   end 
  
   ##
@@ -301,7 +301,7 @@ class SpazzinoGfx < BaseEngineGfx
         else
           # Multiple choice not yet active
           multiplechoice_activate(card, list_options)
-          @app_owner.update_dsp
+          update_dsp
           return
         end #list_options.size <= 1
       elsif @player_on_gui[:mult_choice][:state] == :active_pl_tbl or
@@ -329,7 +329,7 @@ class SpazzinoGfx < BaseEngineGfx
       card.blit_reverse = true
       @card_reversed_gfx = card
       @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
-      @app_owner.update_dsp
+      update_dsp
     end    
   end #end click_on_card
   
@@ -362,7 +362,7 @@ class SpazzinoGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
     
-    @app_owner.update_dsp
+    update_dsp
   end
   
  
@@ -437,7 +437,7 @@ class SpazzinoGfx < BaseEngineGfx
       @player_on_gui[:mult_choice][:list] = list_active
       @player_on_gui[:mult_choice][:card_selected] = card_ontable_clicked
       @player_on_gui[:mult_choice][:state] = :active_pl_tbl
-      log "#{nome_carta_ita(card_ontable_clicked.lbl)}: carta ha combinazione multipla\n"
+      log "#{nome_carta_ita(card_ontable_clicked.lbl)}: carta ha combinazione multipla"
       multiplechoice_colorize_selection
     end
   end
@@ -457,7 +457,7 @@ class SpazzinoGfx < BaseEngineGfx
   def onTimeoutRverseBlitEnd
     @card_reversed_gfx.blit_reverse = false
     @card_reversed_gfx = nil
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -469,7 +469,7 @@ class SpazzinoGfx < BaseEngineGfx
     lbl_gfx = @labels_to_disp[lbl_displ_pl]
     if lbl_gfx
       lbl_gfx.text = "(Posto vuoto)"
-      @app_owner.update_dsp
+      update_dsp
     else
       @log.warn("player_leave(GFX) don't have recognized player: #{user_name}")
     end
@@ -731,6 +731,7 @@ class SpazzinoGfx < BaseEngineGfx
   # Provides a new instance of the current core. On iherited game you can overwrite
   # this function
   def create_instance_core() 
+    @log.debug "create core spazzino"
     return CoreGameSpazzino.new
   end
   
@@ -833,7 +834,7 @@ class SpazzinoGfx < BaseEngineGfx
     @taken_card_info_last[:curr_playersym_shown] = player_sym
     @app_owner.registerTimeout(@option_gfx[:timeout_lastcardshow], :onTimeoutLastCardTakenShow)
     # refresh the display
-    @app_owner.update_dsp 
+    update_dsp 
   end
  
   
@@ -982,7 +983,7 @@ class SpazzinoGfx < BaseEngineGfx
       when :spazzino
         str_points = "Spazzini: #{s1}"
       when :bager
-        str_points = "Bager   : #{s1}"
+        str_points = "Bagher   : #{s1}"
       when :tot
         tot_points = @core_game.game_opt[:target_points]
         str_points = "Punti : #{s1} (#{tot_points})"       
@@ -1083,8 +1084,8 @@ class SpazzinoGfx < BaseEngineGfx
   # players: array of players
   def onalg_new_match(players)
     #p players.serialize 
-    log "Nuova partita. Numero gioc: #{players.size}\n"
-    players.each{|pl| log " Nome: #{pl.name}\n"}
+    log "Nuova partita. Numero gioc: #{players.size}"
+    players.each{|pl| log " Nome: #{pl.name}"}
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_new_match(players)
     end
@@ -1097,11 +1098,9 @@ class SpazzinoGfx < BaseEngineGfx
   def onalg_new_giocata(carte_player)
     str_log = "Nuova giocata, carte in mano: "
     carte_player[0..@num_of_cards-1].each{|e| str_log += "[#{nome_carta_ita(e)}]"}
-    str_log += "\n"
     log str_log
     str_log = "Carte in tavola: "
     carte_player[@num_of_cards..-1].each{|e| str_log += "[#{nome_carta_ita(e)}]"}
-    str_log += "\n"
     log str_log
     
     build_gfx_points(@players_on_match)
@@ -1145,10 +1144,7 @@ class SpazzinoGfx < BaseEngineGfx
       # suspend core event process untill animation_cards_distr_end is called
       @core_game.suspend_proc_gevents("onalg_new_giocata")
     end
-    
-      
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   def build_deck_on_newgiocata(initial_cards_on_table)
@@ -1281,17 +1277,17 @@ class SpazzinoGfx < BaseEngineGfx
       if pt_item[:spazzino]
         @points_status[player_label][:spazzino] += pt_item[:spazzino]
         @points_status[player_label][:widg_spaz].font_color = @color_signal 
-        log "#{player.name} ha fatto spazzino\n"
+        log "#{player.name} ha fatto spazzino"
       end
       if pt_item[:picula]
         @points_status[player_label][:picula] += pt_item[:picula]
         @points_status[player_label][:widg_pic].font_color = @color_signal
-        log "#{player.name} ha fatto picula\n"
+        log "#{player.name} ha fatto picula"
       end  
       if pt_item[:bager]
         @points_status[player_label][:bager] += pt_item[:bager]
         @points_status[player_label][:widg_bager].font_color = @color_signal
-        log "#{player.name} ha fatto bager\n"
+        log "#{player.name} ha fatto bager"
       end
     end
   end
@@ -1326,7 +1322,6 @@ class SpazzinoGfx < BaseEngineGfx
     carte_player.each{|c| nomi << nome_carta_ita(c)}
     str_log = "Carta pescate: "
     nomi.each{|e| str_log += "[#{e}]"}
-    str_log += "\n"
     log str_log 
     #search the first free card on player gui
     player_sym = @player_on_gui[:player].name.to_sym
@@ -1353,9 +1348,7 @@ class SpazzinoGfx < BaseEngineGfx
     if !@cards_players.is_animation_terminated?
       @core_game.suspend_proc_gevents("onalg_pesca_carta")
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -1398,7 +1391,7 @@ class SpazzinoGfx < BaseEngineGfx
       playername = pl_info_points[0]
       lbl_gfx_tot.text = calculate_str_points_det(playername, :tot)
     end
-    str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}\n"
+    str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}"
     log str
     if @option_gfx[:use_dlg_on_core_info]
       show_smazzata_end(best_pl_points )
@@ -1407,9 +1400,8 @@ class SpazzinoGfx < BaseEngineGfx
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_giocataend(best_pl_points)
     end
-    
-    # refresh the display
-    @app_owner.update_dsp
+
+    update_dsp
     
     # continue the game
     @core_game.gui_new_segno if @core_game
@@ -1423,16 +1415,16 @@ class SpazzinoGfx < BaseEngineGfx
     #p match_points
     winner = match_points[0]
     loser =  match_points[1]
-    str = "*** Vince la partita: #{winner[0]}\n" 
+    str = "Vince la partita: #{winner[0]}\n" 
     str += "#{winner[0]} punti #{winner[1]}\n"
     if loser[1] == -1
       str += "#{loser[0]} abbandona\n"
     else
-      str += "#{loser[0]} punti #{loser[1]}\n"
+      str += "#{loser[0]} punti #{loser[1]}"
     end 
     log str
     if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Partita finita", str.gsub("*** ", ""), false)
+      @msg_box_info.show_message_box("Partita finita", str, false)
     end
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_game_end(match_points)
@@ -1443,9 +1435,9 @@ class SpazzinoGfx < BaseEngineGfx
   ##
   # Game end stuff
   def game_end_stuff
-    fname = File.join(CuperativaGui.get_dir_appdata(),  "game_terminated_last.yaml")
+    fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
-    log "Partita terminata\n"
+    log "Partita terminata"
     # don't need anymore core
     @core_game = nil
     @state_gfx = :game_end
@@ -1477,10 +1469,10 @@ class SpazzinoGfx < BaseEngineGfx
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = true
     
-    log "Tocca a: #{player.name}.\n"
+    log "Tocca a: #{player.name}."
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-       log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
+       log "#{player.name} comandi: #{decl_str}" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
@@ -1497,8 +1489,7 @@ class SpazzinoGfx < BaseEngineGfx
       @core_game.suspend_proc_gevents("onalg_have_to_play")
     end
     
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
   end
   
   ##
@@ -1537,7 +1528,7 @@ class SpazzinoGfx < BaseEngineGfx
     str_log = ""
     nomi.each{|e| str_log += "[#{e}]"}
     
-    log "#{player.name} ha giocato carte non valide #{str_log}\n"
+    log "#{player.name} ha giocato carte non valide #{str_log}"
     @player_on_gui[:can_play] = true
     @log.warn("Carte giocate non valide: #{str_log}")
   end
@@ -1582,7 +1573,6 @@ class SpazzinoGfx < BaseEngineGfx
       @taken_card_info_last[player_sym][:taken_cards] = []
       @taken_card_info_last[player_sym][:taken_cards] << lbl_card  
     end
-    str_log += "\n"
     log str_log
     
     # check if it was gui player
@@ -1617,8 +1607,7 @@ class SpazzinoGfx < BaseEngineGfx
       @alg_auto_player.onalg_player_has_played(player, arr_lbl_card)
     end
      
-    # refresh the display
-    @app_owner.update_dsp
+    update_dsp
     
     # suspend core processes
     @core_game.suspend_proc_gevents("onalg_player_has_played 2")

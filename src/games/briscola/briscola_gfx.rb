@@ -9,7 +9,6 @@ if $0 == __FILE__
   require '../../cuperativa_gui.rb' 
 end
 
-#require 'fox16'
 require 'base/gfx_general/base_engine_gfx'
 require 'base/gfx_general/gfx_elements'
 require 'core_game_briscola'
@@ -23,7 +22,6 @@ class BriscolaGfx < BaseEngineGfx
   # parent_wnd : application gui     
   def initialize(parent_wnd)
     super(parent_wnd)
-    
     @core_game = nil
     @splash_name = File.join(@resource_path, "icons/briscola_title_trasp.png")
     
@@ -737,8 +735,8 @@ class BriscolaGfx < BaseEngineGfx
   # players: array of players
   def onalg_new_match(players)
     #p players.serialize 
-    log "Nuova partita. Numero gioc: #{players.size}\n"
-    players.each{|pl| log " Nome: #{pl.name}\n"}
+    log "Nuova partita. Numero gioc: #{players.size}"
+    players.each{|pl| log " Nome: #{pl.name}"}
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_new_match(players)
     end
@@ -748,14 +746,13 @@ class BriscolaGfx < BaseEngineGfx
   # New giocata notification
   # carte_player: array of card as symbol (e.g :bA, :c2 ...)
   def onalg_new_giocata(carte_player)
-    log "Nuova giocata, carte: \n"
+    log "Nuova giocata, carte: "
     #expect 3 player cards and one briscola
     carte_player[0..@core_game.num_of_cards_onhandplayer-1].each do |card_lbl|
       log "[#{nome_carta_ita(card_lbl)}] "
     end    
     # set static elements that need to be update on each giocata
     build_deck_on_newgiocata
-    
 
     @cards_players.init_position_ani_distrcards
     
@@ -798,8 +795,7 @@ class BriscolaGfx < BaseEngineGfx
   def set_briscola_on_deckmain(carte_player)
     brisc_carte_pl = carte_player[@core_game.num_of_cards_onhandplayer]
     str_briscola_testo = "Briscola: [#{nome_carta_ita(brisc_carte_pl)}]"
-    log "\n"
-    log " #{str_briscola_testo}\n"
+    log " #{str_briscola_testo}"
     @deck_main.set_briscola(brisc_carte_pl)
     # label for briscola name
     unless @labels_to_disp[:__briscola__]
@@ -841,7 +837,7 @@ class BriscolaGfx < BaseEngineGfx
   # carte_prese_mano: cards taken on this hand
   # punti_presi: points collectd in this hand
   def onalg_manoend(player_best, carte_prese_mano, punti_presi)
-    log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}\n"
+    log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}"
     @mano_end_player_taker = player_best
     
     # adjourn points in the view
@@ -867,7 +863,7 @@ class BriscolaGfx < BaseEngineGfx
   # carte_player: array of card picked
   def onalg_pesca_carta(carte_player)
     #expect only one card
-    log "Carta pescata: [#{nome_carta_ita(carte_player.first)}]\n"
+    log "Carta pescata: [#{nome_carta_ita(carte_player.first)}]"
     #search the first free card on player gui
     player_sym = @player_on_gui[:player].name.to_sym
     @cards_players.set_card_empty_player(player_sym, carte_player.first)
@@ -916,9 +912,9 @@ class BriscolaGfx < BaseEngineGfx
   ##
   # Shows a dilogbox for the end of the smazzata
   def show_smazzata_end(best_pl_points )
-    str = "** Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}\n"
+    str = "Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     if best_pl_points[0][1] == best_pl_points[1][1]
-      str = "** Partita finita in pareggio"
+      str = "Partita finita in pareggio"
     end 
     log str
    
@@ -935,18 +931,16 @@ class BriscolaGfx < BaseEngineGfx
   def onalg_game_end(best_pl_segni)
     winner = best_pl_segni.first
     loser =  best_pl_segni[1]
-    str = "*** Vince la partita: #{winner[0]}\n" 
+    str = "Vince la partita: #{winner[0]}\n" 
     str += "#{winner[0]} punti #{winner[1]}\n"
     if loser[1] == -1
-      str += "#{loser[0]} abbandona\n"
+      str += "#{loser[0]} abbandona"
     else
-      str += "#{loser[0]} punti #{loser[1]}\n"
+      str += "#{loser[0]} punti #{loser[1]}"
     end 
-    #str = "*** Vince la partita: #{winner[0]} segni #{winner[1]} a #{loser[1]}\n" 
     log str
     if @option_gfx[:use_dlg_on_core_info]
-      #show_message_box("Partita finita", str.gsub("*** ", ""), false)
-      @msg_box_info.show_message_box("Partita finita", str.gsub("*** ", ""), false)
+      @msg_box_info.show_message_box("Partita finita", str, false)
     end
     if @option_gfx[:autoplayer_gfx]
       @alg_auto_player.onalg_game_end(best_pl_segni)
@@ -959,9 +953,9 @@ class BriscolaGfx < BaseEngineGfx
   def game_end_stuff
     #@app_owner.free_all_btcmd
     @log.debug("Game end stuff") 
-    fname = File.join(CuperativaGui.get_dir_appdata(),  "game_terminated_last.yaml")
+    fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
-    log "Partita terminata\n"
+    log "Partita terminata"
     # don't need core anymore
     @core_game = nil
     @state_gfx = :game_end
@@ -990,7 +984,7 @@ class BriscolaGfx < BaseEngineGfx
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = true
     
-    log "Tocca a: #{player.name}.\n"
+    log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
       #log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
@@ -1019,7 +1013,7 @@ class BriscolaGfx < BaseEngineGfx
   # Player has played a card not allowed
   def onalg_player_cardsnot_allowed(player, cards)
     lbl_card = cards[0]
-    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]\n"
+    log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]"
     @player_on_gui[:can_play] = true
     player_sym = player.name.to_sym
     @cards_players.set_card_empty_player(player_sym, lbl_card)
@@ -1031,7 +1025,6 @@ class BriscolaGfx < BaseEngineGfx
   # lbl_card: label of card played
   # player: player that have played
   def onalg_player_has_played(player, lbl_card)
-    log "#{player.name} ha giocato la carta [#{nome_carta_ita(lbl_card)}]\n"
     @log.debug("onalg_player_has_played: #{player.name}, #{lbl_card}")
     
     # check card on player hand

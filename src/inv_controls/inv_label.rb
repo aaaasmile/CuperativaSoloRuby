@@ -2,7 +2,8 @@
 
 
 class InvLabel < InvWidget
-  
+  attr_accessor :caption
+
   def initialize(x=0, y=0, w=0, h=0, zord=0, visb=true, rot=false)
     super(x,y,w,h,zord,visb,rot)
     @caption = ""

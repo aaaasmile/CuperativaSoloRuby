@@ -32,14 +32,15 @@ class CoreGameMariazza < CoreGameBriscola
   end
   
   def set_specific_options(options)
-    #p options[:games][:mariazza]
-    if options[:games_opt][:mariazza]
-      opt_briscola = options[:games_opt][:mariazza]
-      if opt_briscola[:num_segni_match]
-        @game_opt[:num_segni_match] = opt_briscola[:num_segni_match][:val]
+    #p options[:games_opt][:mariazza_game]
+    return unless options[:games_opt]
+    if options[:games_opt][:mariazza_game]
+      opt_game = options[:games_opt][:mariazza_game]
+      if opt_game[:num_segni_match]
+        @game_opt[:num_segni_match] = opt_game[:num_segni_match][:val]
       end
-      if opt_briscola[:target_points_segno]
-        @game_opt[:target_points_segno] = opt_briscola[:target_points_segno][:val]
+      if opt_game[:target_points_segno]
+        @game_opt[:target_points_segno] = opt_game[:target_points_segno][:val]
       end
     end
     #p @game_opt[:num_segni_match]
@@ -146,7 +147,7 @@ class CoreGameMariazza < CoreGameBriscola
       if is_briscola?(card_on_hand) and symb_card_on_hand == :set and @mazzo_gioco.size > 0
         # 7 of briscola is present on player hand and there is briscola on the table to take
         command_decl_avail << {
-          :name => :change_brisc,
+          :name => :change_briscola,
           :points => 0,
           # briscola change
           :change_briscola => {

@@ -9,7 +9,6 @@ class SoundManager
   def initialize(resource_path=nil)
     @log =  Log4r::Logger["coregame_log"]
     @sound_enabled = true
-    @sound_play_intro_onnetw = true
     @linux_sound_stoppped = {}
     @duration_linux = {}
     @duration_win = {}
@@ -35,12 +34,15 @@ class SoundManager
     end
     
   end
+
+  def disable_sound
+    @sound_enabled = false
+  end
   
   def set_local_settings(app_settings)
     sound_opt = app_settings["sound"]
     if sound_opt
       @sound_enabled = sound_opt[:use_sound_ongame]  
-      @sound_play_intro_onnetw = sound_opt[:play_intro_netwgamestart] 
     end 
   end
   
@@ -53,16 +55,6 @@ class SoundManager
   def get_sound_source(type)
     sound = nil
     case type
-      when :play_intro_netwgamestart
-        # intro for a new netwok game
-        #@log.debug("Sound play intro init game")
-        if @sound_play_intro_onnetw
-          #sound = File.dirname(__FILE__) + "/../res/sound/alarm.wav"
-          #sound = File.join(get_resource_path, "sound/alarm.wav")
-          sound = File.join(get_resource_path, "sound/fitebell.wav") 
-          #system("playsound " + sound) if $g_os_type == :linux # on LINUX
-          # on ubuntu 8.04 don't find playsound anymore..
-        end
       when :play_fitbell
         sound = File.join(get_resource_path, "sound/fitebell.wav")
       when :play_ba

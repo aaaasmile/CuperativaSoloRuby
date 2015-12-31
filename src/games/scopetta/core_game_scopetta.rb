@@ -27,6 +27,7 @@ class CoreGameScopetta < CoreGameSpazzino
       :vale_napola => true, # if true count also the napola
       :combi_sum_lesscard => true # if true combi card is allowed with less card then all other
     }
+    @option_core_name = :scopetta_game
     @test_deck_path = File.dirname(__FILE__) + '/../../test/scopetta/saved_games'
     @log = Log4r::Logger.new("coregame_log::CoreGameScopetta") 
   end
@@ -51,6 +52,12 @@ class CoreGameScopetta < CoreGameSpazzino
       end 
     end
     return val_spazz_events
+  end
+  
+  # overload of set_specific_options in base class
+  def on_set_specific_options(scopetta_opt)
+    @game_opt[:vale_napola] = scopetta_opt[:vale_napola][:val] if scopetta_opt[:vale_napola]
+    @log.debug("Core scopetta options #{@game_opt.inspect}")
   end
   
   ##
@@ -166,7 +173,7 @@ class CoreGameScopetta < CoreGameSpazzino
     carte_num = 0
     points_info = @points_curr_segno[player.name]
     denari_arr = [] # array of denari using index
-    @log.debug "Riepilogo carte prese da #{player.name}: #{@carte_prese[player.name].join(",")}"
+    @log.debug "Cards taken by #{player.name}: #{@carte_prese[player.name].join(",")}"
     @carte_prese[player.name].each do |card|
       carte_num += 1
       if @deck_information.get_card_segno(card) == :D
