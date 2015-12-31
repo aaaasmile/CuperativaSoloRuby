@@ -77,7 +77,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         end
       end
     else
-      check_mariazza(card_briscola.to_s)
+      check_mariazza_for_card_gone(card_briscola.to_s)
     end
   end
   
@@ -218,10 +218,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     card_avv_info = @deck_info.get_card_info(@card_played[0])
     max_points_take = 0
     max_card_take = @cards_on_hand[0]
-    min_card_take = @cards_on_hand[0]
     min_card_leave = @cards_on_hand[0]
-    min_points_leave = 120
-    min_points_take = 120
+    min_points_leave = @deck_info.get_card_info(min_card_leave)[:points] + card_avv_info[:points]
     take_it = []
     leave_it = []
     # build takeit leaveit arrays
@@ -252,20 +250,17 @@ class AlgCpuMariazza < AlgCpuPlayerBase
           max_card_take = card_lbl
           max_points_take = points
         end
-        if points < min_points_take
-          min_card_take = card_lbl
-          min_points_take = points
-        end
       else
         # leave it as minimum
-        if points < min_points_leave and 
-           (card_s[2] != @briscola.to_s[2] or min_card_leave.to_s[2] == @briscola.to_s[2] or @deck_info.get_card_info(min_card_leave)[:points] >= 3) and
-           card_curr_info[:rank]  < @deck_info.get_card_info(min_card_leave)[:rank] 
+        if points < min_points_leave or (points == min_points_leave and
+              card_curr_info[:rank]  < @deck_info.get_card_info(min_card_leave)[:rank] )
            min_card_leave = card_lbl
            min_points_leave = points
         end
       end
     end
+    #p min_points_leave
+    #p min_card_leave
     curr_points_me = 0
     @team_mates.each{ |name_pl| curr_points_me += @points_segno[name_pl] }
     tot_points_if_take = curr_points_me + max_points_take
@@ -303,6 +298,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @log.debug("play_as_master_second, apply R4 #{max_card_take}")
       return max_card_take
     end
+    best_leave_it = best_leaveit_card(leave_it)
     if take_it.size > 0
       # we can take it
       if curr_points_opp > 28 and max_points_take > 0
@@ -311,7 +307,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         @log.debug("play_as_master_second, apply R5 #{card_to_play}")
         return card_to_play
       end
-      if min_points_leave > 3
+      if @deck_info.get_card_info(best_leave_it)[:points] > 2 or min_points_leave > 3
         # I am loosing too many points?
         card_to_play = best_taken_card(take_it)
         @log.debug("play_as_master_second, apply R6 #{card_to_play}")
@@ -319,11 +315,35 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       end
     end 
     # leave it
-    @log.debug("play_as_master_second, apply R7 #{min_card_leave}, points #{min_points_leave}")
-    return min_card_leave 
+    @log.debug("play_as_master_second, apply R7 #{best_leave_it}, points #{min_points_leave}")
+    return best_leave_it 
     #crash
   end
   
+  ##
+  # Provides the best leave it card
+  def best_leaveit_card(leave_it)
+    @log.debug("calculate best_leaveit_card") 
+    w_cards = []
+    leave_it.each do |card_lbl|
+      card_s = card_lbl.to_s # something like '_Ab'
+      segno = card_s[2,1] 
+
+      curr_w = 0
+      curr_w += 200 if  card_s[2] == @briscola.to_s[2]
+      curr_w += 500 if card_s[1] == "A"[0]
+      curr_w += 400 if card_s[1] == "3"[0] 
+      curr_w += 300 if card_s[1] == "R"[0] 
+      curr_w += 280 if card_s[1] == "C"[0] 
+      curr_w += @deck_info.get_card_info(card_lbl)[:rank]
+
+      w_cards << [card_lbl, curr_w ]
+    end
+    min_list = w_cards.min{|a,b| a[1]<=>b[1]}
+    @log.debug("Best card to play on leave it cards is #{min_list[0]}, w_cards = #{w_cards.to_s}")
+    return min_list[0]
+  end
+
   ##
   # Provides the best card from the take_it list
   # take_it: array of cards that ha to be played
@@ -446,11 +466,11 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     card_s = card.to_s
     
-    check_mariazza(card_s)
+    check_mariazza_for_card_gone(card_s)
     check_strozza(card_s)
   end
 
-  def check_mariazza(card_s)
+  def check_mariazza_for_card_gone(card_s)
     segno = card_s[2,1]
     if card_s[1] == "C"[0] or card_s[1] == "R"[0]
       # if a player play a Horse or a King there is no more declaration  
