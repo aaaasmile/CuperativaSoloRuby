@@ -13,7 +13,7 @@ require 'yaml'
 
 
 require 'gfx/gfx_general/base_engine_gfx'
-require 'dialogs/options/cuperat_options_dlg'
+require 'dialogs/cuperat_options_dlg'
 require 'dialogs/listgames_dlg'
 require 'dialogs/about_dlg'
 require 'core/info_available_games'

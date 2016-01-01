@@ -5,9 +5,9 @@ $:.unshift File.dirname(__FILE__)
 require 'rubygems'
 require 'fox16'
 
-require 'cards_options_dlg'
-require 'names_options_dlg'
-require 'other_options_dlg'
+require 'options/cards_options_dlg'
+require 'options/names_options_dlg'
+require 'options/other_options_dlg'
 
 include Fox
 
