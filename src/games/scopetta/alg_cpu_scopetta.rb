@@ -1,11 +1,11 @@
 # -*- coding: ISO-8859-1 -*-
 # file: alg_cpu_scopetta.rb
 
-if $0 == __FILE__
-  require 'rubygems'
-  require File.dirname(__FILE__) + '/../../core/core_game_base'
-  require 'core_game_scopetta'
-end
+$:.unshift File.dirname(__FILE__) + '/../..'
+
+require 'rubygems'
+require 'core/core_game_base'
+require 'core_game_scopetta'
 
 ##
 # Class used to play briscola automatically

@@ -1,6 +1,9 @@
 # file: alg_cpu_tressette.rb
 
+$:.unshift File.dirname(__FILE__) + '/../..'
+
 require 'rubygems'
+require 'core/core_game_base'
 
 ##
 # Class used to play  automatically

@@ -7,9 +7,9 @@ if $0 == __FILE__
   include Fox
 end
 
-$:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__)
 
-require 'core/web_launcher'
+require 'web_launcher'
 
 #clipboard stuff
 begin
@@ -63,6 +63,19 @@ class CupCrashReporter < FXMainWindow
     
     setIcon(@icons_app[:icon_app])
     
+  end
+  
+  def self.create_ownapp(str_error)
+    theApp = FXApp.new("TestReporter", "FXRuby")
+    crash_rep = CupCrashReporter.new(theApp)
+  
+    crash_rep.set_error_text(str_error)
+    theApp.create()
+  
+    crash_rep.create
+    crash_rep.show  
+    
+    theApp.run
   end
   
   def set_error_text(text)
