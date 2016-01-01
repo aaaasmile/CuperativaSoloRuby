@@ -42,7 +42,7 @@ if $0 == __FILE__
   $:.unshift File.dirname(__FILE__) + '/../../..'
   
   require 'test/gfx/test_dialogbox' 
-  require 'src/gfx/gfx_general/resource_info'
+  require 'src/core/resource_info'
   
   ##
   # Launcher of the dialogbox

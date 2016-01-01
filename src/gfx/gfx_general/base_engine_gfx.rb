@@ -9,7 +9,7 @@ require 'gfx_comp/graphical_composite'
 require 'core/deck_info'
 require 'yaml'
 require 'inv_controls/inv_widget'
-require 'resource_info'
+require 'core/resource_info'
 
 ##
 # Graphic related to a generic card game

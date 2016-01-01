@@ -1,9 +1,10 @@
 #file: cards_options_dlg.rb
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../..'
 
 require 'basic_dlg_options_setter'
-require 'gfx_general/resource_info'
+require 'core/resource_info'
 
 ##
 # Card deck option setter

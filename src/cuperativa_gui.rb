@@ -20,7 +20,7 @@ require 'core/info_available_games'
 require 'gfx/gfx_general/cup_single_game_win'
 require 'gfx/gfx_general/modal_msg_box'
 require 'core/sound_manager'
-require 'gfx/gfx_general/resource_info'
+require 'core/resource_info'
 
 # other method could be inspect the  Object::PLATFORM or RUBY_PLATFORM
 $g_os_type = :win32_system
@@ -57,7 +57,7 @@ include Fox
 # Class for a fox gui Cuperativa 
 class CuperativaGui < FXMainWindow
   attr_accessor :giochimenu, :settings_filename, :icons_app, :app_settings, :sound_manager
-  attr_accessor :restart_need, :corelogger, :last_selected_gametype, :main_app
+  attr_accessor :corelogger, :last_selected_gametype, :main_app
   
   
   include ModalMessageBox
@@ -138,8 +138,6 @@ class CuperativaGui < FXMainWindow
     appdata_dir = ResourceInfo.get_dir_appdata()
     @settings_filename =  File.join(appdata_dir, FILE_APP_SETTINGS)
     
-    @restart_need = false
-  
     @logger_mode_filename = File.join(ResourceInfo.get_dir_appdata(), LOGGER_MODE_FILE)
     @log_detailed_info = load_log_info_from_file(@logger_mode_filename)
     @log_device_output = :default

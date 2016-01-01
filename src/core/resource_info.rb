@@ -2,7 +2,7 @@
 
 class ResourceInfo
   def self.get_resource_path
-    res_path = File.dirname(__FILE__) + "/../../../res"
+    res_path = File.dirname(__FILE__) + "/../../res"
     return File.expand_path(res_path)
   end
 
