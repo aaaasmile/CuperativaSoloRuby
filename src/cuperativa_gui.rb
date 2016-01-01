@@ -13,9 +13,9 @@ require 'yaml'
 
 
 require 'gfx/gfx_general/base_engine_gfx'
-require 'options/cuperat_options_dlg'
-require 'gfx/gfx_general/listgames_dlg'
-require 'gfx/gfx_general/about_dlg'
+require 'dialogs/options/cuperat_options_dlg'
+require 'dialogs/listgames_dlg'
+require 'dialogs/about_dlg'
 require 'core/info_available_games'
 require 'gfx/gfx_general/cup_single_game_win'
 require 'gfx/gfx_general/modal_msg_box'
