@@ -9,8 +9,8 @@ if $0 == __FILE__
 end
 
 #require 'fox16'
-require 'base/gfx_general/base_engine_gfx'
-require 'base/gfx_general/gfx_elements'
+require 'gfx/gfx_general/base_engine_gfx'
+require 'gfx/gfx_general/gfx_elements'
 require 'core_game_briscolone'
 require 'games/briscola/briscola_gfx'
 

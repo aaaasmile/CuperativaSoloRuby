@@ -5,7 +5,7 @@
 $:.unshift File.dirname(__FILE__)
 
 require File.dirname(__FILE__) + '/../briscola/core_game_briscola'
-require File.dirname(__FILE__) + '/../../base/core/game_replayer'
+require File.dirname(__FILE__) + '/../../core/game_replayer'
 require 'alg_cpu_briscola5'
 require 'chiamata_mgr'
 

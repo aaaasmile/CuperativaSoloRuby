@@ -3,7 +3,7 @@
 
 if $0 == __FILE__
   require 'rubygems'
-  require File.dirname(__FILE__) + '/../../base/core_game_base'
+  require File.dirname(__FILE__) + '/../../core/core_game_base'
 end
 
 ##################################################### 

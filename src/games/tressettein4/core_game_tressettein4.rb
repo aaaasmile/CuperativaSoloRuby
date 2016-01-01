@@ -5,7 +5,7 @@ $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/../..'
 $:.unshift File.dirname(__FILE__) + '/..'
 
-require 'base/core/game_replayer'
+require 'core/game_replayer'
 require 'tressette/core_game_tressette'
 require 'alg_cpu_tressettein4'
 

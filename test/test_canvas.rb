@@ -10,7 +10,7 @@ require 'fox16'
 require 'log4r'
 
 require 'src/inv_controls/inv_container'
-require 'src/base/core/sound_manager'
+require 'src/core/sound_manager'
 
 include Fox
 

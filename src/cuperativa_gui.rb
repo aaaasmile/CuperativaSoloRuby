@@ -12,15 +12,15 @@ require 'log4r'
 require 'yaml'
 
 
-require 'base/gfx_general/base_engine_gfx'
-require 'base/options/cuperat_options_dlg'
-require 'base/gfx_general/listgames_dlg'
-require 'base/gfx_general/about_dlg'
-require 'base/core/gameavail_hlp'
-require 'base/gfx_general/cup_single_game_win'
-require 'base/gfx_general/modal_msg_box'
-require 'base/core/sound_manager'
-require 'base/gfx_general/resource_info'
+require 'gfx/gfx_general/base_engine_gfx'
+require 'options/cuperat_options_dlg'
+require 'gfx/gfx_general/listgames_dlg'
+require 'gfx/gfx_general/about_dlg'
+require 'core/info_available_games'
+require 'gfx/gfx_general/cup_single_game_win'
+require 'gfx/gfx_general/modal_msg_box'
+require 'core/sound_manager'
+require 'gfx/gfx_general/resource_info'
 
 # other method could be inspect the  Object::PLATFORM or RUBY_PLATFORM
 $g_os_type = :win32_system
@@ -134,8 +134,10 @@ class CuperativaGui < FXMainWindow
     super(anApp, APP_CUPERATIVA_NAME, nil, nil, DECOR_ALL, 30, 20, 640, 480)
     @main_app = anApp 
     @app_settings = {}
-    @settings_filename =  File.join(ResourceInfo.get_dir_appdata(), FILE_APP_SETTINGS)
     @log = Log4r::Logger.new("coregame_log")
+    appdata_dir = ResourceInfo.get_dir_appdata()
+    @settings_filename =  File.join(appdata_dir, FILE_APP_SETTINGS)
+    
     @restart_need = false
   
     @logger_mode_filename = File.join(ResourceInfo.get_dir_appdata(), LOGGER_MODE_FILE)
@@ -164,7 +166,7 @@ class CuperativaGui < FXMainWindow
       FileOutputter.new('coregame_log', :filename=> out_log_name) 
       Log4r::Logger['coregame_log'].add 'coregame_log'
     end
-    
+    @log.debug "App data is #{appdata_dir}"
     # load supported games
     @supported_game_map = {}
     load_supported_games()
@@ -361,7 +363,7 @@ class CuperativaGui < FXMainWindow
   ##
   # Load all supported games
   def load_supported_games
-    @supported_game_map = InfoAvilGames.info_supported_games(@log)
+    @supported_game_map = InfoAvailableGames.info_supported_games(@log)
     #p @supported_game_map
     SETTINGS_DEFAULT_APPGUI[:games_opt] = {}
     @supported_game_map.each do |k, game_item|

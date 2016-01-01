@@ -11,7 +11,7 @@ require 'fakestuff'
 
 PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
 
-require File.join( PATH_TO_CLIENT, 'base/core/core_game_base')
+require File.join( PATH_TO_CLIENT, 'core/core_game_base')
 require File.join( PATH_TO_CLIENT, 'games/tressettein4/core_game_tressettein4')
 require File.join( PATH_TO_CLIENT, 'games/tressettein4/alg_cpu_tressettein4')
 

@@ -9,7 +9,7 @@ end
 
 $:.unshift File.dirname(__FILE__) + '/..'
 
-require 'base/core/web_launcher'
+require 'core/web_launcher'
 
 #clipboard stuff
 begin

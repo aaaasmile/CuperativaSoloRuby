@@ -8,9 +8,9 @@ if $0 == __FILE__
   require '../../cuperativa_gui.rb' 
 end
 
-require 'base/gfx_general/base_engine_gfx'
-require 'base/gfx_general/gfx_elements'
-require 'base/gfx_comp/smazzata_mbox_gfx'
+require 'gfx/gfx_general/base_engine_gfx'
+require 'gfx/gfx_general/gfx_elements'
+require 'gfx/gfx_comp/smazzata_mbox_gfx'
 require 'core_game_tressette'
 
 

@@ -5,7 +5,7 @@ $:.unshift File.dirname(__FILE__) + '/../..'
 
 require 'rubygems'
 require 'fox16'
-require 'src/base/core/sound_manager'
+require 'src/core/sound_manager'
 require 'log4r'
 
 $g_os_type = :win32_system

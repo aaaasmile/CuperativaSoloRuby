@@ -11,7 +11,7 @@ require 'yaml'
 
 PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
 
-require File.join( PATH_TO_CLIENT, 'base/core/core_game_base')
+require File.join( PATH_TO_CLIENT, 'core/core_game_base')
 require File.join( PATH_TO_CLIENT, 'games/mariazza/core_game_mariazza')
 require File.join( PATH_TO_CLIENT, 'games/mariazza/alg_cpu_mariazza')
 

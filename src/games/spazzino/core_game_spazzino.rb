@@ -4,7 +4,7 @@
 
 $:.unshift File.dirname(__FILE__)
 
-require File.dirname(__FILE__) + '/../../base/core/game_replayer'
+require File.dirname(__FILE__) + '/../../core/game_replayer'
 require 'alg_cpu_spazzino'
 
 # Class to manage the core card game

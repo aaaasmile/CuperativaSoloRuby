@@ -4,8 +4,9 @@
 
 $:.unshift File.dirname(__FILE__)
 
-require File.dirname(__FILE__) + '/../../base/core/game_replayer'
+$:.unshift File.dirname(__FILE__) + '/../..'
 require 'alg_cpu_briscola'
+require 'core/game_replayer'
 
 # Class to manage the core card game
 class CoreGameBriscola < CoreGameBase
