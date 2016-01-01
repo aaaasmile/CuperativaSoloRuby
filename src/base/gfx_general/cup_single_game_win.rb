@@ -192,9 +192,9 @@ class CupSingleGameWin < FXMainWindow
     return 1
   end
   
-  def start_new_game(palyers, app_settings)
+  def start_new_game(players, app_settings)
     @app_settings = app_settings
-    @current_game_gfx.start_new_game(palyers, @app_settings)
+    @current_game_gfx.start_new_game(players, @app_settings)
   end
   
   def create_game_gfx(options)
