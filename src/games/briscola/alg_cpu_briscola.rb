@@ -4,7 +4,7 @@
 $:.unshift File.dirname(__FILE__) + '/../..'
 
 require 'rubygems'
-require 'core/core_game_base'
+require 'core/alg_cpu_player_base'
 
 ##################################################### 
 ##################################################### AlgCpuBriscola
@@ -18,13 +18,10 @@ class AlgCpuBriscola < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, cup_gui)
-    # set algorithm player
-    @alg_player = player
+  def initialize(player, coregame, gfx_res)
+    super(player, coregame, gfx_res)
     # logger
     @log = Log4r::Logger.new("coregame_log::AlgCpuBriscola")
-    # core game
-    @core_game = coregame
     # cards in current player
     @cards_on_hand = []
     # points hash using player name as key, with array of card label
@@ -50,12 +47,6 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     @strozzi_on_suite = {}
     # cards on deck
     @num_cards_on_deck = 0
-    # cuperativa main gui
-    @cupera_gui = cup_gui
-    # algorithm options
-    @option_gfx = {
-      :timeout_haveplay => 700
-    }
     @predef_stack = []
   end
   
@@ -92,8 +83,8 @@ class AlgCpuBriscola < AlgCpuPlayerBase
   # Algorithm have to play
   def onalg_have_to_play(player,command_decl_avail)
     if player == @alg_player
-      if @cupera_gui
-        @cupera_gui.registerTimeout(@option_gfx[:timeout_haveplay], :onTimeoutAlgorithmHaveToPlay, self)
+      if @gfx_res
+        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
         # this is used to sloow down the algorithm play
         @core_game.suspend_proc_gevents

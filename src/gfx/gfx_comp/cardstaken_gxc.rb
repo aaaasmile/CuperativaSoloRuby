@@ -298,7 +298,7 @@ class CardsTakenGraph < ComponentBase
     end
     @taken_card_info_last[:state] = :showing
     @taken_card_info_last[:curr_playersym_shown] = player_sym
-    @cupera_gui.registerTimeout(@timeout_lastcardshow, :onTimeoutLastCardTakenShow1, self)
+    @gfx_res.registerTimeout(@timeout_lastcardshow, :onTimeoutLastCardTakenShow1, self)
     # refresh the display
     @gfx_res.update_dsp 
   end

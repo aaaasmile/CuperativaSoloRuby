@@ -460,7 +460,7 @@ class CardsPlayersGraph < ComponentBase
     #p @distr_card_stack.last
     @distr_card_stack.last.visible = true
     # start a timer for card played animation
-    @app_owner.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
+    @gfx_res.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
   end
   
   ##
@@ -561,12 +561,12 @@ class CardsPlayersGraph < ComponentBase
         card_ix_dis = card_played.cd_data[:cardix_disp]
         @cards_player_todisp[player_card_sym_dis][card_ix_dis].visible = true
         @distr_card_stack.last.visible = true
-        @app_owner.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
+        @gfx_res.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
       end
     else
       # continue animation
       #p 'continue animation'
-      @app_owner.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
+      @gfx_res.registerTimeout(@timeout_animation_carddistr, :onTimeoutAniDistrCards1, self)
     end
     # refresh the display
     @gfx_res.update_dsp 

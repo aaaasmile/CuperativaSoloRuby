@@ -14,14 +14,10 @@ class AlgCpuTressette < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, game_wnd)
-    @game_wnd = game_wnd
-    # set algorithm player
-    @alg_player = player
+  def initialize(player, coregame, gfx_res)
+    super(player, coregame, gfx_res)
     # logger
     @log = Log4r::Logger.new("coregame_log::AlgCpuTressette") 
-    # core game
-    @core_game = coregame
     # cards in current player
     @cards_on_hand = {:B => [], :D => [], :C => [], :S => []}
     @num_carte_gioc_in_suit = {:B => 10, :C=> 10, :D=> 10, :S=> 10}
@@ -93,30 +89,49 @@ class AlgCpuTressette < AlgCpuPlayerBase
   ##
   # Algorithm have to play
   def onalg_have_to_play(player,command_decl_avail)
-    cards = []
     if player == @alg_player
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      nr_cards_on_hand = count_cards_onhand
-      if nr_cards_on_hand == 0
-        @log.warn "do nothing because no cards are available"
-        return
-      end
-      if command_decl_avail.size > 0
-        # there are declaration
-        
-      end
-      case @level_alg 
-      when :master
-        card = play_like_a_master
-      when :predefined
-        card = play_with_predifined
+      if @gfx_res
+        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self, command_decl_avail)
+        # suspend core event process until timeout
+        # this is used to sloow down the algorithm play
+        @core_game.suspend_proc_gevents
+        @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       else
-        card = play_like_a_dummy
+        # no wait for gfx stuff, continue immediately to play
+        alg_play_acard(command_decl_avail)
       end
-      # notify card played to core game
-      @core_game.alg_player_cardplayed(@alg_player, card)
-      @log.error "No cards on hand - programming error" unless cards
-    end 
+    end
+  end
+
+  ##
+  # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
+  def onTimeoutAlgorithmHaveToPlay(command_decl_avail)
+    alg_play_acard(command_decl_avail)
+    # restore event process
+    @core_game.continue_process_events if @core_game
+  end
+
+  def alg_play_acard(command_decl_avail)
+    nr_cards_on_hand = count_cards_onhand
+    if nr_cards_on_hand == 0
+      @log.warn "do nothing because no cards are available"
+      return
+    end
+    if command_decl_avail.size > 0
+      # there are declaration
+    end
+    case @level_alg 
+    when :master
+      card = play_like_a_master
+    when :predefined
+      card = play_with_predifined
+    else
+      card = play_like_a_dummy
+    end
+    # notify card played to core game
+    @core_game.alg_player_cardplayed(@alg_player, card)
+    @log.error "No cards on hand - programming error" unless card
   end
   
   ##

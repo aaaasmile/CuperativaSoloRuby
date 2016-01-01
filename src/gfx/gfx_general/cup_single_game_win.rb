@@ -35,7 +35,6 @@ class CupSingleGameWin < FXMainWindow
     super(owner.main_app, comment, nil, nil, DECOR_ALL, 50,50, @win_width, @win_height)
     
     
-    @timeout_cb = {:locked => false, :queue => []}
     @cup_gui = owner
     @log = Log4r::Logger["coregame_log"]
     @comment = comment
@@ -132,65 +131,7 @@ class CupSingleGameWin < FXMainWindow
     return players
   end
   
-  def registerTimeout(timeout, met_sym_tocall, met_notifier=@current_game_gfx)
-    #@log.debug "register timer for msec #{timeout}, #{met_sym_tocall}"
-    @log.error "Timeout is not set in registerTimeout" unless timeout
-    unless @timeout_cb[:locked]
-      # register only one timeout at the same time
-      @timeout_cb[:meth] = met_sym_tocall
-      @timeout_cb[:notifier] = met_notifier
-      @timeout_cb[:locked] = true
-      getApp().addTimeout(timeout, method(:onTimeout))
-      
-    else
-      #@log.debug("registerTimeout on timeout pending, put it on the queue")
-      # store info about timeout in order to submit after  a timeout
-      @timeout_cb[:queue] << {:timeout => timeout, 
-                              :meth => met_sym_tocall, 
-                              :notifier => met_notifier, 
-                              :started => Time.now
-      }
-    end
-  end
   
-  ##
-  # Timer expired
-  def onTimeout(sender, sel, ptr)
-    #p "Timeout"
-    #p @timeout_cb
-    return unless @timeout_cb[:notifier]
-    
-    begin
-      # timeout callback
-      @timeout_cb[:notifier].send(@timeout_cb[:meth])
-    rescue => detail
-      @log.error "onTimeout error (#{$!})"
-      @log.error detail.backtrace.join("\n")
-    end
-    
-    # submit the next timer in the queue
-    next_timer_info = @timeout_cb[:queue].slice!(0)
-    if next_timer_info
-      # submit the next timer
-      @timeout_cb[:meth] = next_timer_info[:meth]
-      @timeout_cb[:notifier] = next_timer_info[:notifier]
-      @timeout_cb[:locked] = true
-      timeout_orig = next_timer_info[:timeout]
-      # remove already elapsed time
-      already_elapsed_time_ms = (Time.now - next_timer_info[:started]) * 1000
-      timeout_adjusted = timeout_orig - already_elapsed_time_ms
-      # minimum timeout always set
-      timeout_adjusted = 10 if timeout_adjusted <= 0
-      getApp().addTimeout(timeout_adjusted, method(:onTimeout))
-      #@log.debug("Timer to register found in the timer queue (Resume with timeout #{timeout_adjusted})")
-    else
-      # no more timer to submit, free it
-      #@log.debug("onTimeout terminated ok")
-      @timeout_cb[:locked] = false
-      @timeout_cb[:queue] = []
-    end
-    return 1
-  end
   
   def start_new_game(players, app_settings)
     @app_settings = app_settings
@@ -236,7 +177,6 @@ class CupSingleGameWin < FXMainWindow
     begin
       store_settings 
       @current_game_gfx.game_end_stuff
-      @timeout_cb[:notifier] = nil
       @cup_gui.game_window_destroyed
       
       @sound_manager.stop_sound(:play_mescola)

@@ -451,7 +451,7 @@ class TablePlayedCardsGraph < ComponentBase
     @cards_taken_disp.each{|gfx_card| gfx_card.visible = true}
     @cards_played_todisp.each{|gfx_card| gfx_card.visible = false}
     @state_animation[:card_taken] = :ongoing
-    @cupera_gui.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
+    @gfx_res.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
   end
   
   def card_is_played2_incirc(lbl_card, player_position, z_ord, init_x,  init_y)
@@ -606,7 +606,7 @@ class TablePlayedCardsGraph < ComponentBase
     #p model_canvas_gfx
     
     @ix_index_animated = ix
-    @cupera_gui.registerTimeout(@timeout_animation_cardplayed, :onTimeoutAniCardPlayed1, self)
+    @gfx_res.registerTimeout(@timeout_animation_cardplayed, :onTimeoutAniCardPlayed1, self)
     
   end
   
@@ -654,7 +654,7 @@ class TablePlayedCardsGraph < ComponentBase
       @gfx_res.ani_card_played_end
       animation_is_terminated(:card_played)
     else
-      @cupera_gui.registerTimeout(@timeout_animation_cardplayed, :onTimeoutAniCardPlayed1, self)
+      @gfx_res.registerTimeout(@timeout_animation_cardplayed, :onTimeoutAniCardPlayed1, self)
     end
     
     # refresh the display
@@ -693,7 +693,7 @@ class TablePlayedCardsGraph < ComponentBase
       @gfx_res.ani_card_taken_end
     else
       # continue animation
-      @cupera_gui.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
+      @gfx_res.registerTimeout(@timeout_animation_cardtaken, :onTimeoutAniCardTaken1, self)
     end
     # refresh the display
     @gfx_res.update_dsp

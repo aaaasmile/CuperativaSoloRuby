@@ -79,7 +79,7 @@ class CardsDisappGraph < ComponentBase
       card_ctrl.visible = true
     end
     @animation_state = :started
-    @app_owner.registerTimeout(@timeout_show, :onTimeoutShowing, self)
+    @gfx_res.registerTimeout(@timeout_show, :onTimeoutShowing, self)
   end
   
   def is_animation_terminated?

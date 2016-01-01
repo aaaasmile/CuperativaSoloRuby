@@ -223,7 +223,7 @@ class MariazzaGfx < BriscolaGfx
       @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
       # trigger autoplay
-      @app_owner.registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay)
+      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
       # suspend core event process untill timeout
       @core_game.suspend_proc_gevents
     end

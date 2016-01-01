@@ -76,9 +76,9 @@ class MsgBoxComponent < ComponentBase
     if suspend
       @log.debug "msgbox blocking and wait for timeout"
       if @autoremove
-        @cupera_gui.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox2, self)
+        @gfx.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox2, self)
       else
-        @cupera_gui.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox1, self)
+        @gfx.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox1, self)
       end
       # suspend core event process untill timout
       @msg_box_info.blocking = true

@@ -165,7 +165,7 @@ class TressetteGfx < BaseEngineGfx
       @card_reversed_gfx = card
       card.blit_reverse = true
       @card_reversed_gfx = card
-      @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
+      registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd, self)
       update_dsp
     end    
   end #end click_on_card
@@ -213,7 +213,7 @@ class TressetteGfx < BaseEngineGfx
   def ani_card_played_end
     @log.debug("gfx: ani_card_played_end")
     @player_on_gui[:ani_card_played_is_starting] = false
-    @app_owner.registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer)
+    registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer, self)
   end
   
   ##
@@ -469,7 +469,7 @@ class TressetteGfx < BaseEngineGfx
         @player_on_gui[:index] = ix_player
         #algorithm is used to reuse code to check if a card is valid
         # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, @app_owner)
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
         @log.debug("Create AlgCpuTressette for gfx player")
         break
       end
@@ -523,7 +523,7 @@ class TressetteGfx < BaseEngineGfx
         @player_on_gui[:can_play] = false
         #algorithm is used to reuse code to check if a card is valid
         # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, @app_owner)
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
         @log.debug("Create AlgCpuTressette for gfx player")
         break
       end 
@@ -538,7 +538,7 @@ class TressetteGfx < BaseEngineGfx
       @player_gfx_info[player_label] = {}
       if player.type == :cpu_local
         player.position = pos_names.pop
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, @app_owner)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
       elsif player.type == :human_local
         # already done above
         
@@ -671,7 +671,7 @@ class TressetteGfx < BaseEngineGfx
   
   def ani_card_taken_end
     @log.debug("gfx: ani_card_taken_end")
-    @app_owner.registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue)
+    registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
   end
   
   def show_smazzata_end(best_pl_points )
@@ -762,6 +762,7 @@ class TressetteGfx < BaseEngineGfx
   ##
   # Game end stuff
   def game_end_stuff
+    super
     fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
     log "Partita terminata"
@@ -902,7 +903,7 @@ class TressetteGfx < BaseEngineGfx
     @alg_auto_player.onalg_manoend(player_best, carte_prese_mano, punti_presi)
     
     # start a timer to give a user a chance to see the end
-    @app_owner.registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd)
+    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     
     # suspend core event process untill timeout
     @core_game.suspend_proc_gevents
@@ -934,9 +935,7 @@ class TressetteGfx < BaseEngineGfx
       # store parameters into a stack
       @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
-      # trigger autoplay
-      # TODO
-      @app_owner.registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay)
+      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
       # suspend core event process untill timeout
       @core_game.suspend_proc_gevents
     end

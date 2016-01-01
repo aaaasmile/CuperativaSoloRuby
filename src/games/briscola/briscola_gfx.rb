@@ -103,6 +103,7 @@ class BriscolaGfx < BaseEngineGfx
     @color_back_table = Fox.FXRGB(0x22, 0x8a, 0x4c) #Fox.FXRGB(103, 203, 103)
     # cards on table played
     @table_cards_played = nil
+    #algorith instance name
     @algorithm_name = "AlgCpuBriscola"  
     #core game name (created on base class)
     @core_name_class = 'CoreGameBriscola'
@@ -255,7 +256,7 @@ class BriscolaGfx < BaseEngineGfx
       @card_reversed_gfx = card
       card.blit_reverse = true
       @card_reversed_gfx = card
-      @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
+      registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd, self)
       update_dsp
     end    
   end #end click_on_card
@@ -415,7 +416,7 @@ class BriscolaGfx < BaseEngineGfx
         @player_on_gui[:can_play] = false
         # if autoplayer is enabled, use also an automate instead of human
         if @option_gfx[:autoplayer_gfx]
-          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, @app_owner)
+          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
           @log.debug("Create an automate AlgCpuBriscola for gfx player")
         end
         break
@@ -433,7 +434,7 @@ class BriscolaGfx < BaseEngineGfx
         player.position = pos_names.pop
         # create cards gfx for the player
         @cards_players.build(player)
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, @app_owner)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
         @opponents_list << player
       elsif player.type == :human_local
         # already done above
@@ -675,12 +676,12 @@ class BriscolaGfx < BaseEngineGfx
   def ani_card_played_end
     @log.debug("gfx: ani_card_played_end")
     @player_on_gui[:ani_card_played_is_starting] = false
-    @app_owner.registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer)
+    registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer, self)
   end
   
   def ani_card_taken_end
     @log.debug("gfx: ani_card_taken_end")
-    @app_owner.registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue)
+    registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
   end
   
   ##
@@ -851,7 +852,7 @@ class BriscolaGfx < BaseEngineGfx
     end
     
     # start a timer to give a user a chance to see the end
-    @app_owner.registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd)
+    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     
     # suspend core event process untill timeout
     @core_game.suspend_proc_gevents
@@ -951,6 +952,7 @@ class BriscolaGfx < BaseEngineGfx
   ##
   # Game end stuff
   def game_end_stuff
+    super
     #@app_owner.free_all_btcmd
     @log.debug("Game end stuff") 
     fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
@@ -996,7 +998,7 @@ class BriscolaGfx < BaseEngineGfx
       @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
       # trigger autoplay
-      @app_owner.registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay)
+      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
       # suspend core event process untill timeout
       @core_game.suspend_proc_gevents
     end
@@ -1069,7 +1071,7 @@ class BriscolaGfx < BaseEngineGfx
     # here is not better to insert a delay, beacuse we make the player turn slow
     # Delay is better on mano end and when opponent is on turn
     ## little delay to process other events to give time to look the card played
-    #@app_owner.registerTimeout(@option_gfx[:timeout_player], :onTimeoutPlayer)
+    #registerTimeout(@option_gfx[:timeout_player], :onTimeoutPlayer, self)
     ## suspend core event process untill timeout
     #@core_game.suspend_proc_gevents
   end

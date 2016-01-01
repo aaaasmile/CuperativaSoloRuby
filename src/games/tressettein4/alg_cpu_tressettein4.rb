@@ -45,19 +45,5 @@ if $0 == __FILE__
   include Log4r
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
-  #core = CoreGameBriscolone.new
-  # rep = ReplayerManager.new(log)
-  # match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/briscola/saved_games/alg_flaw_02.yaml')
-  # #p match_info
-  # player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
-  # alg_cpu1 = AlgCpuBriscola.new(player1, core)
-  
-  # player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
-  # alg_cpu2 = AlgCpuBriscola.new(player2, core)
-  # alg_cpu2.level_alg = :master
-  
-  # alg_coll = { "Gino B." => alg_cpu1, "Toro" => alg_cpu2 } 
-  # segno_num = 0
-  # rep.alg_cpu_contest = true
-  # rep.replay_match(core, match_info, alg_coll, segno_num)
+ 
 end

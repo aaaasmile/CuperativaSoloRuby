@@ -328,7 +328,7 @@ class SpazzinoGfx < BaseEngineGfx
       @card_reversed_gfx = card
       card.blit_reverse = true
       @card_reversed_gfx = card
-      @app_owner.registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd)
+      registerTimeout(@option_gfx[:timeout_reverseblit], :onTimeoutRverseBlitEnd, self)
       update_dsp
     end    
   end #end click_on_card
@@ -586,7 +586,7 @@ class SpazzinoGfx < BaseEngineGfx
         # check autoplayer is enabled, use also an automate instead of human
         if @option_gfx[:autoplayer_gfx]
           # autoplayer
-          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, @app_owner)
+          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
           @log.debug("Create an automate for gfx player #{@algorithm_name}")
         end
         break
@@ -603,7 +603,7 @@ class SpazzinoGfx < BaseEngineGfx
       if player.type == :cpu_local
         player.position = pos_names.pop
         @cards_players.build(player)
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, @app_owner)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
         @log.debug "Create player algorithm #{@algorithm_name}"
         @opponents_list << player
       elsif player.type == :human_local
@@ -832,7 +832,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     @taken_card_info_last[:state] = :showing
     @taken_card_info_last[:curr_playersym_shown] = player_sym
-    @app_owner.registerTimeout(@option_gfx[:timeout_lastcardshow], :onTimeoutLastCardTakenShow)
+    registerTimeout(@option_gfx[:timeout_lastcardshow], :onTimeoutLastCardTakenShow, self)
     # refresh the display
     update_dsp 
   end
@@ -1023,7 +1023,7 @@ class SpazzinoGfx < BaseEngineGfx
       @table_cards_played.card_taken_ontable2(@mano_end_player_taker, @mano_end_card_taken) 
     else
       # simply continue NO animation
-      @app_owner.registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue)
+      registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
     end
     #@core_game.continue_process_events if @core_game
   end
@@ -1251,7 +1251,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     
     # start a timer to give a user a chance to see the end
-    @app_owner.registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd)
+    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     
     ## suspend core event process untill timeout
     @core_game.suspend_proc_gevents("onalg_manoend")
@@ -1435,6 +1435,7 @@ class SpazzinoGfx < BaseEngineGfx
   ##
   # Game end stuff
   def game_end_stuff
+    super
     fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
     @core_game.save_curr_game(fname) if @core_game
     log "Partita terminata"
@@ -1484,7 +1485,7 @@ class SpazzinoGfx < BaseEngineGfx
       @alg_auto_stack.push(player)
       # trigger autoplay
       @log.debug "Waiting for autoplay..."
-      @app_owner.registerTimeout(@option_gfx[:timeout_autoplay], :onTimeoutHaveToPLay)
+      registerTimeout(@option_gfx[:timeout_autoplay], :onTimeoutHaveToPLay, self)
       # suspend core event process untill timeout
       @core_game.suspend_proc_gevents("onalg_have_to_play")
     end
@@ -1543,7 +1544,7 @@ class SpazzinoGfx < BaseEngineGfx
       @mano_end_card_taken << taked_lbl 
     end
     @points_status[player.name.to_sym][:num_cards] += arr_lbl_card.size
-    @app_owner.registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd)
+    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     @core_game.suspend_proc_gevents("onalg_player_has_taken")
     
     if @option_gfx[:autoplayer_gfx]
@@ -1623,12 +1624,12 @@ class SpazzinoGfx < BaseEngineGfx
     if @mano_end_card_taken.size > 0
       @table_cards_played.multiplechoice_colorizetaken(@mano_end_card_taken)
     end
-    @app_owner.registerTimeout(@option_gfx[:timeout_animation_player], :onTimeoutPlayer)
+    registerTimeout(@option_gfx[:timeout_animation_player], :onTimeoutPlayer, self)
   end
   
   def ani_card_taken_end
     @log.debug "gfx: animation end card taken"
-    @app_owner.registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue)
+    registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
   end
   
   def onalg_player_has_declared(player, name_decl, points)

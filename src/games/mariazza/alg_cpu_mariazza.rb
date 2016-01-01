@@ -18,13 +18,10 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, cup_gui)
-    # set algorithm player
-    @alg_player = player
+  def initialize(player, coregame, gfx_res)
+    super(player, coregame, gfx_res)
     # logger
     @log = Log4r::Logger.new("coregame_log::AlgCpuMariazza")
-    # core game
-    @core_game = coregame
     # cards in current player
     @cards_on_hand = []
     # points hash using player name as key, with array of card label
@@ -50,16 +47,10 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @mariazz_on_suite = {}
     # strotti available on suite
     @strozzi_on_suite = {}
-    # cuperativa main gui
-    @cupera_gui = cup_gui
     # store commands when usign delay player
     @command_decl_avail = []
     # points pendings because declared as second
     @pending_points = 0
-    # algorithm options
-    @option_gfx = {
-      :timeout_haveplay => 700
-    }
   end
   
   ##
@@ -120,14 +111,14 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   def onalg_have_to_play(player,command_decl_avail)
     if player == @alg_player
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      if @cupera_gui
+      if @gfx_res
         if @alg_is_waiting == true
           # we still wait for time out
           return
         end
         @alg_is_waiting = true
         @command_decl_avail = command_decl_avail
-        @cupera_gui.registerTimeout(@option_gfx[:timeout_haveplay], :onTimeoutAlgorithmHaveToPlay, self)
+        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
         # this is used to slow down the algorithm play
         @core_game.suspend_proc_gevents
