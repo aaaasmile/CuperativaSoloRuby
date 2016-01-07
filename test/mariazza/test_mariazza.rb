@@ -20,7 +20,7 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_mariazza_core < Test::Unit::TestCase
-  
+  attr_reader :log
   #
   # Class used to intercept log to recognize errors and warning
   class FakeIO < IO
@@ -67,9 +67,13 @@ class Test_mariazza_core < Test::Unit::TestCase
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameMariazza.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
+    
   end
   
-  def atest_createdeck
+  def test_createdeck
     @core.create_deck
     assert_equal(11, @core.get_deck_info[:_Ab][:points])
     assert_equal(10, @core.get_deck_info[:_3d][:points])
@@ -79,46 +83,33 @@ class Test_mariazza_core < Test::Unit::TestCase
   ##
   # Test a game where cpu algorithm try to change the 7 with briscola
   def test_cpu_change7
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/mariaz_sett_cam_brisc.yaml')
     player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
+    player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
     alg_cpu = AlgCpuMariazza.new(player, @core, nil)
-    alg_cpu.level_alg = :dummy
-    alg_coll = { "Gino B." => alg_cpu } 
+    alg_coll = { "Gino B." => alg_cpu, "Toro" => AlgCpuMariazza.new(player2, @core, nil) } 
     rep.replay_match(@core, match_info, alg_coll, 0)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   ##
   # G2 gioca per secondo. dichiara mariazza, g1 prende dichiara mariazza
   # g2 prende ma non gli venfono assegnati 20 punti
   def test_decl20after_marzdecl
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_05_08_20_21_15-3-no20pt.yaml')
     # replay the game
     alg_coll = { "Parma" => nil, "igor0500" => nil } 
     rep.replay_match(@core, match_info, alg_coll, 1)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
     # check the fixed end result
     assert_equal(true, io_fake.punteggio_raggiunto("igor0500 = 47 Parma = 39 "))
   end
   
   def test_match
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     
     ## ---- custom deck begin
     ## set a custom deck
@@ -154,9 +145,23 @@ class Test_mariazza_core < Test::Unit::TestCase
       end
     end
     # match terminated
-    puts "Match terminated"
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    @log.debug "Match terminated"
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
 end #end Test_mariazza_core
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_mariazza_core.new('test_cpu_change7')
+  def tester.assert_equal(expected, actual, message=nil)
+    res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
+    @log.debug res 
+  end
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_cpu_change7
+  exit
+end
