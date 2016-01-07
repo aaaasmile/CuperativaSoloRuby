@@ -39,7 +39,7 @@ class Test_Alg_Briscola < Test::Unit::TestCase
   # NOTE: this test failed because algorithm is updated and don't play like
   #        the saved game
   def atest_alg_not_work01
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_flaw_01.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)
@@ -53,7 +53,7 @@ class Test_Alg_Briscola < Test::Unit::TestCase
   # NOTE: this test failed because algorithm is updated and don't play like
   #        the saved game
   def atest_alg_not_work02
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_flaw_02.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)
@@ -68,7 +68,7 @@ class Test_Alg_Briscola < Test::Unit::TestCase
   # Error on algorithm: on the game briscola_err_alg_play3b.yaml the algorithm
   # play a _3b instead of _Fs. This happens on  mano 3,1 (forth hand, alg second).
   def test_alg_not_work03
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/briscola_err_alg_play3b.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)

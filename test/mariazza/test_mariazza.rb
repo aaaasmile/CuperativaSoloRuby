@@ -44,7 +44,7 @@ class Test_mariazza_core < Test::Unit::TestCase
   ##
   # Test a game where cpu algorithm try to change the 7 with briscola
   def test_cpu_change7
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/mariaz_sett_cam_brisc.yaml')
     rep.replay_match(@core, match_info, {}, 0)
     assert_equal(0, @io_fake.warn_count)
@@ -55,7 +55,7 @@ class Test_mariazza_core < Test::Unit::TestCase
   # G2 gioca per secondo. dichiara mariazza, g1 prende dichiara mariazza
   # g2 prende ma non gli venfono assegnati 20 punti
   def test_decl20after_marzdecl
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_05_08_20_21_15-3-no20pt.yaml')
     # replay the game
     alg_coll = { "Parma" => nil, "igor0500" => nil } 
@@ -63,7 +63,7 @@ class Test_mariazza_core < Test::Unit::TestCase
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
     # check the fixed end result
-    assert_equal(true, io_fake.punteggio_raggiunto("igor0500 = 47 Parma = 39 "))
+    assert_equal(true, @io_fake.punteggio_raggiunto("igor0500 = 47 Parma = 39 "))
   end
   
   def test_match
@@ -111,7 +111,7 @@ end #end Test_mariazza_core
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_mariazza_core.new('test_cpu_change7')
+  tester = Test_mariazza_core.new('test_decl20after_marzdecl')
   def tester.assert_equal(expected, actual, message=nil)
     res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
     @log.debug res 
@@ -119,6 +119,6 @@ if $0 == __FILE__
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_cpu_change7
+  tester.test_decl20after_marzdecl
   exit
 end

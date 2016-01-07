@@ -5,7 +5,7 @@
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/../..'
 
-require 'core/game_replayer'
+require 'replay/game_replayer'
 require 'games/spazzino/core_game_spazzino'
 require 'alg_cpu_tombolon'
 

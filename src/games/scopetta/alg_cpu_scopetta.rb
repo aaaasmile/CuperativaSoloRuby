@@ -156,7 +156,7 @@ if $0 == __FILE__
   core = CoreGameScopetta.new
   replay_a_game = false # cambia questo flag se vuoi ripetere una partita
   if replay_a_game
-    rep = ReplayerManager.new(log)
+    rep = ReplayManager.new(log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/spazzino/saved_games/alg_flaw_02.yaml')
     #p match_info
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

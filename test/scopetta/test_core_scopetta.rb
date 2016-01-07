@@ -290,7 +290,7 @@ class Test_Scopetta_core < Test::Unit::TestCase
     IOOutputter.new('coregame_log', io_fake)
     Log4r::Logger['coregame_log'].add 'coregame_log'
     @log.outputters << Outputter.stdout
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/s77_gc1_2008_12_29_20_31_27-savedmatch.yaml')
     alg_coll = { "Ospite1" => nil, "igor061" => nil }
     # start to play the first smazzata 

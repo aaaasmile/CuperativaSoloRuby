@@ -5,7 +5,7 @@ $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/../..'
 $:.unshift File.dirname(__FILE__) + '/..'
 
-require 'core/game_replayer'
+require 'replay/game_replayer'
 require 'tressette/core_game_tressette'
 require 'alg_cpu_tressettein4'
 
@@ -104,7 +104,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   core = CoreGameTressettein4.new
-  rep = ReplayerManager.new(log)
+  rep = ReplayManager.new(log)
   #match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/briscolone/saved_games/test.yaml')
   ##p match_info
   #player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

@@ -5,7 +5,7 @@
 $:.unshift File.dirname(__FILE__)
 
 require File.dirname(__FILE__) + '/../briscola/core_game_briscola'
-require File.dirname(__FILE__) + '/../../core/game_replayer'
+require File.dirname(__FILE__) + '/../../replay/game_replayer'
 require 'alg_cpu_briscola5'
 require 'chiamata_mgr'
 
@@ -244,7 +244,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   core = CoreGameBriscola5.new
-  rep = ReplayerManager.new(log)
+  rep = ReplayManager.new(log)
   #match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/briscola5/saved_games/test.yaml')
   ##p match_info
   #player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

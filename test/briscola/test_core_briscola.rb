@@ -35,7 +35,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
   end
   
   def test_game_equal
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_03_17_22_39_52-6-savedmatch.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     #alg_cpu1 = AlgCpuBriscola.new(player1, @core)
@@ -50,7 +50,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
    ##
   # Problem with play _Fc
   def test_not_allowedcard
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_04_23_20_01_33-1-savedmatch.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     #alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)

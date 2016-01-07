@@ -104,7 +104,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work01
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work01.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
@@ -116,7 +116,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work02
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work02.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
@@ -128,7 +128,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
    
   def test_alg_not_work03
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work03.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
@@ -142,7 +142,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work04
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work04.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
@@ -155,7 +155,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work05
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work05.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
@@ -167,7 +167,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work06
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work06.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
@@ -179,7 +179,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
   end
   
   def test_alg_not_work07
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_02_29_19_57_38-7-savedmatch.yaml')
     player1 = PlayerOnGame.new("ospite1", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)

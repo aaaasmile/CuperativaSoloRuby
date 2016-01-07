@@ -511,7 +511,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   core = CoreGameBriscola.new
-  rep = ReplayerManager.new(log)
+  rep = ReplayManager.new(log)
   match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/briscola/saved_games/alg_flaw_02.yaml')
   #p match_info
   player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

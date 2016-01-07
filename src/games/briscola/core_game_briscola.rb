@@ -6,7 +6,7 @@ $:.unshift File.dirname(__FILE__)
 
 $:.unshift File.dirname(__FILE__) + '/../..'
 require 'alg_cpu_briscola'
-require 'core/game_replayer'
+require 'replay/game_replayer'
 
 # Class to manage the core card game
 class CoreGameBriscola < CoreGameBase
@@ -724,7 +724,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   core = CoreGameBriscola.new
-  rep = ReplayerManager.new(log)
+  rep = ReplayManager.new(log)
   match_info = YAML::load_file(File.dirname(__FILE__) + '/../../../test/briscola/saved_games/2008_03_17_22_39_52-6-savedmatch.yaml')
   #p match_info
   player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

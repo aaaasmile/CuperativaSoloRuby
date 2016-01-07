@@ -224,7 +224,7 @@ class Test_Tombolon_core < Test::Unit::TestCase
     IOOutputter.new('coregame_log', io_fake)
     Log4r::Logger['coregame_log'].add 'coregame_log'
     @log.outputters << Outputter.stdout
-    rep = ReplayerManager.new(@log)
+    rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/s204_gc1_2009_06_22_21_23_42-savedmatch.yaml')
     #p match_info[:giocate][0]
     alg_coll = { "aaaasmile" => nil, "jason" => nil }

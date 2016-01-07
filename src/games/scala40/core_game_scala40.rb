@@ -4,5 +4,5 @@
 
 $:.unshift File.dirname(__FILE__)
 
-require File.dirname(__FILE__) + '/../../core/game_replayer'
+require File.dirname(__FILE__) + '/../../replay/game_replayer'
 require 'alg_cpu_scala40'

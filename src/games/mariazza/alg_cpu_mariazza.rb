@@ -588,7 +588,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   core = CoreGameMariazza.new
-  rep = ReplayerManager.new(log)
+  rep = ReplayManager.new(log)
   match_info = YAML::load_file(File.dirname(__FILE__) + '/../../test/mariaz_sett_cam_brisc.yaml')
   #p match_info
   player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
