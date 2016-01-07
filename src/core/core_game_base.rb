@@ -3,6 +3,9 @@
 
 $:.unshift File.dirname(__FILE__)
 
+require 'rubygems'
+require 'yaml'
+
 require 'mod_core_queue'
 require 'player_on_game'
 require 'deck_info'
@@ -124,6 +127,7 @@ end #end CoreOnPlayer
 ##
 #Manage the basic of core game
 class CoreGameBase < CoreOnPlayer
+  attr_reader :game_name
   alias :super_alg_player_change_briscola :alg_player_change_briscola
   alias :super_alg_player_declare :alg_player_declare
   alias :super_alg_player_gameinfo :alg_player_gameinfo
@@ -150,7 +154,7 @@ class CoreGameBase < CoreOnPlayer
     @viewers = {}
     # logger
     @log = Log4r::Logger["coregame_log"]
-    
+    @game_name = 'unset'
     @deck_information = GamesDeckInfo.new
   end
   
@@ -168,6 +172,14 @@ class CoreGameBase < CoreOnPlayer
     @viewers[the_viewer.name] = the_viewer
     info = on_viewer_get_state()
     the_viewer.game_state(info)
+  end
+
+  def load_game_info(dirgame)
+    game_info_yaml = File.join(dirgame, 'game_info')
+    if File.exist?(game_info_yaml)
+      opt = YAML::load_file( game_info_yaml )
+      @game_name = opt[:name]
+    end
   end
   
   def on_viewer_get_state()

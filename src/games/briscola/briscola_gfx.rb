@@ -16,7 +16,7 @@ require 'core_game_briscola'
 ##
 # Briscola Gfx implementation
 class BriscolaGfx < BaseEngineGfx
-  
+  attr_accessor :option_gfx
   
   # constructor 
   # parent_wnd : application gui     
@@ -478,9 +478,7 @@ class BriscolaGfx < BaseEngineGfx
     build_points_shower
     
     # create message box
-    #build_msg_box
     @msg_box_info.build(nil)
-    #@msgbox_smazzataend.build(nil) if @msgbox_smazzataend
     
     # start the match
     @core_game.gui_new_match(players)
@@ -495,13 +493,7 @@ class BriscolaGfx < BaseEngineGfx
   def add_components_tocompositegraph
     # nothing to add
   end
-  
-  ###
-  ## Animation for card distribution is terminated
-  #def animation_cards_distr_end
-    #@core_game.continue_process_events if @core_game
-  #end
-  
+
   ##
   # Set the player name on the label
   # player: instance of PlayerOnGame
@@ -950,27 +942,6 @@ class BriscolaGfx < BaseEngineGfx
   end
   
   ##
-  # Game end stuff
-  def game_end_stuff
-    super
-    #@app_owner.free_all_btcmd
-    @log.debug("Game end stuff") 
-    fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
-    @core_game.save_curr_game(fname) if @core_game
-    log "Partita terminata"
-    # don't need core anymore
-    @core_game = nil
-    @state_gfx = :game_end
-    if @composite_graph
-      @composite_graph.remove_all_components()
-      @composite_graph.add_component(:msg_box, @msg_box_info)
-      @composite_graph.add_component(:smazzata_end, @msgbox_smazzataend) if @msgbox_smazzataend
-    end
-    super # base class game_end_stuff
-    @log.debug "End stuff completed"
-  end
-  
-  ##
   # Player have to play
   # player: player that have to play
   # command_decl_avail: array of commands (hash with :name and :points) 
@@ -1004,13 +975,7 @@ class BriscolaGfx < BaseEngineGfx
     end
     update_dsp
   end
-  
-  ##
-  # Player has changed the briscola on table with a 7
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
+ 
   ##
   # Player has played a card not allowed
   def onalg_player_cardsnot_allowed(player, cards)
@@ -1076,17 +1041,6 @@ class BriscolaGfx < BaseEngineGfx
     #@core_game.suspend_proc_gevents
   end
   
-  def onalg_player_has_declared(player, name_decl, points)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
-  ##
-  # Player has become points. This usally when he has declared a mariazza 
-  # as a second player 
-  def onalg_player_has_getpoints(player,  points)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
 end #end BriscolaGfx
 
 ##############################################################################
@@ -1102,13 +1056,13 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,800,630)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,800,630)
   
   # start game using a custom deck
   deck =  RandomManager.new
   deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rd,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rs,_6d',1)
-  mainwindow.set_custom_deck(deck)
+  testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
@@ -1117,7 +1071,11 @@ if $0 == __FILE__
   players << PlayerOnGame.new('me', nil, :human_local, 0)
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
   
-  mainwindow.init_gfx(BriscolaGfx, players)
+  testCanvas.init_gfx(BriscolaGfx, players)
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  testCanvas.start_new_game
+
   theApp.run
 end
 

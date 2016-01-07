@@ -52,6 +52,7 @@ class CoreGameTressette < CoreGameBase
     # mazziere player index
     @mazziere_ix = 0
     @log = Log4r::Logger.new("coregame_log::CoreGameTressette") 
+    load_game_info(File.dirname(__FILE__))
   end
   
   ## Algorithm and GUI notification calls ####################

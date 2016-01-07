@@ -25,6 +25,14 @@ class ResourceInfo
     return res
   end
 
+  def self.get_dir_savedgames
+	res = File.join(self.get_dir_appdata(),  "SavedGames")
+	if !File.directory?(res)
+      Dir.mkdir(res)
+    end
+	return res
+  end
+
 end
 
 

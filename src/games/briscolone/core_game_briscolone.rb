@@ -14,6 +14,7 @@ class CoreGameBriscolone < CoreGameBriscola
   def initialize
     super
     @num_of_cards_onhandplayer = 5
+    load_game_info(File.dirname(__FILE__))
   end
   
   def new_giocata_distribuite_cards

@@ -1431,25 +1431,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     game_end_stuff
   end
-  
-  ##
-  # Game end stuff
-  def game_end_stuff
-    super
-    fname = File.join(ResourceInfo.get_dir_appdata(),  "game_terminated_last.yaml")
-    @core_game.save_curr_game(fname) if @core_game
-    log "Partita terminata"
-    # don't need anymore core
-    @core_game = nil
-    @state_gfx = :game_end
-    if @composite_graph
-      @composite_graph.remove_all_components()
-      @composite_graph.add_component(:msg_box, @msg_box_info)
-      @composite_graph.add_component(:smazzata_end, @msgbox_smazzataend) if @msgbox_smazzataend
-    end
-    super # base class game_end_stuff
-  end
-  
+ 
   ##
   # Player have to play
   # player: player that have to play

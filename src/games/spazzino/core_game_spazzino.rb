@@ -76,7 +76,8 @@ class CoreGameSpazzino < CoreGameBase
     # info for card played correct
     @card_played_correct = {}
     @log = Log4r::Logger.new("coregame_log::CoreGameSpazzino") 
-    end
+    load_game_info(File.dirname(__FILE__))
+  end
   
   ##
   # Set options from external, for example from user using @app_settings

@@ -32,6 +32,7 @@ class CoreGameTombolon < CoreGameSpazzino
     @test_deck_path = File.dirname(__FILE__) + '/../../test/tombolon/saved_games'
     @num_of_cards_onhandplayer = 4
     @lastcard_ondeck = nil
+    load_game_info(File.dirname(__FILE__))
   end
   
   # overload of set_specific_options in base class

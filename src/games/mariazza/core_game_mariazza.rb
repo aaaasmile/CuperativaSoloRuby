@@ -29,6 +29,7 @@ class CoreGameMariazza < CoreGameBriscola
     @mariazza_points_nextdecl = 20
     # pending points mariazza declaration on the second mano
     @pending_mariazza_points = {}
+    load_game_info(File.dirname(__FILE__))
   end
   
   def set_specific_options(options)

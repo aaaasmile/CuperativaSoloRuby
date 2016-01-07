@@ -91,7 +91,20 @@ class BaseEngineGfx < InvWidget
   end
   
   def game_end_stuff
+    log "Partita terminata"
     @timeout_cb[:notifier] = nil
+    if @core_game
+      time_name = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
+	    fname = File.join(ResourceInfo.get_dir_savedgames(),  "#{@core_game.game_name}_#{time_name}.yaml")
+      @core_game.save_curr_game(fname) 
+    end
+    @state_gfx = :game_end
+    @core_game = nil
+    if @composite_graph
+      @composite_graph.remove_all_components()
+      @composite_graph.add_component(:msg_box, @msg_box_info)
+      @composite_graph.add_component(:smazzata_end, @msgbox_smazzataend) if @msgbox_smazzataend
+    end
   end
   
   ##

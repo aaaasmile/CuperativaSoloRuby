@@ -17,7 +17,6 @@ require 'games/briscola/briscola_gfx'
 ##
 # Class that manage the mariazza table gui
 class MariazzaGfx < BriscolaGfx
-  attr_accessor :option_gfx
 
   INFO_GFX_COORD = { :x_top_opp_lx => 30, :y_top_opp_lx => 60, 
      :y_off_plgui_lx => 15, :y_off_plg_card => 10
@@ -92,10 +91,10 @@ class MariazzaGfx < BriscolaGfx
     bt_wnd.content.caption = get_declaration_name(cmd_name)
      
     block = bt_wnd.connect(:EV_click) do |sender|
-    	@log.debug "Handle command #{cb_btcmd}"
-    	bt_wnd.disconnect(:EV_click, block)
-    	container.remove(bt_cmd_created[:bt_wnd])
-    	bt_cmd_created[:status] = :not_used
+      @log.debug "Handle command #{cb_btcmd}"
+      bt_wnd.disconnect(:EV_click, block)
+      container.remove(bt_cmd_created[:bt_wnd])
+      bt_cmd_created[:status] = :not_used
       send(cb_btcmd, params)
     end
     bt_cmd_created[:bt_wnd_block] = block

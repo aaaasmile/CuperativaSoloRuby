@@ -65,6 +65,7 @@ class CoreGameBriscola < CoreGameBase
     # count the number of hands inside a giocata
     @mano_count = 0
     @card_played_error = {}
+    load_game_info(File.dirname(__FILE__))
   end
   
   ##

@@ -30,6 +30,7 @@ class CoreGameScopetta < CoreGameSpazzino
     @option_core_name = :scopetta_game
     @test_deck_path = File.dirname(__FILE__) + '/../../test/scopetta/saved_games'
     @log = Log4r::Logger.new("coregame_log::CoreGameScopetta") 
+    load_game_info(File.dirname(__FILE__))
   end
   
   ##
