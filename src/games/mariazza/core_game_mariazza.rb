@@ -240,7 +240,7 @@ class CoreGameMariazza < CoreGameBriscola
   ### Algorithm and GUI notification calls ####################
   
   ##
-  # Notification player change his card with the card on table that define briscola
+  # Notification player change his card with the card on table that defines briscola
   # Only the 7 of briscola is allowed to make this change
   def alg_player_change_briscola(player, card_briscola, card_on_hand )
     return if super_alg_player_change_briscola(player, card_briscola, card_on_hand)

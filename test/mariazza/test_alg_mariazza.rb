@@ -82,6 +82,7 @@ class Test_alg_mariazza < Test::Unit::TestCase
     pos = 0
     #p @cards_played
     @cards_played.each do |cd_played_info|
+      #p cd_played_info
       if cd_played_info[:name] == name and card_lbl.to_s == cd_played_info[:card_s]
         return pos
       end
@@ -138,14 +139,14 @@ class Test_alg_mariazza < Test::Unit::TestCase
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work03.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
+    player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
-    alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
+    # using a nil AlgCpuMariazza, then the yaml file action is used instead
+    alg_coll = { "Gino B." => alg_cpu1, "Toro" => AlgCpuMariazza.new(player2, @core, nil) } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
     assert_equal(0, io_fake.warn_count)
     assert_equal(0, io_fake.error_count)
-    # alla quarta mano "Gino B." deve giocare il 2 di coppe: check it
-    assert_equal(3, io_fake.check_playedcard("Gino B.", "_2c"))
   end
   
   def test_alg_not_work04
@@ -156,20 +157,20 @@ class Test_alg_mariazza < Test::Unit::TestCase
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work04.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
+    player2 = PlayerOnGame.new("Toro", nil, :cpu_alg, 0)
     alg_cpu1 = AlgCpuMariazza.new(player1, @core, nil)
-    alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
+    alg_coll = { "Gino B." => alg_cpu1, "Toro" => AlgCpuMariazza.new(player2, @core, nil) } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
     assert_equal(0, io_fake.warn_count)
     assert_equal(0, io_fake.error_count)
-    #assert_equal(20, io_fake.check_playedcard("Gino B.", "_Fd"))
   end
   
   def test_alg_not_work05
     io_fake = Test_mariazza_core_FakeIO.new(1,'w')
     IOOutputter.new('coregame_log', io_fake)
     Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
+    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work05.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)

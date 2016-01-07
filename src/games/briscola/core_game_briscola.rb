@@ -593,9 +593,11 @@ class CoreGameBriscola < CoreGameBase
         submit_next_event(:card_played_is_correct)
         return res
       end 
+    else
+      @log.warn "player #{player.name} is not the last, expected #{@round_players.last}"
     end
     if res == :not_allowed
-      @log.warn "alg_player_cardplayed: not correct played from #{player.name}, card #{lbl_card}. Why...?"
+      @log.warn "alg_player_cardplayed: not played correctly from #{player.name}, card #{lbl_card}. Why...?"
       @card_played_error = {:player =>player, :lbl_card =>  lbl_card}
       submit_next_event(:card_played_is_erronous)
     end 

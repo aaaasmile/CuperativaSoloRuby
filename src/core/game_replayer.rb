@@ -274,8 +274,9 @@ class ReplayerManager
         pl = alg.alg_player
         pl.algorithm = alg
         pl.position = ix
-        @log.info("Autoplayer #{pl.type} bind with #{pl.name}")  
+        @log.info("Autoplayer #{pl.type} bind with #{pl.name} and reuse #{alg.class}")  
       else
+        @log.debug "Create a new player for #{name_array[ix]}"
         alg = FixAutoplayer.new(@log, core, self) 
         pl = PlayerOnGame.new(name_array[ix], alg, "replicant_#{ix}".to_sym, ix)
         alg.bind_player(pl)
@@ -294,9 +295,10 @@ class ReplayerManager
       #p action
       name_player = action[:pl_name]
       alg = @alg_name_conn[name_player]
-      #p alg.alg_player.type
+      #p alg.alg_player
       if alg.alg_player.type.to_s =~ /replicant/
         #append action only on replicant algorithm
+        @log.debug "Append action #{action.inspect}"
         alg.append_action({:type => action[:type], :arg => action[:arg]})
       end
     end

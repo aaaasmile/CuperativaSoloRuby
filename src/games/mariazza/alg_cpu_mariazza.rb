@@ -51,6 +51,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @command_decl_avail = []
     # points pendings because declared as second
     @pending_points = 0
+    @card_played_req = false
   end
   
   ##
@@ -110,6 +111,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   # Algorithm have to play
   def onalg_have_to_play(player,command_decl_avail)
     if player == @alg_player
+      return if @card_played_req
+      @card_played_req = true
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       if @gfx_res
         if @alg_is_waiting == true
@@ -176,6 +179,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     #card = play_like_a_master
     # notify card played to core game
+    @log.debug "alg_play_acard: card #{card}"
     @core_game.alg_player_cardplayed(@alg_player, card)
     @log.error "No cards on hand - programming error" unless card
   end
@@ -291,7 +295,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     best_leave_it = nil
     if leave_it.size > 0
-    	best_leave_it = best_leaveit_card(leave_it)
+      best_leave_it = best_leaveit_card(leave_it)
     end
     if take_it.size > 0
       # we can take it
@@ -310,8 +314,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end 
     # leave it
     if best_leave_it
-    	@log.debug("play_as_master_second, apply R7 #{best_leave_it}")
-    	return best_leave_it
+      @log.debug("play_as_master_second, apply R7 #{best_leave_it}")
+      return best_leave_it
     end
     
     @log.debug("play_as_master_second, apply R8 #{min_card_leave}")
@@ -458,6 +462,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   end
   
   def onalg_player_has_played(player, card)
+    @card_played_req = false
     if player != @alg_player
       @card_played <<  card
     else
@@ -467,6 +472,11 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     
     check_mariazza_for_card_gone(card_s)
     check_strozza(card_s)
+  end
+
+  def onalg_player_cardsnot_allowed(player, cards)
+    @log.error("Player #{player.name} has played an invalid cards #{cards}")
+    raise "Mariazza Algorithm is buggy, please fix me."
   end
 
   def check_mariazza_for_card_gone(card_s)
