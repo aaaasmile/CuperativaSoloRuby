@@ -223,10 +223,15 @@ class FakeIO < IO
   def punteggio_raggiunto(str_points)
     str_points.gsub!(" ", "")
     #p @points_state
+    
     aa = @points_state.index(str_points)
     if aa
       # points state found
       return true
+    end
+    @points_state.each do |pt_line|
+      aa = pt_line.include?(str_points)
+      return true if aa
     end
     return false
   end

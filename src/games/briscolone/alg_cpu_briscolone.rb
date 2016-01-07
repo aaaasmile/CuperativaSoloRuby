@@ -71,5 +71,5 @@ if $0 == __FILE__
   # alg_coll = { "Gino B." => alg_cpu1, "Toro" => alg_cpu2 } 
   # segno_num = 0
   # rep.alg_cpu_contest = true
-  # rep.replay_match(core, match_info, alg_coll, segno_num)
+  # rep.replay_match(core, match_info, alg_coll, segno_num, 1)
 end

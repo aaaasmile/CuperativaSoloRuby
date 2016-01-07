@@ -36,9 +36,10 @@ class Test_mariazza_core < Test::Unit::TestCase
   
   def test_createdeck
     @core.create_deck
-    assert_equal(11, @core.get_deck_info[:_Ab][:points])
-    assert_equal(10, @core.get_deck_info[:_3d][:points])
-    assert_equal(0, @core.get_deck_info[:_7c][:points])
+    deck_info = @core.get_deck_info
+    assert_equal(11, deck_info.get_card_info(:_Ab)[:points])
+    assert_equal(10, deck_info.get_card_info(:_3d)[:points])
+    assert_equal(0, deck_info.get_card_info(:_7c)[:points])
   end
 
   ##
@@ -59,7 +60,7 @@ class Test_mariazza_core < Test::Unit::TestCase
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_05_08_20_21_15-3-no20pt.yaml')
     # replay the game
     alg_coll = { "Parma" => nil, "igor0500" => nil } 
-    rep.replay_match(@core, match_info, alg_coll, 1)
+    rep.replay_match(@core, match_info, alg_coll, segno_toplay = 1, max_num_segni_to_play = 1)
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
     # check the fixed end result
@@ -111,7 +112,7 @@ end #end Test_mariazza_core
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_mariazza_core.new('test_decl20after_marzdecl')
+  tester = Test_mariazza_core.new('test_createdeck')
   def tester.assert_equal(expected, actual, message=nil)
     res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
     @log.debug res 
@@ -119,6 +120,6 @@ if $0 == __FILE__
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_decl20after_marzdecl
+  tester.test_createdeck
   exit
 end

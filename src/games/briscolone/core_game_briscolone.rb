@@ -92,6 +92,6 @@ if $0 == __FILE__
   #alg_coll = { "Gino B." => nil } # use a custom player that play instead of yaml
   segno_num = 0
   alg_coll = {} #use players in yaml
-  rep.replay_match(core, match_info, alg_coll, segno_num)
+  rep.replay_match(core, match_info, alg_coll, segno_num, 1)
   ##sleep 2
 end

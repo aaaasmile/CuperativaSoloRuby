@@ -122,7 +122,7 @@ class ReplayManager
   # alg_coll: hash with algorithm and player name e.g {"Toro" => algcpumariaz}
   # If you don't want to set algcpu, but only a replayer set "name" => nil
   # segno_toplay: segno index to be replayed
-  def replay_match(core, match_info, alg_coll, segno_toplay)
+  def replay_match(core, match_info, alg_coll, segno_toplay, max_num_segni_to_play = nil)
     @core_game = core
     # create players
     create_players(match_info[:players], core, alg_coll)
@@ -136,11 +136,11 @@ class ReplayManager
     core.game_opt[:replay_game] = true
     # set info about deck and first player on the random manager
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
-    num_segni_giocati =  segni.size
+    num_segni_giocati = max_num_segni_to_play == nil ?  segni.size - 1 : max_num_segni_to_play
     
     core.gui_new_match(@players)
       
-    while segno_toplay < num_segni_giocati
+    while segno_toplay <= num_segni_giocati
       @log.debug "Replay segno #{segno_toplay}"
       curr_segno = segni[segno_toplay]
       core.rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])

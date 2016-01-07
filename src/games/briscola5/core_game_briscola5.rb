@@ -250,6 +250,6 @@ if $0 == __FILE__
   #player = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
   #alg_coll = { "Gino B." => nil } 
   #segno_num = 0
-  #rep.replay_match(core, match_info, alg_coll, segno_num)
+  #rep.replay_match(core, match_info, alg_coll, segno_num, 1)
   ##sleep 2
 end

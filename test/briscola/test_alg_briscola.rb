@@ -38,28 +38,21 @@ class Test_Alg_Briscola < Test::Unit::TestCase
   
   # NOTE: this test failed because algorithm is updated and don't play like
   #        the saved game
-  def atest_alg_not_work01
+  def test_alg_not_work01
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_flaw_01.yaml')
-    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
-    alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)
-    alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
-    segno_num = 1
-    rep.replay_match(@core, match_info, alg_coll, segno_num)
+    rep.replay_match(@core, match_info, {}, segno_num = 1, 1)
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
   end
   
   # NOTE: this test failed because algorithm is updated and don't play like
   #        the saved game
-  def atest_alg_not_work02
+  def test_alg_not_work02
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_flaw_02.yaml')
-    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
-    alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)
-    alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
     segno_num = 0
-    rep.replay_match(@core, match_info, alg_coll, segno_num)
+    rep.replay_match(@core, match_info, {}, segno_num, 1)
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
   end
