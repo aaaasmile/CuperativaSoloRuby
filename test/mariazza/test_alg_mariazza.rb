@@ -24,7 +24,7 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_alg_mariazza < Test::Unit::TestCase
-  
+  attr_reader :log
   #
   # Class used to intercept log to recognize errors and warning
   class Test_mariazza_core_FakeIO < IO
@@ -97,13 +97,13 @@ class Test_alg_mariazza < Test::Unit::TestCase
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameMariazza.new
+    @io_fake = Test_mariazza_core_FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
+    #@log.outputters << Outputter.stdout
   end
   
   def test_alg_not_work01
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work01.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -111,15 +111,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   def test_alg_not_work02
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work02.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -127,15 +123,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
    
   def test_alg_not_work03
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work03.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -145,15 +137,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => AlgCpuMariazza.new(player2, @core, nil) } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count, 'Too many warnings')
+    assert_equal(0, @io_fake.error_count)
   end
   
   def test_alg_not_work04
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work04.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -162,15 +150,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => AlgCpuMariazza.new(player2, @core, nil) } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   def test_alg_not_work05
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work05.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -178,16 +162,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
     segno_num = 1
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
-    #assert_equal(20, io_fake.check_playedcard("Gino B.", "_Fd"))
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   def test_alg_not_work06
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/alg_not_work06.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -195,16 +174,11 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "Gino B." => alg_cpu1, "Toro" => nil } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
-    #assert_equal(20, io_fake.check_playedcard("Gino B.", "_Fd"))
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   def test_alg_not_work07
-    io_fake = Test_mariazza_core_FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    #@log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_02_29_19_57_38-7-savedmatch.yaml')
     player1 = PlayerOnGame.new("ospite1", nil, :cpu_alg, 0)
@@ -212,8 +186,20 @@ class Test_alg_mariazza < Test::Unit::TestCase
     alg_coll = { "ospite1" => alg_cpu1, "igor047" => nil } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
-    #assert_equal(20, io_fake.check_playedcard("Gino B.", "_Fd"))
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
+end
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_alg_mariazza.new('test_alg_not_work03')
+  def tester.assert_equal(expected, actual, message=nil)
+    res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
+    @log.debug res 
+  end
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_alg_not_work03
 end
