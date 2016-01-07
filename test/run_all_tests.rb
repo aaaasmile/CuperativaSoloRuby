@@ -7,6 +7,6 @@ require 'briscolone/test_core_briscolone'
 require 'mariazza/test_alg_mariazza'
 require 'mariazza/test_mariazza' 
 
-#require 'scopetta/test_core_scopetta'
+require 'scopetta/test_core_scopetta'
 #require 'spazzino/test_core_spazzino'
 #require 'tombolon/test_core_tombolon'

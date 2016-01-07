@@ -22,11 +22,15 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_Scopetta_core < Test::Unit::TestCase
+  attr_reader :log
   
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameScopetta.new
     @rescheck = ResScopaChecker.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
   end
   
   ######################################### TEST CASES ########################
@@ -35,10 +39,7 @@ class Test_Scopetta_core < Test::Unit::TestCase
   # Test a full match
   def test_simulated_game
     # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
+    
     
     ## ---- custom deck begin
     ## set a custom deck
@@ -72,18 +73,14 @@ class Test_Scopetta_core < Test::Unit::TestCase
       end
     end
     # match terminated
-    puts "Match terminated"
+    @log.debug "Match terminated"
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   ##
   # Test custom smazzata
   def test_custom_smazzata
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
     # ---- custom deck begin
     # set a custom deck
     deck =  RandomManager.new
@@ -98,18 +95,17 @@ class Test_Scopetta_core < Test::Unit::TestCase
     player1.algorithm = AlgCpuSpazzino.new(player1, @core, nil)
     player2 = PlayerOnGame.new("Test2", nil, :cpu_alg, 1)
     player2.algorithm = AlgCpuSpazzino.new(player2, @core, nil)
-    arr_players = [player1,player2]
-    # start the match
-    # execute only one event pro step to avoid stack overflow
-    @core.suspend_proc_gevents
+    arr_players = [player1, player2]
+    
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
-    # segno terminated
-    assert_equal(true, io_fake.checklogs('Riepilogo carte prese da Test2: _4s,_4c,_2d,_2s,_7d,_7s,_Ad,_Ac,_Fd,_3d,_5c,_Cb,_Cd,_Rs,_Rd,_Cc,_Cs,_7b,_7c,_5s,_5d,_2b,_6b'))
-    puts "Segno terminated"
+   
+    @log.debug "Segno terminated"
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   ##
@@ -194,11 +190,7 @@ class Test_Scopetta_core < Test::Unit::TestCase
   # Test last taker
   def test_lasttaker
     # set the custom logger
-    puts "Test last card taker take the table..."
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
+    @log.debug "Test last card taker take the table..."
     
     # ---- custom deck begin
     # set a custom deck
@@ -215,22 +207,20 @@ class Test_Scopetta_core < Test::Unit::TestCase
     player2 = PlayerOnGame.new("Test2", nil, :cpu_alg, 1)
     player2.algorithm = AlgCpuSpazzino.new(player2, @core, nil)
     arr_players = [player1,player2]
-    # start the match
-    # execute only one event pro step to avoid stack overflow
-    @core.suspend_proc_gevents
+    
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
     # segno terminated
-    assert_equal(true, io_fake.checklogs('Last card played, Test2 take all the rest'))
-    assert_equal(true, io_fake.checklogs('Riepilogo carte prese da Test2: _4s,_4c,_2d,_2s,_7d,_7s,_Ad,_Ac,_Fd,_3d,_5c,_Cb,_Cd,_Rs,_Rd,_Cc,_Cs,_Rc,_Rb,_Fs,_As'))
-    puts "Segno terminated"
+    assert_equal(true, @io_fake.checklogs('Last card played, Test2 take all the rest'))
+    assert_equal(true, @io_fake.checklogs('Cards taken by Test2: _4s,_4c,_2d,_2s,_7d,_7s,_Ad,_Ac,_Fd,_3d,_5c,_Cb,_Cd,_Rs,_Rd,_Cc,_Cs,_Rc,_Rb,_Fs,_As'))
+    @log.debug "Segno terminated"
   end
   
   def test_combi_forscopa
-    puts "combi RD"
+    @log.debug "combi RD"
     @core.create_deck
     # other deck
     card_on_table = [:_7c,:_7s,:_5c,:_Rc,:_4d,:_3d,:_Ac,:_2b]
@@ -285,24 +275,21 @@ class Test_Scopetta_core < Test::Unit::TestCase
   ##
   # Checksum is 39 instead of 40. The last played card is not assigned.
   def test_game77
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/s77_gc1_2008_12_29_20_31_27-savedmatch.yaml')
     alg_coll = { "Ospite1" => nil, "igor061" => nil }
     # start to play the first smazzata 
-    rep.replay_match(@core, match_info, alg_coll, 0)
+    rep.replay_match(@core, match_info, alg_coll, 0, 1)
     #@core.gui_new_segno
     # continue with the second
     #rep.replaynext_smazzata(@core, match_info, alg_coll, 1)
-    assert_equal(0,io_fake.error_count)
+    assert_equal(0, @io_fake.error_count, "Errors")
+    assert_equal(0, @io_fake.warn_count, "Warnings")
     
   end
   
   def test_card_carmelo
-    puts "Test carmelo"
+    @log.debug "Test carmelo"
     @core.create_deck
     card_on_table = [:_4s, :_5s, :_3s, :_2s]
     @core.set_card_on_table(card_on_table)
@@ -319,4 +306,17 @@ class Test_Scopetta_core < Test::Unit::TestCase
     #p res
   end
   
+end
+
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_Scopetta_core.new('test_game77')
+  FakeIO.add_a_simple_assert(tester)
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_game77
+  
+  exit
 end

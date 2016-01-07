@@ -8,12 +8,20 @@
 
 class ResScopaChecker
   
+  def initialize
+    @log = Log4r::Logger.new("coregame_log::ResScopaChecker")
+  end
+
   ##
   # Convert a string array like "_7d,_3c..." to an array of symbols [:_7d,...]
   def str_cards_tosymbarr(str)
     tmp = str.split(",")
     tmp.collect!{|e| e.to_sym}
     return tmp
+  end
+
+  def log(str)
+    @log.debug(str)
   end
   
   ##
@@ -30,10 +38,10 @@ class ResScopaChecker
       end
     end
     if found_combi.size == ref_arr.size
-      puts "Combicheck is ok"
+      log "Combicheck is ok"
       return true
     else
-      puts "Combicheck failed, NOT found #{not_found_combi.size}/#{ref_arr.size} combi, they are:"
+      log "Combicheck failed, NOT found #{not_found_combi.size}/#{ref_arr.size} combi, they are:"
       not_found_combi.each{|e| puts e.join(",") }
     end
     return false
@@ -53,7 +61,7 @@ class ResScopaChecker
       end
       if  found_nr >= res_item.size
         # combi found
-        puts "check: Combi found #{item.join(",")}"
+        log "check: Combi found #{item.join(",")}"
         return true
       end
     end
@@ -75,6 +83,7 @@ class FakeIO < IO
   
   def initialize(arg1,arg2)
     super(arg1,arg2)
+    @log = Log4r::Logger.new("coregame_log::FakeIO")
     reset_counts
     @cards_played = []
     @data_logs = []
@@ -98,6 +107,7 @@ class FakeIO < IO
     str = args.slice!(0)
     aa = str.split(':')
     if aa[0] =~ /WARN/
+      #p aa
       @warn_count += 1
     elsif aa[0] =~ /ERROR/
       @error_count += 1
@@ -124,7 +134,7 @@ class FakeIO < IO
   def checklogs(entry)
     @data_logs.each do |line|
       if line =~ /#{entry}/
-        puts "Checklogs found:\"#{line}\""
+        @log.debug "Checklogs found:\"#{line}\""
         return true
       end
       #p line 
@@ -135,7 +145,7 @@ class FakeIO < IO
   ##
   # Try to assign event on each mano
   def make_info_mano_onlogs
-    puts "make_info_mano_onlogs"
+    @log.debug "make_info_mano_onlogs"
     @mano_coll = []
     curr_ix = 0
     curr_mano_info = {:ix => curr_ix, :data => []}
@@ -154,7 +164,7 @@ class FakeIO < IO
   ##
   # Check data on particular mano
   def checkdata_onmano(ixmano, str_log)
-    puts "checkdata_onmano: #{ixmano}"
+    @log.debug "checkdata_onmano: #{ixmano}"
     @mano_coll.each do |item|
       #p item
       if item[:ix] == ixmano
@@ -162,7 +172,7 @@ class FakeIO < IO
         item[:data].each do |data_item|
           #p data_item
           if data_item =~ /#{str_log}/
-            puts "Found item (#{data_item}) requested on mano: #{ixmano}"
+            @log.debug "Found item (#{data_item}) requested on mano: #{ixmano}"
             return true
           end
         end
@@ -175,13 +185,13 @@ class FakeIO < IO
   ##
   # Display data collected for a particular hand
   def display_mano_data(ix_mano)
-    puts "display_mano_data #{ix_mano}"
+    @log.debug "display_mano_data #{ix_mano}"
     @mano_coll.each do |item|
       #p item
       if item[:ix] == ix_mano
         # search the given string inside the log data
         item[:data].each do |data_item|
-          puts data_item
+          @log.debug data_item
         end
         return 
       end
@@ -191,13 +201,13 @@ class FakeIO < IO
   ##
   # Identify a particular hand
   def identify_mano(str_log)
-    puts "identify_mano #{str_log}"
+    @log.debug "identify_mano #{str_log}"
     ix = 0
     @mano_coll.each do |item|
       item[:data].each do |data_item|
         #p data_item
         if data_item =~ /#{str_log}/
-          puts "Found item requested on mano: #{ix}"
+          @log.debug "Found item requested on mano: #{ix}"
           #p  item
           return ix
         end

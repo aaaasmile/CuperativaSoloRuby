@@ -126,7 +126,7 @@ class CoreGameSpazzino < CoreGameBase
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
     curr_segno = segni[0]
     #p curr_segno
-    @rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])
+    @rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
   end
   
   ##
@@ -841,7 +841,7 @@ class CoreGameSpazzino < CoreGameBase
     # here we have to extract the "mazziere", then in new_giocata
     # we have to calculate the next one
     first_ix = @rnd_mgr.get_first_player(players.size)
-    @log.debug "First player ist #{first_ix}"
+    @log.debug "First player is #{first_ix}, #{players[first_ix].name}"
     @mazziere_ix = player_ix_beforethis(players.size, first_ix)
     @log.debug "Mazziere ist #{@mazziere_ix}"
     

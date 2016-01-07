@@ -138,12 +138,14 @@ class ReplayManager
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
     num_segni_giocati = max_num_segni_to_play == nil ?  segni.size - 1 : max_num_segni_to_play
     
+    segno_zero = segni[0]
+    core.rnd_mgr.set_predef_ready_deck(segno_zero[:deck], segno_zero[:first_plx])
     core.gui_new_match(@players)
       
     while segno_toplay <= num_segni_giocati
       @log.debug "Replay segno #{segno_toplay}"
       curr_segno = segni[segno_toplay]
-      core.rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])
+      core.rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
       build_action_queue(curr_segno)
     
       event_num = core.process_only_one_gevent
@@ -167,7 +169,7 @@ class ReplayManager
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
     curr_segno = segni[segno_toplay]
     #p curr_segno
-    core.rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])
+    core.rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
     # prepare action queue
     build_action_queue(curr_segno)
     if @alg_cpu_contest

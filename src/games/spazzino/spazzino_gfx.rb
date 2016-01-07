@@ -706,7 +706,7 @@ class SpazzinoGfx < BaseEngineGfx
         player.algorithm.collect_predifined_actions(curr_segno, options["cpualgo"][:player_name])
         # set predifined actions also for the gui player, this info is used to replay the saved game
         collect_predifined_actions(curr_segno,options["cpualgo"][:player_name_gui])
-        @core_game.rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])
+        @core_game.rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
         @predifined_game = true
       end
     end

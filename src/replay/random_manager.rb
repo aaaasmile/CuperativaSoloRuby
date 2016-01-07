@@ -7,7 +7,7 @@ class RandomManager
   
   def initialize
     # logger
-    @log = Log4r::Logger["coregame_log"]
+    @log = Log4r::Logger.new("coregame_log::RandomManager")
     @deck_to_use = []
     @first_player = 0
     @state = :rnd_fun
@@ -28,13 +28,13 @@ class RandomManager
   def set_predefined_deck(deck_str, first_player)
     @log.info "CAUTION: Override current deck (set_predefined_deck) #{first_player}"
     @deck_to_use = deck_str.split(",").collect!{|x| x.to_sym}
-    set_predefdeck_withready_deck(@deck_to_use, first_player)
+    set_predef_ready_deck(@deck_to_use, first_player)
   end
   
   # see set_predefined_deck, but using another format for deck
   # deck: array of cards symbols [_7c, _5s,...]
-  def set_predefdeck_withready_deck(deck, first_player)
-    @log.debug "RandomManager: set a user defined deck"
+  def set_predef_ready_deck(deck, first_player)
+    @log.debug "Set a user defined deck"
     @deck_to_use = deck
     @state = :predefined_game
     @first_player = first_player

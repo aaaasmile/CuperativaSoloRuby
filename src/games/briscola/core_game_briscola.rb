@@ -157,7 +157,7 @@ class CoreGameBriscola < CoreGameBase
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
     curr_segno = segni[0]
     #p curr_segno
-    @rnd_mgr.set_predefdeck_withready_deck(curr_segno[:deck], curr_segno[:first_plx])
+    @rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
   end
   
   ##

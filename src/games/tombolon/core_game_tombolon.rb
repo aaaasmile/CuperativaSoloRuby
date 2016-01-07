@@ -65,7 +65,7 @@ class CoreGameTombolon < CoreGameSpazzino
     
     @num_of_ditribution = 1
     @num_of_cards_onhandplayer = 4
-    # need to use a custom deck to check if table is ok
+    # need to use a custom deck to check if table is ok (multiple shuffle)
     unless @rnd_mgr.is_predefined_set?
       @log.debug "Create a new random manager to shuffle deck"
       # set a new deck only if it wasn't already set (e.g. game replayer)
@@ -78,7 +78,7 @@ class CoreGameTombolon < CoreGameSpazzino
       end
        #extract the first player
       first_player_ix = player_ix_afterthis(@players.size, @mazziere_ix)
-      @rnd_mgr.set_predefdeck_withready_deck(@mazzo_gioco, first_player_ix)
+      @rnd_mgr.set_predef_ready_deck(@mazzo_gioco, first_player_ix)
       @rnd_mgr.reset_rnd # set to the random function to avoid predefined_game state the next giocata
     else
       @log.debug "Deck already defined, no shuffle"
