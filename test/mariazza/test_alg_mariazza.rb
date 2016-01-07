@@ -12,11 +12,12 @@ require 'log4r'
 require 'yaml'
 
 
-PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
+$:.unshift File.dirname(__FILE__) + '/../..'
 
-require File.join( PATH_TO_CLIENT, 'core/core_game_base')
-require File.join( PATH_TO_CLIENT, 'games/mariazza/core_game_mariazza')
-require File.join( PATH_TO_CLIENT, 'games/mariazza/alg_cpu_mariazza')
+require 'src/core/core_game_base'
+require 'src/games/mariazza/core_game_mariazza'
+require 'src/games/mariazza/alg_cpu_mariazza'
+require 'test/fakestuff'
 
 include Log4r
 
@@ -25,79 +26,12 @@ include Log4r
 # Test suite for testing 
 class Test_alg_mariazza < Test::Unit::TestCase
   attr_reader :log
-  #
-  # Class used to intercept log to recognize errors and warning
-  class Test_mariazza_core_FakeIO < IO
-    attr_accessor :warn_count, :error_count
-    
-    def initialize(arg1,arg2)
-      super(arg1,arg2)
-      reset_counts
-    end
-    
-    def reset_counts
-      @cards_played = []
-      @warn_count = 0; @error_count = 0;
-      @points_state = []
-    end
-    
-    def print(*args)
-      #print(args)
-      str = args.slice!(0)
-      aa = str.split(':')
-      if aa[0] =~ /WARN/
-        @warn_count += 1
-      elsif aa[0] =~ /ERROR/
-        @error_count += 1
-      elsif aa[1] =~ /Punteggio attuale/
-        @points_state << aa[2].gsub(" ", "").chomp
-      end
-      if aa[1].strip =~ /Card (_..) played from player (.*)/
-        card_lbl = $1
-        name_pl = $2
-        @cards_played << {:card_s => card_lbl, :name => name_pl }
-       
-      end
-    end
-    
-    ##
-    # Check if points str_points was reached
-    def punteggio_raggiunto(str_points)
-      str_points.gsub!(" ", "")
-      #p @points_state
-      aa = @points_state.index(str_points)
-      if aa
-        # points state found
-        return true
-      end
-      return false
-    end
-    
-    ##
-  # Check if a card was played because trace info.
-  # provides position if played card is found
-  # name: player name (e.g. "Gino B.")
-  # card_lbl: card label to find (e.g "_2c")
-  def check_playedcard(name, card_lbl)
-    pos = 0
-    #p @cards_played
-    @cards_played.each do |cd_played_info|
-      #p cd_played_info
-      if cd_played_info[:name] == name and card_lbl.to_s == cd_played_info[:card_s]
-        return pos
-      end
-      pos += 1
-    end
-    return nil
-  end
-    
-  end#end FakeIO
   
-  
+     
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameMariazza.new
-    @io_fake = Test_mariazza_core_FakeIO.new(1,'w')
+    @io_fake = FakeIO.new(1,'w')
     IOOutputter.new('coregame_log', @io_fake)
     Log4r::Logger['coregame_log'].add 'coregame_log'
     #@log.outputters << Outputter.stdout
@@ -202,4 +136,5 @@ if $0 == __FILE__
   tester.setup
   tester.log.outputters << Outputter.stdout
   tester.test_alg_not_work03
+  exit
 end
