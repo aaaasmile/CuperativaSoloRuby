@@ -26,14 +26,15 @@ class Test_Briscolone < Test::Unit::TestCase
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameBriscolone.new
+	@io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
+    #@log.outputters << Outputter.stdout
+    
   end
   
   def test_match
     # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     
     ## ---- custom deck begin
     ## set a custom deck
@@ -70,8 +71,8 @@ class Test_Briscolone < Test::Unit::TestCase
     end
     # match terminated
     puts "Match terminated"
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   
