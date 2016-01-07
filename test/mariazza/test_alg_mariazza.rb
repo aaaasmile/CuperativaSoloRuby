@@ -127,14 +127,10 @@ end
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_alg_mariazza.new('test_alg_not_work03')
-  def tester.assert_equal(expected, actual, message=nil)
-    res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
-    @log.debug res 
-  end
-  
-  tester.setup
-  tester.log.outputters << Outputter.stdout
-  tester.test_alg_not_work03
+  atest = Test_alg_mariazza.new('test_alg_not_work03')
+  FakeIO.add_a_simple_assert(atest)
+  atest.setup
+  atest.log.outputters << Outputter.stdout
+  atest.test_alg_not_work03
   exit
 end

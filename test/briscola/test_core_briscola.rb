@@ -164,10 +164,7 @@ end
 if $0 == __FILE__
   # use this file to run only one single test case
   tester = Test_Core_Briscola.new('test_prende_briscola')
-  def tester.assert_equal(expected, actual, message=nil)
-    res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
-    @log.debug res 
-  end
+  FakeIO.add_a_simple_assert(tester)
   
   tester.setup
   tester.log.outputters << Outputter.stdout

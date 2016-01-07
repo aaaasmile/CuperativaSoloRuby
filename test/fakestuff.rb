@@ -81,6 +81,12 @@ class FakeIO < IO
     @cards_withmano_table = {}
   end
   
+  # When you use an unit test class, the assert_equal funtion is missed. Add a simple assert implementation.
+  def self.add_a_simple_assert(unit_test_class)
+    str = "def unit_test_class.assert_equal(expected, actual, message=nil) res = expected == actual ? \"OK\" : \"FAILED \#{expected} but it is \#{actual}\"; @log.debug res; end"
+  	eval(str)
+  end
+  
   def reset_counts
     @warn_count = 0; @error_count = 0;
     @points_state = []
