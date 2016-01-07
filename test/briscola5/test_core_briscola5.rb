@@ -2,6 +2,7 @@
 
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../../src'
 
 require 'rubygems'
 require 'test/unit'
@@ -9,11 +10,10 @@ require 'log4r'
 require 'yaml'
 require 'fakestuff'
 
-PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
 
-require File.join( PATH_TO_CLIENT, 'core/core_game_base')
-require File.join( PATH_TO_CLIENT, 'games/briscola5/core_game_briscola5')
-require File.join( PATH_TO_CLIENT, 'games/briscola5/alg_cpu_briscola5')
+require  'core/core_game_base'
+require  'games/briscola5/core_game_briscola5'
+require  'games/briscola5/alg_cpu_briscola5'
 
 include Log4r
 

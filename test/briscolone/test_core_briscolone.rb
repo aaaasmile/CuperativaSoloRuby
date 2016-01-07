@@ -1,9 +1,8 @@
 #file test_core_briscolone.rb
 
-
-
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../../src'
 
 require 'rubygems'
 require 'test/unit'
@@ -11,11 +10,10 @@ require 'log4r'
 require 'yaml'
 require 'fakestuff'
 
-PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
 
-require File.join( PATH_TO_CLIENT, 'core/core_game_base')
-require File.join( PATH_TO_CLIENT, 'games/briscolone/core_game_briscolone')
-require File.join( PATH_TO_CLIENT, 'games/briscolone/alg_cpu_briscolone')
+require 'core/core_game_base'
+require 'games/briscolone/core_game_briscolone'
+require 'games/briscolone/alg_cpu_briscolone'
 
 include Log4r
 

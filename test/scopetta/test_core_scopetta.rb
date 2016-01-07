@@ -3,6 +3,7 @@
 
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../../src'
 
 require 'rubygems'
 require 'test/unit'
@@ -11,11 +12,9 @@ require 'yaml'
 
 require 'fakestuff'
 
-PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
-
-require File.join( PATH_TO_CLIENT, 'core/core_game_base')
-require File.join( PATH_TO_CLIENT, 'games/scopetta/core_game_scopetta')
-require File.join( PATH_TO_CLIENT, 'games/scopetta/alg_cpu_scopetta')
+require 'core/core_game_base'
+require 'games/scopetta/core_game_scopetta'
+require 'games/scopetta/alg_cpu_scopetta'
 
 
 include Log4r

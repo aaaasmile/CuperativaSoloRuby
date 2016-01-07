@@ -2,6 +2,7 @@
 
 $:.unshift File.dirname(__FILE__)
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) + '/../../src'
 
 require 'rubygems'
 require 'test/unit'
@@ -10,11 +11,9 @@ require 'yaml'
 
 require 'fakestuff'
 
-PATH_TO_CLIENT = File.expand_path(File.dirname(__FILE__) + '/../../src')
-
-require File.join( PATH_TO_CLIENT, 'core/core_game_base')
-require File.join( PATH_TO_CLIENT, 'games/tombolon/core_game_tombolon')
-require File.join( PATH_TO_CLIENT, 'games/tombolon/alg_cpu_tombolon')
+require 'core/core_game_base'
+require 'games/tombolon/core_game_tombolon'
+require 'games/tombolon/alg_cpu_tombolon'
 
 
 include Log4r
