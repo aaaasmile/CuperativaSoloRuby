@@ -17,6 +17,10 @@ module CoreGameQueueHandler
     end
     return @proc_queue.size
   end
+
+  def read_next_ev_handl
+    return @proc_queue.last
+  end
   
   ##
   # Process all queud events

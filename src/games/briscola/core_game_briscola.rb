@@ -11,7 +11,7 @@ require 'core/game_replayer'
 # Class to manage the core card game
 class CoreGameBriscola < CoreGameBase
   attr_accessor :game_opt, :rnd_mgr
-  attr_reader :num_of_cards_onhandplayer
+  attr_reader :num_of_cards_onhandplayer, :points_curr_segno
   
   @@TEST_DECK_BRISCOLA_PATH = File.dirname(__FILE__) + '/../../test/briscola/saved_games'
   

@@ -23,17 +23,18 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_Core_Briscola < Test::Unit::TestCase 
- 
+  attr_reader :log
+  
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameBriscola.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
+    #@log.outputters << Outputter.stdout
   end
   
   def test_game_equal
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_03_17_22_39_52-6-savedmatch.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -42,17 +43,13 @@ class Test_Core_Briscola < Test::Unit::TestCase
     segno_num = 2
     rep.replay_match(@core, match_info, alg_coll, segno_num)
     @core.gui_new_segno
-    #assert_equal(0, io_fake.warn_count)
-    #assert_equal(0, io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
    ##
   # Problem with play _Fc
   def test_not_allowedcard
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayerManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_04_23_20_01_33-1-savedmatch.yaml')
     player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
@@ -60,18 +57,11 @@ class Test_Core_Briscola < Test::Unit::TestCase
     alg_coll = { "Gino B." => nil, "Toro" => nil } 
     segno_num = 0
     rep.replay_match(@core, match_info, alg_coll, segno_num)
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
-    # check the card played on hand 3,1 shold be _Fs and not _3b
-    #assert_equal(:_Fs, io_fake.card_played_onhand("3","1"))
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
-  def test_prende_briscola
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
+  def test_prende_briscola    
     # ---- custom deck begin
     # set a custom deck
     deck =  RandomManager.new
@@ -94,18 +84,18 @@ class Test_Core_Briscola < Test::Unit::TestCase
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
+      next_event =  @core.read_next_ev_handl
       event_num = @core.process_only_one_gevent
+      if(next_event == :mano_end)
+        @log.debug "Mano end, test terminated"
+        assert_equal(15, @core.points_curr_segno["Test2"])
+        break
+      end
     end
-    
-    
-    #assert_equal(1, io_fake.warn_count)
+    assert_equal(0, @io_fake.warn_count)
   end
   
   def test_gioca_carta_sbagliata
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     
     # ---- custom deck begin
     # set a custom deck
@@ -129,16 +119,10 @@ class Test_Core_Briscola < Test::Unit::TestCase
     player1.algorithm.add_card_to_predef_stack(:_As)
     @core.process_only_one_gevent
     # carta non corretta, aspetto un warning
-    assert_equal(1, io_fake.warn_count)
+    assert_equal(1, @io_fake.warn_count)
   end
   
   def test_match
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
     ## ---- custom deck begin
     ## set a custom deck
     #deck =  RandomManager.new
@@ -170,10 +154,22 @@ class Test_Core_Briscola < Test::Unit::TestCase
       end
     end
     # match terminated
-    puts "Match terminated"
-    assert_equal(0, io_fake.warn_count)
-    assert_equal(0, io_fake.error_count)
+    @log.debug "Match terminated"
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
+  end
+ 
+end
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_Core_Briscola.new('test_prende_briscola')
+  def tester.assert_equal(expected, actual, message=nil)
+    res = expected == actual ? "OK" : "FAILED #{expected} but it is #{actual}"
+    @log.debug res 
   end
   
-  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_prende_briscola
 end

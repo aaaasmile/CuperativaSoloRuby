@@ -19,17 +19,17 @@ class PlayerInputHandler
     @actions_queue = []
     @core = core
     @blocked = 0
-    @log = Log4r::Logger.new("coregame_log::PlayerInputHandler")
+    #@log = Log4r::Logger.new("coregame_log::PlayerInputHandler")
   end
   
   def block_start
     @blocked += 1
-    @log.debug "block_start (#{@blocked})"
+    @log.debug "block_start (#{@blocked})" if @log
   end
   
   def is_input_blocked?(arg)
     if @blocked > 0
-      @log.debug "Queue action #{arg[:mth]}"
+      @log.debug "Queue action #{arg[:mth]}" if @log
       @actions_queue << arg
       return true
     end
@@ -38,10 +38,10 @@ class PlayerInputHandler
   
   def block_end
     @blocked -= 1
-    @log.debug "block_end (#{@blocked}):"
+    @log.debug "block_end (#{@blocked}):" if @log
     return if @blocked > 0
     return if @actions_queue.size == 0
-    @log.debug "playerinput is now free, queue size: #{@actions_queue.size}"
+    @log.debug "playerinput is now free, queue size: #{@actions_queue.size}" if @log
 
     @actions_queue.each do |arg|
       @core.send(:alg_was_called, arg)
