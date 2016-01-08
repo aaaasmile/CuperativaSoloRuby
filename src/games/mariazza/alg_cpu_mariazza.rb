@@ -112,7 +112,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   def onalg_have_to_play(player,command_decl_avail)
     if player == @alg_player
       return if @card_played_req
-      
+      return if super
+
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       if @gfx_res
         if @alg_is_waiting == true

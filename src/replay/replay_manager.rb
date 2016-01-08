@@ -89,27 +89,31 @@ class ReplayManager
   def execute_core_action
     # each item of @core_execute_queue is [player, action]
     player, action = @core_execute_queue.slice!(0)
+    ReplayManager.action_to_core(player, action, @core_game)
+  end
+
+  def self.action_to_core(player, action, core)
     alg_call = @@ACTION_TO_CORE_CALL[action[:type]]
     case action[:type]
       when :cardplayedarr
         arg1 = action[:arg][0]; arg2 = action[:arg][1] 
-        @core_game.send(alg_call, player, arg2) 
+        core.send(alg_call, player, arg2) 
       when :cardplayed 
         arg1 = action[:arg][0]; arg2 = action[:arg][1] 
-        @core_game.send(alg_call, player, arg2)
+        core.send(alg_call, player, arg2)
       when :change_briscola
         arg1 = action[:arg][0]; arg2 = action[:arg][1]; arg3 = action[:arg][2]
-        @core_game.send(alg_call, player, arg2, arg3)
+        core.send(alg_call, player, arg2, arg3)
       when :declare
         arg1 = action[:arg][0]; arg2 = action[:arg][1]
-        @core_game.send(alg_call, player, arg2)
+        core.send(alg_call, player, arg2)
       when :resign
         arg1 = action[:arg][0]; arg2 = action[:arg][1] 
-        @core_game.send(alg_call, player, arg2)
+        core.send(alg_call, player, arg2)
       when :gui_new_segno
-        @core_game.send(alg_call)
+        core.send(alg_call)
       else
-        @log.error("execute_core_action: Action #{action[:type]} for #{player.name} not recognized")
+        raise("action_to_core: Action #{action[:type]} for #{player.name} not recognized")
     end
   end
   

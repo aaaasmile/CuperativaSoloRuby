@@ -72,13 +72,16 @@ class Test_mariazza_core < Test::Unit::TestCase
     # But the game did not continue and the 'giocata_end' was missed.
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/Mariazza_2016_01_08_21_02_23.yaml')
-    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 1)
-    alg_pl1 = AlgCpuMariazza.new(player1, @core, nil)
+    player1 = PlayerOnGame.new("Gino B.", nil, :replicant, 1)
+    alg_pl1 = AlgCpuMariazza.new(player1, @core, nil) 
+    # "Gino B." should be a replicant but then continue with :cpu_alg (the saved game was incompleted)
+    # "Igor" instead is only a replicant from match_info.
     alg_coll = { "Igor" => nil, "Gino B." => alg_pl1 }
     rep.replay_match(@core, match_info, alg_coll, segno_toplay = 3, max_num_segni_to_play = 1)
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
     assert_equal(true, @io_fake.checklogs('giocata_end'))
+    assert_equal(45, @core.points_curr_segno["Igor"])
   end
   
   def test_match

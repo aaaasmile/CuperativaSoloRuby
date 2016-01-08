@@ -13,8 +13,6 @@ class FixAutoplayer < AlgCpuPlayerBase
     # instance PlayerOnGame bind
     @alg_player = nil
     @gui_gfx = nil
-    # actions queue to be replayed
-    @action_queue = []
     # core game
     @core_game = core_game
     # game replayer
@@ -30,13 +28,6 @@ class FixAutoplayer < AlgCpuPlayerBase
     @action_queue = []
   end
   
-  ##
-  # Append an action to the action queue
-  # action_det: action detail (e.g. {:type=>:cardplayed, :arg=>["Gino B.", :_Cc]})
-  def append_action(action_det)
-    #@log.debug "[#{@alg_player.type}] Append action (#{@alg_player.name}) #{action_det[:arg]}"
-    @action_queue << action_det
-  end
   
   def onalg_giocataend(best_pl_points)
     @log.info("[#{@alg_player.type}] onalg_giocataend")
