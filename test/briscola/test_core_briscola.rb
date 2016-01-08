@@ -131,7 +131,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
     #@core.game_opt[:replay_game] = true
     ## ---- custum deck end
     
-    # need two dummy players
+    # need two players (master vs dummy)
     player1 = PlayerOnGame.new("Test1", nil, :cpu_alg, 0)
     player1.algorithm = AlgCpuBriscola.new(player1, @core, nil)
     player2 = PlayerOnGame.new("Test2", nil, :cpu_alg, 1)
@@ -139,20 +139,13 @@ class Test_Core_Briscola < Test::Unit::TestCase
     player2.algorithm.level_alg = :dummy
     arr_players = [player1,player2]
     # start the match
-    # execute only one event pro step to avoid stack overflow
     @core.gui_new_match(arr_players)
-    event_num = @core.process_only_one_gevent
-    while event_num > 0
-      event_num = @core.process_only_one_gevent
-    end
-    # here segno is finished, 
-    # trigger a new one or end of match
     while @core.is_game_ongoing? 
-      @core.gui_new_segno
       event_num = @core.process_only_one_gevent
       while event_num > 0
         event_num = @core.process_only_one_gevent
       end
+      @core.gui_new_segno
     end
     # match terminated
     @log.debug "Match terminated"
