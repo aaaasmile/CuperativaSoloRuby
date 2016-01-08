@@ -21,25 +21,22 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_Tombolon_core < Test::Unit::TestCase
+  attr_reader :log
   
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameTombolon.new
     @rescheck = ResScopaChecker.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
   end
   
   ######################################### TEST CASES ########################
-#=begin
 
   ##
   # Test a full match
   def test_simulated_game
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-      
     # need two dummy players
     player1 = PlayerOnGame.new("Test1", nil, :cpu_alg, 0)
     player1.algorithm = AlgCpuTombolon.new(player1, @core, nil)
@@ -64,8 +61,8 @@ class Test_Tombolon_core < Test::Unit::TestCase
     end
     # match terminated
     @log.debug "Match terminated"
-    assert_equal(0, io_fake.error_count)
-    assert_equal(0, io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
+    assert_equal(0, @io_fake.warn_count)
   end
     
   def test_tombolon
@@ -119,14 +116,8 @@ class Test_Tombolon_core < Test::Unit::TestCase
     res =  @core.check_for_scopa_colore(:_5c, [:_3c, :_2c] )
     assert_equal(5, res)
   end
-#=end
-  def test_game_predf
-     # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
+
+  def test_game_predf    
     # ---- custom deck begin
     # set a custom deck
     deck =  RandomManager.new
@@ -144,12 +135,14 @@ class Test_Tombolon_core < Test::Unit::TestCase
     arr_players = [player1,player2]
     # start the match
     # execute only one event pro step to avoid stack overflow
-    @core.suspend_proc_gevents
+    #@core.suspend_proc_gevents
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
 
   def test_combi_standalone_1
@@ -169,7 +162,6 @@ class Test_Tombolon_core < Test::Unit::TestCase
   end
   
   def test_combi_card_taken
-    #@log.outputters << Outputter.stdout
     @core.create_deck
     card_on_table = [:_5d, :_7b, :_5s, :_2c, :_Fb]
     card_lbl = :_7c
@@ -189,7 +181,6 @@ class Test_Tombolon_core < Test::Unit::TestCase
   end
 
   def test_mescola
-    @log.outputters << Outputter.stdout
     @core.create_deck
     card_on_table = [:_5d, :_7b, :_5s, :_2c]
     res = @core.deck_table_isok?(card_on_table)
@@ -214,38 +205,37 @@ class Test_Tombolon_core < Test::Unit::TestCase
     assert_equal(true, res)
     
   end      
-#=end
   
   ###
   # Game don't end on 31, game was 33-33 but win was assigned
   def test_bug_22062009
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/s204_gc1_2009_06_22_21_23_42-savedmatch.yaml')
     #p match_info[:giocate][0]
     alg_coll = { "aaaasmile" => nil, "jason" => nil }
     # start to play the first smazzata 
     rep.replay_match(@core, match_info, alg_coll, 0)
-    @core.gui_new_segno
-    # continue with the second
-    rep.replaynext_smazzata(@core, match_info, alg_coll, 1)
-    rep.replaynext_smazzata(@core, match_info, alg_coll, 2)
-    rep.replaynext_smazzata(@core, match_info, alg_coll, 3)
-    rep.replaynext_smazzata(@core, match_info, alg_coll, 4)
-    rep.replaynext_smazzata(@core, match_info, alg_coll, 5)
-    # now build mano info
-    io_fake.make_info_mano_onlogs
+    @io_fake.make_info_mano_onlogs
     ## check result
     ## now the error case, terminated game was not found.
-    ix_mano =  io_fake.identify_mano('Terrminated the game because the player jason call out with 31.')
-    #res = io_fake.checkdata_onmano(ix_mano, "picula")
-    io_fake.display_mano_data(ix_mano)
-    ## correct result is no picula on mano 38
-    assert_equal(197, ix_mano)
-    
+    ix_mano =  @io_fake.identify_mano(": 31")
+    assert_equal(true, ix_mano != -1)
+    if ix_mano >= 0
+    	found = @io_fake.display_mano_data(ix_mano)
+    	assert_equal(true, found)
+    end
   end
   
+end
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_Tombolon_core.new('test_bug_22062009')
+  FakeIO.add_a_simple_assert(tester)
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_bug_22062009
+  
+  exit
 end

@@ -34,7 +34,7 @@ class FixAutoplayer < AlgCpuPlayerBase
   # Append an action to the action queue
   # action_det: action detail (e.g. {:type=>:cardplayed, :arg=>["Gino B.", :_Cc]})
   def append_action(action_det)
-    @log.debug "[#{@alg_player.type}] Append action (#{@alg_player.name}) #{action_det[:arg]}"
+    #@log.debug "[#{@alg_player.type}] Append action (#{@alg_player.name}) #{action_det[:arg]}"
     @action_queue << action_det
   end
   

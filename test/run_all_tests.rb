@@ -9,4 +9,4 @@ require 'mariazza/test_mariazza'
 
 require 'scopetta/test_core_scopetta'
 require 'spazzino/test_core_spazzino'
-#require 'tombolon/test_core_tombolon'
+require 'tombolon/test_core_tombolon'

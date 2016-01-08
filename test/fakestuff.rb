@@ -193,9 +193,10 @@ class FakeIO < IO
         item[:data].each do |data_item|
           @log.debug data_item
         end
-        return 
+        return true
       end
     end
+    return false
   end
   
   ##
@@ -207,13 +208,14 @@ class FakeIO < IO
       item[:data].each do |data_item|
         #p data_item
         if data_item =~ /#{str_log}/
-          @log.debug "Found item requested on mano: #{ix}"
+          @log.debug "Found item requested on mano: #{ix}, #{item}"
           #p  item
           return ix
         end
       end
       ix += 1
     end
+    ix = -1
     return ix
   end
   

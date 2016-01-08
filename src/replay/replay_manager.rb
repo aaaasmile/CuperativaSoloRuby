@@ -70,7 +70,7 @@ class ReplayManager
       #p alg.alg_player
       if alg.alg_player.type.to_s =~ /replicant/
         #append action only on replicant algorithm
-        @log.debug "Append action #{action.inspect}"
+        #@log.debug "Append action #{action.inspect}"
         alg.append_action({:type => action[:type], :arg => action[:arg]})
       end
     end
