@@ -147,7 +147,8 @@ class Test_Core_Briscola < Test::Unit::TestCase
     end
     # here segno is finished, 
     # trigger a new one or end of match
-    while @core.gui_new_segno == :new_giocata
+    while @core.is_game_ongoing? 
+      @core.gui_new_segno
       event_num = @core.process_only_one_gevent
       while event_num > 0
         event_num = @core.process_only_one_gevent

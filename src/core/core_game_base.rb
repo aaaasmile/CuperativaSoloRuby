@@ -272,6 +272,14 @@ class CoreGameBase < CoreOnPlayer
     return true
   end
 
+  def is_match_terminated?
+    return @match_state == :match_terminated
+  end
+
+  def is_game_ongoing?
+    return @match_state == :match_started
+  end
+
 end
 
 ##

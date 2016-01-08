@@ -515,12 +515,7 @@ class CoreGameBriscola < CoreGameBase
     return false
   end
   
-  ##
-  # Provides true if the game in progress is ongoing
-  def is_game_ongoing?
-    return @match_state == :match_started
-  end
-  
+ 
   ## Algorithm and GUI notification calls ####################
   
   ##
