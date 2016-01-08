@@ -446,12 +446,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     return min_list[0]
   end
   
-  ##
-  # Provides the card to play in a very dummy way
-  def play_like_a_dummy
-    # very brutal algorithm , always play the first card
-    card = @cards_on_hand.pop
-  end
+  
   
   ##
   # Algorithm pick up a new card

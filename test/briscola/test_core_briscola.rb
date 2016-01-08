@@ -136,6 +136,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
     player1.algorithm = AlgCpuBriscola.new(player1, @core, nil)
     player2 = PlayerOnGame.new("Test2", nil, :cpu_alg, 1)
     player2.algorithm = AlgCpuBriscola.new(player2, @core, nil)
+    player2.algorithm.level_alg = :dummy
     arr_players = [player1,player2]
     # start the match
     # execute only one event pro step to avoid stack overflow
@@ -162,10 +163,10 @@ end
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_Core_Briscola.new('test_prende_briscola')
+  tester = Test_Core_Briscola.new('test_match')
   FakeIO.add_a_simple_assert(tester)
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_prende_briscola
+  tester.test_match
 end

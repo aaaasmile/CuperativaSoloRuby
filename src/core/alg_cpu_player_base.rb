@@ -55,4 +55,13 @@ class AlgCpuPlayerBase
   def append_action(action_det)
     @action_queue << action_det
   end
+
+  ##
+  # Provides the card to play in a very dummy way
+  def play_like_a_dummy
+    # very brutal algorithm , always play the first card
+    card = @cards_on_hand.pop
+    return card
+  end
+
 end
