@@ -64,7 +64,7 @@ class Test_Briscola5 < Test::Unit::TestCase
     #  end
     #end
     # match terminated
-    puts "Match terminated"
+    @log.debug "Match terminated"
     assert_equal(0, io_fake.warn_count)
     assert_equal(0, io_fake.error_count)
   end

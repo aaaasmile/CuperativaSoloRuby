@@ -78,7 +78,7 @@ class Test_Tressettein4_core < Test::Unit::TestCase
       end
     end
     # match terminated
-    puts "Match terminated"
+    @log.debug "Match terminated"
   end
      
 end

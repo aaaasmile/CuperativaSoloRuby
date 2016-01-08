@@ -27,6 +27,9 @@ class Test_Spazzino_core < Test::Unit::TestCase
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameSpazzino.new
     @rescheck = ResScopaChecker.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log' 
   end
   
   ######################################### TEST CASES ########################
@@ -36,10 +39,6 @@ class Test_Spazzino_core < Test::Unit::TestCase
   # Test a full match
   def test_simulated_game
     # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     
     ## ---- custom deck begin
     ## set a custom deck
@@ -73,7 +72,9 @@ class Test_Spazzino_core < Test::Unit::TestCase
       end
     end
     # match terminated
-    puts "Match terminated"
+    @log.debug "Match terminated"
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
   
   
@@ -194,10 +195,6 @@ class Test_Spazzino_core < Test::Unit::TestCase
   ##
   # Bug on erronuos assigned picula
   def test_bug_games27_211108
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/s27_gc1_2008_11_21_21_49_29-savedmatch.yaml')
     alg_coll = { "Alex" => nil, "igor060" => nil }
@@ -207,26 +204,21 @@ class Test_Spazzino_core < Test::Unit::TestCase
     # continue with the second
     rep.replaynext_smazzata(@core, match_info, alg_coll, 1)
     # now build mano info
-    io_fake.make_info_mano_onlogs
+    @io_fake.make_info_mano_onlogs
     # check result
     # now the error case, a picula was done when the user play 3s
-    ix_mano =  io_fake.identify_mano('Card _3b played from  igor060. Taken: _3s')
-    res = io_fake.checkdata_onmano(ix_mano, "picula")
-    io_fake.display_mano_data(ix_mano)
+    ix_mano =  @io_fake.identify_mano('Card _3b played from  igor060. Taken: _3s')
+    res = @io_fake.checkdata_onmano(ix_mano, "picula")
+    @io_fake.display_mano_data(ix_mano)
     # correct result is no picula on mano 38
     assert_equal(false, res)
-    
   end
   
   ##
   # Test last taker
   def test_lasttaker
     # set the custom logger
-    puts "Test last card taker take the table..."
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
+    @log.debug "Test last card taker take the table..."
     
     # ---- custom deck begin
     # set a custom deck
@@ -245,26 +237,20 @@ class Test_Spazzino_core < Test::Unit::TestCase
     arr_players = [player1,player2]
     # start the match
     # execute only one event pro step to avoid stack overflow
-    #@core.suspend_proc_gevents
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
     # segno terminated
-    assert_equal(true, io_fake.checklogs('Last card played, Test2 take all the rest'))
-    assert_equal(true, io_fake.checklogs('Riepilogo carte prese da Test2: _4s,_4c,_2d,_2s,_7d,_7s,_Ad,_Ac,_3b,_3d,_Cb,_Cd,_Rs,_Rd,_Cc,_Cs,_6b,_6c,_Rb,_Rc,_2b,_4b,_7b,_Fs,_5d,_As'))
-    puts "Segno terminated"
+    assert_equal(true, @io_fake.checklogs('Last card played, Test2 take all the rest'))
+    assert_equal(true, @io_fake.checklogs('Riepilogo carte prese da Test2: _4s,_4c,_2d,_2s,_7d,_7s,_Ad,_Ac,_3b,_3d,_Cb,_Cd,_Rs,_Rd,_Cc,_Cs,_6b,_6c,_Rb,_Rc,_2b,_4b,_7b,_Fs,_5d,_As'))
+    @log.debug "Segno terminated"
   end  
 
   ##
   # Test custom segno
   def test_custom_segno
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
     
     # ---- custom deck begin
     # set a custom deck
@@ -283,25 +269,18 @@ class Test_Spazzino_core < Test::Unit::TestCase
     arr_players = [player1,player2]
     # start the match
     # execute only one event pro step to avoid stack overflow
-    #@core.suspend_proc_gevents
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
       event_num = @core.process_only_one_gevent
     end
     # segno terminated
-    assert_equal(true, io_fake.checklogs('Riepilogo carte prese da Test1: _3s,_3c,_6s,_6d,_Fs,_Fb,_Fc,_Fd,_7c,_Ab,_2c,_4d,_5b,_5c,_Rc,_Rb,_6b,_6c'))
-    puts "Segno terminated"
+    assert_equal(true, @io_fake.checklogs('Riepilogo carte prese da Test1: _3s,_3c,_6s,_6d,_Fs,_Fb,_Fc,_Fd,_7c,_Ab,_2c,_4d,_5b,_5c,_Rc,_Rb,_6b,_6c'))
+    @log.debug "Segno terminated"
   end
-#=end
   
-  def test_deuced_match
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
-    @log.debug "Test if a macth can handle deuced points"
+  def test_tie_match
+    @log.debug "Test if a macth can handle tie points"
     # need two dummy players
     player1 = PlayerOnGame.new("Test1", nil, :cpu_alg, 0)
     player1.algorithm = AlgCpuSpazzino.new(player1, @core, nil)
@@ -310,7 +289,6 @@ class Test_Spazzino_core < Test::Unit::TestCase
     arr_players = [player1,player2]
     # start the match
     # execute only one event pro step to avoid stack overflow
-    #@core.suspend_proc_gevents
     @core.gui_new_match(arr_players)
     event_num = @core.process_only_one_gevent
     while event_num > 0
@@ -331,6 +309,8 @@ class Test_Spazzino_core < Test::Unit::TestCase
         event_num = @core.process_only_one_gevent
       end
     end
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
   end
     
 end
