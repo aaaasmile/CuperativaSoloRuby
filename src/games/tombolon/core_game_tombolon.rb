@@ -20,8 +20,6 @@ class CoreGameTombolon < CoreGameSpazzino
       :shuffle_deck => true, 
       :target_points => 31,
       :num_of_players => 2,
-      :test_with_custom_deck => false,
-      :test_custom_deckname => '01.yaml',
       :replay_game => false, # if true we are using information already stored
       :record_game => true,  # if true record the game
       :vale_napola => true, # if true count also the napola
@@ -29,7 +27,6 @@ class CoreGameTombolon < CoreGameSpazzino
       :padova_rule => false
     }
     @option_core_name = :tombolon_game
-    @test_deck_path = File.dirname(__FILE__) + '/../../test/tombolon/saved_games'
     @num_of_cards_onhandplayer = 4
     @lastcard_ondeck = nil
     load_game_info(File.dirname(__FILE__))

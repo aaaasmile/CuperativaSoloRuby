@@ -17,12 +17,9 @@ class CoreGameTressette < CoreGameBase
       :shuffle_deck => true, 
       :target_points => 21, 
       :num_of_players => 2,
-      :test_with_custom_deck => false,
-      :test_custom_deckname => 'tre01.yaml',
       :replay_game => false, # if true we are using information already stored
       :record_game => true  # if true record the game
     }
-    @test_deck_path = File.dirname(__FILE__) + '/../../test/tressette/saved_games'
     # players (instance of class PlayerOnGame) order that have to play
     @round_players = []
     # array di simboli delle carte(:bA :c4 ...) gestisce il mazzo delle carte durante la partita
@@ -194,15 +191,11 @@ class CoreGameTressette < CoreGameBase
     end
     @match_state = :match_started
     
-    if @game_opt[:test_with_custom_deck]
-      # we are using a custom deck from a file
-      test_with_custom_deck
-    else 
-      unless @game_opt[:replay_game]
-        # we are not replay a game, reset random manager
-        @rnd_mgr.reset_rnd 
-      end
+    unless @game_opt[:replay_game]
+      # we are not replay a game, reset random manager
+      @rnd_mgr.reset_rnd 
     end
+
     if @game_opt[:record_game]
       @game_core_recorder.store_new_match(players, @game_opt, "Spazzino")
     end

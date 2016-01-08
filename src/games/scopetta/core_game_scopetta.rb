@@ -20,15 +20,12 @@ class CoreGameScopetta < CoreGameSpazzino
       :shuffle_deck => true, 
       :target_points => 11,
       :num_of_players => 2,
-      :test_with_custom_deck => false,
-      :test_custom_deckname => 'scopet01.yaml',
       :replay_game => false, # if true we are using information already stored
       :record_game => true,  # if true record the game
       :vale_napola => true, # if true count also the napola
       :combi_sum_lesscard => true # if true combi card is allowed with less card then all other
     }
     @option_core_name = :scopetta_game
-    @test_deck_path = File.dirname(__FILE__) + '/../../test/scopetta/saved_games'
     @log = Log4r::Logger.new("coregame_log::CoreGameScopetta") 
     load_game_info(File.dirname(__FILE__))
   end

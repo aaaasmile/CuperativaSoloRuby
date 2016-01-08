@@ -509,15 +509,9 @@ class SpazzinoGfx < BaseEngineGfx
     
     # initialize the core
     init_core_game(options)
-    
-    
+
     load_specific_resource
     
-    # usa un valore del seed fisso per provare delle funzioni
-    # rimuovi questo codice nella produzione quando i test sono finiti 
-    # developer test code -- begin ---
-    #@core_game.game_opt[:test_with_custom_deck] = true
-    # developer test code -- end ---
     if options["autoplayer"]
       @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
     end

@@ -47,9 +47,35 @@ class Test_mariazza_core < Test::Unit::TestCase
   def test_cpu_change7
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/mariaz_sett_cam_brisc.yaml')
-    rep.replay_match(@core, match_info, {}, 0)
+    name1 = "Gino B."
+    player1 = PlayerOnGame.new(name1, nil, :replicant, 1)
+    alg_pl1 = AlgCpuMariazza.new(player1, @core, nil) 
+    name0 = "Toro"
+    player0 = PlayerOnGame.new(name0, nil, :replicant, 0)
+    alg_pl0 = AlgCpuMariazza.new(player0, @core, nil)
+    alg_coll = { name0 => alg_pl0, name1 => alg_pl1 }
+    rep.replay_match(@core, match_info, alg_coll, 0, 1)
     assert_equal(0, @io_fake.warn_count)
     assert_equal(0, @io_fake.error_count)
+  end
+  
+  def test_cpu_change7_withcoreblocked
+    deck =  RandomManager.new
+  	deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_2c,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_7s,_As',1) #deck fake to test the first hand alg
+  	@core.rnd_mgr = deck
+  	@core.game_opt[:replay_game] = true
+  	player1 = PlayerOnGame.new("Me", nil, :cpu_alg, 0)
+    player1.algorithm = AlgCpuMariazza.new(player1, @core, nil)
+    player2 = PlayerOnGame.new("Cpu", nil, :cpu_alg, 1)
+    player2.algorithm = AlgCpuMariazza.new(player2, @core, nil)
+    arr_players = [player1,player2]
+    @core.gui_new_match(arr_players)
+    event_num = @core.process_only_one_gevent
+    while event_num > 0
+      event_num = @core.process_only_one_gevent
+    end
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count) 
   end
   
   ##
@@ -128,11 +154,11 @@ end #end Test_mariazza_core
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_mariazza_core.new('test_hangup_after_decl')
+  tester = Test_mariazza_core.new('test_cpu_change7_withcoreblocked')
   FakeIO.add_a_simple_assert(tester)
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_hangup_after_decl
+  tester.test_cpu_change7_withcoreblocked
   exit
 end

@@ -19,13 +19,10 @@ class CoreGameSpazzino < CoreGameBase
       :shuffle_deck => true, 
       :target_points => 21, #21,
       :num_of_players => 2,
-      :test_with_custom_deck => false,
-      :test_custom_deckname => 'spazz01.yaml',
       :replay_game => false, # if true we are using information already stored
       :record_game => true,  # if true record the game
       :combi_sum_lesscard => false # if true combi card is allowed with less card then all other 
     }
-    @test_deck_path = File.dirname(__FILE__) + '/../../test/spazzino/saved_games'
     @option_core_name = :spazzino_game
 
     # players (instance of class PlayerOnGame) order that have to play
@@ -117,18 +114,7 @@ class CoreGameSpazzino < CoreGameBase
     str = @mazzo_gioco.join(",")
     @log.info("Current deck:\n#{str}")
   end
-  
-  ##
-  # Test a game with a custom deck file
-  def test_with_custom_deck
-    @log.debug("Test a game with a custom deck")
-    match_info = YAML::load_file(@test_deck_path + '/' + @game_opt[:test_custom_deckname])
-    segni = match_info[:giocate] # catch all giocate, it is an array of hash
-    curr_segno = segni[0]
-    #p curr_segno
-    @rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
-  end
-  
+ 
   ##
   # Col termine di giocata ci si riferisce al mescolamento delle carte e alla
   # sua distribuzione
@@ -821,15 +807,12 @@ class CoreGameSpazzino < CoreGameBase
     end
     @match_state = :match_started
     
-    if @game_opt[:test_with_custom_deck]
-      # we are using a custom deck from a file
-      test_with_custom_deck
-    else 
-      unless @game_opt[:replay_game]
-        # we are not replay a game, reset random manager
-        @rnd_mgr.reset_rnd 
-      end
+    
+    unless @game_opt[:replay_game]
+      # we are not replay a game, reset random manager
+      @rnd_mgr.reset_rnd 
     end
+
     if @game_opt[:record_game]
       @game_core_recorder.store_new_match(players, @game_opt, "Spazzino")
     end

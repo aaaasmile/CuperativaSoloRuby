@@ -13,8 +13,6 @@ class CoreGameBriscola < CoreGameBase
   attr_accessor :game_opt, :rnd_mgr
   attr_reader :num_of_cards_onhandplayer, :points_curr_segno
   
-  @@TEST_DECK_BRISCOLA_PATH = File.dirname(__FILE__) + '/../../test/briscola/saved_games'
-  
   def initialize
     super
     # set all options related to the game
@@ -23,8 +21,6 @@ class CoreGameBriscola < CoreGameBase
       :target_points_segno => 61, 
       :num_segni_match => 2, 
       :num_of_players => 2,
-      :test_with_custom_deck => false,
-      :test_custom_deckname => 'brisc01.yaml',
       :replay_game => false, # if true we are using information already stored
       :record_game => true  # if true record the game
     }
@@ -148,18 +144,7 @@ class CoreGameBriscola < CoreGameBase
     end
     #p @game_opt[:num_segni_match]
   end
-  
-  ##
-  # Test a game with a custom deck file
-  def test_with_custom_deck
-    @log.debug("Test a game with a custom deck")
-    match_info = YAML::load_file(@@TEST_DECK_BRISCOLA_PATH + '/' + @game_opt[:test_custom_deckname])
-    segni = match_info[:giocate] # catch all giocate, it is an array of hash
-    curr_segno = segni[0]
-    #p curr_segno
-    @rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])
-  end
-  
+ 
   ##
   # Col termine di giocata ci si riferisce al mescolamento delle carte e alla
   # sua distribuzione
@@ -637,14 +622,9 @@ class CoreGameBriscola < CoreGameBase
     end
     @match_state = :match_started
     
-    if @game_opt[:test_with_custom_deck]
-      # we are using a custom deck from a file
-      test_with_custom_deck
-    else 
-      unless @game_opt[:replay_game]
-        # we are not replay a game, reset random manager
-        @rnd_mgr.reset_rnd 
-      end
+    unless @game_opt[:replay_game]
+      # we are not replay a game, reset random manager
+      @rnd_mgr.reset_rnd 
     end
     if @game_opt[:record_game]
       @game_core_recorder.store_new_match(players, @game_opt, "Briscola")
