@@ -36,7 +36,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
   def test_game_equal
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_03_17_22_39_52-6-savedmatch.yaml')
-    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
+    #player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     #alg_cpu1 = AlgCpuBriscola.new(player1, @core)
     alg_coll = { "ospite1" => nil, "igor050" => nil } 
     segno_num = 2
@@ -51,7 +51,7 @@ class Test_Core_Briscola < Test::Unit::TestCase
   def test_not_allowedcard
     rep = ReplayManager.new(@log)
     match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/2008_04_23_20_01_33-1-savedmatch.yaml')
-    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
+    #player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 0)
     #alg_cpu1 = AlgCpuBriscola.new(player1, @core, nil)
     alg_coll = { "Gino B." => nil, "Toro" => nil } 
     segno_num = 0

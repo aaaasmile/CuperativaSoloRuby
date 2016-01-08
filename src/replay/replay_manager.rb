@@ -136,13 +136,13 @@ class ReplayManager
     core.game_opt[:replay_game] = true
     # set info about deck and first player on the random manager
     segni = match_info[:giocate] # catch all giocate, it is an array of hash
-    num_segni_giocati = max_num_segni_to_play == nil ?  segni.size - 1 : max_num_segni_to_play
+    ix_last_segno = max_num_segni_to_play == nil ?  segni.size : [segno_toplay + max_num_segni_to_play, segni.size].min
     
     segno_zero = segni[0]
     core.rnd_mgr.set_predef_ready_deck(segno_zero[:deck], segno_zero[:first_plx])
     core.gui_new_match(@players)
       
-    while segno_toplay <= num_segni_giocati
+    while segno_toplay < ix_last_segno
       @log.debug "Replay segno #{segno_toplay}"
       curr_segno = segni[segno_toplay]
       core.rnd_mgr.set_predef_ready_deck(curr_segno[:deck], curr_segno[:first_plx])

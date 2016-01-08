@@ -1,0 +1,597 @@
+--- 
+:date: 2016-01-08 20:56:36.934000 +01:00
+:players: 
+- Igor
+- Gino B.
+:game: 
+  :opt: 
+    :shuffle_deck: true
+    :target_points_segno: 41
+    :replay_game: false
+    :num_segni_match: 4
+    :test_with_custom_deck: false
+    :test_custom_deckname: brisc01.yaml
+    :num_of_players: 2
+    :record_game: true
+  :name: Briscola
+:giocate: 
+- :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_6c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_6d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2d
+    :pl_name: Gino B.
+  - :type: :declare
+    :arg: 
+    - Igor
+    - :mar_cop
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Fd
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cc
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Ac
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Fb
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_7d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_5d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_5c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fs
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_As
+    :pl_name: Igor
+  - :type: :declare
+    :arg: 
+    - Igor
+    - :mar_spa
+    :pl_name: Igor
+  :deck: 
+  - :_4c
+  - :_5b
+  - :_7c
+  - :_7b
+  - :_3d
+  - :_6b
+  - :_5s
+  - :_3b
+  - :_7s
+  - :_3s
+  - :_2b
+  - :_Fc
+  - :_Cb
+  - :_Rd
+  - :_Rs
+  - :_Cs
+  - :_Cd
+  - :_5c
+  - :_Fs
+  - :_5d
+  - :_Rb
+  - :_3c
+  - :_Ad
+  - :_7d
+  - :_As
+  - :_Rc
+  - :_Ac
+  - :_6d
+  - :_2d
+  - :_Fb
+  - :_Fd
+  - :_Cc
+  - :_6c
+  - :_6s
+  - :_2c
+  - :_Ab
+  - :_2s
+  - :_4b
+  - :_4d
+  - :_4s
+  :giocata_winner: 
+  - - Igor
+    - 75
+  - - Gino B.
+    - 16
+- :first_plx: 1
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_6b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_5d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_6s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_2c
+    :pl_name: Igor
+  - :type: :change_briscola
+    :arg: 
+    - Igor
+    - :_4c
+    - :_7c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fb
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_7b
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_3b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_5c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_7d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4b
+    :pl_name: Gino B.
+  - :type: :declare
+    :arg: 
+    - Igor
+    - :mar_den
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cd
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_7s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2d
+    :pl_name: Gino B.
+  - :type: :declare
+    :arg: 
+    - Igor
+    - :mar_spa
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_3d
+    :pl_name: Igor
+  :deck: 
+  - :_Fs
+  - :_Ab
+  - :_6c
+  - :_As
+  - :_6d
+  - :_Ad
+  - :_2b
+  - :_Rc
+  - :_Cb
+  - :_4s
+  - :_2s
+  - :_5s
+  - :_5b
+  - :_3c
+  - :_Fd
+  - :_Cs
+  - :_2d
+  - :_4d
+  - :_7s
+  - :_Cd
+  - :_4b
+  - :_7d
+  - :_Cc
+  - :_Fc
+  - :_7b
+  - :_5c
+  - :_Rs
+  - :_Ac
+  - :_3s
+  - :_7c
+  - :_Rd
+  - :_3d
+  - :_5d
+  - :_2c
+  - :_6s
+  - :_Rb
+  - :_3b
+  - :_6b
+  - :_Fb
+  - :_4c
+  :giocata_winner: 
+  - - Igor
+    - 52
+  - - Gino B.
+    - 13
+- :first_plx: 1
+  :actions: 
+  - :type: :change_briscola
+    :arg: 
+    - Gino B.
+    - :_Fc
+    - :_7c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_5s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4d
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_7d
+    :pl_name: Gino B.
+  - :type: :declare
+    :arg: 
+    - Igor
+    - :mar_bas
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Fs
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Ac
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cb
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fc
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4b
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_5b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_3b
+    :pl_name: Igor
+  :deck: 
+  - :_6b
+  - :_Ab
+  - :_4s
+  - :_Cd
+  - :_Fd
+  - :_6s
+  - :_3c
+  - :_As
+  - :_2s
+  - :_3d
+  - :_Cs
+  - :_2b
+  - :_7b
+  - :_Rc
+  - :_Fb
+  - :_5d
+  - :_6d
+  - :_6c
+  - :_3s
+  - :_3b
+  - :_5b
+  - :_4b
+  - :_2d
+  - :_7s
+  - :_5c
+  - :_Ac
+  - :_Rd
+  - :_Rb
+  - :_Ad
+  - :_Fs
+  - :_Cb
+  - :_4d
+  - :_Rs
+  - :_2c
+  - :_4c
+  - :_7c
+  - :_Cc
+  - :_5s
+  - :_7d
+  - :_Fc
+  :giocata_winner: 
+  - - Igor
+    - 41
+  - - Gino B.
+    - 7
+- :first_plx: 0
+  :actions: 
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Fs
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_4b
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_5c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cs
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_3s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_5d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Rd
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cc
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_7c
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_2c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_4s
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_5b
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_6d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Cd
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_3d
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Fd
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_6c
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_Rc
+    :pl_name: Gino B.
+  - :type: :change_briscola
+    :arg: 
+    - Igor
+    - :_Ab
+    - :_7b
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Ac
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_Ab
+    :pl_name: Igor
+  - :type: :cardplayed
+    :arg: 
+    - Gino B.
+    - :_2b
+    :pl_name: Gino B.
+  - :type: :cardplayed
+    :arg: 
+    - Igor
+    - :_3b
+    :pl_name: Igor
+  - :type: :declare
+    :arg: 
+    - Gino B.
+    - :mar_bas
+    :pl_name: Gino B.
+  :deck: 
+  - :_7d
+  - :_2s
+  - :_5s
+  - :_6s
+  - :_7s
+  - :_Cb
+  - :_Ad
+  - :_2b
+  - :_Rs
+  - :_3b
+  - :_Rc
+  - :_6c
+  - :_Fb
+  - :_6b
+  - :_Cd
+  - :_6d
+  - :_5b
+  - :_4s
+  - :_2c
+  - :_Fc
+  - :_As
+  - :_Cc
+  - :_Fd
+  - :_Rb
+  - :_Cs
+  - :_3s
+  - :_Rd
+  - :_2d
+  - :_Fs
+  - :_5d
+  - :_5c
+  - :_7c
+  - :_4d
+  - :_3d
+  - :_4b
+  - :_Ac
+  - :_7b
+  - :_3c
+  - :_4c
+  - :_Ab

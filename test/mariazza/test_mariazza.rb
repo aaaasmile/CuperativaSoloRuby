@@ -67,8 +67,21 @@ class Test_mariazza_core < Test::Unit::TestCase
     assert_equal(true, @io_fake.punteggio_raggiunto("igor0500 = 47 Parma = 39 "))
   end
   
+  def test_hangup_after_decl
+    # The match was broken (segno ix = 3) because "Igor" played _3b and "Gino B." declared the mariazza bastoni.
+    # But the game did not continue and the 'giocata_end' was missed.
+    rep = ReplayManager.new(@log)
+    match_info = YAML::load_file(File.dirname(__FILE__) + '/saved_games/Mariazza_2016_01_08_21_02_23.yaml')
+    player1 = PlayerOnGame.new("Gino B.", nil, :cpu_alg, 1)
+    alg_pl1 = AlgCpuMariazza.new(player1, @core, nil)
+    alg_coll = { "Igor" => nil, "Gino B." => alg_pl1 }
+    rep.replay_match(@core, match_info, alg_coll, segno_toplay = 3, max_num_segni_to_play = 1)
+    assert_equal(0, @io_fake.warn_count)
+    assert_equal(0, @io_fake.error_count)
+    assert_equal(true, @io_fake.checklogs('giocata_end'))
+  end
+  
   def test_match
-    
     ## ---- custom deck begin
     ## set a custom deck
     #deck =  RandomManager.new
@@ -112,11 +125,11 @@ end #end Test_mariazza_core
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_mariazza_core.new('test_createdeck')
+  tester = Test_mariazza_core.new('test_hangup_after_decl')
   FakeIO.add_a_simple_assert(tester)
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_createdeck
+  tester.test_hangup_after_decl
   exit
 end

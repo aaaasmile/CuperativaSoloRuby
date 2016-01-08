@@ -361,6 +361,7 @@ class CoreGameMariazza < CoreGameBriscola
               # remember the player have to play
               command_decl_avail=[]
               check_change_briscola(player, command_decl_avail )
+              @log.debug "Request continue play with #{command_decl_avail} to #{player.name}"
               player.algorithm.onalg_have_to_play(player, command_decl_avail)
             end
           end

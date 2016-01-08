@@ -112,7 +112,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   def onalg_have_to_play(player,command_decl_avail)
     if player == @alg_player
       return if @card_played_req
-      @card_played_req = true
+      
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       if @gfx_res
         if @alg_is_waiting == true
@@ -180,6 +180,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     #card = play_like_a_master
     # notify card played to core game
     @log.debug "alg_play_acard: card #{card}"
+    @card_played_req = true
     @core_game.alg_player_cardplayed(@alg_player, card)
     @log.error "No cards on hand - programming error" unless card
   end
