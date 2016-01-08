@@ -23,24 +23,21 @@ include Log4r
 ##
 # Test suite for testing 
 class Test_Tressette_core < Test::Unit::TestCase
- 
+  attr_reader :log
+  
   def setup
     @log = Log4r::Logger.new("coregame_log")
     @core = CoreGameTressette.new
+    @io_fake = FakeIO.new(1,'w')
+    IOOutputter.new('coregame_log', @io_fake)
+    Log4r::Logger['coregame_log'].add 'coregame_log'
   end
   
   ######################################### TEST CASES ########################
   
-#=begin #this is the begin of a multiline comment, used to isolate a single testcase
   ##
   # Test a full match
   def test_simulated_game
-    # set the custom logger
-    io_fake = FakeIO.new(1,'w')
-    IOOutputter.new('coregame_log', io_fake)
-    Log4r::Logger['coregame_log'].add 'coregame_log'
-    @log.outputters << Outputter.stdout
-    
     # ---- custom deck begin
     # set a custom deck
     #deck =  RandomManager.new
@@ -65,16 +62,32 @@ class Test_Tressette_core < Test::Unit::TestCase
     while event_num > 0
         event_num = @core.process_only_one_gevent
     end
-    ## here segno is finished, 
-    ## trigger a new one or end of match
-    #while @core.gui_new_segno == :new_giocata
-      #event_num = @core.process_only_one_gevent
-      #while event_num > 0
-        #event_num = @core.process_only_one_gevent
-      #end
-    #end
-    # match terminated
+    
+    while @core.gui_new_segno == :new_giocata
+      event_num = @core.process_only_one_gevent
+      while event_num > 0
+        event_num = @core.process_only_one_gevent
+      end
+    end
+   
     @log.debug "Match terminated"
+    
+    assert_equal(0, @io_fake.error_count, "Errors")
+    assert_equal(0, @io_fake.warn_count, "Warnings")
   end
      
+end
+
+
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_Tressette_core.new('test_simulated_game')
+  FakeIO.add_a_simple_assert(tester)
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_simulated_game
+  
+  exit
 end
