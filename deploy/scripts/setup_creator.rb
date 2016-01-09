@@ -7,7 +7,7 @@ require 'rubygems'
 require 'yaml'
 require 'erubis'
 require 'fileutils'
-require 'src/base/core/gameavail_hlp'
+require 'src/core/info_available_games'
 require 'filescandir'
 
 class SetupCreator
@@ -100,7 +100,7 @@ class SetupCreator
     # get info about installed games
     #str_giochi_avail = "Briscola in 2, Mariazza"
     # parse yaml file with game information
-    map_game_info = InfoAvilGames.info_supported_games(nil)
+    map_game_info = InfoAvailableGames.info_supported_games(nil)
     arr_giochi_avail = []
     map_game_info.each_value do |game_info|
       if game_info[:enabled] == true
