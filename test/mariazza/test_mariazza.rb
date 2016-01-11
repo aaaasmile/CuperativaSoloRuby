@@ -167,6 +167,6 @@ if $0 == __FILE__
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_match_serie(1)
+  tester.test_match_serie(100)
   exit
 end

@@ -286,7 +286,7 @@ class CoreGameMariazza < CoreGameBriscola
     end
     if res == :not_allowed
       @log.info "Changing #{card_briscola} with #{card_on_hand} not allowed from player #{player.name}"
-      player.algorithm.onalg_player_change_brisc_notallowed if player.algorithm.respond_to?(:onalg_player_change_brisc_notallowed)
+      player.algorithm.onalg_player_change_brisc_notallowed(player, card_briscola, card_on_hand) if player.algorithm.respond_to?(:onalg_player_change_brisc_notallowed)
     else
       @log.debug "Change ok"
     end 
