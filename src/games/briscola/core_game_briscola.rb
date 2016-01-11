@@ -64,41 +64,8 @@ class CoreGameBriscola < CoreGameBase
     load_game_info(File.dirname(__FILE__))
   end
   
-  ##
-  #Provides an hash with for the viewer to build the current game state
-  def on_viewer_get_state()
-    res = {}
-    #points
-    res[:points_curr_segno] = @points_curr_segno
-    # players
-    players_name = []
-    @players.each{|x| players_name << x.name}
-    res[:players] = players_name
-    # number of cards in hand
-    num_carte_player = {} 
-    @carte_in_mano.each do |k,v|
-      num_carte_player[k] = 0
-      v.each{|lbl| num_carte_player[k] += 1}
-    end
-    res[:carte_in_mano] = num_carte_player 
-    # taken cards
-    res[:carte_prese] = @carte_prese
-    #segni
-    res[:segni_curr_match] = @segni_curr_match
-    # briscola
-    res[:briscola_in_tav_lbl] = @briscola_in_tav_lbl
-    # deck
-    res[:decksize] = @mazzo_gioco.size
-    
-    return res
-  end
+ 
   
-  ##
-  # Save current game into a file
-  def save_curr_game(fname)
-    @log.info("Game saved on #{fname}")
-    @game_core_recorder.save_match_to_file(fname)
-  end
   
   ##
   # return true is the current match as a minimun information for score
@@ -194,7 +161,6 @@ class CoreGameBriscola < CoreGameBase
       @carte_prese[player.name] = [] # uso il nome per rendere la chiave piccola 
       @points_curr_segno[player.name] = 0
     end
-    inform_viewers(:onalg_new_giocata,@num_of_cards_onhandplayer, briscola)
     #p @carte_prese
     submit_next_event(:new_mano)
   end
@@ -217,7 +183,6 @@ class CoreGameBriscola < CoreGameBase
     @players.each do |pl|
       pl.algorithm.onalg_have_to_play(player_onturn, [])
     end
-    inform_viewers(:onalg_have_to_play,player_onturn.name)
     @log.info "new_mano END"
     @player_input_hdl.block_end
   end
@@ -264,7 +229,6 @@ class CoreGameBriscola < CoreGameBase
         end 
         #p carte_player
         player.algorithm.onalg_pesca_carta(carte_player)
-        inform_viewers(:onalg_pesca_carta,player.name,carte_player.size, briscola_in_tavola)
         # store cards to each player for check
         carte_player.each{|c| @carte_in_mano[player.name] << c}
         carte_player = [] # reset array for the next player
@@ -296,7 +260,6 @@ class CoreGameBriscola < CoreGameBase
           pl.algorithm.onalg_have_to_play(player_onturn, [])
         end 
       end
-      inform_viewers(:onalg_have_to_play,player_onturn.name)
     else
       # no more player have to play
       @log.debug "continua_mano END"
@@ -335,8 +298,6 @@ class CoreGameBriscola < CoreGameBase
     punti_presi = calc_puneggio(carte_prese_mano)
     @log.info "Punti fatti nella mano #{punti_presi}" 
     @players.each{|pl| pl.algorithm.onalg_manoend(player_best, carte_prese_mano, punti_presi) }
-    
-    inform_viewers(:onalg_manoend,player_best.name, carte_prese_mano, punti_presi)
     
     # reset cards played on  the current mano
     @carte_gioc_mano_corr = []
@@ -392,7 +353,6 @@ class CoreGameBriscola < CoreGameBase
     end
     
     @players.each{|pl| pl.algorithm.onalg_giocataend(best_pl_points) }
-    inform_viewers(:onalg_giocataend,best_pl_points)
   end
   
   ##
@@ -410,7 +370,6 @@ class CoreGameBriscola < CoreGameBase
       @game_core_recorder.store_end_match(best_pl_segni)
     end
     @players.each{|pl| pl.algorithm.onalg_game_end(best_pl_segni) }
-    inform_viewers(:onalg_game_end,best_pl_segni)
   end
   
   ##
@@ -574,7 +533,6 @@ class CoreGameBriscola < CoreGameBase
     player = @carte_gioc_mano_corr.last.values[0]
     # notify all players that a player has played a card
     @players.each{|pl| pl.algorithm.onalg_player_has_played(player, lbl_card) }
-    inform_viewers(:onalg_player_has_played, player.name, lbl_card)
     # remove player from list of players that have to play
     @round_players.pop
     submit_next_event(:continua_mano)
@@ -627,7 +585,6 @@ class CoreGameBriscola < CoreGameBase
     end
     name_players = []
     @players.each {|pl| name_players << pl.name}
-    inform_viewers(:onalg_new_match, @players.size, name_players)
     
     submit_next_event(:new_giocata)
   end

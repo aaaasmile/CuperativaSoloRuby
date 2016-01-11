@@ -150,8 +150,6 @@ class CoreGameBase < CoreOnPlayer
     # count number of suspend because they can stay overlapped
     @num_of_suspend = 0
     @mazzo_gioco = []
-    # viewers
-    @viewers = {}
     # logger
     @log = Log4r::Logger["coregame_log"]
     @game_name = 'unset'
@@ -167,13 +165,7 @@ class CoreGameBase < CoreOnPlayer
     end
     return str
   end
-  
-  def add_viewer(the_viewer)
-    @viewers[the_viewer.name] = the_viewer
-    info = on_viewer_get_state()
-    the_viewer.game_state(info)
-  end
-
+ 
   def load_game_info(dirgame)
     game_info_yaml = File.join(dirgame, 'game_info')
     if File.exist?(game_info_yaml)
@@ -181,17 +173,10 @@ class CoreGameBase < CoreOnPlayer
       @game_name = opt[:name]
     end
   end
-  
-  def on_viewer_get_state()
-    return {}
-  end
-  
-  def remove_viewer(name)
-    @viewers.delete(name)
-  end
-  
-  def inform_viewers(*args)
-    @viewers.each{|k,viewer| viewer.game_action(args)}
+
+  def save_curr_game(fname)
+    @log.info("Game saved on #{fname}")
+    @game_core_recorder.save_match_to_file(fname)
   end
   
   def set_specific_options(options)
@@ -201,7 +186,6 @@ class CoreGameBase < CoreOnPlayer
   def num_cards_on_mazzo
     return @mazzo_gioco.size
   end
-
   
   def self.nomi_semi
     @@NOMI_SEMI
@@ -281,25 +265,4 @@ class CoreGameBase < CoreOnPlayer
   end
 
 end
-
-##
-# Algorithm cpu base. Used to define algorithm notifications
-# Please consider that a change done here has an impact with:
-# Add a new message in ParserCmdDef
-# - prot_parsmsg
-#  ==> On the server:
-# - NAL_Srv_Algorithm
-#  ==> On the client:
-# - ControlNetConnection
-# - NalClientGfx
-# - every class that inherit BaseEngineGfx if necessary
-# - GameBasebot
-
-
-
-class ViewerGameBase
-  def alg_changed(info) end
-  def current_state(info) end
-end
-
 

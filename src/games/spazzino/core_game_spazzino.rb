@@ -88,12 +88,6 @@ class CoreGameSpazzino < CoreGameBase
     end
   end
   
-  ##
-  # Save current game into a file
-  def save_curr_game(fname)
-    @log.info("Game saved on #{fname}")
-    @game_core_recorder.save_match_to_file(fname)
-  end
   
   ##
   # Build deck before shuffle

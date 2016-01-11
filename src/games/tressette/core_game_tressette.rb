@@ -461,7 +461,6 @@ class CoreGameTressette < CoreGameBase
       @game_core_recorder.store_end_match(best_pl_segni)
     end
     @players.each{|pl| pl.algorithm.onalg_game_end(best_pl_segni) }
-    #inform_viewers(:onalg_game_end,best_pl_segni)
   end
   
   def points_curr_match_sorted
@@ -622,14 +621,7 @@ class CoreGameTressette < CoreGameBase
     end
     return :new_giocata
   end
-  
-  ##
-  # Save current game into a file
-  def save_curr_game(fname)
-    @log.info("Game saved on #{fname}")
-    @game_core_recorder.save_match_to_file(fname)
-  end
-  
+ 
 end#end CoreGameTressette
 
 if $0 == __FILE__

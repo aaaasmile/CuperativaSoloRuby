@@ -130,7 +130,6 @@ class CoreGameBriscola5 < CoreGameBriscola
     
     @players.each{|pl| pl.algorithm.onalg_gameinfo({:infoitem => :begin_calling_stage}) }
     
-    #inform_viewers(:onalg_have_to_play,player_onturn.name)
     submit_next_event(:calling_stage_do)
   end
   
