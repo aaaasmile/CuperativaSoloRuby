@@ -102,10 +102,10 @@ class CoreGameMariazza < CoreGameBriscola
         #check for additional change of the briscola command
         check_change_briscola(player_onturn, command_decl_avail )
         # notify player about his available commands 
-        pl.algorithm.onalg_have_to_play(player_onturn, command_decl_avail)
+        pl.algorithm.onalg_have_to_play_with_cmd(player_onturn, command_decl_avail)
       else
         # don't notify commands declaration for player that are only informed
-        pl.algorithm.onalg_have_to_play(player_onturn, [])
+        pl.algorithm.onalg_have_to_play_with_cmd(player_onturn, [])
       end
     end
     @log.debug "new_mano END"
@@ -219,10 +219,10 @@ class CoreGameMariazza < CoreGameBriscola
           command_decl_avail = []
           command_decl_avail = check_mariaz_declaration(player_onturn) 
           check_change_briscola(player_onturn, command_decl_avail )
-          pl.algorithm.onalg_have_to_play(player_onturn, command_decl_avail)
+          pl.algorithm.onalg_have_to_play_with_cmd(player_onturn, command_decl_avail)
         else
           # don't notify declaration for player that are only informed
-          pl.algorithm.onalg_have_to_play(player_onturn, [])
+          pl.algorithm.onalg_have_to_play_with_cmd(player_onturn, [])
         end 
       end
     else
@@ -279,7 +279,7 @@ class CoreGameMariazza < CoreGameBriscola
             #end
             # don't need to check change briscola
             # remember the player have to play
-            player.algorithm.onalg_have_to_play(player, command_decl_avail)
+            player.algorithm.onalg_have_to_play_with_cmd(player, command_decl_avail)
           end
         end
       end 
@@ -363,7 +363,7 @@ class CoreGameMariazza < CoreGameBriscola
               command_decl_avail=[]
               check_change_briscola(player, command_decl_avail )
               @log.debug "Request continue play with #{command_decl_avail} to #{player.name}"
-              player.algorithm.onalg_have_to_play(player, command_decl_avail)
+              player.algorithm.onalg_have_to_play_with_cmd(player, command_decl_avail)
             end
           end
         end

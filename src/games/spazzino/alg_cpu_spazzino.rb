@@ -98,7 +98,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
   
   ##
   # Algorithm have to play
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     cards = []
     @log.debug("onalg_have_to_play cpu alg: #{player.name}")
     if player == @alg_player

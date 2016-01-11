@@ -107,12 +107,16 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @core_game.continue_process_events if @core_game
   end
   
+  def onalg_have_to_play(player)
+    onalg_have_to_play_with_cmd(player,[])
+  end
+
   ##
   # Algorithm have to play
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play_with_cmd(player,command_decl_avail)
     if player == @alg_player
       return if @card_played_req
-      return if super
+      return if do_queued_action_to_core
 
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       if @gfx_res

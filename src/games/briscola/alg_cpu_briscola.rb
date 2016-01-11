@@ -81,7 +81,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
   
   ##
   # Algorithm have to play
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     if player == @alg_player
       if @gfx_res
         @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)

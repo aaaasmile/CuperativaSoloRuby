@@ -609,8 +609,6 @@ class BriscolaGfx < BaseEngineGfx
     resize_gfxlabel_player(player_sym, pl_type)
   end
   
-  
-  
   ##
   # Resize player label
   def resize_gfxlabel_player(player_sym, pl_type)
@@ -704,8 +702,7 @@ class BriscolaGfx < BaseEngineGfx
     if @state_gfx == :on_game
       #only if we are on game 
       player = @alg_auto_stack.pop
-      command_decl_avail = @alg_auto_stack.pop
-      @alg_auto_player.onalg_have_to_play(player,command_decl_avail)
+      @alg_auto_player.onalg_have_to_play(player)
     end
     # restore event process
     @core_game.continue_process_events if @core_game
@@ -944,11 +941,8 @@ class BriscolaGfx < BaseEngineGfx
   ##
   # Player have to play
   # player: player that have to play
-  # command_decl_avail: array of commands (hash with :name and :points) 
-  # available for declaration
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     decl_str = ""
-    #p command_decl_avail
     if player == @player_on_gui[:player]
       @log.debug("player #{player.name} have to play")
       #@app_owner.free_all_btcmd()
@@ -960,13 +954,10 @@ class BriscolaGfx < BaseEngineGfx
     log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-      #log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
     if @option_gfx[:autoplayer_gfx]
-      # store parameters into a stack
-      @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
       # trigger autoplay
       registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)

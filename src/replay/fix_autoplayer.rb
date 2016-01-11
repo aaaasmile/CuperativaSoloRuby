@@ -32,8 +32,12 @@ class FixAutoplayer < AlgCpuPlayerBase
   def onalg_giocataend(best_pl_points)
     @log.info("[#{@alg_player.type}] onalg_giocataend")
   end
+  
+  def onalg_have_to_play(player)
+    onalg_have_to_play_with_cmd(player,[])
+  end
    
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play_with_cmd(player,command_decl_avail)
     if player.type == @alg_player.type
       # now we have to play
       @log.info("[#{@alg_player.type}]onalg_have_to_play-> #{player.name}, cmds(#{command_decl_avail.size})")

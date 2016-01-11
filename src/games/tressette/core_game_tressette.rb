@@ -313,7 +313,7 @@ class CoreGameTressette < CoreGameBase
     # notify all players about player that have to play
     @players.each do |pl|
       # don't notify commands declaration for player that are only informed
-      pl.algorithm.onalg_have_to_play(player_onturn, [])
+      pl.algorithm.onalg_have_to_play(player_onturn)
     end
   end
   
@@ -323,13 +323,7 @@ class CoreGameTressette < CoreGameBase
     if player_onturn
       # notify all players about player that have to play
       @players.each do |pl|
-        if pl == player_onturn
-          command_decl_avail = []
-          pl.algorithm.onalg_have_to_play(player_onturn, command_decl_avail)
-        else
-          # don't notify declaration for player that are only informed
-          pl.algorithm.onalg_have_to_play(player_onturn, [])
-        end 
+        pl.algorithm.onalg_have_to_play(player_onturn)
       end
     else
       # no more player have to play

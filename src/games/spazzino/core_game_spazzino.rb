@@ -189,7 +189,7 @@ class CoreGameSpazzino < CoreGameBase
     # notify all players about player that have to play
     @players.each do |pl|
       # don't notify commands declaration for player that are only informed
-      pl.algorithm.onalg_have_to_play(player_onturn, [])
+      pl.algorithm.onalg_have_to_play(player_onturn)
     end
     @log.debug "new_mano END"
     

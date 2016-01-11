@@ -21,9 +21,9 @@ require 'games/briscola/alg_cpu_briscola'
 
 include Log4r
 
-##
-# Test suite for testing 
+ 
 class Test_Alg_Briscola < Test::Unit::TestCase
+  attr_reader :log
  
   def setup
     @log = Log4r::Logger.new("coregame_log")
@@ -74,6 +74,18 @@ class Test_Alg_Briscola < Test::Unit::TestCase
     assert_equal(:_Fs, @io_fake.card_played_onhand("3","1"))
   end
   
+end
+
+
+
+if $0 == __FILE__
+  # use this file to run only one single test case
+  tester = Test_Alg_Briscola.new('test_alg_not_work01')
+  FakeIO.add_a_simple_assert(tester)
+  
+  tester.setup
+  tester.log.outputters << Outputter.stdout
+  tester.test_alg_not_work01
 end
 
 # Look to the test_alg_mariazza.rb if you want to test a single test case using this file

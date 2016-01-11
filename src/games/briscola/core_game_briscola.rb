@@ -160,7 +160,7 @@ class CoreGameBriscola < CoreGameBase
     @log.debug "player have to play #{player_onturn.name}"
     # notify all players about player that have to play
     @players.each do |pl|
-      pl.algorithm.onalg_have_to_play(player_onturn, [])
+      pl.algorithm.onalg_have_to_play(player_onturn)
     end
     @log.info "new_mano END"
     @player_input_hdl.block_end
@@ -231,13 +231,7 @@ class CoreGameBriscola < CoreGameBase
       # notify all players about player that have to play
       @log.debug "player have to play #{player_onturn.name}"
       @players.each do |pl|
-        if pl == player_onturn
-          command_decl_avail = []
-          pl.algorithm.onalg_have_to_play(player_onturn, command_decl_avail)
-        else
-          # don't notify declaration for player that are only informed
-          pl.algorithm.onalg_have_to_play(player_onturn, [])
-        end 
+        pl.algorithm.onalg_have_to_play(player_onturn)
       end
     else
       # no more player have to play

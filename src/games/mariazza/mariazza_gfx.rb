@@ -184,7 +184,7 @@ class MariazzaGfx < BriscolaGfx
   # player: player that have to play
   # command_decl_avail: array of commands (hash with :name and :points) 
   # available for declaration
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play_with_cmd(player,command_decl_avail)
     decl_str = ""
     #p command_decl_avail
     if player == @player_on_gui[:player]

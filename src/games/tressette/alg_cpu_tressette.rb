@@ -88,39 +88,37 @@ class AlgCpuTressette < AlgCpuPlayerBase
   
   ##
   # Algorithm have to play
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     if player == @alg_player
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       if @gfx_res
-        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self, command_decl_avail)
+        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
         # this is used to sloow down the algorithm play
         @core_game.suspend_proc_gevents
         @log.debug("onalg_have_to_play cpu alg: #{player.name}")
       else
         # no wait for gfx stuff, continue immediately to play
-        alg_play_acard(command_decl_avail)
+        alg_play_acard()
       end
     end
   end
 
   ##
   # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
-  def onTimeoutAlgorithmHaveToPlay(command_decl_avail)
-    alg_play_acard(command_decl_avail)
+  def onTimeoutAlgorithmHaveToPlay()
+    alg_play_acard()
     # restore event process
     @core_game.continue_process_events if @core_game
   end
 
-  def alg_play_acard(command_decl_avail)
+  def alg_play_acard()
     nr_cards_on_hand = count_cards_onhand
     if nr_cards_on_hand == 0
       @log.warn "do nothing because no cards are available"
       return
     end
-    if command_decl_avail.size > 0
-      # there are declaration
-    end
+   
     case @level_alg 
     when :master
       card = play_like_a_master

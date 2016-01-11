@@ -896,11 +896,8 @@ class TressetteGfx < BaseEngineGfx
   ##
   # Player have to play
   # player: player that have to play
-  # command_decl_avail: array of commands (hash with :name and :points) 
-  # available for declaration
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     decl_str = ""
-    #p command_decl_avail
     if player == @player_on_gui[:player]
       @log.debug("player #{player.name} have to play")
     end
@@ -910,13 +907,11 @@ class TressetteGfx < BaseEngineGfx
     log "Tocca a: #{player.name}."
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-      #log "#{player.name} comandi: #{decl_str}\n" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
     if @option_gfx[:autoplayer_gfx]
       # store parameters into a stack
-      @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
       registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
       # suspend core event process untill timeout

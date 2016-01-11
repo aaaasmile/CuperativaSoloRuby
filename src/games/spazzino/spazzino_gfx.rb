@@ -1040,8 +1040,7 @@ class SpazzinoGfx < BaseEngineGfx
     if @state_gfx == :on_game
       #only if we are on game 
       player = @alg_auto_stack.pop
-      command_decl_avail = @alg_auto_stack.pop
-      @alg_auto_player.onalg_have_to_play(player,command_decl_avail)
+      @alg_auto_player.onalg_have_to_play(player)
     end
     # restore event process
     @core_game.continue_process_events if @core_game
@@ -1429,11 +1428,8 @@ class SpazzinoGfx < BaseEngineGfx
   ##
   # Player have to play
   # player: player that have to play
-  # command_decl_avail: array of commands (hash with :name and :points) 
-  # available for declaration
-  def onalg_have_to_play(player,command_decl_avail)
+  def onalg_have_to_play(player)
     decl_str = ""
-    #p command_decl_avail
     if player == @player_on_gui[:player]
       @log.debug("player #{player.name} have to play")
       if @predifined_game
@@ -1449,7 +1445,6 @@ class SpazzinoGfx < BaseEngineGfx
     log "Tocca a: #{player.name}."
     if player == @player_on_gui[:player]
       @player_on_gui[:can_play] = true
-       log "#{player.name} comandi: #{decl_str}" if command_decl_avail.size > 0
     else
       @player_on_gui[:can_play] = false
     end
@@ -1457,7 +1452,6 @@ class SpazzinoGfx < BaseEngineGfx
       # avoid conflicts with user
       @player_on_gui[:can_play] = false
       # store parameters into a stack
-      @alg_auto_stack.push(command_decl_avail)
       @alg_auto_stack.push(player)
       # trigger autoplay
       @log.debug "Waiting for autoplay..."
@@ -1689,9 +1683,6 @@ if $0 == __FILE__
   spazz_gfx = mainwindow.current_game_gfx
   spazz_gfx.option_gfx[:timeout_autoplay] = 50
   spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
-  
-  mainwindow.start_new_game
-  
   theApp.run
 end
  

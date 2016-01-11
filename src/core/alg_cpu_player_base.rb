@@ -41,8 +41,12 @@ class AlgCpuPlayerBase
   def onalg_player_has_taken(player, cards) end
   def onalg_new_mazziere(player) end
   def onalg_gameinfo(info) end
+  def onalg_have_to_play(player) 
+  end
+  def onalg_have_to_play_with_cmd(player,command_decl_avail)
+  end
 
-  def onalg_have_to_play(player,command_decl_avail) 
+  def do_queued_action_to_core
     if @action_queue.size > 0
       action = @action_queue.slice!(0)
       @log.debug("[Predef] onalg_have_to_play action: #{action.inspect}")
