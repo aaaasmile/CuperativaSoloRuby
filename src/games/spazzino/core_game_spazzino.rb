@@ -100,15 +100,6 @@ class CoreGameSpazzino < CoreGameBase
     @deck_information.cards_on_game.each{|x| @mazzo_gioco << x}
   end
  
-  
-  ###
-  # Log the current deck
-  def dump_curr_deck
-    #str = YAML.dump(@mazzo_gioco)
-    str = @mazzo_gioco.join(",")
-    @log.info("Current deck:\n#{str}")
-  end
- 
   ##
   # Col termine di giocata ci si riferisce al mescolamento delle carte e alla
   # sua distribuzione

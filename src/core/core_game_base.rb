@@ -248,6 +248,12 @@ class CoreGameBase < CoreOnPlayer
     return @deck_information
   end
 
+  def dump_curr_deck
+    #str = YAML.dump(@mazzo_gioco)
+    str = @mazzo_gioco.join(",")
+    @log.info("Current deck:\n#{str}")
+  end
+
   def leave_on_less_players?()
     return true
   end

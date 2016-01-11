@@ -224,14 +224,6 @@ class CoreGameTressette < CoreGameBase
     submit_next_event(:new_giocata)
   end
   
-  ###
-  # Log the current deck
-  def dump_curr_deck
-    #str = YAML.dump(@mazzo_gioco)
-    str = @mazzo_gioco.join(",")
-    @log.info("Current deck:\n#{str}")
-  end
-  
   ##
   # Build deck before shuffle
   def create_deck

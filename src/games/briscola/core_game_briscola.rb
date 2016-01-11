@@ -76,13 +76,6 @@ class CoreGameBriscola < CoreGameBase
     
   end
   
-  ###
-  # Log the current deck
-  def dump_curr_deck
-    #str = YAML.dump(@mazzo_gioco)
-    str = @mazzo_gioco.join(",")
-    @log.info("Current deck:\n#{str}")
-  end
   
   def set_specific_options(options)
     #p options
