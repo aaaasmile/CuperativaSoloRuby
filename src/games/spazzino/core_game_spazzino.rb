@@ -80,7 +80,7 @@ class CoreGameSpazzino < CoreGameBase
   # Set options from external, for example from user using @app_settings
   # options: the cuperativa.app_settings hash
   def set_specific_options(options)
-    if options[:games_opt][@option_core_name]
+    if options[:games_opt] and options[:games_opt][@option_core_name]
       if options[:games_opt][@option_core_name][:target_points]
         @game_opt[:target_points] = options[:games_opt][@option_core_name][:target_points][:val]
       end

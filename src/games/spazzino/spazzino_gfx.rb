@@ -555,7 +555,7 @@ class SpazzinoGfx < BaseEngineGfx
     deck_factor = 2
     num_cards_ondeck = (40 - (players.size * @core_game.num_of_cards_onhandplayer + @initial_cards_on_table)) / deck_factor
     @deck_main = DeckMainGraph.new(@app_owner, self, @font_text_curr[:small], num_cards_ondeck, deck_factor )
-    @deck_main.realgame_num_cards = @core_game.num_cards_on_mazzo
+    @deck_main.realgame_num_cards = @core_game.num_cards_on_deck
     @deck_main.set_resource(:card_opp_img, @image_gfx_resource[:card_opp_img])
     @composite_graph.add_component(:deck_main, @deck_main)
     
@@ -1689,6 +1689,9 @@ if $0 == __FILE__
   spazz_gfx = mainwindow.current_game_gfx
   spazz_gfx.option_gfx[:timeout_autoplay] = 50
   spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  
+  mainwindow.start_new_game
+  
   theApp.run
 end
  

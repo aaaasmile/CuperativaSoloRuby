@@ -183,7 +183,7 @@ class CoreGameBase < CoreOnPlayer
     @log.warn("Ignore specific options")
   end
   
-  def num_cards_on_mazzo
+  def num_cards_on_deck
     return @mazzo_gioco.size
   end
   
@@ -234,11 +234,6 @@ class CoreGameBase < CoreOnPlayer
     return round_players
   end
   
-  ##
-  # Provides a complete card name
-  def nome_carta_completo(lbl_card)
-    return @deck_information.nome_carta_completo(lbl_card)
-  end
   
   def get_card_logical_symb(card_lbl)
     return @deck_information.get_card_logical_symb(card_lbl)
@@ -249,13 +244,8 @@ class CoreGameBase < CoreOnPlayer
   end
 
   def dump_curr_deck
-    #str = YAML.dump(@mazzo_gioco)
     str = @mazzo_gioco.join(",")
     @log.info("Current deck:\n#{str}")
-  end
-
-  def leave_on_less_players?()
-    return true
   end
 
   def is_match_terminated?

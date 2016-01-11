@@ -84,10 +84,6 @@ class CoreGameTressettein4 < CoreGameTressette
       arr_players.delete(old_pl)
     end
   end
-  
-  def leave_on_less_players?()
-    return false
-  end
  
 end#end CoreGameTressettein4
 
