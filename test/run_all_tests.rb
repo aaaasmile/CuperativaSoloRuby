@@ -11,3 +11,5 @@ require 'scopetta/test_core_scopetta'
 require 'spazzino/test_core_spazzino'
 require 'tombolon/test_core_tombolon'
 require 'tressette/test_core_tressette'
+
+require 'inv_controls/unit_test_widget'

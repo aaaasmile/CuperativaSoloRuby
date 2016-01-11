@@ -61,10 +61,10 @@ class Test_mariazza_core < Test::Unit::TestCase
   
   def test_cpu_change7_withcoreblocked
     deck =  RandomManager.new
-  	deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_2c,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_7s,_As',1) #deck fake to test the first hand alg
-  	@core.rnd_mgr = deck
-  	@core.game_opt[:replay_game] = true
-  	player1 = PlayerOnGame.new("Me", nil, :cpu_alg, 0)
+    deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_2c,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_7s,_As',1) #deck fake to test the first hand alg
+    @core.rnd_mgr = deck
+    @core.game_opt[:replay_game] = true
+    player1 = PlayerOnGame.new("Me", nil, :cpu_alg, 0)
     player1.algorithm = AlgCpuMariazza.new(player1, @core, nil)
     player2 = PlayerOnGame.new("Cpu", nil, :cpu_alg, 1)
     player2.algorithm = AlgCpuMariazza.new(player2, @core, nil)
@@ -154,11 +154,11 @@ end #end Test_mariazza_core
 
 if $0 == __FILE__
   # use this file to run only one single test case
-  tester = Test_mariazza_core.new('test_cpu_change7_withcoreblocked')
+  tester = Test_mariazza_core.new('test_match')
   FakeIO.add_a_simple_assert(tester)
   
   tester.setup
   tester.log.outputters << Outputter.stdout
-  tester.test_cpu_change7_withcoreblocked
+  tester.test_match
   exit
 end
