@@ -195,10 +195,6 @@ class CoreGameBase < CoreOnPlayer
     @@NOMI_SYMB
   end
   
-  def is_matchsuitable_forscore?
-    return true
-  end
-  
   ##
   # Provides the player index before the provided
   def player_ix_beforethis(num_players, ix_player)

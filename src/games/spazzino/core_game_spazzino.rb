@@ -599,16 +599,6 @@ class CoreGameSpazzino < CoreGameBase
     return @points_curr_match.to_a.sort{|x,y| y[1] <=> x[1]}
   end
   
-  ##
-  # return true is the current match as a minimun information for score
-  def is_matchsuitable_forscore?
-    tot_points = 0
-    @points_curr_match.each{|v| tot_points += v[1] }
-    if tot_points > 0 or @mano_count > 4
-      return true
-    end
-    return false
-  end
   
   ##
   # Return player  that catch the current mano and also the card played

@@ -64,20 +64,6 @@ class CoreGameBriscola < CoreGameBase
     load_game_info(File.dirname(__FILE__))
   end
   
- 
-  
-  
-  ##
-  # return true is the current match as a minimun information for score
-  def is_matchsuitable_forscore?
-    tot_segni = 0
-    @segni_curr_match.each_value{|v| tot_segni += v }
-    if tot_segni > 0 or @mano_count > 3
-      return true
-    end
-    return false
-  end
-  
   ##
   # Build deck before shuffle
   def create_deck
