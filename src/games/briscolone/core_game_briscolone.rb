@@ -17,7 +17,7 @@ class CoreGameBriscolone < CoreGameBriscola
     load_game_info(File.dirname(__FILE__))
   end
   
-  def new_giocata_distribuite_cards
+  def new_giocata_distribute_cards
     # distribuite card to each player
     carte_player = []
     @round_players.each do |player|

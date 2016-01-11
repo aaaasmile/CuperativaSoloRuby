@@ -118,13 +118,13 @@ class CoreGameBriscola < CoreGameBase
     @game_core_recorder.store_new_giocata(@mazzo_gioco, first_player_ix) if @game_opt[:record_game]
     dump_curr_deck
     
-    new_giocata_distribuite_cards
+    new_giocata_distribute_cards
     
     @log.debug "new_giocata END"
     @player_input_hdl.block_end
   end
   
-  def new_giocata_distribuite_cards
+  def new_giocata_distribute_cards
     # distribuite card to each player
     carte_player = []
     briscola = @mazzo_gioco.pop 

@@ -20,7 +20,7 @@ class CoreGameBriscola5 < CoreGameBriscola
     # NOTE: @briscola_in_tav_lbl  => called card
   end
   
-  def new_giocata_distribuite_cards
+  def new_giocata_distribute_cards
     # distribuite card to each player
     carte_player = []
     #briscola = @mazzo_gioco.pop 
