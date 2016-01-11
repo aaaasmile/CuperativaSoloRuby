@@ -522,24 +522,7 @@ class CoreGameBriscola < CoreGameBase
     
     submit_next_event(:match_end)
   end
-  
-  ##
-  # Notification player change his card with the card on table that define briscola
-  # Only the 7 of briscola is allowed to make this change
-  def alg_player_change_briscola(player, card_briscola, card_on_hand )
-    return if super(player, card_briscola, card_on_hand )
-    @log.error("alg_player_change_briscola not supported ")
-    return :not_allowed
-  end
-  
-  ##
-  # Notification player has make a declaration
-  # name_decl: name of mariazza declaration defined in @mariazze_def (e.g. :mar_den)
-  def alg_player_declare(player, name_decl)
-    return if super(player, name_decl)
-    @log.error("alg_player_declare not supported")
-    return :not_allowed
-  end
+
   
   ##
   # Notification player has played a card

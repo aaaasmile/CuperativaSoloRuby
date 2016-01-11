@@ -243,7 +243,7 @@ class CoreGameMariazza < CoreGameBriscola
   # Notification player change his card with the card on table that defines briscola
   # Only the 7 of briscola is allowed to make this change
   def alg_player_change_briscola(player, card_briscola, card_on_hand )
-    return if super_alg_player_change_briscola(player, card_briscola, card_on_hand)
+    return :allowed if super_alg_player_change_briscola(player, card_briscola, card_on_hand)
     @log.debug "alg_player_change_briscola #{player.name}"
     if @segno_state == :end
       return :not_allowed
@@ -286,6 +286,7 @@ class CoreGameMariazza < CoreGameBriscola
     end
     if res == :not_allowed
       @log.info "Changing #{card_briscola} with #{card_on_hand} not allowed from player #{player.name}"
+      player.algorithm.onalg_player_change_brisc_notallowed if player.algorithm.respond_to?(:onalg_player_change_brisc_notallowed)
     else
       @log.debug "Change ok"
     end 

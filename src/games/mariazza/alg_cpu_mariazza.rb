@@ -159,7 +159,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
           @log.debug "#{@alg_player.name} alg_player_change_briscola #{cmd_change_brisc_def[:briscola]} with #{cmd_change_brisc_def[:on_hand]}"
           return
         else
-          @log.debug "Change briscola not allowed? #{cmd_change_brisc_def.inspect}"
+          raise "Change briscola not allowed? #{cmd_change_brisc_def.inspect}"
         end
       else
         # mariazza declaration
@@ -467,10 +467,6 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     return min_list
   end
   
-  
-  
-  
-  
   ##
   # Algorithm pick up a new card
   # carte_player: card picked from deck
@@ -496,6 +492,11 @@ class AlgCpuMariazza < AlgCpuPlayerBase
 
   def onalg_player_cardsnot_allowed(player, cards)
     @log.error("Player #{player.name} has played an invalid cards #{cards}")
+    raise "Mariazza Algorithm is buggy, please fix me."
+  end
+
+  def onalg_player_change_brisc_notallowed(player, card_briscola, card_on_hand)
+    @log.error("Player #{player.name} has tried to change birscola #{card_briscola} with #{card_on_hand}, but it is not allowed")
     raise "Mariazza Algorithm is buggy, please fix me."
   end
 

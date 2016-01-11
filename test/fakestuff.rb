@@ -92,7 +92,7 @@ class FakeIO < IO
   
   # When you use an unit test class, the assert_equal funtion is missed. Add a simple assert implementation.
   def self.add_a_simple_assert(unit_test_class)
-    str = "def unit_test_class.assert_equal(expected, actual, message=nil) res = expected == actual ? \"OK\" : \"FAILED \#{expected} but it is \#{actual}\"; @log.debug res; end"
+    str = "def unit_test_class.assert_equal(expected, actual, message=nil) res = expected == actual ? \"OK\" : \"FAILED \#{expected} but it is \#{actual}\"; @log.debug res;  end"
   	eval(str)
   end
   
