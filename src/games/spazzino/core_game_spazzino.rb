@@ -80,7 +80,7 @@ class CoreGameSpazzino < CoreGameBase
   # Set options from external, for example from user using @app_settings
   # options: the cuperativa.app_settings hash
   def set_specific_options(options)
-    if options[:games_opt] and options[:games_opt][@option_core_name]
+    if options[:games_opt][@option_core_name]
       if options[:games_opt][@option_core_name][:target_points]
         @game_opt[:target_points] = options[:games_opt][@option_core_name][:target_points][:val]
       end
@@ -665,7 +665,7 @@ class CoreGameSpazzino < CoreGameBase
       @log.warn "01Card #{arr_lbl_card.join(",")} not allowed  from player #{player.name} because giocata end"
       #player.algorithm.onalg_player_cardsnot_allowed(player, arr_lbl_card)
       @card_played_erronous = {:player => player, :arr_lbl_card => arr_lbl_card}
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
       return :not_allowed
     end
     arr_lbl_card.delete(nil)
@@ -674,7 +674,7 @@ class CoreGameSpazzino < CoreGameBase
       @log.warn "02Card #{arr_lbl_card.join(",")} not allowed to be played from player #{player.name}"
       #player.algorithm.onalg_player_cardsnot_allowed(player, arr_lbl_card)
       @card_played_erronous = {:player => player, :arr_lbl_card => arr_lbl_card}
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
       return :not_allowed
     end
     #p arr_lbl_card
@@ -750,7 +750,7 @@ class CoreGameSpazzino < CoreGameBase
       @log.warn "03Card #{arr_lbl_card.join(",")} not allowed to be played from player #{player.name}"
       #player.algorithm.onalg_player_cardsnot_allowed(player, arr_lbl_card)
       @card_played_erronous = {:player => player, :arr_lbl_card => arr_lbl_card}
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
     end 
  
     return res
@@ -765,7 +765,7 @@ class CoreGameSpazzino < CoreGameBase
     submit_next_event(:mano_end)
   end
   
-  def card_played_is_erronous
+  def card_played_is_erroneous
     player = @card_played_erronous[:player]
     arr_lbl_card = @card_played_erronous[:arr_lbl_card]
     player.algorithm.onalg_player_cardsnot_allowed(player, arr_lbl_card)

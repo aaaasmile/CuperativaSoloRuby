@@ -152,7 +152,7 @@ class CoreGameTressette < CoreGameBase
     end
     
     if res == :not_allowed
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
       return res
     end 
     
@@ -173,7 +173,7 @@ class CoreGameTressette < CoreGameBase
     submit_next_event(:continua_mano)
   end
   
-  def card_played_is_erronous
+  def card_played_is_erroneous
     player = @carta_giocata_sbagliata[:player]
     lbl_card = @carta_giocata_sbagliata[:card]
     player.algorithm.onalg_player_cardsnot_allowed(player, [lbl_card])

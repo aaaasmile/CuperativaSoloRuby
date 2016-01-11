@@ -470,7 +470,7 @@ class CoreGameBriscola < CoreGameBase
     @log.debug "alg_player_cardplayed from #{player.name}: #{lbl_card}"
     if @segno_state == :end
       @card_played_error = {:player =>player, :lbl_card =>  lbl_card}
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
       return :not_allowed
     end
     res = :not_allowed
@@ -500,7 +500,7 @@ class CoreGameBriscola < CoreGameBase
     if res == :not_allowed
       @log.warn "alg_player_cardplayed: not played correctly from #{player.name}, card #{lbl_card}. Why...?"
       @card_played_error = {:player =>player, :lbl_card =>  lbl_card}
-      submit_next_event(:card_played_is_erronous)
+      submit_next_event(:card_played_is_erroneous)
     end 
     
     return res
@@ -517,7 +517,7 @@ class CoreGameBriscola < CoreGameBase
     submit_next_event(:continua_mano)
   end
   
-  def card_played_is_erronous
+  def card_played_is_erroneous
     if @card_played_error[:player] != nil and
        @card_played_error[:lbl_card] != nil
       lbl_card = @card_played_error[:lbl_card]
@@ -526,7 +526,7 @@ class CoreGameBriscola < CoreGameBase
       @log.warn "Card #{lbl_card} not allowed to be played from player #{player.name}"
       @card_played_error = {}
     else
-      @log.warn "Card card_played_is_erronous called without info"
+      @log.warn "Card card_played_is_erroneous called without info"
     end
   end
   
