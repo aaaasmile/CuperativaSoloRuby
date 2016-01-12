@@ -234,14 +234,7 @@ class BriscolaGfx < BaseEngineGfx
       if allow == :allowed
         @log.debug "gfx: submit card played #{card.lbl}"
         @sound_manager.play_sound(:play_click4)
-        # on network game we are alway receiving :allowed before response, that
-        # mean the client should be sure that it send a card :allowed
-        # avoid to subit more played cards, just one
-        # if we are on  game that have restriction on card played, e.g. tressette
-        #  we have to check here. Waiting response from server it take too long
         @player_on_gui[:can_play] = false
-        # start card played animation
-        start_guiplayer_card_played_animation( @player_on_gui[:player], card.lbl)
         return # card clicked  was played correctly
       end
     end
@@ -935,6 +928,7 @@ class BriscolaGfx < BaseEngineGfx
     if player == @player_on_gui[:player]
       if @option_gfx[:autoplayer_gfx]
         @player_on_gui[:can_play] = false
+        @player_on_gui[:ani_card_played_is_starting] = true
         @alg_auto_player.onalg_have_to_play(player)
       else
         @player_on_gui[:can_play] = true
@@ -974,6 +968,7 @@ class BriscolaGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
+      start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card)
       if @player_on_gui[:ani_card_played_is_starting] == true
         # suspend core processing because we want to wait end of animation
         @core_game.suspend_proc_gevents
@@ -1034,7 +1029,7 @@ if $0 == __FILE__
   testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []
