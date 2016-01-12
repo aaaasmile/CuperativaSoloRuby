@@ -89,8 +89,6 @@ class BriscolaGfx < BaseEngineGfx
     @canvas_end_color = Fox.FXRGB(128, 128, 128)
     # algorithm for autoplay on gfx
     @alg_auto_player = nil
-    # stack for autoplay function
-    @alg_auto_stack = [] 
     # points shower
     @points_image = nil
     # gfx elements (widget) stored on each player    
@@ -692,28 +690,62 @@ class BriscolaGfx < BaseEngineGfx
   end
   
   ##
-  # Play automatically
-  def onTimeoutHaveToPLay
-    @log.debug("gfx: onTimeoutHaveToPLay")
-    if @state_gfx == :on_game
-      #only if we are on game 
-      player = @alg_auto_stack.pop
-      @alg_auto_player.onalg_have_to_play(player)
-    end
-    # restore event process
-    @core_game.continue_process_events if @core_game
-  end
-  
-  ##
   # Player on gui played timeout
   def onTimeoutPlayer
     @log.debug("gfx: onTimeoutPlayer")
     @core_game.continue_process_events if @core_game
   end
+
+  def build_deck_on_newgiocata
+    @log.debug "gfx: build_deck_on_newgiocata"
+    @deck_main.build(nil)
+    @deck_main.realgame_num_cards = 40 - 1 -  ( @core_game.num_of_cards_onhandplayer * (@players_on_match.size))  
+  end
   
-  ############### implements methods of AlgCpuPlayerBase
+  def set_briscola_on_deckmain(carte_player)
+    brisc_carte_pl = carte_player[@core_game.num_of_cards_onhandplayer]
+    str_briscola_testo = "Briscola: [#{nome_carta_ita(brisc_carte_pl)}]"
+    log " #{str_briscola_testo}"
+    @deck_main.set_briscola(brisc_carte_pl)
+    # label for briscola name
+    unless @labels_to_disp[:__briscola__]
+      color = Fox.FXRGB(20, 10, 200)
+      lbl_gfx_briscola  =  LabelGfx.new(0,0, "", @font_text_curr[:small], color, false)
+      lbl_gfx_briscola.visible = true
+      @labels_to_disp[:__briscola__] = lbl_gfx_briscola
+    end
+    @labels_to_disp[:__briscola__].text = str_briscola_testo
+    resize_gfxlabel_briscola
+  end
+  
+  def resize_gfxlabel_briscola
+    if @labels_to_disp[:__briscola__]
+      y_lbl =  @model_canvas_gfx.info[:canvas][:height] - 20
+      x_lbl = 20
+      lbl_gfx_created  = @labels_to_disp[:__briscola__]
+      lbl_gfx_created.pos_x = x_lbl
+      lbl_gfx_created.pos_y = y_lbl
+      #@log.debug "gfx: briscola label resized on #{lbl_gfx_created.pos_x}, #{lbl_gfx_created.pos_y}"
+    end
+  end
+
+  ##
+  # Shows a dilogbox for the end of the smazzata
+  def show_smazzata_end(best_pl_points )
+    str = "Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
+    if best_pl_points[0][1] == best_pl_points[1][1]
+      str = "Partita finita in pareggio"
+    end 
+    log str
+   
+    if @option_gfx[:use_dlg_on_core_info]
+      @msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
+    end
+    
+  end
+  
   #############################################
-  #algorithm calls (gfx is a kind of algorithm)
+  #algorithm calls 
   #############################################
    
   ##
@@ -770,39 +802,6 @@ class BriscolaGfx < BaseEngineGfx
     @core_game.suspend_proc_gevents
       
     update_dsp
-  end
-  
-  def build_deck_on_newgiocata
-    @log.debug "gfx: build_deck_on_newgiocata"
-    @deck_main.build(nil)
-    @deck_main.realgame_num_cards = 40 - 1 -  ( @core_game.num_of_cards_onhandplayer * (@players_on_match.size))  
-  end
-  
-  def set_briscola_on_deckmain(carte_player)
-    brisc_carte_pl = carte_player[@core_game.num_of_cards_onhandplayer]
-    str_briscola_testo = "Briscola: [#{nome_carta_ita(brisc_carte_pl)}]"
-    log " #{str_briscola_testo}"
-    @deck_main.set_briscola(brisc_carte_pl)
-    # label for briscola name
-    unless @labels_to_disp[:__briscola__]
-      color = Fox.FXRGB(20, 10, 200)
-      lbl_gfx_briscola  =  LabelGfx.new(0,0, "", @font_text_curr[:small], color, false)
-      lbl_gfx_briscola.visible = true
-      @labels_to_disp[:__briscola__] = lbl_gfx_briscola
-    end
-    @labels_to_disp[:__briscola__].text = str_briscola_testo
-    resize_gfxlabel_briscola
-  end
-  
-  def resize_gfxlabel_briscola
-    if @labels_to_disp[:__briscola__]
-      y_lbl =  @model_canvas_gfx.info[:canvas][:height] - 20
-      x_lbl = 20
-      lbl_gfx_created  = @labels_to_disp[:__briscola__]
-      lbl_gfx_created.pos_x = x_lbl
-      lbl_gfx_created.pos_y = y_lbl
-      #@log.debug "gfx: briscola label resized on #{lbl_gfx_created.pos_x}, #{lbl_gfx_created.pos_y}"
-    end
   end
   
   ##
@@ -896,21 +895,6 @@ class BriscolaGfx < BaseEngineGfx
   end
   
   ##
-  # Shows a dilogbox for the end of the smazzata
-  def show_smazzata_end(best_pl_points )
-    str = "Vince il segno: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
-    if best_pl_points[0][1] == best_pl_points[1][1]
-      str = "Partita finita in pareggio"
-    end 
-    log str
-   
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
-    end
-    
-  end
-  
-  ##
   # Match end notification
   # best_pl_segni: array of pairs name->segni
   # e.g [["rudy", 4], ["zorro", 1]]
@@ -949,16 +933,14 @@ class BriscolaGfx < BaseEngineGfx
     
     log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
-      @player_on_gui[:can_play] = true
+      if @option_gfx[:autoplayer_gfx]
+        @player_on_gui[:can_play] = false
+        @alg_auto_player.onalg_have_to_play(player)
+      else
+        @player_on_gui[:can_play] = true
+      end
     else
       @player_on_gui[:can_play] = false
-    end
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_stack.push(player)
-      # trigger autoplay
-      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
-      # suspend core event process untill timeout
-      @core_game.suspend_proc_gevents
     end
     update_dsp
   end
@@ -1052,6 +1034,7 @@ if $0 == __FILE__
   testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []
