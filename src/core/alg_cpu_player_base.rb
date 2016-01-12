@@ -1,9 +1,10 @@
 #file: alg_cpu_player_base.rb
 
 $:.unshift File.dirname(__FILE__) + '/..'
+$:.unshift File.dirname(__FILE__) 
 
 require 'replay/replay_manager'
-
+require 'mod_simple_event_publisher'
 
 # To check  if all interfaces are right use the test case on Test_Botbase
 # Note: if you change the meaning of members of this interface,
@@ -11,6 +12,8 @@ require 'replay/replay_manager'
 # to redifine NAL_Srv_Algorithm, so better is to implement a new function
 class AlgCpuPlayerBase
   
+  include SimpleEventPublisher
+
   def initialize(player, coregame, gfx)
      # set algorithm player
     @alg_player = player
@@ -22,7 +25,8 @@ class AlgCpuPlayerBase
     @timeout_haveplay = 700
     # actions queue to be replayed
     @action_queue = []
-    
+    # published events
+    @pub_events = {}
   end
   
   def onalg_new_giocata(carte_player) end

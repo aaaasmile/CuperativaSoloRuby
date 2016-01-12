@@ -2,12 +2,12 @@
 
 $:.unshift File.dirname(__FILE__) + '/..'
 
-require 'core/mod_simple_event_handler'
+require 'core/mod_simple_event_publisher'
 
 class InvWidget
   attr_accessor :pos_x, :pos_y,  :visible, :rotated, :z_order, :verbose
   
-  include SimpleEventHandler
+  include SimpleEventPublisher
 
   def initialize(x=0, y=0, w=0, h=0, zord=0, visb=true, rot=false, nameclass="InvWidget")
     @log = Log4r::Logger.new("coregame_log::#{nameclass}")

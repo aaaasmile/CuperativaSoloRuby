@@ -1,6 +1,6 @@
-#file: mod_simple_event_handler.rb
+#file: mod_simple_event_publisher.rb
 
-module SimpleEventHandler
+module SimpleEventPublisher
   
   #NOTE: &block: captures any passed block into that object
   def connect(symbol, handler = nil, &block) 
