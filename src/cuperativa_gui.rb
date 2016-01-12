@@ -594,13 +594,7 @@ class CuperativaGui < FXMainWindow
     @log.debug "Game window is destroyed"
     @singe_game_win = nil
   end
-  
-  ## 
-  # Set a custom deck information. Used for testing code without changing source code
-  def set_custom_deck(deck_info)
-    @app_settings[:custom_deck] = { :deck => deck_info }
-  end
-  
+ 
   ##
   # Initialize current gfx selected. Current gfx is stored
   # into application settings
@@ -740,14 +734,7 @@ if $0 == __FILE__
     nome = ARGV[0]
     mainwindow.login_name = nome
   end
-  # test target, need always stdoutput
-  #mainwindow.corelogger.outputters << Outputter.stdout 
-  # start game using a custom deck
-  #deck =  RandomManager.new
-  #deck.set_predefined_deck('_6b,_Rc,_5d,_5s,_Rb,_7b,_5b,_As,_7c,_4b,_2b,_Cc,_Fc,_Cs,_4d,_Rs,_Rd,_Cb,_Ab,_2c,_Fs,_3b,_Fd,_Ad,_Ac,_3d,_6s,_6c,_7d,_2d,_2s,_6d,_3s,_Fb,_Cd,_4s,_7s,_4c,_3c,_5c',0)
-  #mainwindow.set_custom_deck(deck)
-  # end test a custom deck
-    
+ 
   # Handle interrupts to terminate program gracefully
   theApp.addSignal("SIGINT", mainwindow.method(:onCmdQuit))
 

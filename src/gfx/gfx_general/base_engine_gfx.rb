@@ -517,25 +517,15 @@ class BaseEngineGfx < InvWidget
   ##
   # Initialize a new core game. This depends which option is defined
   def init_core_game(options)
-    if options[:netowk_core_game]
-      # we are on network game, use NAL class for core game
-      @core_game = options[:netowk_core_game]
-      @core_game.set_custom_core( create_instance_core() )
-      @core_game.custom_core.create_deck
-      @log.debug "using network  core game"
-    elsif  options[:custom_deck]
-      @core_game = create_instance_core()
+    @core_game = create_instance_core()
+    @core_game.set_specific_options(options)
+    @log.debug "using local cpu core"
+    if  options[:custom_deck]
       @log.debug "using local cpu core CUSTOM deck"
       @core_game.rnd_mgr = options[:custom_deck][:deck]
       # say to the core we need to use a custom deck
       @core_game.game_opt[:replay_game] = true 
-    else
-      # local game
-      @core_game = create_instance_core()
-      @core_game.set_specific_options(options)
-      @log.debug "using local cpu core"
-      @mnu_salva_part.enable if @mnu_salva_part
-    end
+   end
   end
   
   def update_dsp
