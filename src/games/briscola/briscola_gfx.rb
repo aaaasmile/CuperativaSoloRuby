@@ -274,7 +274,6 @@ class BriscolaGfx < BaseEngineGfx
     @player_on_gui[:mano_ix] += 1
     
     update_dsp
-    #@core_game.suspend_if_noyet_suspendet
   end
   
   ##
