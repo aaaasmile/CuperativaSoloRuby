@@ -1,10 +1,14 @@
 #file: inv_widget.rb
 
+$:.unshift File.dirname(__FILE__) + '/..'
 
+require 'core/mod_simple_event_handler'
 
 class InvWidget
   attr_accessor :pos_x, :pos_y,  :visible, :rotated, :z_order, :verbose
   
+  include SimpleEventHandler
+
   def initialize(x=0, y=0, w=0, h=0, zord=0, visb=true, rot=false, nameclass="InvWidget")
     @log = Log4r::Logger.new("coregame_log::#{nameclass}")
     @pos_x = x       
@@ -15,7 +19,7 @@ class InvWidget
     @width = w
     @height = h
     @map_handler = {} #panel callbacks
-    @widget_events = {} # widget events
+    @pub_events = {} # widget events
     @verbose = false
   end
   
@@ -30,20 +34,6 @@ class InvWidget
       res = call_fn_withargs(@map_handler[symbol], args)
     end
     return res
-  end
-  
-  #NOTE: &block: captures any passed block into that object
-  def connect(symbol, handler = nil, &block) 
-    item = handler != nil ? handler : block
-    return unless item 
-    @widget_events[symbol] = [] unless (@widget_events.has_key?(symbol)) 
-    @widget_events[symbol] << item
-    return item #provided to be used with disconnect
-  end
-  
-  def disconnect(symbol, item) 
-    return unless item and @widget_events[symbol]
-    @widget_events[symbol].delete(item)
   end
   
   def point_is_inside?(x,y)
@@ -71,34 +61,7 @@ private
     @map_handler[symbol] = handler != nil ? handler : block
   end
   
-  def fire_event(ev_symbol, *args)
-    return unless @widget_events.has_key?(ev_symbol)
-    logdebug("Fire event #{ev_symbol}")
-    @widget_events[ev_symbol].each{|item| call_fn_withargs(item, args)}
-  end
   
-  def call_fn_withargs(item, args)
-    res = nil
-    case args.length 
-      when 0
-        res = item.call()
-      when 1  
-        res = item.call(args[0])
-      when 2 
-        res = item.call(args[0], args[1])
-      when 3 
-        res = item.call(args[0], args[1], args[2])
-      when 4
-        res = item.call(args[0], args[1], args[2], args[3])
-      when 5
-        res = item.call(args[0], args[1], args[2], args[3], args[4])
-      when 6
-        res = item.call(args[0], args[1], args[2], args[3], args[4], args[5])
-      else
-        raise "Too many arguments for the event handler"
-      end
-    return res
-  end
   
 end
 
