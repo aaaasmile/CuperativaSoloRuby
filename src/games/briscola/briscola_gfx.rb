@@ -389,7 +389,6 @@ class BriscolaGfx < BaseEngineGfx
     
     # deck
     deck_factor = 2
-    #real_cards_ondeck_num = (40 - 1 - (players.size * @core_game.num_of_cards_onhandplayer))
     real_cards_ondeck_num = get_real_numofcards_indeck_initial(players.size)
     num_gfxcards_ondeck = real_cards_ondeck_num / deck_factor
     num_gfxcards_ondeck += 1 if real_cards_ondeck_num % 2 == 1 # on odd number need to increment deck
@@ -404,23 +403,20 @@ class BriscolaGfx < BaseEngineGfx
     # eventually add other components for inherited games
     add_components_tocompositegraph()
     
-    # we have a dependence with the player gui, we have to create it first
-    players.each do |player_for_sud|
-      if player_for_sud.type == :human_local
-        # local player gui
-        player_for_sud.position = :sud
-        #build_gfx_cards(player_for_sud)
-        @cards_players.build(player_for_sud)
-        player_for_sud.algorithm = self
-        @player_on_gui[:player] = player_for_sud
-        @player_on_gui[:can_play] = false
-        # if autoplayer is enabled, use also an automate instead of human
-        if @option_gfx[:autoplayer_gfx]
-          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
-          @log.debug("Create an automate AlgCpuBriscola for gfx player")
-        end
-        break
-      end 
+    # we have a dependence with the player gui, we need to create it first
+    player_for_sud = players.select{|pl| pl.type == :human_local}.first
+    if player_for_sud
+      # local player gui
+      player_for_sud.position = :sud
+      @cards_players.build(player_for_sud)
+      player_for_sud.algorithm = self
+      @player_on_gui[:player] = player_for_sud
+      @player_on_gui[:can_play] = false
+      # if autoplayer is enabled, use also an automate instead of human
+      if @option_gfx[:autoplayer_gfx]
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+        @log.debug("Create an automate AlgCpuBriscola for gfx player")
+      end
     end
     
     #p players
@@ -1060,7 +1056,7 @@ if $0 == __FILE__
   theApp.create()
   players = []
   players << PlayerOnGame.new('me', nil, :human_local, 0)
-  players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
   testCanvas.init_gfx(BriscolaGfx, players)
   gfx = testCanvas.current_game_gfx

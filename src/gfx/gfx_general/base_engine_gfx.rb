@@ -507,7 +507,6 @@ class BaseEngineGfx < InvWidget
     end
   end
   
-  
   ##
   # Create the core instance
   def create_instance_core
