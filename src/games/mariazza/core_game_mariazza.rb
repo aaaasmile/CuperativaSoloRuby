@@ -235,6 +235,11 @@ class CoreGameMariazza < CoreGameBriscola
     @log.debug "continua_mano END"
     @player_input_hdl.block_end
   end
+
+  def update_segni_score(best_pl_points, nome_gioc_max)
+    @segni_curr_match[nome_gioc_max] += 1
+    @log.debug("Segni score: #{@segni_curr_match.inspect}")
+  end
   
   
   ### Algorithm and GUI notification calls ####################

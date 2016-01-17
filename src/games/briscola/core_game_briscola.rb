@@ -306,17 +306,19 @@ class CoreGameBriscola < CoreGameBase
     # [["rudy", 45], ["zorro", 33], ["alla", 23], ["casa", 10]]
     best_pl_points =  @points_curr_segno.to_a.sort{|x,y| y[1] <=> x[1]}
     nome_gioc_max = best_pl_points[0][0]
-    # increment segni counter
+    update_segni_score(best_pl_points, nome_gioc_max)
+    
+    return best_pl_points
+  end
+ 
+  def update_segni_score(best_pl_points, nome_gioc_max)
     if best_pl_points[0][1] == 60
-      @log.info "Game pareggiato both players with 60 points"
+      @log.info "Game tied both players with 60 points"
     else
       @segni_curr_match[nome_gioc_max] += 1
     end
-    return best_pl_points
   end
-  
-  ##
-  # Segno finito
+
   def giocata_end
     @log.info "giocata_end"
     @segno_state = :end
