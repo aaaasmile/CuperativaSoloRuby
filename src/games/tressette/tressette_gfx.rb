@@ -310,8 +310,8 @@ class TressetteGfx < BaseEngineGfx
   # a new game
   # players: array  of players. Players are PlayerOnGame instance
   # options: hash with game options, @app_settings from cuperativa gui
-  def ntfy_base_gui_start_new_game(players, options)
-    @log.debug "gfx: ntfy_base_gui_start_new_game"
+  def on_gui_start_new_game(players, options)
+    @log.debug "gfx: on_gui_start_new_game"
     @card_reversed_gfx = nil
     @otherplayers_list = []
     @players_on_match = []
@@ -418,9 +418,9 @@ class TressetteGfx < BaseEngineGfx
                           # break this routine
         
     
-    @log.debug "ntfy_base_gui_start_new_game terminated"
+    @log.debug "on_gui_start_new_game terminated"
     
-  end #end ntfy_base_gui_start_new_game
+  end #end on_gui_start_new_game
   
   def build_gui_player_onnewgame(players)
     # we have a dependence with the player gui, we have to create it first

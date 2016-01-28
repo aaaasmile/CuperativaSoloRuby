@@ -472,7 +472,7 @@ class BaseEngineGfx < InvWidget
     load_cards(deck_name)
     
     #call custom game implementation on child view
-    ntfy_base_gui_start_new_game(players, options)
+    on_gui_start_new_game(players, options) if respond_to?(:on_gui_start_new_game)
     
     update_dsp
   end

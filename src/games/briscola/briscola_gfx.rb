@@ -108,7 +108,7 @@ class BriscolaGfx < BaseEngineGfx
     # smazzata end messagebox
     @msgbox_smazzataend = nil
     @log = Log4r::Logger.new("coregame_log::BriscolaGfx") 
-    # NOTE: don't forget to initialize variables also in ntfy_base_gui_start_new_game
+    # NOTE: don't forget to initialize variables also in on_gui_start_new_game
   end
  
   ##
@@ -306,8 +306,8 @@ class BriscolaGfx < BaseEngineGfx
   # a new game
   # players: array  of players. Players are PlayerOnGame instance
   # options: hash with game options, @app_settings from cuperativa gui
-  def ntfy_base_gui_start_new_game(players, options)
-    @log.debug "gfx: ntfy_base_gui_start_new_game"
+  def on_gui_start_new_game(players, options)
+    @log.debug "gfx: on_gui_start_new_game"
     @card_reversed_gfx = nil
     @opponents_list = []
     @players_on_match = []
