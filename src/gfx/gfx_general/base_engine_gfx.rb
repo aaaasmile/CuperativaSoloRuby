@@ -321,11 +321,6 @@ class BaseEngineGfx < InvWidget
     @core_game.process_only_one_gevent if @core_game
   end
   
-  
-  def player_leave(user_name)
-    @log.error "player_leave should be implemented on GFX\n"
-  end
-  
   ##
   # Provides the card image using label definition
   def get_card_image_of(lbl)

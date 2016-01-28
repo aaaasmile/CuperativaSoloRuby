@@ -461,21 +461,6 @@ class SpazzinoGfx < BaseEngineGfx
   end
   
   ##
-  # Player leave the table
-  # This is usually a network notification
-  def player_leave(user_name)
-    # when aplayer leave the game, his label becomes empty
-    lbl_displ_pl = get_player_lbl_symbol(user_name)
-    lbl_gfx = @labels_to_disp[lbl_displ_pl]
-    if lbl_gfx
-      lbl_gfx.text = "(Posto vuoto)"
-      update_dsp
-    else
-      @log.warn("player_leave(GFX) don't have recognized player: #{user_name}")
-    end
-  end
-  
-  ##
   # Player on the table is ready to start a new game
   # This is usually a network notification
   # user_name: player name

@@ -607,15 +607,6 @@ class TressetteGfx < BaseEngineGfx
          :player_positions => [:nord, :sud]})
   end
   
-  ##
-  # Player leave the table
-  # This is usually a network notification
-  def player_leave(user_name)
-    # when player leave the game, his label becomes empty
-    @labels_graph.change_text_label(user_name, "(Posto vuoto)")
-    update_dsp
-  end
-  
   
   def get_real_numofcards_indeck_initial(num_of_players)
     return 40 -  ( @core_game.num_of_cards_onhandplayer * num_of_players)
