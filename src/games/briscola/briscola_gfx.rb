@@ -409,14 +409,6 @@ class BriscolaGfx < BaseEngineGfx
         @opponents_list << player
       elsif player.type == :human_local
         # already done above
-        
-      elsif player.type == :human_remote
-        player.position = pos_names.pop
-        # create cards gfx for the player
-        @cards_players.build(player)
-        # don't need alg, only label
-        player.algorithm = nil
-        @opponents_list << player   
       end
       # create the label for the player
       build_gfxlabel_player(player_label, player.type)

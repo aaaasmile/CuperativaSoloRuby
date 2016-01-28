@@ -10,7 +10,7 @@ class PlayerOnGame
     @name = nome
     # algoritmo di gioco
     @algorithm = alg
-    @type =  tipo# :human_local, :human_remote, :cpu_local
+    @type =  tipo# :human_local, :cpu_local
     @position = pos
   end
    

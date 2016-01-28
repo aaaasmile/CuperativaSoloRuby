@@ -587,13 +587,6 @@ class SpazzinoGfx < BaseEngineGfx
         @opponents_list << player
       elsif player.type == :human_local
         # already done above
-        
-      elsif player.type == :human_remote
-        player.position = pos_names.pop
-        @cards_players.build(player)
-        # don't need alg, only label
-        player.algorithm = nil
-        @opponents_list << player   
       end
       # create the label for the player
       build_gfxlabel_player(player_label, player.type)

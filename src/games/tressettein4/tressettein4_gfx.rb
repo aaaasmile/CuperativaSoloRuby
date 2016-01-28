@@ -63,11 +63,6 @@ class Tressettein4Gfx < TressetteGfx
         player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
       elsif player.type == :human_local
         # already done above
-        
-      elsif player.type == :human_remote
-        player.position = pos_names.pop
-        # don't need alg, only label
-        player.algorithm = nil 
       end
       
       if player.position == :est ### EST
