@@ -72,4 +72,11 @@ class AlgCpuPlayerBase
     return card
   end
 
+  def inform_core_cardplayed(card)
+    #card = play_like_a_master
+    # notify card played to core game
+    @log.error "No cards on hand - programming error" unless card
+    @core_game.alg_player_cardplayed(@alg_player, card)
+  end
+
 end

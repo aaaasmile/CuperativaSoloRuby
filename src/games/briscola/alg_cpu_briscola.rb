@@ -117,10 +117,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
       else
         card = play_like_a_dummy
     end
-    #card = play_like_a_master
-    # notify card played to core game
-    @log.error "No cards on hand - programming error" unless card
-    @core_game.alg_player_cardplayed(@alg_player, card)
+    inform_core_cardplayed(card)
   end
   
   def play_from_predef_stack

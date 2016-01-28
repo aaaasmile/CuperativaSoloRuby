@@ -1,0 +1,10 @@
+== move_to_inv_branch
+
+In briscola_gx player_for_sud.algorithm = self deve diventare qualcosa come 
+player_for_sud.algorithm = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+invece di self, qualcosa come :Hmi per il giocatore locale sulla ui, oppure :cpu per il giocatore automatico.
+La dipendenza self non ci deve essere.
+L'algoritmo di base implementa il modulo SimpleEventPublisher e quindi deve inviare tutti gli eventi che riceve, vale a dire i vari
+onalg_have_to_play, onalg_manoend e compagnia
+poi deve implementare un paio di funzioni che comunichino con il core con giocate provenienti dall UI. Tipo inform_core_cardplayed.
+A questo punto UI può mostrare sia l'aspetto del giocatore a sud che quello a nord, indipendentemente che sia un cpu o human.
