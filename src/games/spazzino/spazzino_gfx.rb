@@ -552,25 +552,14 @@ class SpazzinoGfx < BaseEngineGfx
     # eventually add other components for inherited games
     add_components_tocompositegraph()
     
-    
     # we have a dependence with the player gui, we have to create it first
-    players.each do |player_for_sud|
-      if player_for_sud.type == :human_local
-        # local player gui
-        player_for_sud.position = :sud
-        @cards_players.build(player_for_sud)
-        player_for_sud.algorithm = self
-        @player_on_gui[:player] = player_for_sud
-        @player_on_gui[:can_play] = false
-        # check autoplayer is enabled, use also an automate instead of human
-        if @option_gfx[:autoplayer_gfx]
-          # autoplayer
-          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
-          @log.debug("Create an automate for gfx player #{@algorithm_name}")
-        end
-        break
-      end 
+    player_for_sud = build_player_sud(players)
+    if player_for_sud
+      player_for_sud.algorithm.connect(:EV_onalg_new_mazziere, method(:onalg_new_mazziere))
+      player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
+      player_for_sud.algorithm.connect(:EV_onalg_player_has_taken, method(:onalg_player_has_taken))
     end
+    
     
     #p players
     # set players algorithm
@@ -1461,13 +1450,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     return nil
   end
-  
-  ##
-  # Player has changed the briscola on table with a 7
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
+ 
   ##
   # Player has played a card not allowed
   def onalg_player_cardsnot_allowed(player, cards)
@@ -1579,17 +1562,7 @@ class SpazzinoGfx < BaseEngineGfx
     @log.debug "gfx: animation end card taken"
     registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
   end
-  
-  def onalg_player_has_declared(player, name_decl, points)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
-  ##
-  # Player has become points. This usally when he has declared a mariazza 
-  # as a second player 
-  def onalg_player_has_getpoints(player,  points)
-    @log.error("onalg_player_has_declared not supported")
-  end
+ 
   
   ##
   # Calculate the round distribution cards. mazziere_player is a mazziere player.
@@ -1641,26 +1614,27 @@ if $0 == __FILE__
   players << PlayerOnGame.new('igor060', nil, :human_local, 0)
   players << PlayerOnGame.new('drina', nil, :cpu_local, 0)
   
-  # lets try to set move of the algorithm like a saved game
-  # from yaml we are using smazzata info, deck , first player (implicit mazziere) and :players
-  # ATTENZIONE: ho impostato il replay di una partita con un bug. Quindi 
-  # va a finire che a un certo punto la partita si blocca (alg predefined).
-  #mainwindow.app_settings["cpualgo"][:predefined] = true
+  ## lets try to set move of the algorithm like a saved game
+  ## from yaml we are using smazzata info, deck , first player (implicit mazziere) and :players
+  ## ATTENZIONE: ho impostato il replay di una partita con un bug. Quindi 
+  ## va a finire che a un certo punto la partita si blocca (alg predefined).
+  ##mainwindow.app_settings["cpualgo"][:predefined] = true
   
-  yamlgame = 's12_gc1_2008_12_02_22_26_03-savedmatch.yaml'
-  savedgame = File.dirname(__FILE__) + '/../../../test/spazzino/saved_games/' + yamlgame
-  savedgame = File.expand_path(savedgame)
-  mainwindow.app_settings["cpualgo"][:saved_game] = savedgame
-  mainwindow.app_settings["cpualgo"][:giocata_num] = 0
-  mainwindow.app_settings["cpualgo"][:player_name] = 'drina'
-  mainwindow.app_settings["cpualgo"][:player_name_gui] = 'igor060'
-  mainwindow.app_settings["games"][:spazzino_game] = {:target_points => 4}
+  #yamlgame = 's12_gc1_2008_12_02_22_26_03-savedmatch.yaml'
+  #savedgame = File.dirname(__FILE__) + '/../../../test/spazzino/saved_games/' + yamlgame
+  #savedgame = File.expand_path(savedgame)
+  #mainwindow.app_settings["cpualgo"][:saved_game] = savedgame
+  #mainwindow.app_settings["cpualgo"][:giocata_num] = 0
+  #mainwindow.app_settings["cpualgo"][:player_name] = 'drina'
+  #mainwindow.app_settings["cpualgo"][:player_name_gui] = 'igor060'
+  #mainwindow.app_settings["games"][:spazzino_game] = {:target_points => 4}
   
   #mainwindow.app_settings["auto_gfx"] = true
   mainwindow.init_gfx(SpazzinoGfx, players)
   spazz_gfx = mainwindow.current_game_gfx
   spazz_gfx.option_gfx[:timeout_autoplay] = 50
   spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  mainwindow.start_new_game
   theApp.run
 end
  

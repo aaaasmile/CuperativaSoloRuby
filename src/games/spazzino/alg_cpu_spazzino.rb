@@ -18,7 +18,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout=nil)
     super(player, coregame, reg_timeout)
     # logger
     @log = Log4r::Logger["coregame_log"]
@@ -51,13 +51,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
     @num_cards_on_hand = 3
     @log = Log4r::Logger.new("coregame_log::AlgCpuSpazzino") 
   end
-  
-  ##
-  # Briscola was changed
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
-    @log.error("onalg_player_has_changed_brisc: not exist")
-  end
-  
+ 
   ##
   # Collect actions to be used on predifined game
   def collect_predifined_actions(curr_smazzata, name)
@@ -94,6 +88,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
       @points_segno[pl.name] = 0
     end 
     @log.info "ALG:#{@alg_player.name} cards: #{str_card} table: #{str_table}"
+    super
   end
   
   
@@ -184,6 +179,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
       raise "ERROR onalg_pesca_carta: #{@cards_on_hand}"
     end
     @num_cards_on_deck -= (carte_player.size *  @players.size)   
+    super
   end
   
   def onalg_player_has_played(player, card)
@@ -195,20 +191,14 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
       @cards_on_hand.delete(card[0])
       #p @cards_on_hand
     end
+    super
   end
   
   def onalg_player_cardsnot_allowed(player, arr_lbl_card)
     @log.error("ERROR programming: #{arr_lbl_card} is not allowed to be played")
+    super
   end
-  
-  def onalg_player_has_declared(player, name_decl, points)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
-  def onalg_player_has_getpoints(player, points)
-    #@points_segno[player.name] +=  points
-    @log.error("onalg_player_has_getpoints not supported")
-  end
+
   
   def onalg_new_match(players)
     @opp_names = []
@@ -235,6 +225,7 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
     end
     #p @opp_names
     #p @team_mates.size
+    super
   end
   
   ##
@@ -263,13 +254,15 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
   def onalg_newmano(table_player_info)
     @card_played = []
     @table_cards =  table_player_info[1]
+    super
   end
   
   def onalg_manoend(player_best, dummy, point_events) 
-    
+    super
   end
   
   def onalg_player_has_taken(player, arr_lbl_card)
+    super
   end
   
 end #end AlgCpuSapzzino
