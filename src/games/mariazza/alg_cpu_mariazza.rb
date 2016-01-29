@@ -119,14 +119,14 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       return if do_queued_action_to_core
 
       @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      if @gfx_res
+      if @registerTimeout
         if @alg_is_waiting == true
           # we still wait for time out
           return
         end
         @alg_is_waiting = true
         @command_decl_avail = command_decl_avail
-        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
+        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
         # this is used to slow down the algorithm play
         @core_game.suspend_proc_gevents

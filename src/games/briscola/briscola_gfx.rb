@@ -389,7 +389,7 @@ class BriscolaGfx < BaseEngineGfx
       @player_on_gui[:can_play] = false
       # if autoplayer is enabled, use also an automate instead of human
       if @option_gfx[:autoplayer_gfx]
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
         @log.debug("Create an automate AlgCpuBriscola for gfx player")
       end
     end
@@ -405,7 +405,7 @@ class BriscolaGfx < BaseEngineGfx
         player.position = pos_names.pop
         # create cards gfx for the player
         @cards_players.build(player)
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, method(:registerTimeout))
         @opponents_list << player
       elsif player.type == :human_local
         # already done above

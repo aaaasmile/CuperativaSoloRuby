@@ -14,13 +14,13 @@ class AlgCpuPlayerBase
   
   include SimpleEventPublisher
 
-  def initialize(player, coregame, gfx)
+  def initialize(player, coregame, reg_timeout)
      # set algorithm player
     @alg_player = player
     # core game
     @core_game = coregame
-    # game gfx
-    @gfx_res = gfx
+    # registerTimeout method
+    @registerTimeout = reg_timeout
     #delay before play 
     @timeout_haveplay = 700
     # actions queue to be replayed

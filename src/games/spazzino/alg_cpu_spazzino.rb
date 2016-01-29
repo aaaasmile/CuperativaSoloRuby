@@ -102,8 +102,8 @@ class AlgCpuSpazzino < AlgCpuPlayerBase
     cards = []
     @log.debug("onalg_have_to_play cpu alg: #{player.name}")
     if player == @alg_player
-      if @gfx_res
-        @gfx_res.registerTimeout(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
+      if @registerTimeout
+        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
         # this is used to sloow down the algorithm play
         @core_game.suspend_proc_gevents
