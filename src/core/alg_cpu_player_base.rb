@@ -29,30 +29,61 @@ class AlgCpuPlayerBase
     @pub_events = {}
   end
   
-  def onalg_new_giocata(carte_player) end
-  def onalg_new_match(players) end
-  def onalg_newmano(player) end
-  def onalg_player_has_played(player, card) end
-  def onalg_player_has_declared(player, name_decl, points) end
-  def onalg_pesca_carta(carte_player) end
-  def onalg_player_pickcards(player, cards_arr) end
-  def onalg_manoend(player_best, carte_prese_mano, punti_presi) end
-  def onalg_giocataend(best_pl_points) end
-  def onalg_game_end(best_pl_segni) end
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand) end
-  def onalg_player_has_getpoints(player, points) end
-  def onalg_player_cardsnot_allowed(player, cards) end
-  def onalg_player_has_taken(player, cards) end
-  def onalg_new_mazziere(player) end
-  def onalg_gameinfo(info) end
- 
-  def onalg_have_to_play_with_cmd(player,command_decl_avail)
-  end
+  ## Core callbacks
 
-  ##
-  # Algorithm have to play
+  def onalg_new_match(players)
+    fire_event(:EV_onalg_new_match, players) 
+  end
+  def onalg_game_end(best_pl_segni) 
+    fire_event(:EV_onalg_game_end, best_pl_segni)
+  end
+  def onalg_new_giocata(carte_player) 
+    fire_event(:EV_onalg_new_giocata, carte_player)
+  end
+  def onalg_giocataend(best_pl_points)
+    fire_event(:EV_onalg_giocataend, best_pl_points) 
+  end
+  def onalg_newmano(player) 
+    fire_event(:EV_onalg_newmano, player)
+  end
+  def onalg_manoend(player_best, carte_prese_mano, punti_presi)
+    fire_event(:EV_onalg_manoend, player_best, carte_prese_mano, punti_presi) 
+  end
+  def onalg_player_has_played(player, card) 
+    fire_event(:EV_onalg_player_has_played, player, card)
+  end
+  def onalg_player_has_declared(player, name_decl, points) 
+    fire_event(:EV_onalg_player_has_declared, player, name_decl, points)
+  end
+  def onalg_pesca_carta(carte_player) 
+    fire_event(:EV_onalg_pesca_carta, carte_player)
+  end
+  def onalg_player_pickcards(player, cards_arr)
+    fire_event(:EV_onalg_player_pickcards, player, cards_arr) 
+  end
+  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand) 
+    fire_event(:EV_onalg_player_has_changed_brisc, player, card_briscola, card_on_hand)
+  end
+  def onalg_player_has_getpoints(player, points) 
+    fire_event(:EV_onalg_player_has_getpoints, player, points)
+  end
+  def onalg_player_cardsnot_allowed(player, cards) 
+    fire_event(:EV_onalg_player_cardsnot_allowed, player, cards)
+  end
+  def onalg_player_has_taken(player, cards) 
+    fire_event(:EV_onalg_player_has_taken, player, cards)
+  end
+  def onalg_new_mazziere(player) 
+    fire_event(:EV_onalg_new_mazziere, player)
+  end
+  def onalg_gameinfo(info) 
+    fire_event(:EV_onalg_gameinfo, info)
+  end
+  def onalg_have_to_play_with_cmd(player, command_decl_avail)
+    fire_event(:EV_onalg_have_to_play_with_cmd, player, command_decl_avail)
+  end
   def onalg_have_to_play(player)
-    if player == @alg_player
+    if player == @alg_player && @alg_player.type != :human_local
       if @registerTimeout
         @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
@@ -64,9 +95,12 @@ class AlgCpuPlayerBase
         alg_play_acard
       end
       # continue on onTimeoutHaveToPlay
-    end 
+    end
+    fire_event(:EV_onalg_have_to_play, player) 
   end
   
+  ###### Other stuff
+
   ##
   # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
   def onTimeoutAlgorithmHaveToPlay

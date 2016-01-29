@@ -47,4 +47,6 @@ module SimpleEventPublisher
     return res
   end
   
+  def logdebug(str)
+  end
 end

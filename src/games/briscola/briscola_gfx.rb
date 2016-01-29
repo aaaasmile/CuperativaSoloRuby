@@ -384,7 +384,19 @@ class BriscolaGfx < BaseEngineGfx
       # local player gui
       player_for_sud.position = :sud
       @cards_players.build(player_for_sud)
-      player_for_sud.algorithm = self
+      alg_player_sud = eval(@algorithm_name).new(player_for_sud, @core_game)
+      player_for_sud.algorithm = alg_player_sud
+      alg_player_sud.connect(:EV_onalg_new_match, method(:onalg_new_match))
+      alg_player_sud.connect(:EV_onalg_new_giocata, method(:onalg_new_giocata))
+      alg_player_sud.connect(:EV_onalg_newmano, method(:onalg_newmano))
+      alg_player_sud.connect(:EV_onalg_manoend, method(:onalg_manoend))
+      alg_player_sud.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
+      alg_player_sud.connect(:EV_onalg_giocataend, method(:onalg_giocataend))
+      alg_player_sud.connect(:EV_onalg_game_end, method(:onalg_game_end))
+      alg_player_sud.connect(:EV_onalg_have_to_play, method(:onalg_have_to_play))
+      alg_player_sud.connect(:EV_onalg_player_cardsnot_allowed, method(:onalg_player_cardsnot_allowed))
+      alg_player_sud.connect(:EV_onalg_player_has_played, method(:onalg_player_has_played))
+
       @player_on_gui[:player] = player_for_sud
       @player_on_gui[:can_play] = false
       # if autoplayer is enabled, use also an automate instead of human
@@ -1005,7 +1017,7 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []

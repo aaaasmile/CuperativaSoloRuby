@@ -18,7 +18,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout = nil)
     super(player, coregame, reg_timeout)
     # logger
     @log = Log4r::Logger.new("coregame_log::AlgCpuBriscola")
@@ -50,11 +50,6 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     @predef_stack = []
   end
   
-  ##
-  # Briscola was changed
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
-    @log.error("onalg_player_has_changed_brisc: not exist")
-  end
   
   ##
   # Alg is on new giocata. carte_player is an array with all cards for player
@@ -77,9 +72,8 @@ class AlgCpuBriscola < AlgCpuPlayerBase
       @points_segno[pl.name] = 0
     end 
     @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
+    super
   end
-  
-  
   
   ##
   # Algorithm is going to play a card
@@ -381,6 +375,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     @log.info "Algorithm card picked #{carte_player.first}"
     @cards_on_hand << carte_player.first 
     @num_cards_on_deck -= @players.size   
+    super
   end
   
   def onalg_player_has_played(player, card)
@@ -394,16 +389,9 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     if card_s[1] == "A"[0] or card_s[1] == "3"[0]
       @strozzi_on_suite[segno] -= 1
     end
+    super
   end
-  
-  def onalg_player_has_declared(player, name_decl, points)
-    @log.error("onalg_player_has_declared not supported")
-  end
-  
-  def onalg_player_has_getpoints(player, points)
-    #@points_segno[player.name] +=  points
-    @log.error("onalg_player_has_getpoints not supported")
-  end
+
   
   def onalg_new_match(players)
     @log.info("New match, playing level #{@level_alg}, players #{players.size}")
@@ -430,6 +418,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     end
     #p @opp_names
     #p @team_mates.size
+    super
   end
   
   ##
@@ -455,10 +444,12 @@ class AlgCpuBriscola < AlgCpuPlayerBase
   
   def onalg_newmano(player)
     @card_played = [] 
+    super
   end
   
   def onalg_manoend(player_best, carte_prese_mano, punti_presi) 
     @points_segno[player_best.name] +=  punti_presi
+    super
   end
   
 end #end AlgCpuBriscola
