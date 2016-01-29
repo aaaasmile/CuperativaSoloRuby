@@ -10,8 +10,8 @@ require 'tressette/alg_cpu_tressette'
 class AlgCpuTressettein4 < AlgCpuTressette
   attr_accessor :level_alg, :alg_player
   
-  def initialize(player, coregame, game_wnd)
-    super(player, coregame, game_wnd)
+  def initialize(player, coregame, reg_timeout)
+    super(player, coregame, reg_timeout)
     @log = Log4r::Logger.new("coregame_log::AlgCpuTressettein4") 
     @log.debug "Created."
   end

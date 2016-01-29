@@ -18,8 +18,8 @@ class AlgCpuBriscolone < AlgCpuBriscola
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, cup_gui)
-    super
+  def initialize(player, coregame, reg_timeout)
+    super(player, coregame, reg_timeout)
   end
   
   def onalg_new_giocata(carte_player)
