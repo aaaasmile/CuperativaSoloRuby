@@ -379,31 +379,9 @@ class BriscolaGfx < BaseEngineGfx
     add_components_tocompositegraph()
     
     # we have a dependence with the player gui, we need to create it first
-    player_for_sud = players.select{|pl| pl.type == :human_local}.first
+    player_for_sud = build_player_sud(players)
     if player_for_sud
-      # local player gui
-      player_for_sud.position = :sud
-      @cards_players.build(player_for_sud)
-      alg_player_sud = eval(@algorithm_name).new(player_for_sud, @core_game)
-      player_for_sud.algorithm = alg_player_sud
-      alg_player_sud.connect(:EV_onalg_new_match, method(:onalg_new_match))
-      alg_player_sud.connect(:EV_onalg_new_giocata, method(:onalg_new_giocata))
-      alg_player_sud.connect(:EV_onalg_newmano, method(:onalg_newmano))
-      alg_player_sud.connect(:EV_onalg_manoend, method(:onalg_manoend))
-      alg_player_sud.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
-      alg_player_sud.connect(:EV_onalg_giocataend, method(:onalg_giocataend))
-      alg_player_sud.connect(:EV_onalg_game_end, method(:onalg_game_end))
-      alg_player_sud.connect(:EV_onalg_have_to_play, method(:onalg_have_to_play))
-      alg_player_sud.connect(:EV_onalg_player_cardsnot_allowed, method(:onalg_player_cardsnot_allowed))
-      alg_player_sud.connect(:EV_onalg_player_has_played, method(:onalg_player_has_played))
-
-      @player_on_gui[:player] = player_for_sud
-      @player_on_gui[:can_play] = false
-      # if autoplayer is enabled, use also an automate instead of human
-      if @option_gfx[:autoplayer_gfx]
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
-        @log.debug("Create an automate AlgCpuBriscola for gfx player")
-      end
+      player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
     end
     
     #p players

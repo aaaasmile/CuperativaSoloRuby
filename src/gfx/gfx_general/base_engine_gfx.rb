@@ -95,7 +95,7 @@ class BaseEngineGfx < InvWidget
     @timeout_cb[:notifier] = nil
     if @core_game
       time_name = Time.now.strftime("%Y_%m_%d_%H_%M_%S")
-	    fname = File.join(ResourceInfo.get_dir_savedgames(),  "#{@core_game.game_name}_#{time_name}.yaml")
+      fname = File.join(ResourceInfo.get_dir_savedgames(),  "#{@core_game.game_name}_#{time_name}.yaml")
       @core_game.save_curr_game(fname) 
     end
     @state_gfx = :game_end
@@ -529,6 +529,40 @@ class BaseEngineGfx < InvWidget
   def point_is_inside?(x,y)
     true
   end
+
+  def build_player_sud(players)
+    player_for_sud = players.select{|pl| pl.type == :human_local}.first
+    if !player_for_sud 
+      return nil
+    end
+
+    # local player gui
+    player_for_sud.position = :sud
+    @cards_players.build(player_for_sud)
+    alg_player_sud = eval(@algorithm_name).new(player_for_sud, @core_game)
+    player_for_sud.algorithm = alg_player_sud
+    alg_player_sud.connect(:EV_onalg_new_match, method(:onalg_new_match))
+    alg_player_sud.connect(:EV_onalg_new_giocata, method(:onalg_new_giocata))
+    alg_player_sud.connect(:EV_onalg_newmano, method(:onalg_newmano))
+    alg_player_sud.connect(:EV_onalg_manoend, method(:onalg_manoend))
+    alg_player_sud.connect(:EV_onalg_giocataend, method(:onalg_giocataend))
+    alg_player_sud.connect(:EV_onalg_game_end, method(:onalg_game_end))
+    alg_player_sud.connect(:EV_onalg_have_to_play, method(:onalg_have_to_play))
+    alg_player_sud.connect(:EV_onalg_player_cardsnot_allowed, method(:onalg_player_cardsnot_allowed))
+    alg_player_sud.connect(:EV_onalg_player_has_played, method(:onalg_player_has_played))
+
+    @player_on_gui[:player] = player_for_sud
+    @player_on_gui[:can_play] = false
+    # if autoplayer is enabled, use also an automate instead of human
+    if @option_gfx[:autoplayer_gfx]
+      @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
+      @log.debug("Create an automate AlgCpuBriscola for gfx player")
+    end
+    return player_for_sud
+  end
+
+
+
 end 
 
 
