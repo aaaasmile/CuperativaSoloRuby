@@ -469,7 +469,7 @@ class TressetteGfx < BaseEngineGfx
         @player_on_gui[:index] = ix_player
         #algorithm is used to reuse code to check if a card is valid
         # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
         @log.debug("Create AlgCpuTressette for gfx player")
         break
       end
@@ -523,7 +523,7 @@ class TressetteGfx < BaseEngineGfx
         @player_on_gui[:can_play] = false
         #algorithm is used to reuse code to check if a card is valid
         # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
         @log.debug("Create AlgCpuTressette for gfx player")
         break
       end 
@@ -538,7 +538,7 @@ class TressetteGfx < BaseEngineGfx
       @player_gfx_info[player_label] = {}
       if player.type == :cpu_local
         player.position = pos_names.pop
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, method(:registerTimeout))
       elsif player.type == :human_local
         # already done above
       end

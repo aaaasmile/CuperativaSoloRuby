@@ -45,9 +45,34 @@ class AlgCpuPlayerBase
   def onalg_player_has_taken(player, cards) end
   def onalg_new_mazziere(player) end
   def onalg_gameinfo(info) end
-  def onalg_have_to_play(player) 
-  end
+ 
   def onalg_have_to_play_with_cmd(player,command_decl_avail)
+  end
+
+  ##
+  # Algorithm have to play
+  def onalg_have_to_play(player)
+    if player == @alg_player
+      if @registerTimeout
+        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
+        # suspend core event process until timeout
+        # this is used to slow down the algorithm play
+        @core_game.suspend_proc_gevents
+        @log.debug("onalg_have_to_play cpu alg: #{player.name}")
+      else
+        # no wait for gfx stuff, continue immediately to play
+        alg_play_acard
+      end
+      # continue on onTimeoutHaveToPlay
+    end 
+  end
+  
+  ##
+  # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
+  def onTimeoutAlgorithmHaveToPlay
+    alg_play_acard
+    # restore event process
+    @core_game.continue_process_events if @core_game
   end
 
   def do_queued_action_to_core

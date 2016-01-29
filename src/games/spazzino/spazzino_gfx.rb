@@ -565,7 +565,7 @@ class SpazzinoGfx < BaseEngineGfx
         # check autoplayer is enabled, use also an automate instead of human
         if @option_gfx[:autoplayer_gfx]
           # autoplayer
-          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, self)
+          @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
           @log.debug("Create an automate for gfx player #{@algorithm_name}")
         end
         break
@@ -582,7 +582,7 @@ class SpazzinoGfx < BaseEngineGfx
       if player.type == :cpu_local
         player.position = pos_names.pop
         @cards_players.build(player)
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, method(:registerTimeout))
         @log.debug "Create player algorithm #{@algorithm_name}"
         @opponents_list << player
       elsif player.type == :human_local

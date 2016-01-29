@@ -86,32 +86,6 @@ class AlgCpuTressette < AlgCpuPlayerBase
     return res
   end
   
-  ##
-  # Algorithm have to play
-  def onalg_have_to_play(player)
-    if player == @alg_player
-      @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      if @registerTimeout
-        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
-        # suspend core event process until timeout
-        # this is used to sloow down the algorithm play
-        @core_game.suspend_proc_gevents
-        @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      else
-        # no wait for gfx stuff, continue immediately to play
-        alg_play_acard()
-      end
-    end
-  end
-
-  ##
-  # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
-  def onTimeoutAlgorithmHaveToPlay()
-    alg_play_acard()
-    # restore event process
-    @core_game.continue_process_events if @core_game
-  end
-
   def alg_play_acard()
     nr_cards_on_hand = count_cards_onhand
     if nr_cards_on_hand == 0

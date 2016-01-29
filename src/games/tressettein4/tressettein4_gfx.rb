@@ -60,7 +60,7 @@ class Tressettein4Gfx < TressetteGfx
         else
           player.position = pos_names_opp.pop
         end
-        player.algorithm = eval(@algorithm_name).new(player, @core_game, self)
+        player.algorithm = eval(@algorithm_name).new(player, @core_game, method(:registerTimeout))
       elsif player.type == :human_local
         # already done above
       end
