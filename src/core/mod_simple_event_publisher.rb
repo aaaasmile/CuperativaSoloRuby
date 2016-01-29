@@ -19,7 +19,7 @@ module SimpleEventPublisher
   private
   
   def fire_event(ev_symbol, *args)
-    return unless @pub_events.has_key?(ev_symbol)
+    return unless @pub_events and @pub_events.has_key?(ev_symbol)
     logdebug("Fire event #{ev_symbol}")
     @pub_events[ev_symbol].each{|item| call_fn_withargs(item, args)}
   end
