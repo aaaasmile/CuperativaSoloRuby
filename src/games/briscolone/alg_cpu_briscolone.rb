@@ -25,6 +25,10 @@ class AlgCpuBriscolone < AlgCpuBriscola
   def calculate_cards_on_deck
     return 40 - 5 * @players.size 
   end
+
+  def set_briscola
+    #no briscola
+  end
   
   
 end #end AlgCpuBriscola

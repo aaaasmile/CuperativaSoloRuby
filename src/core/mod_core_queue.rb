@@ -47,7 +47,7 @@ module CoreGameQueueHandler
   def suspend_proc_gevents(str="")
       @suspend_queue_proc = true
       @num_of_suspend += 1
-      @log.debug("suspend_proc_gevents (#{str}) add lock #{@num_of_suspend}")
+      #@log.debug("suspend_proc_gevents (#{str}) add lock #{@num_of_suspend}")
   end
   
   ##
@@ -57,10 +57,10 @@ module CoreGameQueueHandler
       if @num_of_suspend <= 0
         @num_of_suspend = 0
         @suspend_queue_proc = false
-        @log.debug("Continue to process core events (locks: #{@num_of_suspend}) (#{str})")
+        #@log.debug("Continue to process core events (locks: #{@num_of_suspend}) (#{str})")
         process_next_gevent
       else
-        @log.debug("Suspend yet locked #{@num_of_suspend} (#{str})")
+        #@log.debug("Suspend yet locked #{@num_of_suspend} (#{str})")
       end
   end
   
@@ -68,7 +68,6 @@ module CoreGameQueueHandler
   # Submit the next event to be processed. It is the next processed
   def submit_next_event(ev)
       unless @proc_queue.index(ev) 
-        #@proc_queue.push(ev)
         @proc_queue.insert(0,ev)
       else
         @log.warn "Event #{ev} duplicated in submit_next_event, ignore it"

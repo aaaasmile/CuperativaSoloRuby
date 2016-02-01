@@ -66,13 +66,17 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     carte_player.each do |card| 
       @cards_on_hand << card
     end
-    @briscola = @cards_on_hand.pop
+    set_briscola
     @cards_on_hand.each{|card| str_card << "#{card.to_s} "}
     @players.each do |pl|
       @points_segno[pl.name] = 0
     end 
     @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
     super
+  end
+
+  def set_briscola
+    @briscola = @cards_on_hand.pop
   end
   
   def calculate_cards_on_deck
