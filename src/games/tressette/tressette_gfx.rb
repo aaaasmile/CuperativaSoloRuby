@@ -607,11 +607,30 @@ class TressetteGfx < BaseEngineGfx
       update_dsp
     end
   end
+
+  def sort_on_seed(carte_player)
+    res = carte_player.sort do |x,y|
+      ss = 0
+      if  @deck_info.get_card_segno(y) == @deck_info.get_card_segno(x)
+        ss = @deck_info.get_card_rank(y) <=> @deck_info.get_card_rank(x)
+      else
+        ss = @deck_info.get_card_segno(y).to_s <=> @deck_info.get_card_segno(x).to_s
+      end
+      ss
+    end
+    return res
+  end
+
+  def set_player_points
+    alg_player_ui = @player_on_gui[:player].algorithm
+    pt_opp = alg_player_ui.get_tot_points(@otherplayers_list.first.name.to_sym)
+    pt_gui = alg_player_ui.get_tot_points(@player_on_gui[:player].name.to_sym)
+    @labels_graph.change_text_label(:sud_player_pt, "Punti: #{pt_gui}")
+    @labels_graph.change_text_label(:nord_player_pt, "Punti: #{pt_opp}")
+  end
   
-  
-  ############### implements methods of AlgCpuPlayerBase
   #############################################
-  #algorithm calls (gfx is a kind of algorithm)
+  #algorithm events
   #############################################
   
   ##
@@ -620,7 +639,7 @@ class TressetteGfx < BaseEngineGfx
   # e.g. [["rudy", 45], ["zorro", 33]]
   def onalg_giocataend(best_pl_points)
     @log.debug("gfx: onalg_giocataend #{best_pl_points}")
-    str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}"
+    str = "Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}"
     log str
     if @option_gfx[:use_dlg_on_core_info]
       show_smazzata_end(best_pl_points )
@@ -689,29 +708,8 @@ class TressetteGfx < BaseEngineGfx
     players.each{|pl| log " Nome: #{pl.name}"}
   end
   
-  def set_player_points
-    alg_player_ui = @player_on_gui[:player].algorithm
-    pt_opp = alg_player_ui.get_tot_points(@otherplayers_list.first.name.to_sym)
-    pt_gui = alg_player_ui.get_tot_points(@player_on_gui[:player].name.to_sym)
-    @labels_graph.change_text_label(:sud_player_pt, "Punti: #{pt_gui}")
-    @labels_graph.change_text_label(:nord_player_pt, "Punti: #{pt_opp}")
-  end
-  
   def onalg_new_mazziere(player)
     @log.debug("New mazziere is: #{player.name}")
-  end
-  
-  def sort_on_seed(carte_player)
-    res = carte_player.sort do |x,y|
-      ss = 0
-      if  @deck_info.get_card_segno(y) == @deck_info.get_card_segno(x)
-        ss = @deck_info.get_card_rank(y) <=> @deck_info.get_card_rank(x)
-      else
-        ss = @deck_info.get_card_segno(y).to_s <=> @deck_info.get_card_segno(x).to_s
-      end
-      ss
-    end
-    return res
   end
   
   def onalg_new_giocata(carte_player)
@@ -720,7 +718,6 @@ class TressetteGfx < BaseEngineGfx
     build_deck
     @cards_players.init_position_ani_distrcards
     @turn_marker.set_all_marker_invisible
-    
     
     #set cards of the gui player
     player_sym = @player_on_gui[:player].name.to_sym
@@ -771,7 +768,6 @@ class TressetteGfx < BaseEngineGfx
     # last cards taken
     @cards_taken.set_lastcardstaken(player_best, carte_prese_mano)
     
-    
     # start a timer to give a user a chance to see the end
     registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     
@@ -809,7 +805,6 @@ class TressetteGfx < BaseEngineGfx
   end
 
   def onalg_player_cardsnot_allowed(player, card_arr)
-    
   end
 
   ##
@@ -818,8 +813,6 @@ class TressetteGfx < BaseEngineGfx
   # player: player that have played
   def onalg_player_has_played(player, lbl_card)
     @log.debug("onalg_player_has_played: #{player.name}, #{lbl_card}")
-    
-    
     
     # check if it was gui player
     if @player_on_gui[:player] == player
