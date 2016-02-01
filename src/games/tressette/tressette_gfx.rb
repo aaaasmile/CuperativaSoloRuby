@@ -493,16 +493,7 @@ class TressetteGfx < BaseEngineGfx
               {:x => {:type => :left_anchor, :offset => 20},
                :y => {:type => :top_anchor, :offset => 136},
                :anchor_element => :canvas, :intra_card_off => -20 } )
-        @labels_graph.set_label_text(:info_click_1,
-                                     "Click sul mazzetto", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :top_anchor, :offset => 184},
-               :anchor_element => :canvas }, :small_font)
-        @labels_graph.set_label_text(:info_click_2,
-                                     "per ultima mano", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :top_anchor, :offset => 200},
-               :anchor_element => :canvas }, :small_font)
+   
         
       end
       
