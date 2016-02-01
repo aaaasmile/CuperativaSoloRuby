@@ -61,21 +61,25 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,800,530)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,800,530)
   
   # start game using a custom deck
   deck =  RandomManager.new
-  deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rd,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rs,_6d',1)
-  mainwindow.set_custom_deck(deck)
+  #deck.set_predefined_deck('_Ab,_2c,_Ad,_Ac,_5b,_7b,_3c,_2d,_Rb,_3b,_5s,_2s,_3d,_5d,_Cd,_5c,_As,_Fs,_Fc,_Rc,_Fd,_2b,_4s,_Cb,_6b,_3s,_Rd,_6s,_4c,_6c,_7c,_4d,_Cc,_Fb,_Cs,_7s,_4b,_7d,_Rs,_6d',1)
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []
   players << PlayerOnGame.new('me', nil, :human_local, 0)
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
   
-  mainwindow.init_gfx(BriscoloneGfx, players)
+  testCanvas.init_gfx(BriscoloneGfx, players)
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  testCanvas.start_new_game
   theApp.run
 end 
