@@ -46,7 +46,6 @@ class BriscolaGfx < BaseEngineGfx
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
       :carte_avvers => true,
-      :use_dlg_on_core_info => true,
       :autoplayer_gfx => false
     }
     
@@ -693,9 +692,7 @@ class BriscolaGfx < BaseEngineGfx
     end 
     log str
    
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
-    end
+    @msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
     
   end
   
@@ -847,9 +844,7 @@ class BriscolaGfx < BaseEngineGfx
       str += "#{loser[0]} punti #{loser[1]}"
     end 
     log str
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Partita finita", str, false)
-    end
+    @msg_box_info.show_message_box("Partita finita", str, false)
     
     game_end_stuff
   end

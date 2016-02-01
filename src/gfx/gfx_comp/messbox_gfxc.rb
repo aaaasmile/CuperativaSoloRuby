@@ -74,15 +74,16 @@ class MsgBoxComponent < ComponentBase
     @msg_box_info.z_order = 0 #focus
     
     if suspend
-      @log.debug "msgbox blocking and wait for timeout"
-      if @autoremove
-        @gfx.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox2, self)
-      else
+      @log.debug "msgbox blocking and wait for timeout, autoremove: #{@autoremove}"
+      if !@autoremove
         @gfx.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox1, self)
       end
       # suspend core event process untill timout
       @msg_box_info.blocking = true
       @core_game.suspend_proc_gevents
+    end
+    if @autoremove
+      @gfx.registerTimeout(@timeout_msgbox, :onTimeoutMsgBox2, self)
     end
     @gfx.update_dsp
   end
@@ -105,7 +106,6 @@ class MsgBoxComponent < ComponentBase
     #remove messagebox automatically
     if @msg_box_info
       @msg_box_info.set_visible(false)
-      # refresh the display
       @gfx.update_dsp
     end 
   end

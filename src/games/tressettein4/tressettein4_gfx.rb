@@ -35,7 +35,6 @@ class Tressettein4Gfx < TressetteGfx
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
-      :use_dlg_on_core_info => true,
       :autoplayer_gfx => false,
       :jump_distr_cards => false
     }

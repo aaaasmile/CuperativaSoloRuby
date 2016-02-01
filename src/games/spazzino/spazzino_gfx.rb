@@ -42,9 +42,7 @@ class SpazzinoGfx < BaseEngineGfx
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
-      :carte_avvers => true,
-      :use_dlg_on_core_info => true,
-      # automatic player
+      :carte_avvers => true
       :autoplayer_gfx => false,
       # disappear msgbox after timeout when using automatic player
       :autoplayer_gfx_nomsgbox => true,
@@ -1316,13 +1314,10 @@ class SpazzinoGfx < BaseEngineGfx
     end
     str = "** Punteggio smazzata: #{best_pl_points[0][0]} punti: #{best_pl_points[0][1][:tot]} - #{best_pl_points[1][0]} punti: #{best_pl_points[1][1][:tot]}"
     log str
-    if @option_gfx[:use_dlg_on_core_info]
-      show_smazzata_end(best_pl_points )
-    end
+    show_smazzata_end(best_pl_points )
     
     update_dsp
     
-    # continue the game
     @core_game.gui_new_segno if @core_game
   end
   
@@ -1342,9 +1337,7 @@ class SpazzinoGfx < BaseEngineGfx
       str += "#{loser[0]} punti #{loser[1]}"
     end 
     log str
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Partita finita", str, false)
-    end
+    @msg_box_info.show_message_box("Partita finita", str, false)
     
     game_end_stuff
   end

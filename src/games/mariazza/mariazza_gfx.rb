@@ -134,10 +134,8 @@ class MariazzaGfx < BriscolaGfx
     str = "Segno terminato: vince #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
    
-    if @option_gfx[:use_dlg_on_core_info]
-      @msgbox_smazzataend.show_message_box("Smazzata finita", str, true)
-      @msgbox_smazzataend.set_visible(true)
-    end
+    @msgbox_smazzataend.show_message_box("Smazzata finita", str, true)
+    @msgbox_smazzataend.set_visible(true)
     
   end
  
@@ -242,9 +240,7 @@ class MariazzaGfx < BriscolaGfx
       @cards_players.swap_card_player(player_sym, card_on_hand,  card_briscola)
     else
       # other player has changed the briscola, shows a dialogbox
-      if @option_gfx[:use_dlg_on_core_info]
-        @msg_box_info.show_message_box("Briscola in tavola cambiata", str_msg, false)
-      end 
+      @msg_box_info.show_message_box("Briscola in tavola cambiata", str_msg, false)
     end
 
     #set the briscola with the card on player hand (the 7) 
@@ -275,10 +271,8 @@ class MariazzaGfx < BriscolaGfx
     #end
     str = "Il giocatore #{player.name} ha accusato la\n#{get_declaration_name(name_decl)}"
     str.concat(" da #{points} punti") if points > 0
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Mariazza accusata", str, false)
-    end
-    # adjourn points
+    @msg_box_info.show_message_box("Mariazza accusata", str, false)
+    
     @cards_taken.adjourn_points(player, points)
     
     update_dsp
@@ -290,11 +284,8 @@ class MariazzaGfx < BriscolaGfx
   def onalg_player_has_getpoints(player,  points)
     log str =  "#{player.name} ha fatto #{points} punti di accusa"
     
-    if @option_gfx[:use_dlg_on_core_info]
-      @msg_box_info.show_message_box("Punti ricevuti", str, false)
-    end
+    @msg_box_info.show_message_box("Punti ricevuti", str, false)
     
-    # adjourn points
     @cards_taken.adjourn_points(player, points)
     
    update_dsp
@@ -332,12 +323,12 @@ if $0 == __FILE__
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
   
-  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   testCanvas.init_gfx(MariazzaGfx, players)
-  maria_gfx = testCanvas.current_game_gfx
-  maria_gfx.option_gfx[:timeout_autoplay] = 50
-  maria_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
   testCanvas.start_new_game
   
   theApp.run
