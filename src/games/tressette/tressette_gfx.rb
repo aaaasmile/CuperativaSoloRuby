@@ -17,7 +17,8 @@ require 'core_game_tressette'
 ##
 # TressetteGfx implementation
 class TressetteGfx < BaseEngineGfx
-  
+  attr_accessor :option_gfx
+
   # constructor 
   # parent_wnd : application gui     
   def initialize(parent_wnd)
@@ -77,8 +78,6 @@ class TressetteGfx < BaseEngineGfx
     @msg_box_info = nil
     # color to display when the game is terminated
     @canvas_end_color = Fox.FXRGB(128, 128, 128)
-    # algorithm for autoplay on gfx
-    @alg_auto_player = nil
     # stack for autoplay function
     @alg_auto_stack = [] 
     @deck_info = GamesDeckInfo.new
@@ -134,21 +133,14 @@ class TressetteGfx < BaseEngineGfx
   # card: cardgfx clicked on
   #def click_on_card(card)
   def evgfx_click_on_card(card)
-    if (@player_on_gui[:can_play] == true and 
-        card.visible and 
-        card.lbl != :vuoto and 
-        @alg_auto_player.is_card_ok_forplay?(card.lbl))
+    alg_player_ui = @player_on_gui[:player].algorithm
+    if (@player_on_gui[:can_play] == true && card.visible && card.lbl != :vuoto && alg_player_ui.is_card_ok_forplay?(card.lbl))
       #click admitted
       card.blit_reverse = false
       allow = @core_game.alg_player_cardplayed(@player_on_gui[:player], card.lbl)
       if allow == :allowed
         @log.debug "gfx: submit card played #{card.lbl}"
         @sound_manager.play_sound(:play_click4)
-        # on network game we are alway receiving :allowed before response, that
-        # mean the client should be sure that it send a card :allowed
-        # avoid to submit more played cards, just one
-        # if we are on  game that have restriction on card played, e.g. tressette
-        #  we have to check here. Waiting response from server it take too long
         @player_on_gui[:can_play] = false
         # start card played animation
         start_guiplayer_card_played_animation( @player_on_gui[:player], card.lbl)
@@ -326,6 +318,7 @@ class TressetteGfx < BaseEngineGfx
     if options["games"] and options["games"][:tressette_game]
       @option_gfx[:jump_distr_cards] = options["games"][:tressette_game][:jump_distr_cards]
     end
+
     
     # initialize the core
     init_core_game(options)
@@ -398,7 +391,6 @@ class TressetteGfx < BaseEngineGfx
     # eventually add other components for inherited games
     add_components_tocompositegraph()
     
-    build_gui_player_onnewgame(players)
     build_controls_onnewgame(players)
     
     @labels_graph.build()
@@ -410,117 +402,51 @@ class TressetteGfx < BaseEngineGfx
     
     @state_gfx = :on_game #leave this here because resize and other stuff could 
                           # break this routine
-        
-    
     @log.debug "on_gui_start_new_game terminated"
     
   end #end on_gui_start_new_game
   
-  def build_gui_player_onnewgame(players)
-    # we have a dependence with the player gui, we have to create it first
-    ix_player = 0
-    players.each do |player_for_sud|
-      if player_for_sud.type == :human_local
-        # local player gui
-        player_for_sud.position = :sud
-        @labels_graph.set_label_text(player_for_sud.name.to_sym,
-                                     player_for_sud.name, 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -40},
-               :anchor_element => :canvas })
-        @turn_marker.add_marker(player_for_sud.name, :is_on,
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -45},
-               :anchor_element => :canvas, :marker_width => 90, :marker_height => 15 })
-        
-        @labels_graph.set_label_text(:sud_player_pt,
-                                     "Punti: ", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -80},
-               :anchor_element => :canvas })
-        @labels_graph.set_label_text(:vittoria_a,
-                                     "Si vince ai #{@core_game.game_opt[:target_points]} punti", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -110},
-               :anchor_element => :canvas }, :small_font)
-        @cards_players.build_with_info(player_for_sud.name, :coperto, true,
-              {:x => {:type => :center_anchor_horiz, :offset => 0},
-               :y => {:type => :bottom_anchor, :offset => -10},
-               :anchor_element => :canvas, :intra_card_off => -20 } )
-        @picked_cards_shower.build(player_for_sud.name.to_sym, :coperto,
-              {:x => {:type => :right_anchor, :offset => -140},
-               :y => {:type => :center_anchor_vert, :offset => 80},
-               :anchor_element => :canvas} )
-        
-        @cards_taken.build_with_info(player_for_sud.name,
-              {:x => {:type => :left_anchor, :offset => 20},
-               :y => {:type => :bottom_anchor, :offset => -10},
-               :anchor_element => :canvas, :intra_card_off => -20 } )
-        
-        player_for_sud.algorithm = self
-        @player_on_gui[:player] = player_for_sud
-        @player_on_gui[:can_play] = false
-        @player_on_gui[:index] = ix_player
-        #algorithm is used to reuse code to check if a card is valid
-        # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
-        @log.debug("Create AlgCpuTressette for gfx player")
-        break
-      end
-      ix_player = ix_player +1 
-    end
-    
-  end
-  
   def build_controls_onnewgame(players)
     # we have a dependence with the player gui, we have to create it first
-    players.each do |player_for_sud|
-      if player_for_sud.type == :human_local
-        # local player gui
-        player_for_sud.position = :sud
-        @labels_graph.set_label_text(player_for_sud.name.to_sym,
-                                     player_for_sud.name, 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -40},
-               :anchor_element => :canvas })
-        @turn_marker.add_marker(player_for_sud.name, :is_on,
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -45},
-               :anchor_element => :canvas, :marker_width => 90, :marker_height => 15 })
+    player_for_sud = build_player_sud(players)
+    if player_for_sud
+      # local player gui
+      player_for_sud.position = :sud
+      @labels_graph.set_label_text(player_for_sud.name.to_sym,
+                                    player_for_sud.name, 
+            {:x => {:type => :left_anchor, :offset => 10},
+              :y => {:type => :bottom_anchor, :offset => -40},
+              :anchor_element => :canvas })
+      @turn_marker.add_marker(player_for_sud.name, :is_on,
+            {:x => {:type => :left_anchor, :offset => 10},
+              :y => {:type => :bottom_anchor, :offset => -45},
+              :anchor_element => :canvas, :marker_width => 90, :marker_height => 15 })
         
-        @labels_graph.set_label_text(:sud_player_pt,
-                                     "Punti: ", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -80},
-               :anchor_element => :canvas })
-        @labels_graph.set_label_text(:vittoria_a,
-                                     "Si vince ai #{@core_game.game_opt[:target_points]} punti", 
-              {:x => {:type => :left_anchor, :offset => 10},
-               :y => {:type => :bottom_anchor, :offset => -110},
-               :anchor_element => :canvas }, :small_font)
-        @cards_players.build_with_info(player_for_sud.name, :coperto, true,
-              {:x => {:type => :center_anchor_horiz, :offset => 0},
-               :y => {:type => :bottom_anchor, :offset => -10},
-               :anchor_element => :canvas, :intra_card_off => -20 } )
-        @picked_cards_shower.build(player_for_sud.name.to_sym, :coperto,
-              {:x => {:type => :right_anchor, :offset => -140},
-               :y => {:type => :center_anchor_vert, :offset => 80},
-               :anchor_element => :canvas} )
+      @labels_graph.set_label_text(:sud_player_pt,
+                                    "Punti: ", 
+            {:x => {:type => :left_anchor, :offset => 10},
+              :y => {:type => :bottom_anchor, :offset => -80},
+              :anchor_element => :canvas })
+      @labels_graph.set_label_text(:vittoria_a,
+                                    "Si vince ai #{@core_game.game_opt[:target_points]} punti", 
+            {:x => {:type => :left_anchor, :offset => 10},
+              :y => {:type => :bottom_anchor, :offset => -110},
+              :anchor_element => :canvas }, :small_font)
+      @cards_players.build_with_info(player_for_sud.name, :coperto, true,
+            {:x => {:type => :center_anchor_horiz, :offset => 0},
+              :y => {:type => :bottom_anchor, :offset => -10},
+              :anchor_element => :canvas, :intra_card_off => -20 } )
+      @picked_cards_shower.build(player_for_sud.name.to_sym, :coperto,
+            {:x => {:type => :right_anchor, :offset => -140},
+              :y => {:type => :center_anchor_vert, :offset => 80},
+              :anchor_element => :canvas} )
         
-        @cards_taken.build_with_info(player_for_sud.name,
-              {:x => {:type => :left_anchor, :offset => 20},
-               :y => {:type => :bottom_anchor, :offset => -10},
-               :anchor_element => :canvas, :intra_card_off => -20 } )
-        
-        player_for_sud.algorithm = self
-        @player_on_gui[:player] = player_for_sud
-        @player_on_gui[:can_play] = false
-        #algorithm is used to reuse code to check if a card is valid
-        # it could be also used to auto player
-        @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
-        @log.debug("Create AlgCpuTressette for gfx player")
-        break
-      end 
+      @cards_taken.build_with_info(player_for_sud.name,
+            {:x => {:type => :left_anchor, :offset => 20},
+              :y => {:type => :bottom_anchor, :offset => -10},
+              :anchor_element => :canvas, :intra_card_off => -20 } )
+     player_for_sud.algorithm.connect(:EV_onalg_player_pickcards, method(:onalg_player_pickcards))   
+     player_for_sud.algorithm.connect(:EV_onalg_new_mazziere, method(:onalg_new_mazziere))
     end
     
     #p players
@@ -655,7 +581,7 @@ class TressetteGfx < BaseEngineGfx
   end
   
   def show_smazzata_end(best_pl_points )
-    str = "** Vince smazzata: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
+    str = "Vince smazzata: #{best_pl_points.first[0]} col punteggio #{best_pl_points.first[1]} a #{best_pl_points[1][1]}"
     log str
     #@msg_box_info.show_message_box("Smazzata finita", str.gsub("** ", ""))
     @msgbox_smazzataend.set_shortcuts_tressette
@@ -709,7 +635,6 @@ class TressetteGfx < BaseEngineGfx
       show_smazzata_end(best_pl_points )
     end
     
-    @alg_auto_player.onalg_giocataend(best_pl_points)
     set_player_points
     
     update_dsp
@@ -732,9 +657,6 @@ class TressetteGfx < BaseEngineGfx
     log str
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Partita finita", str, false)
-    end
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_game_end(match_points)
     end
     game_end_stuff
   end
@@ -768,21 +690,18 @@ class TressetteGfx < BaseEngineGfx
         @core_game.suspend_proc_gevents
       end
     end
-    
-    @alg_auto_player.onalg_player_pickcards(player, cards_arr)
-    
     update_dsp
   end
   
   def onalg_new_match(players)
     log "Nuova partita. Numero gioc: #{players.size}"
     players.each{|pl| log " Nome: #{pl.name}"}
-    @alg_auto_player.onalg_new_match(players)
   end
   
   def set_player_points
-    pt_opp = @alg_auto_player.get_tot_points(@otherplayers_list.first.name.to_sym)
-    pt_gui = @alg_auto_player.get_tot_points(@player_on_gui[:player].name.to_sym)
+    alg_player_ui = @player_on_gui[:player].algorithm
+    pt_opp = alg_player_ui.get_tot_points(@otherplayers_list.first.name.to_sym)
+    pt_gui = alg_player_ui.get_tot_points(@player_on_gui[:player].name.to_sym)
     @labels_graph.change_text_label(:sud_player_pt, "Punti: #{pt_gui}")
     @labels_graph.change_text_label(:nord_player_pt, "Punti: #{pt_opp}")
   end
@@ -824,7 +743,6 @@ class TressetteGfx < BaseEngineGfx
     
     @cards_taken.init_state(@players_on_match)
     
-    @alg_auto_player.onalg_new_giocata(carte_player)
     set_player_points
     
     # animation distribution cards
@@ -843,7 +761,6 @@ class TressetteGfx < BaseEngineGfx
     @picked_info = {}
     @player_on_gui[:mano_ix] = 0
     @mano_end_player_taker = nil
-    @alg_auto_player.onalg_newmano(player)
   end
   
   ##
@@ -863,7 +780,6 @@ class TressetteGfx < BaseEngineGfx
     # last cards taken
     @cards_taken.set_lastcardstaken(player_best, carte_prese_mano)
     
-    @alg_auto_player.onalg_manoend(player_best, carte_prese_mano, punti_presi)
     
     # start a timer to give a user a chance to see the end
     registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
@@ -900,10 +816,11 @@ class TressetteGfx < BaseEngineGfx
     
     update_dsp
   end
-  
+
   def onalg_player_cardsnot_allowed(player, card_arr)
+    
   end
-  
+
   ##
   # Player has played a card
   # lbl_card: label of card played
@@ -911,9 +828,7 @@ class TressetteGfx < BaseEngineGfx
   def onalg_player_has_played(player, lbl_card)
     @log.debug("onalg_player_has_played: #{player.name}, #{lbl_card}")
     
-    # check card on player hand
-    player_sym = player.name.to_sym
-    @alg_auto_player.onalg_player_has_played(player, lbl_card)
+    
     
     # check if it was gui player
     if @player_on_gui[:player] == player
@@ -927,6 +842,8 @@ class TressetteGfx < BaseEngineGfx
     end
     
     # opponent player cards
+    # check card on player hand
+    player_sym = player.name.to_sym
     @cards_players.card_invisible_rnd_decked(player_sym)
     @sound_manager.play_sound(:play_click4)
     
@@ -935,18 +852,6 @@ class TressetteGfx < BaseEngineGfx
     init_y = @cards_players.last_cardset_info[:pos_y]
     @table_cards_played.card_is_played2_incirc(lbl_card, player.position, z_ord, init_x,  init_y)
     
-    
-    ## use card on current mano index
-    #ix = @player_on_gui[:mano_ix]
-    ### change image on card played
-    #@table_cards_played.set_card_image_visible(ix, lbl_card)
-    
-    # start card played animation
-    #@table_cards_played.start_ani_played_card(ix, 
-    #  @cards_players.last_cardset_info[:pos_x], 
-    #  @cards_players.last_cardset_info[:pos_y])
-    
-    
     # update index of mano
     @player_on_gui[:mano_ix] += 1
   
@@ -954,9 +859,6 @@ class TressetteGfx < BaseEngineGfx
     
     # suspend core processes
     @core_game.suspend_proc_gevents
-    
-    # here is not better to insert a delay, beacuse we make the player turn slow
-    # Delay is better on mano end and when opponent is on turn
     
   end
   
@@ -983,8 +885,14 @@ if $0 == __FILE__
   theApp.create()
   players = []
   players << PlayerOnGame.new('me', nil, :human_local, 0)
-  players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
   mainwindow.init_gfx(TressetteGfx, players)
+  gfx = mainwindow.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  # in TestCanvas automatically jump_distr_cards => true
+  mainwindow.start_new_game
+  
   theApp.run
 end 

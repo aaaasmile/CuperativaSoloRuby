@@ -76,6 +76,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
       @points_segno[pl.name] = 0
     end 
     @log.info "ALG:#{@alg_player.name} cards: #{str_card}"
+    super
   end
   
   def count_cards_onhand
@@ -367,6 +368,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
   #table_player_info: array of two elements: first is the player, second are cards on table
   def onalg_newmano(player)
     @card_played = {:seq => [], :suit => nil}
+    super
   end
   
   def onalg_manoend(player_best, carte_prese_mano, punti_presi)
@@ -376,6 +378,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
       @num_carte_gioc_in_suit[suit] -= 1
     end
     @num_mani += 1
+    super
   end
   
   def onalg_player_pickcards(player, cards_arr)
@@ -389,6 +392,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
       end
     end
     @num_cards_on_deck -= cards_arr.size
+    super
   end
   
   def put_cards_onhand(card)
@@ -409,6 +413,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
       @cards_on_hand[card_played_segno].delete(card)
       #p @cards_on_hand
     end
+    super
   end
   
   
@@ -439,6 +444,7 @@ class AlgCpuTressette < AlgCpuPlayerBase
     end
     #p @opp_names
     #p @team_mates.size
+    super
   end
   
   #best_pl_points:
@@ -453,17 +459,15 @@ class AlgCpuTressette < AlgCpuPlayerBase
     player_info = best_pl_points[0]
     player_loser = best_pl_points[1]
     @log.debug "Giocata end: #{player_info[0]}  batte #{player_loser[0]}, #{player_info[1][:tot]} a #{player_loser[1][:tot]}" 
+    super
   end
-  
-  def onalg_game_end(best_pl_segni)
-    @log.debug "Game end #{best_pl_segni}"
-  end
-  
+    
   #best_pl_segni:
   # [["rudy", 4], ["zorro", 1]]
   def onalg_game_end(best_pl_segni)
     @log.debug "Match end, winner: #{best_pl_segni[0][0]} pt: #{best_pl_segni[0][1]}"
     @log.debug "Match end, loser: #{best_pl_segni[1][0]} pt: #{best_pl_segni[1][1]}"
+    super
   end
   
   def get_tot_points(player_key)
