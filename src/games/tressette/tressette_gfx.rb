@@ -36,7 +36,6 @@ class TressetteGfx < BaseEngineGfx
       :timeout_player => 400,#450, 
       :timeout_manoend_continue => 400,#500,
       :timeout_msgbox => 3000,
-      :timout_autoplay => 1000,
       :timeout_animation_cardtaken => 20,
       :timeout_animation_cardplayed => 20,
       :timeout_animation_carddistr => 20,

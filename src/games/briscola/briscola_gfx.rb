@@ -38,8 +38,6 @@ class BriscolaGfx < BaseEngineGfx
       :timeout_player => 400,#450, 
       :timeout_manoend_continue => 400,#500,
       :timeout_msgbox => 3000,
-      :timout_autoplay => 1000,
-      #:timout_autoplay => 200,
       :timeout_animation_cardtaken => 20,
       :timeout_animation_cardplayed => 20,
       :timeout_animation_carddistr => 20,
@@ -952,7 +950,7 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []
