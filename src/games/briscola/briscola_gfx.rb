@@ -383,7 +383,7 @@ class BriscolaGfx < BaseEngineGfx
     if player_for_sud
       player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
     end
-    add_eventhandler(player_for_sud) if respond_to?(:add_eventhandler)
+    add_additional_eventhandlers(player_for_sud) if respond_to?(:add_additional_eventhandlers)
     
     #p players
     # set players algorithm
@@ -715,9 +715,7 @@ class BriscolaGfx < BaseEngineGfx
     #p players.serialize 
     log "Nuova partita. Numero gioc: #{players.size}"
     players.each{|pl| log " Nome: #{pl.name}"}
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_new_match(players)
-    end
+    
   end
    
   ##
@@ -750,11 +748,7 @@ class BriscolaGfx < BaseEngineGfx
     @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
       
     set_briscola_on_deckmain(carte_player)
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_new_giocata(carte_player)
-    end
-
+   
     # animation distribution cards
     @composite_graph.bring_component_on_front(:cards_players)
     @cards_players.start_animadistr
@@ -771,9 +765,7 @@ class BriscolaGfx < BaseEngineGfx
     @log.debug "Nuova mano. Comincia: #{player.name}"
     @player_on_gui[:mano_ix] = 0
     @mano_end_player_taker = nil
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_newmano(player)
-    end
+    
   end
   
   ##
@@ -790,10 +782,7 @@ class BriscolaGfx < BaseEngineGfx
     
     # last cards taken
     @cards_taken.set_lastcardstaken(player_best, carte_prese_mano)
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_manoend(player_best, carte_prese_mano, punti_presi)
-    end
+  
     
     # start a timer to give a user a chance to see the end
     registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
@@ -821,9 +810,7 @@ class BriscolaGfx < BaseEngineGfx
     @deck_main.pop_cards(1)
     @deck_main.realgame_num_cards -= @players_on_match.size
     
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_pesca_carta(carte_player)
-    end
+   
     update_dsp
   end
   
@@ -842,10 +829,6 @@ class BriscolaGfx < BaseEngineGfx
     @points_image.set_segni_info(segni_info[:tot_segni], segni_info[:segni_pl1], 
                                  segni_info[:segni_pl2])
     
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_giocataend(best_pl_points)
-    end
     
     show_smazzata_end(best_pl_points )
     update_dsp
@@ -872,9 +855,7 @@ class BriscolaGfx < BaseEngineGfx
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Partita finita", str, false)
     end
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_game_end(best_pl_segni)
-    end
+    
     game_end_stuff
   end
   
@@ -893,13 +874,7 @@ class BriscolaGfx < BaseEngineGfx
     
     log "Tocca a: #{player.name}"
     if player == @player_on_gui[:player]
-      if @option_gfx[:autoplayer_gfx]
-        @player_on_gui[:can_play] = false
-        @player_on_gui[:ani_card_played_is_starting] = true
-        @alg_auto_player.onalg_have_to_play(player)
-      else
-        @player_on_gui[:can_play] = true
-      end
+      @player_on_gui[:can_play] = true
     else
       @player_on_gui[:can_play] = false
     end
@@ -927,23 +902,16 @@ class BriscolaGfx < BaseEngineGfx
     # check card on player hand
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = false
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_player_has_played(player, lbl_card)
-    end
+    
       
     # check if it was gui player
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
       start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card)
-      if @player_on_gui[:ani_card_played_is_starting] == true
-        # suspend core processing because we want to wait end of animation
-        @core_game.suspend_proc_gevents
-      else
-        @log.debug "card played without animation, suspension is not needed"
-      end
-     
-      # nothing to do more because player animation will be started on click handler
+      @player_on_gui[:ani_card_played_is_starting] = true
+      @core_game.suspend_proc_gevents
+      # nothing to do until animation end
       return
     end
     
@@ -996,7 +964,7 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []

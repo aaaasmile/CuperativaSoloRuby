@@ -169,7 +169,7 @@ class MariazzaGfx < BriscolaGfx
     return DECL_NAMES[name_decl][:name_lbl]
   end
 
-  def add_eventhandler(player)
+  def add_additional_eventhandlers(player)
     player.algorithm.connect(:EV_onalg_have_to_play_with_cmd, method(:onalg_have_to_play_with_cmd))
     player.algorithm.connect(:EV_onalg_player_has_changed_brisc, method(:onalg_player_has_changed_brisc))
     player.algorithm.connect(:EV_onalg_player_has_declared, method(:onalg_player_has_declared))

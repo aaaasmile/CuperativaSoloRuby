@@ -11,6 +11,7 @@ require 'mod_simple_event_publisher'
 # i.e carte_player becomes an hash instead of an array, you have
 # to redifine NAL_Srv_Algorithm, so better is to implement a new function
 class AlgCpuPlayerBase
+  attr_accessor :is_autoplayer
   
   include SimpleEventPublisher
 
@@ -27,6 +28,7 @@ class AlgCpuPlayerBase
     @action_queue = []
     # published events
     @pub_events = {}
+    @is_autoplayer = false
   end
   
   ## Core callbacks
@@ -81,7 +83,7 @@ class AlgCpuPlayerBase
   end
 
   def onalg_have_to_play_with_cmd(player, command_decl_avail)
-    if player == @alg_player && @alg_player.type != :human_local
+    if player == @alg_player && is_automatic_player?
       if @registerTimeout
         @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlayWithCmd, self, command_decl_avail)
         # suspend core event process until timeout
@@ -98,7 +100,7 @@ class AlgCpuPlayerBase
   end
 
   def onalg_have_to_play(player)
-    if player == @alg_player && @alg_player.type != :human_local
+    if player == @alg_player && is_automatic_player?
       if @registerTimeout
         @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
         # suspend core event process until timeout
@@ -115,6 +117,11 @@ class AlgCpuPlayerBase
   end
   
   ###### Other stuff
+
+  def is_automatic_player?
+    return true if @alg_player.type != :human_local
+    return @is_autoplayer
+  end
 
   ##
   # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card

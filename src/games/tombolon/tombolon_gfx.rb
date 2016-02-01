@@ -65,7 +65,7 @@ class TombolonGfx < SpazzinoGfx
     resize_gfx_points(players)
   end
 
-  def add_eventhandler(player)
+  def add_additional_eventhandlers(player)
     player.algorithm.connect(:EV_onalg_gameinfo, method(:onalg_gameinfo))
   end
   

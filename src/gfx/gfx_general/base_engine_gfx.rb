@@ -553,10 +553,8 @@ class BaseEngineGfx < InvWidget
 
     @player_on_gui[:player] = player_for_sud
     @player_on_gui[:can_play] = false
-    # if autoplayer is enabled, use also an automate instead of human
     if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player = eval(@algorithm_name).new(player_for_sud, @core_game, method(:registerTimeout))
-      @log.debug("Create an automate AlgCpuBriscola for gfx player")
+      alg_player_sud.is_autoplayer = true
     end
     return player_for_sud
   end

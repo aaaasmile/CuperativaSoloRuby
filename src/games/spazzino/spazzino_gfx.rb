@@ -284,7 +284,6 @@ class SpazzinoGfx < BaseEngineGfx
           # there are no choice of taking, than play it
           cards_played_taken = [card.lbl, list_options.first ].flatten
           cards_played_taken.delete(nil)
-          #@player_on_gui[:ani_card_played_is_starting] = true
           allow = @core_game.alg_player_cardplayed_arr(@player_on_gui[:player], cards_played_taken)
           if allow == :allowed
             # on network game we are alway receiving :allowed before response, that
@@ -341,16 +340,7 @@ class SpazzinoGfx < BaseEngineGfx
     @player_on_gui[:ani_card_played_is_starting] = true
     player_sym = player.name.to_sym
     @cards_players.card_invisible(player_sym, lbl_card)
-    #@table_cards_played.set_card_image_visible(0, lbl_card)
-    #if cards_played_and_taken.size > 1
-    #  @table_cards_played.correct_end_position_cardtaken(@model_canvas_gfx,
-    #                             player,cards_played_and_taken[1..-1])
-    #end
-    #   
-    #@table_cards_played.start_ani_played_card(0, 
-    #                    @cards_players.last_cardset_info[:pos_x], 
-    #                    @cards_players.last_cardset_info[:pos_y])
-    
+   
     init_x = @cards_players.last_cardset_info[:pos_x]
     init_y = @cards_players.last_cardset_info[:pos_y]
     card_taken = []
@@ -414,7 +404,6 @@ class SpazzinoGfx < BaseEngineGfx
       cards_played_taken = [card_origin.lbl, list_active.first ].flatten
       cards_played_taken.delete(nil)
       @log.debug "gfx: Card played and take are defined: #{card_origin.lbl} -> #{cards_played_taken}"
-      #@player_on_gui[:ani_card_played_is_starting] = true
       allow = @core_game.alg_player_cardplayed_arr(@player_on_gui[:player], cards_played_taken)
       if allow == :allowed
         # on network game we are alway receiving :allowed before response, that
@@ -559,7 +548,7 @@ class SpazzinoGfx < BaseEngineGfx
       player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
       player_for_sud.algorithm.connect(:EV_onalg_player_has_taken, method(:onalg_player_has_taken))
     end
-    add_eventhandler(player_for_sud) if respond_to?(:add_eventhandler)
+    add_additional_eventhandlers(player_for_sud) if respond_to?(:add_additional_eventhandlers)
     
     
     #p players

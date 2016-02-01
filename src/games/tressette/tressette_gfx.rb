@@ -181,10 +181,7 @@ class TressetteGfx < BaseEngineGfx
     ix = @player_on_gui[:mano_ix]
     player_sym = player.name.to_sym
     @cards_players.card_invisible(player_sym, lbl_card)
-    #@table_cards_played.set_card_image_visible(ix, lbl_card)
-    #@table_cards_played.start_ani_played_card(ix, 
-    #  @cards_players.last_cardset_info[:pos_x], 
-    #  @cards_players.last_cardset_info[:pos_y])
+    
     
     z_ord = get_zord_ofcardplayed
     init_x = @cards_players.last_cardset_info[:pos_x]
