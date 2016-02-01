@@ -59,7 +59,7 @@ class AlgCpuBriscola < AlgCpuPlayerBase
       @strozzi_on_suite[segno] = 2
     end
     
-    @num_cards_on_deck = 40 - 3 * @players.size - 1
+    @num_cards_on_deck = calculate_cards_on_deck 
    
     str_card = ""
     @cards_on_hand = []
@@ -73,6 +73,10 @@ class AlgCpuBriscola < AlgCpuPlayerBase
     end 
     @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
     super
+  end
+  
+  def calculate_cards_on_deck
+    return 40 - 3 * @players.size - 1
   end
   
   ##

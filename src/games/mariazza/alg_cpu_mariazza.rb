@@ -18,7 +18,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout=nil)
     super(player, coregame, reg_timeout)
     # logger
     @log = Log4r::Logger.new("coregame_log::AlgCpuMariazza")
@@ -71,6 +71,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     else
       check_mariazza_for_card_gone(card_briscola.to_s)
     end
+    super
   end
   
   ##
@@ -96,6 +97,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end 
     @pending_points = 0
     @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
+    super
   end
   
   ##
@@ -109,6 +111,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   
   def onalg_have_to_play(player)
     onalg_have_to_play_with_cmd(player,[])
+    super
   end
 
   ##
@@ -136,6 +139,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         alg_play_acard(command_decl_avail)
       end
     end 
+    super
   end
   
   ##
@@ -479,6 +483,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @log.info "Algorithm card picked #{carte_player.first}"
     @cards_on_hand << carte_player.first 
     check_strozza(carte_player.first.to_s)   
+    super
   end
   
   def onalg_player_has_played(player, card)
@@ -492,16 +497,23 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     
     check_mariazza_for_card_gone(card_s)
     check_strozza(card_s)
+    super
   end
 
   def onalg_player_cardsnot_allowed(player, cards)
-    @log.error("Player #{player.name} has played an invalid cards #{cards}")
-    raise "Mariazza Algorithm is buggy, please fix me."
+    if @alg_player.type != :human_local
+      @log.error("Player #{player.name} has played an invalid cards #{cards}")
+      raise "Mariazza Algorithm is buggy, please fix me."
+    end
+    super
   end
 
   def onalg_player_change_brisc_notallowed(player, card_briscola, card_on_hand)
-    @log.error("Player #{player.name} has tried to change birscola #{card_briscola} with #{card_on_hand}, but it is not allowed")
-    raise "Mariazza Algorithm is buggy, please fix me."
+    if @alg_player.type != :human_local
+      @log.error("Player #{player.name} has tried to change birscola #{card_briscola} with #{card_on_hand}, but it is not allowed")
+      raise "Mariazza Algorithm is buggy, please fix me."
+    end
+    super
   end
 
   def check_mariazza_for_card_gone(card_s)
@@ -538,10 +550,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     @mariazz_on_suite[suit_decl] = false if suit_decl
     @points_segno[player.name] +=  points
+    super
   end
   
   def onalg_player_has_getpoints(player, points)
     @points_segno[player.name] +=  points
+    super
   end
   
   def onalg_new_match(players)
@@ -568,6 +582,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     #p @opp_names
     #p @team_mates.size
+    super
   end
   
   ##
@@ -593,10 +608,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   
   def onalg_newmano(player)
     @card_played = [] 
+    super
   end
   
   def onalg_manoend(player_best, carte_prese_mano, punti_presi) 
     @points_segno[player_best.name] +=  punti_presi
+    super
   end
   
 end #end AlgCpuMariazza

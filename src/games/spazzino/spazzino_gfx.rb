@@ -559,6 +559,7 @@ class SpazzinoGfx < BaseEngineGfx
       player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
       player_for_sud.algorithm.connect(:EV_onalg_player_has_taken, method(:onalg_player_has_taken))
     end
+    add_eventhandler(player_for_sud) if respond_to?(:add_eventhandler)
     
     
     #p players

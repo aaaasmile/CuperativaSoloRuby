@@ -18,27 +18,12 @@ class AlgCpuBriscolone < AlgCpuBriscola
   # Initialize algorithm of player
   # player: player that use this algorithm instance
   # coregame: core game instance used to notify game changes
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout=nil)
     super(player, coregame, reg_timeout)
   end
-  
-  def onalg_new_giocata(carte_player)
-    ["b", "d", "s", "c"].each do |segno|
-      @strozzi_on_suite[segno] = 2
-    end
-    
-    @num_cards_on_deck = 40 - 5 * @players.size 
-   
-    str_card = ""
-    @cards_on_hand = []
-    carte_player.each do |card| 
-      @cards_on_hand << card
-    end
-    @cards_on_hand.each{|card| str_card << "#{card.to_s} "}
-    @players.each do |pl|
-      @points_segno[pl.name] = 0
-    end 
-    @log.info "#{@alg_player.name} cards: #{str_card}"
+
+  def calculate_cards_on_deck
+    return 40 - 5 * @players.size 
   end
   
   

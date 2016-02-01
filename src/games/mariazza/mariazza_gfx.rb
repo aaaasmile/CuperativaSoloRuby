@@ -168,6 +168,13 @@ class MariazzaGfx < BriscolaGfx
   def get_declaration_name(name_decl)
     return DECL_NAMES[name_decl][:name_lbl]
   end
+
+  def add_eventhandler(player)
+    player.algorithm.connect(:EV_onalg_have_to_play_with_cmd, method(:onalg_have_to_play_with_cmd))
+    player.algorithm.connect(:EV_onalg_player_has_changed_brisc, method(:onalg_player_has_changed_brisc))
+    player.algorithm.connect(:EV_onalg_player_has_declared, method(:onalg_player_has_declared))
+    player.algorithm.connect(:EV_onalg_player_has_getpoints, method(:onalg_player_has_getpoints))
+  end
   
   ############### implements methods of AlgCpuPlayerBase
   #############################################
@@ -338,15 +345,15 @@ if $0 == __FILE__
   # start game using a custom deck
   deck =  RandomManager.new
   #deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_7s,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_As,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_2c',0) # mazzo OK
-  deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_2c,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_7s,_As',1) #deck fake to test the first hand alg
-  testCanvas.set_custom_deck(deck)
+  #deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_2c,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_7s,_As',1) #deck fake to test the first hand alg
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
   theApp.create()
   players = []
   players << PlayerOnGame.new('me', nil, :human_local, 0)
-  players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
   
   #testCanvas.app_settings["autoplayer"][:auto_gfx] = true

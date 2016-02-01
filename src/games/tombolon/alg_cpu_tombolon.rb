@@ -14,7 +14,7 @@ require 'core/core_game_base'
 # Class used to play automatically
 class AlgCpuTombolon < AlgCpuSpazzino
   
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout=nil)
     super(player, coregame, reg_timeout)
     @num_cards_on_hand = 4
   end

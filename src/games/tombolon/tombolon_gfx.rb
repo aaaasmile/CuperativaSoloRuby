@@ -64,6 +64,10 @@ class TombolonGfx < SpazzinoGfx
    
     resize_gfx_points(players)
   end
+
+  def add_eventhandler(player)
+    player.algorithm.connect(:EV_onalg_gameinfo, method(:onalg_gameinfo))
+  end
   
  
   ##
@@ -300,6 +304,7 @@ if $0 == __FILE__
   mainwindow.app_settings["cpualgo"]["autoplayer"] = {}
   spazz_gfx.option_gfx[:timeout_autoplay] = 50
   spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  mainwindow.start_new_game
   theApp.run
 end
  

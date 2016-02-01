@@ -383,6 +383,7 @@ class BriscolaGfx < BaseEngineGfx
     if player_for_sud
       player_for_sud.algorithm.connect(:EV_onalg_pesca_carta, method(:onalg_pesca_carta))
     end
+    add_eventhandler(player_for_sud) if respond_to?(:add_eventhandler)
     
     #p players
     # set players algorithm

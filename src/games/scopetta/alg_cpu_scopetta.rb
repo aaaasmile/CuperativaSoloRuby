@@ -11,7 +11,7 @@ require 'core_game_scopetta'
 # Class used to play briscola automatically
 class AlgCpuScopetta < AlgCpuSpazzino
   
-  def initialize(player, coregame, reg_timeout)
+  def initialize(player, coregame, reg_timeout=nil)
     super(player, coregame, reg_timeout)
     @level_alg = :master
     @log = Log4r::Logger.new("coregame_log::AlgCpuScopetta") 
