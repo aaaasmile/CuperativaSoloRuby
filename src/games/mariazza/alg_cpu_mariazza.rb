@@ -101,50 +101,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   end
   
   ##
-  # onTimeoutHaveToPlay: after wait a little for gfx purpose the algorithm play a card
-  def onTimeoutAlgorithmHaveToPlay
-    @alg_is_waiting = false
-    alg_play_acard(@command_decl_avail)
-    # restore event process
-    @core_game.continue_process_events if @core_game
-  end
-  
-  def onalg_have_to_play(player)
-    onalg_have_to_play_with_cmd(player,[])
-    super
-  end
-
-  ##
-  # Algorithm have to play
-  def onalg_have_to_play_with_cmd(player,command_decl_avail)
-    if player == @alg_player
-      return if @card_played_req
-      return if do_queued_action_to_core
-
-      @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      if @registerTimeout
-        if @alg_is_waiting == true
-          # we still wait for time out
-          return
-        end
-        @alg_is_waiting = true
-        @command_decl_avail = command_decl_avail
-        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
-        # suspend core event process until timeout
-        # this is used to slow down the algorithm play
-        @core_game.suspend_proc_gevents
-        @log.debug("onalg_have_to_play cpu alg: #{player.name}")
-      else
-        # no wait for gfx stuff, continue immediately to play
-        alg_play_acard(command_decl_avail)
-      end
-    end 
-    super
-  end
-  
-  ##
   # Algorithm play one card
-  def alg_play_acard(command_decl_avail)
+  def alg_check_cmds_play_acard(command_decl_avail)
     player = @alg_player
     if command_decl_avail.size > 0
       # there are declaration
@@ -184,6 +142,10 @@ class AlgCpuMariazza < AlgCpuPlayerBase
         end
       end
     end
+    alg_play_acard
+  end
+
+  def alg_play_acard
     case @level_alg 
       when :master
         card = play_like_a_master

@@ -80,6 +80,19 @@ class AlgCpuPlayerBase
     fire_event(:EV_onalg_gameinfo, info)
   end
   def onalg_have_to_play_with_cmd(player, command_decl_avail)
+    if player == @alg_player && @alg_player.type != :human_local
+      if @registerTimeout
+        @registerTimeout.call(@timeout_haveplay, :onTimeoutAlgorithmHaveToPlay, self)
+        # suspend core event process until timeout
+        # this is used to slow down the algorithm play
+        @core_game.suspend_proc_gevents
+        @log.debug("onalg_have_to_play_with_cmd cpu alg: #{player.name}")
+      else
+        # no wait for gfx stuff, continue immediately to play
+        alg_check_cmds_play_acard(command_decl_avail)
+      end
+      # continue on onTimeoutHaveToPlay
+    end
     fire_event(:EV_onalg_have_to_play_with_cmd, player, command_decl_avail)
   end
   def onalg_have_to_play(player)
