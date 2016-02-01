@@ -140,7 +140,6 @@ class TressetteGfx < BaseEngineGfx
         @alg_auto_player.is_card_ok_forplay?(card.lbl))
       #click admitted
       card.blit_reverse = false
-      @player_on_gui[:ani_card_played_is_starting] = true
       allow = @core_game.alg_player_cardplayed(@player_on_gui[:player], card.lbl)
       if allow == :allowed
         @log.debug "gfx: submit card played #{card.lbl}"
@@ -159,7 +158,6 @@ class TressetteGfx < BaseEngineGfx
     
     # if we reach this code, we have clicked on a card that is not allowed to be played
     @log.debug "Ignore click #{card.lbl}"
-    @player_on_gui[:ani_card_played_is_starting] = false
     unless @card_reversed_gfx
       # we have clicked on card that we can't play
       @card_reversed_gfx = card
@@ -209,7 +207,6 @@ class TressetteGfx < BaseEngineGfx
   
   def ani_card_played_end
     @log.debug("gfx: ani_card_played_end")
-    @player_on_gui[:ani_card_played_is_starting] = false
     registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer, self)
   end
   
@@ -922,12 +919,8 @@ class TressetteGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
-      if @player_on_gui[:ani_card_played_is_starting] == true
-        # suspend core processing because we want to wait end of animation
-        @core_game.suspend_proc_gevents
-      else
-        @log.debug "card played without animation, suspension is not needed"
-      end
+      # suspend core processing because we want to wait end of animation
+      @core_game.suspend_proc_gevents
       
       # nothing to do more because player animation will be started on click handler
       return

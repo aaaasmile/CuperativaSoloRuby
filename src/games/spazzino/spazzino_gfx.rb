@@ -107,8 +107,6 @@ class SpazzinoGfx < BaseEngineGfx
     @msg_box_info = nil
     # color to display when the game is terminated
     @canvas_end_color = Fox.FXRGB(128, 128, 128)
-    # algorithm for autoplay on gfx
-    @alg_auto_player = nil
     # stack for autoplay function
     @alg_auto_stack = [] 
     # points shower
@@ -337,7 +335,6 @@ class SpazzinoGfx < BaseEngineGfx
   # cards_played_and_taken: array with card played at position 0 and rest are cards taken
   def start_guiplayer_card_played_animation( player, lbl_card, cards_played_and_taken )
     @log.debug("gfx: start_guiplayer animation #{lbl_card}, #{cards_played_and_taken}")
-    @player_on_gui[:ani_card_played_is_starting] = true
     player_sym = player.name.to_sym
     @cards_players.card_invisible(player_sym, lbl_card)
    
@@ -994,11 +991,6 @@ class SpazzinoGfx < BaseEngineGfx
   ##
   # Play automatically
   def onTimeoutHaveToPLay
-    if @state_gfx == :on_game
-      #only if we are on game 
-      player = @alg_auto_stack.pop
-      @alg_auto_player.onalg_have_to_play(player)
-    end
     # restore event process
     @core_game.continue_process_events if @core_game
   end
@@ -1036,9 +1028,6 @@ class SpazzinoGfx < BaseEngineGfx
     #p players.serialize 
     log "Nuova partita. Numero gioc: #{players.size}"
     players.each{|pl| log " Nome: #{pl.name}"}
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_new_match(players)
-    end
   end
    
   ##
@@ -1081,10 +1070,6 @@ class SpazzinoGfx < BaseEngineGfx
     #set cards of opponent (assume it is only one opponent)
     player_opp = @opponents_list.first.name.to_sym
     @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_new_giocata(carte_player)
-    end
     
     # animation distribution cards
     @composite_graph.bring_component_on_front(:cards_players)
@@ -1166,9 +1151,6 @@ class SpazzinoGfx < BaseEngineGfx
     @log.debug "Nuova mano. Comincia: #{player.name}"
     @player_on_gui[:mano_ix] = 0
     @mano_end_player_taker = nil
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_newmano(table_player_info)
-    end
   end
   
   ##
@@ -1195,10 +1177,6 @@ class SpazzinoGfx < BaseEngineGfx
     points_gfx_mano_end_set(curr_points_info, player)
     # update points in the view
     points_gfx_update(player) #if curr_points_info.size > 0
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_manoend(player, dummy, curr_points_info)
-    end
     
     # start a timer to give a user a chance to see the end
     registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
@@ -1285,12 +1263,7 @@ class SpazzinoGfx < BaseEngineGfx
     
     carte_player.size.times{|ix| @deck_main.pop_cards(1)}
     @deck_main.realgame_num_cards -= ( @players_on_match.size * carte_player.size)
-    
-    
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_pesca_carta(carte_player)
-    end
-    
+   
     ## animation for distributing cards
     @composite_graph.bring_component_on_front(:cards_players)
     @cards_players.start_animadistr
@@ -1347,10 +1320,6 @@ class SpazzinoGfx < BaseEngineGfx
       show_smazzata_end(best_pl_points )
     end
     
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_giocataend(best_pl_points)
-    end
-
     update_dsp
     
     # continue the game
@@ -1376,9 +1345,7 @@ class SpazzinoGfx < BaseEngineGfx
     if @option_gfx[:use_dlg_on_core_info]
       @msg_box_info.show_message_box("Partita finita", str, false)
     end
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_game_end(match_points)
-    end
+    
     game_end_stuff
   end
  
@@ -1468,9 +1435,6 @@ class SpazzinoGfx < BaseEngineGfx
     registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
     @core_game.suspend_proc_gevents("onalg_player_has_taken")
     
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_player_has_taken(player, arr_lbl_card)
-    end
   end
   
   ##
@@ -1501,13 +1465,8 @@ class SpazzinoGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
-      if @player_on_gui[:ani_card_played_is_starting] == true
-        # suspend core processing because we want to wait end of animation
-        @core_game.suspend_proc_gevents("onalg_player_has_played")
-      else
-        # when animation is not rquired
-        @log.debug "gfx: card played whitout/terminated animation, suspension is not needed"
-      end
+      # suspend core processing because we want to wait end of animation
+      @core_game.suspend_proc_gevents("onalg_player_has_played")
       # nothing to do more because player animation will be started on click handler
       return
     end
@@ -1525,10 +1484,6 @@ class SpazzinoGfx < BaseEngineGfx
     # update index of mano
     @player_on_gui[:mano_ix] += 1
     
-    if @option_gfx[:autoplayer_gfx]
-      @alg_auto_player.onalg_player_has_played(player, arr_lbl_card)
-    end
-     
     update_dsp
     
     # suspend core processes
@@ -1541,7 +1496,6 @@ class SpazzinoGfx < BaseEngineGfx
   
   def ani_card_played_end
     @log.debug "gfx: animation end card played"
-    @player_on_gui[:ani_card_played_is_starting] = false
     if @mano_end_card_taken.size > 0
       @table_cards_played.multiplechoice_colorizetaken(@mano_end_card_taken)
     end

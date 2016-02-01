@@ -87,8 +87,6 @@ class BriscolaGfx < BaseEngineGfx
     @msg_box_info = nil
     # color to display when the game is terminated
     @canvas_end_color = Fox.FXRGB(128, 128, 128)
-    # algorithm for autoplay on gfx
-    @alg_auto_player = nil
     # points shower
     @points_image = nil
     # gfx elements (widget) stored on each player    
@@ -229,7 +227,6 @@ class BriscolaGfx < BaseEngineGfx
     if @player_on_gui[:can_play] == true and card.visible and card.lbl != :vuoto
       #click admitted
       card.blit_reverse = false
-      @player_on_gui[:ani_card_played_is_starting] = true
       allow = @core_game.alg_player_cardplayed(@player_on_gui[:player], card.lbl)
       if allow == :allowed
         @log.debug "gfx: submit card played #{card.lbl}"
@@ -241,7 +238,6 @@ class BriscolaGfx < BaseEngineGfx
     
     # if we reach this code, we have clicked on a card that is not allowed to be played
     @log.debug "Ignore click #{card.lbl}"
-    @player_on_gui[:ani_card_played_is_starting] = false
     unless @card_reversed_gfx
       # we have clicked on card that we can't play
       @card_reversed_gfx = card
@@ -619,7 +615,6 @@ class BriscolaGfx < BaseEngineGfx
   
   def ani_card_played_end
     @log.debug("gfx: ani_card_played_end")
-    @player_on_gui[:ani_card_played_is_starting] = false
     registerTimeout(@option_gfx[:timeout_animation_cardtaken], :onTimeoutPlayer, self)
   end
   
@@ -909,7 +904,6 @@ class BriscolaGfx < BaseEngineGfx
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
       start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card)
-      @player_on_gui[:ani_card_played_is_starting] = true
       @core_game.suspend_proc_gevents
       # nothing to do until animation end
       return
@@ -964,7 +958,7 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []
