@@ -1,5 +1,11 @@
 == move_to_inv_branch
 
+== TODO
+- autoplayer in spazzino, scopetta e tombolon
+- carte avversario
+- check setting autoplayer_gfx_nomsgbox e rimuovilo se non viene usato
+
+== DONE
 In briscola_gx player_for_sud.algorithm = self deve diventare qualcosa come 
 player_for_sud.algorithm = eval(@algorithm_name).new(player_for_sud, @core_game, self)
 invece di self, qualcosa come :Hmi per il giocatore locale sulla ui, oppure :cpu per il giocatore automatico.

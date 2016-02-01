@@ -42,7 +42,7 @@ class SpazzinoGfx < BaseEngineGfx
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
-      :carte_avvers => true
+      :carte_avvers => true,
       :autoplayer_gfx => false,
       # disappear msgbox after timeout when using automatic player
       :autoplayer_gfx_nomsgbox => true,
@@ -1519,47 +1519,31 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,900,700)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,900,700)
   
   # start game using a custom deck
-  # remember that custom deck has high priority compared with cupalgo
-  # PLEASE IF YOU WANT TO USE CPUALGO from yaml comment this part PLEASE
   #deck =  RandomManager.new
   #first_player = 1
   #deck.set_predefined_deck('_Rs,_Ab,_3s,_5d,_Cs,_6c,_5c,_2d,_Fd,_3c,_Ac,_3b,_5s,_6d,_Ad,_2s,_7b,_7c,_Fb,_Rd,_6s,_2b,_4c,_Cc,_5b,_6b,_4s,_Fc,_7s,_Cd,_3d,_4d,_As,_2c,_Rb,_Cb,_Fs,_7d,_Rc,_4b', first_player)
   #deck.set_predefined_deck('_Rs,_Ab,_3s,_5d,_Cs,_6c,_5c,_2d,_Fd,_3c,_Ac,_3b,_5s,_6d,_Ad,_2s,_7b,_7c,_Fb,_Rd,_6s,_2b,_4c,_Cc,_5b,_6b,_4s,_Fc,_7s,_Cd,_3d,_4d,_As,_7c,_4b,_5b,_As,_2d,_3c,_4b', first_player)
-  #mainwindow.set_custom_deck(deck)
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   theApp.create()
   players = []
   # Order is important? No, using information in the yaml we can set the right order
   # only the name should match
-  players << PlayerOnGame.new('igor060', nil, :human_local, 0)
-  players << PlayerOnGame.new('drina', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('me', nil, :human_local, 0)
+  players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
-  ## lets try to set move of the algorithm like a saved game
-  ## from yaml we are using smazzata info, deck , first player (implicit mazziere) and :players
-  ## ATTENZIONE: ho impostato il replay di una partita con un bug. Quindi 
-  ## va a finire che a un certo punto la partita si blocca (alg predefined).
-  ##mainwindow.app_settings["cpualgo"][:predefined] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   
-  #yamlgame = 's12_gc1_2008_12_02_22_26_03-savedmatch.yaml'
-  #savedgame = File.dirname(__FILE__) + '/../../../test/spazzino/saved_games/' + yamlgame
-  #savedgame = File.expand_path(savedgame)
-  #mainwindow.app_settings["cpualgo"][:saved_game] = savedgame
-  #mainwindow.app_settings["cpualgo"][:giocata_num] = 0
-  #mainwindow.app_settings["cpualgo"][:player_name] = 'drina'
-  #mainwindow.app_settings["cpualgo"][:player_name_gui] = 'igor060'
-  #mainwindow.app_settings["games"][:spazzino_game] = {:target_points => 4}
-  
-  #mainwindow.app_settings["auto_gfx"] = true
-  mainwindow.init_gfx(SpazzinoGfx, players)
-  spazz_gfx = mainwindow.current_game_gfx
-  spazz_gfx.option_gfx[:timeout_autoplay] = 50
-  spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
-  mainwindow.start_new_game
+  testCanvas.init_gfx(SpazzinoGfx, players)
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  testCanvas.start_new_game
   theApp.run
 end
  
