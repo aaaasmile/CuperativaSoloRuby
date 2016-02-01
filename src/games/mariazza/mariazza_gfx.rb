@@ -224,17 +224,7 @@ class MariazzaGfx < BriscolaGfx
     else
       @player_on_gui[:can_play] = false
     end
-    if @option_gfx[:autoplayer_gfx]
-      # store parameters into a stack
-      @alg_auto_stack.push(command_decl_avail)
-      @alg_auto_stack.push(player)
-      # trigger autoplay
-      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
-      # suspend core event process untill timeout
-      @core_game.suspend_proc_gevents
-    end
     
-    # refresh the display
     update_dsp
   end
   

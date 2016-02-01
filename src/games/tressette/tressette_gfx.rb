@@ -128,10 +128,6 @@ class TressetteGfx < BaseEngineGfx
     @image_gfx_resource.each_value{|v| v.detach}
   end
   
-  ##
-  # User click on card
-  # card: cardgfx clicked on
-  #def click_on_card(card)
   def evgfx_click_on_card(card)
     alg_player_ui = @player_on_gui[:player].algorithm
     if (@player_on_gui[:can_play] == true && card.visible && card.lbl != :vuoto && alg_player_ui.is_card_ok_forplay?(card.lbl))
@@ -142,8 +138,6 @@ class TressetteGfx < BaseEngineGfx
         @log.debug "gfx: submit card played #{card.lbl}"
         @sound_manager.play_sound(:play_click4)
         @player_on_gui[:can_play] = false
-        # start card played animation
-        start_guiplayer_card_played_animation( @player_on_gui[:player], card.lbl)
         return # card clicked  was played correctly
       end
     end
@@ -793,13 +787,6 @@ class TressetteGfx < BaseEngineGfx
     else
       @player_on_gui[:can_play] = false
     end
-    if @option_gfx[:autoplayer_gfx]
-      # store parameters into a stack
-      @alg_auto_stack.push(player)
-      registerTimeout(@option_gfx[:timout_autoplay], :onTimeoutHaveToPLay, self)
-      # suspend core event process untill timeout
-      @core_game.suspend_proc_gevents
-    end
     
     update_dsp
   end
@@ -818,10 +805,11 @@ class TressetteGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
+      # start card played animation
+      start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card)
       # suspend core processing because we want to wait end of animation
       @core_game.suspend_proc_gevents
-      
-      # nothing to do more because player animation will be started on click handler
+      # nothing to do until animation end
       return
     end
     
@@ -865,6 +853,7 @@ if $0 == __FILE__
   mainwindow = TestCanvas.new(theApp)
   mainwindow.set_position(0,0,900,700)
   
+  mainwindow.app_settings["autoplayer"][:auto_gfx] = true
   
   theApp.create()
   players = []

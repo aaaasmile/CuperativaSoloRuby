@@ -1372,18 +1372,6 @@ class SpazzinoGfx < BaseEngineGfx
     else
       @player_on_gui[:can_play] = false
     end
-    if @option_gfx[:autoplayer_gfx] and player == @player_on_gui[:player]
-      # avoid conflicts with user
-      @player_on_gui[:can_play] = false
-      # store parameters into a stack
-      @alg_auto_stack.push(player)
-      # trigger autoplay
-      @log.debug "Waiting for autoplay..."
-      registerTimeout(@option_gfx[:timeout_autoplay], :onTimeoutHaveToPLay, self)
-      # suspend core event process untill timeout
-      @core_game.suspend_proc_gevents("onalg_have_to_play")
-    end
-    
     update_dsp
   end
   

@@ -897,7 +897,6 @@ class BriscolaGfx < BaseEngineGfx
     # check card on player hand
     player_sym = player.name.to_sym
     @turn_playermarker_gfx[player_sym].visible = false
-    
       
     # check if it was gui player
     if @player_on_gui[:player] == player
