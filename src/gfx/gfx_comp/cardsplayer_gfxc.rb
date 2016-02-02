@@ -195,7 +195,6 @@ class CardsPlayersGraph < ComponentBase
     #@log.debug "Resize CardsPlayersGraph component pos = #{player.position}"
     player_sym = player.name.to_sym
     img_coperto = @image_gfx_resource[:coperto]
-    #xoffset = img_coperto.width + 5  
     xoffset = resize_get_xoffset(img_coperto)
     
     canvas_gfx = @gfx_res.model_canvas_gfx

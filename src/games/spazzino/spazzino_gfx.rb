@@ -122,9 +122,7 @@ class SpazzinoGfx < BaseEngineGfx
     # smazzata end messagebox
     @msgbox_smazzataend = nil
     
-    #@color_panel_points = Fox.FXRGB(255, 115, 115)
     @color_panel_points = Fox.FXRGB(200, 125, 135)
-    #@color_back_table = Fox.FXRGB(103, 203, 103)
     @color_back_table = Fox.FXRGB(103, 180, 103)
     
     @color_signal = Fox.FXRGB(255, 255, 255)

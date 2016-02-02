@@ -87,6 +87,7 @@ class BriscolaGfx < BaseEngineGfx
     @core_name_class = 'CoreGameBriscola'
     # smazzata end messagebox
     @msgbox_smazzataend = nil
+    @show_opponent_cards = false
     @log = Log4r::Logger.new("coregame_log::BriscolaGfx") 
     # NOTE: don't forget to initialize variables also in on_gui_start_new_game
   end
@@ -280,6 +281,8 @@ class BriscolaGfx < BaseEngineGfx
     @segni_status = {}
     @player_gfx_info = {}
     
+    @show_opponent_cards ||= @option_gfx[:cards_opponent]
+
     unless @model_canvas_gfx.info[:canvas][:height] 
       @log.error("ERROR: Canvas information not set")
       return
@@ -347,7 +350,7 @@ class BriscolaGfx < BaseEngineGfx
         @cards_players.build(player)
         player.algorithm = eval(@algorithm_name).new(player, @core_game, method(:registerTimeout))
         @opponents_list << player
-        if @option_gfx[:cards_opponent]
+        if @show_opponent_cards
           player.algorithm.connect(:EV_onalg_pesca_carta, method(:opp_onalg_pesca_carta))
           player.algorithm.connect(:EV_onalg_new_giocata, method(:opp_onalg_new_giocata))
         end
@@ -656,19 +659,23 @@ class BriscolaGfx < BaseEngineGfx
   # opponent algorithm events
    
   def opp_onalg_pesca_carta(carte_player, algcpu_player)
-    p "Pesca #{carte_player}"
     player_sym = algcpu_player.alg_player.name.to_sym
     @cards_players.set_anempty_with_image(player_sym, carte_player.first)
   end
   
   def opp_onalg_new_giocata(carte_player, algcpu_player)
+    @log.debug "Opponent - new giocata, #{carte_player}"
+    @cards_players.init_position_ani_distrcards
     player_sym = algcpu_player.alg_player.name.to_sym
     @cards_players.set_cards_player(player_sym, carte_player)
+
+    check_for_start_distr_animation
   end
  
    # human algorithm events
   
   def onalg_new_match(players)
+    @num_of_check = players.size
     #p players.serialize 
     log "Nuova partita. Numero gioc: #{players.size}"
     players.each{|pl| log " Nome: #{pl.name}"}
@@ -678,11 +685,8 @@ class BriscolaGfx < BaseEngineGfx
   # New giocata notification
   # carte_player: array of card as symbol (e.g :bA, :c2 ...)
   def onalg_new_giocata(carte_player, algcpu_player)
-    log "Nuova giocata, carte: "
-    #expect 3 player cards and one briscola
-    carte_player[0..@core_game.num_of_cards_onhandplayer-1].each do |card_lbl|
-      log "[#{nome_carta_ita(card_lbl)}] "
-    end    
+    @log.debug "Human - New giocata: #{carte_player}"
+   
     # set static elements that need to be update on each giocata
     build_deck_on_newgiocata
 
@@ -698,22 +702,35 @@ class BriscolaGfx < BaseEngineGfx
     
     # last card taken state
     @cards_taken.init_state(@players_on_match)
-    
-    #set cards of opponent (assume it is only one opponent)
-    if !@option_gfx[:cards_opponent]
+   
+    if !@show_opponent_cards
+       #set cards of opponent (assume it is only one opponent)
       player_opp = @opponents_list.first.name.to_sym
       @cards_players.set_all_playercards_decked(player_opp, :card_opp_img)
     end
       
     set_briscola_on_deckmain(carte_player)
-   
+
     # animation distribution cards
     @composite_graph.bring_component_on_front(:cards_players)
-    @cards_players.start_animadistr
-    # suspend core event process untill animation_cards_distr_end is called
-    @core_game.suspend_proc_gevents
-      
+    
+    check_for_start_distr_animation
+  
     update_dsp
+  end
+
+  def check_for_start_distr_animation
+    start_anim = !@show_opponent_cards
+    if !start_anim
+      @num_of_check -= 1
+      start_anim = @num_of_check <= 0
+    end
+    if start_anim 
+      @num_of_check = @players_on_match.size
+      @cards_players.start_animadistr
+      # suspend core event process untill animation_cards_distr_end is called
+      @core_game.suspend_proc_gevents
+    end
   end
   
   ##
@@ -760,7 +777,7 @@ class BriscolaGfx < BaseEngineGfx
     player_sym = @player_on_gui[:player].name.to_sym
     @cards_players.set_anempty_with_image(player_sym, carte_player.first)
     
-    if !@option_gfx[:cards_opponent]
+    if !@show_opponent_cards
       # opponent card, simulate on the gui that he has also picked a card
       player_opp_sym = @opponents_list.first.name.to_sym
       @cards_players.set_anempty_with_deck(player_opp_sym, :card_opp_img)
@@ -874,7 +891,7 @@ class BriscolaGfx < BaseEngineGfx
     end
     
     # opponent player cards
-    if !@option_gfx[:cards_opponent]
+    if !@show_opponent_cards
       @cards_players.card_invisible_rnd_decked(player_sym)
     else
       @cards_players.card_invisible(player_sym, lbl_card)
@@ -923,7 +940,7 @@ if $0 == __FILE__
   # end test a custom deck
   
   #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
-  #testCanvas.app_settings["all_games"][:cards_opponent] = true
+  testCanvas.app_settings["all_games"][:cards_opponent] = true
   
   theApp.create()
   players = []
