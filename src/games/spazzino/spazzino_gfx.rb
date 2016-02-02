@@ -439,21 +439,6 @@ class SpazzinoGfx < BaseEngineGfx
     @card_reversed_gfx = nil
     update_dsp
   end
-  
-  ##
-  # Player on the table is ready to start a new game
-  # This is usually a network notification
-  # user_name: player name
-  def player_ready_to_start(user_name)
-    player_sym = user_name.to_sym
-    lbl_gfx_status = @player_gfx_info[player_sym][:lbl_status] if  @player_gfx_info[player_sym]
-    if lbl_gfx_status
-      lbl_gfx_status.text = "pronto"
-      lbl_gfx_status.font_color =  Fox.FXRGB(20, 10, 200)
-    else
-      @log.warn("player_ready_to_start(GFX) don't have recognized player: #{user_name}")
-    end
-  end
  
   ##
   # Spazzino is started. Notification from base class that gui want to start

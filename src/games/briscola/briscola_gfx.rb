@@ -278,21 +278,6 @@ class BriscolaGfx < BaseEngineGfx
       update_dsp
     end
   end
-  
-  ##
-  # Player on the table is ready to start a new game
-  # This is usually a network notification
-  # user_name: player name
-  def player_ready_to_start(user_name)
-    player_sym = user_name.to_sym
-    lbl_gfx_status = @player_gfx_info[player_sym][:lbl_status] if  @player_gfx_info[player_sym]
-    if lbl_gfx_status
-      lbl_gfx_status.text = "pronto"
-      lbl_gfx_status.font_color =  Fox.FXRGB(20, 10, 200)
-    else
-      @log.warn("player_ready_to_start(GFX) don't have recognized player: #{user_name}")
-    end
-  end
  
   ##
   # Briscola is started. Notification from base class that gui want to start
@@ -369,7 +354,7 @@ class BriscolaGfx < BaseEngineGfx
     
     
     # eventually add other components for inherited games
-    add_components_tocompositegraph()
+    add_components_tocompositegraph() if respond_to?(:add_components_tocompositegraph)
     
     # we have a dependence with the player gui, we need to create it first
     player_for_sud = build_player_sud(players)
@@ -435,11 +420,6 @@ class BriscolaGfx < BaseEngineGfx
     return 40 -  1 - ( @core_game.num_of_cards_onhandplayer * num_of_players)
   end
   
-  ##
-  # Add more components
-  def add_components_tocompositegraph
-    # nothing to add
-  end
 
   ##
   # Set the player name on the label

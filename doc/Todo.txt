@@ -1,9 +1,10 @@
 == move_to_inv_branch
 
 == TODO
-- autoplayer in spazzino, scopetta e tombolon
 - carte avversario
-- check setting autoplayer_gfx_nomsgbox e rimuovilo se non viene usato
+- algoritmo spazzino
+- algoritmo tombolon
+- tombolon variante padovana
 
 == DONE
 In briscola_gx player_for_sud.algorithm = self deve diventare qualcosa come 
@@ -14,3 +15,6 @@ L'algoritmo di base implementa il modulo SimpleEventPublisher e quindi deve invi
 onalg_have_to_play, onalg_manoend e compagnia
 poi deve implementare un paio di funzioni che comunichino con il core con giocate provenienti dall UI. Tipo inform_core_cardplayed.
 A questo punto UI può mostrare sia l'aspetto del giocatore a sud che quello a nord, indipendentemente che sia un cpu o human.
+- autoplayer in spazzino, scopetta e tombolon
+- check setting autoplayer_gfx_nomsgbox e rimuovilo se non viene usato
+
