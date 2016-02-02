@@ -245,6 +245,8 @@ class MariazzaGfx < BriscolaGfx
 
     #set the briscola with the card on player hand (the 7) 
     @deck_main.set_briscola(card_on_hand)
+
+    @labels_to_disp[:__briscola__].visible = true
     
     # refresh the display
     update_dsp

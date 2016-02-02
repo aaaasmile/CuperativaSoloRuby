@@ -636,16 +636,16 @@ class BriscolaGfx < BaseEngineGfx
   
   def set_briscola_on_deckmain(carte_player)
     brisc_carte_pl = carte_player[@core_game.num_of_cards_onhandplayer]
-    str_briscola_testo = "Briscola: [#{nome_carta_ita(brisc_carte_pl)}]"
+    str_briscola_testo = "Briscola: #{nome_carta_ita(brisc_carte_pl)}"
     log " #{str_briscola_testo}"
     @deck_main.set_briscola(brisc_carte_pl)
     # label for briscola name
     unless @labels_to_disp[:__briscola__]
-      color = Fox.FXRGB(20, 10, 200)
+      color = Fox.FXRGB(255, 255, 255)
       lbl_gfx_briscola  =  LabelGfx.new(0,0, "", @font_text_curr[:small], color, false)
-      lbl_gfx_briscola.visible = true
       @labels_to_disp[:__briscola__] = lbl_gfx_briscola
     end
+    @labels_to_disp[:__briscola__].visible = false
     @labels_to_disp[:__briscola__].text = str_briscola_testo
     resize_gfxlabel_briscola
   end
@@ -779,7 +779,9 @@ class BriscolaGfx < BaseEngineGfx
     # reduce deck on 1 cards because we display only an half deck
     @deck_main.pop_cards(1)
     @deck_main.realgame_num_cards -= @players_on_match.size
-    
+    if @deck_main.realgame_num_cards <= 0
+      @labels_to_disp[:__briscola__].visible = true
+    end
    
     update_dsp
   end
