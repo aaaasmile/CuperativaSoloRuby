@@ -289,8 +289,6 @@ class SpazzinoGfx < BaseEngineGfx
             #  we have to check here. Waiting response from server it take too long
             @player_on_gui[:can_play] = false
             @sound_manager.play_sound(:play_click4)
-            # start card played animation
-            start_guiplayer_card_played_animation( @player_on_gui[:player], card.lbl, cards_played_taken)
             return # card clicked  was played correctly
           end
         else
@@ -1013,6 +1011,183 @@ class SpazzinoGfx < BaseEngineGfx
   def onBtPlayerChangeBriscola(params)
     @log.error("onalg_player_has_declared not supported")
   end
+
+   def build_deck_on_newgiocata(initial_cards_on_table)
+    @deck_main.briscola = false
+    @deck_main.build(nil)
+    @deck_main.realgame_num_cards = 40 -  initial_cards_on_table - 
+                 ( @core_game.num_of_cards_onhandplayer * (@players_on_match.size))  
+  end
+  
+  ##
+  # Reset points for the current giocata
+  def reset_points_current_giocata
+    @players_on_match.each do |pl_match|
+      player_label = pl_match.name.to_sym
+      @points_status[player_label][:spazzino] = 0
+      @points_status[player_label][:picula] = 0
+      @points_status[player_label][:bager] = 0
+      @points_status[player_label][:num_cards] = 0
+      #each player needs last taken cards information
+      @taken_card_info_last[player_label] = {} 
+      points_gfx_update(pl_match)
+    end
+  end
+
+  ##
+  # Reset colors of points labels
+  def points_gfx_reset_colors
+    @players_on_match.each do |pl_single|
+      player_label1 = pl_single.name.to_sym
+      @points_status[player_label1][:widg_pic].font_color = Fox.FXRGB(0, 0, 0)
+      @points_status[player_label1][:widg_spaz].font_color = Fox.FXRGB(0, 0, 0)
+      @points_status[player_label1][:widg_bager].font_color = Fox.FXRGB(0, 0, 0)
+    end
+  end
+  
+  ##
+  # Set points into label widgets
+  def points_gfx_mano_end_set(curr_points_info, player)
+    curr_points_info.each do |pt_item|
+      player_label = player.name.to_sym
+    
+      if pt_item[:spazzino]
+        @points_status[player_label][:spazzino] += pt_item[:spazzino]
+        @points_status[player_label][:widg_spaz].font_color = @color_signal 
+        log "#{player.name} ha fatto spazzino"
+      end
+      if pt_item[:picula]
+        @points_status[player_label][:picula] += pt_item[:picula]
+        @points_status[player_label][:widg_pic].font_color = @color_signal
+        log "#{player.name} ha fatto picula"
+      end  
+      if pt_item[:bager]
+        @points_status[player_label][:bager] += pt_item[:bager]
+        @points_status[player_label][:widg_bager].font_color = @color_signal
+        log "#{player.name} ha fatto bager"
+      end
+    end
+  end
+  
+  ##
+  # Update player points
+  def points_gfx_update(player)
+    player_label = player.name.to_sym
+    #p curr_points_info
+    lbl_gfx_pic = @points_status[player_label][:widg_pic]
+    lbl_gfx_spaz = @points_status[player_label][:widg_spaz]
+    lbl_gfx_bager = @points_status[player_label][:widg_bager]
+    lbl_gfx_pic.text = calculate_str_points_det(player.name, :picula)  
+    lbl_gfx_spaz.text = calculate_str_points_det(player.name, :spazzino)
+    lbl_gfx_bager.text = calculate_str_points_det(player.name, :bager)
+    
+  end
+  
+   ##
+  # Shows the messagebox for smazzata end
+  def show_smazzata_end(best_pl_points )
+    str_res = bestpl_points_to_msgboxstr(best_pl_points)
+    
+    points_for_msg = []
+    names_arr = []
+    best_pl_points.each do |pp1_arr|
+      name = pp1_arr[0]
+      pp1 = pp1_arr[1]
+      points_pl = { :tot =>  pp1[:tot], :carte => pp1[:carte], :spazzino => pp1[:spazzino],  
+        :settedidenari => pp1[:setbel], :napoli => pp1[:napola], 
+        :spade => pp1[:spade], :duedispade=>pp1[:duespade],
+        :fantedispade => pp1[:fantespade], :bager => pp1[:bager],
+        :picula =>pp1[:picula]}
+      points_for_msg << points_pl
+      names_arr << name
+    end
+          
+    @msgbox_smazzataend.points[:p1] = points_for_msg[0]
+    @msgbox_smazzataend.points[:p2] = points_for_msg[1]
+    @msgbox_smazzataend.name_p1 = names_arr[0]
+    @msgbox_smazzataend.name_p2 = names_arr[1]
+    
+    @msgbox_smazzataend.set_visible(true)
+  end
+
+   ##
+  # Provides the next action requested from action queue
+  # Action is removed from queue
+  def predef_get_next_action(action_name)
+    ix = 0
+    while @action_queue.size > 0
+      action = @action_queue.slice(ix)
+      #p "Action....."
+      #action is something like: {:type=>:cardplayedarr, :arg=>["Alex", [:_6d, :_4c, :_2d]]}
+      #p action
+      if action[:type] == action_name
+        # use predifined action
+        @action_queue.slice!(ix)
+        return action[:arg]
+      end
+      ix += 1
+      return nil if ix >= @action_queue.size 
+    end
+    return nil
+  end
+ 
+  def ani_card_played_end
+    @log.debug "gfx: animation end card played"
+    if @mano_end_card_taken.size > 0
+      @table_cards_played.multiplechoice_colorizetaken(@mano_end_card_taken)
+    end
+    registerTimeout(@option_gfx[:timeout_animation_player], :onTimeoutPlayer, self)
+  end
+  
+  def ani_card_taken_end
+    @log.debug "gfx: animation end card taken"
+    registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
+  end
+  
+  ##
+  # Provides card name in italian
+  def nome_carta_ita(lbl_card)
+    return @deck_information.nome_carta_completo(lbl_card)
+  end
+
+  ##
+  # Create a string for the messagebox object using bestplayer data
+  def bestpl_points_to_msgboxstr(best_pl_points)
+    str_res = "Punteggio smazzata:\n #{best_pl_points[0][0]}: #{best_pl_points[0][1][:tot]} \n #{best_pl_points[1][0]}: #{best_pl_points[1][1][:tot]}"
+    best_pl_points.each do |item|
+      str_res += "\n **** #{item[0]}\n"
+      count = 0
+      item[1].each do |k,v|
+        next if k == :tot
+        str_res += "   #{k}: #{v}"
+        if count == 3 
+          str_res += "\n"
+          count = 0
+        else
+          count += 1
+        end 
+      end 
+    end
+    return str_res
+  end
+
+    ##
+  # Calculate the round distribution cards. mazziere_player is a mazziere player.
+  def calc_gfxround_players(arr_players, mazziere_player)
+    ins_point = -1
+    round_players = []
+    onlast = true
+    arr_players.each_index do |e|
+      if arr_players[e].name == mazziere_player.name
+        ins_point = 0
+        onlast = false
+      end 
+      round_players.insert(ins_point, arr_players[e])
+      ins_point =  onlast ?  -1 : ins_point + 1         
+    end
+    return round_players
+  end
+
   
   ############### implements methods of AlgCpuPlayerBase
   #############################################
@@ -1079,29 +1254,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
     update_dsp
   end
-  
-  def build_deck_on_newgiocata(initial_cards_on_table)
-    @deck_main.briscola = false
-    @deck_main.build(nil)
-    @deck_main.realgame_num_cards = 40 -  initial_cards_on_table - 
-                 ( @core_game.num_of_cards_onhandplayer * (@players_on_match.size))  
-  end
-  
-  ##
-  # Reset points for the current giocata
-  def reset_points_current_giocata
-    @players_on_match.each do |pl_match|
-      player_label = pl_match.name.to_sym
-      @points_status[player_label][:spazzino] = 0
-      @points_status[player_label][:picula] = 0
-      @points_status[player_label][:bager] = 0
-      @points_status[player_label][:num_cards] = 0
-      #each player needs last taken cards information
-      @taken_card_info_last[player_label] = {} 
-      points_gfx_update(pl_match)
-    end
-  end
-  
+ 
   ##
   # Notification about the mazziere
   def onalg_new_mazziere(player)
@@ -1114,26 +1267,7 @@ class SpazzinoGfx < BaseEngineGfx
     end
   end
   
-  ##
-  # Create a string for the messagebox object using bestplayer data
-  def bestpl_points_to_msgboxstr(best_pl_points)
-    str_res = "Punteggio smazzata:\n #{best_pl_points[0][0]}: #{best_pl_points[0][1][:tot]} \n #{best_pl_points[1][0]}: #{best_pl_points[1][1][:tot]}"
-    best_pl_points.each do |item|
-      str_res += "\n **** #{item[0]}\n"
-      count = 0
-      item[1].each do |k,v|
-        next if k == :tot
-        str_res += "   #{k}: #{v}"
-        if count == 3 
-          str_res += "\n"
-          count = 0
-        else
-          count += 1
-        end 
-      end 
-    end
-    return str_res
-  end
+  
   
   ##
   # New mano
@@ -1184,61 +1318,6 @@ class SpazzinoGfx < BaseEngineGfx
   end
   
   ##
-  # Reset colors of points labels
-  def points_gfx_reset_colors
-    @players_on_match.each do |pl_single|
-      player_label1 = pl_single.name.to_sym
-      @points_status[player_label1][:widg_pic].font_color = Fox.FXRGB(0, 0, 0)
-      @points_status[player_label1][:widg_spaz].font_color = Fox.FXRGB(0, 0, 0)
-      @points_status[player_label1][:widg_bager].font_color = Fox.FXRGB(0, 0, 0)
-    end
-  end
-  
-  ##
-  # Set points into label widgets
-  def points_gfx_mano_end_set(curr_points_info, player)
-    curr_points_info.each do |pt_item|
-      player_label = player.name.to_sym
-    
-      if pt_item[:spazzino]
-        @points_status[player_label][:spazzino] += pt_item[:spazzino]
-        @points_status[player_label][:widg_spaz].font_color = @color_signal 
-        log "#{player.name} ha fatto spazzino"
-      end
-      if pt_item[:picula]
-        @points_status[player_label][:picula] += pt_item[:picula]
-        @points_status[player_label][:widg_pic].font_color = @color_signal
-        log "#{player.name} ha fatto picula"
-      end  
-      if pt_item[:bager]
-        @points_status[player_label][:bager] += pt_item[:bager]
-        @points_status[player_label][:widg_bager].font_color = @color_signal
-        log "#{player.name} ha fatto bager"
-      end
-    end
-  end
-  
-  ##
-  # Update player points
-  def points_gfx_update(player)
-    player_label = player.name.to_sym
-    #p curr_points_info
-    lbl_gfx_pic = @points_status[player_label][:widg_pic]
-    lbl_gfx_spaz = @points_status[player_label][:widg_spaz]
-    lbl_gfx_bager = @points_status[player_label][:widg_bager]
-    lbl_gfx_pic.text = calculate_str_points_det(player.name, :picula)  
-    lbl_gfx_spaz.text = calculate_str_points_det(player.name, :spazzino)
-    lbl_gfx_bager.text = calculate_str_points_det(player.name, :bager)
-    
-  end
-  
-  ##
-  # Provides card name in italian
-  def nome_carta_ita(lbl_card)
-    return @deck_information.nome_carta_completo(lbl_card)
-  end
-  
-  ##
   # Player has pick cards from deck
   # carte_player: array of card picked
   def onalg_pesca_carta(carte_player)
@@ -1272,32 +1351,6 @@ class SpazzinoGfx < BaseEngineGfx
     update_dsp
   end
   
-  ##
-  # Shows the messagebox for smazzata end
-  def show_smazzata_end(best_pl_points )
-    str_res = bestpl_points_to_msgboxstr(best_pl_points)
-    
-    points_for_msg = []
-    names_arr = []
-    best_pl_points.each do |pp1_arr|
-      name = pp1_arr[0]
-      pp1 = pp1_arr[1]
-      points_pl = { :tot =>  pp1[:tot], :carte => pp1[:carte], :spazzino => pp1[:spazzino],  
-        :settedidenari => pp1[:setbel], :napoli => pp1[:napola], 
-        :spade => pp1[:spade], :duedispade=>pp1[:duespade],
-        :fantedispade => pp1[:fantespade], :bager => pp1[:bager],
-        :picula =>pp1[:picula]}
-      points_for_msg << points_pl
-      names_arr << name
-    end
-          
-    @msgbox_smazzataend.points[:p1] = points_for_msg[0]
-    @msgbox_smazzataend.points[:p2] = points_for_msg[1]
-    @msgbox_smazzataend.name_p1 = names_arr[0]
-    @msgbox_smazzataend.name_p2 = names_arr[1]
-    
-    @msgbox_smazzataend.set_visible(true)
-  end
   
   ##
   # Giocata end notification
@@ -1368,26 +1421,6 @@ class SpazzinoGfx < BaseEngineGfx
     update_dsp
   end
   
-  ##
-  # Provides the next action requested from action queue
-  # Action is removed from queue
-  def predef_get_next_action(action_name)
-    ix = 0
-    while @action_queue.size > 0
-      action = @action_queue.slice(ix)
-      #p "Action....."
-      #action is something like: {:type=>:cardplayedarr, :arg=>["Alex", [:_6d, :_4c, :_2d]]}
-      #p action
-      if action[:type] == action_name
-        # use predifined action
-        @action_queue.slice!(ix)
-        return action[:arg]
-      end
-      ix += 1
-      return nil if ix >= @action_queue.size 
-    end
-    return nil
-  end
  
   ##
   # Player has played a card not allowed
@@ -1446,14 +1479,14 @@ class SpazzinoGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
+      start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card, card_taken)
       # suspend core processing because we want to wait end of animation
       @core_game.suspend_proc_gevents("onalg_player_has_played")
-      # nothing to do more because player animation will be started on click handler
+      # nothing to do until animation end
       return
     end
     
     # opponent player cards
-    
     @cards_players.card_invisible_rnd_decked(player_sym)
     
     @sound_manager.play_sound(:play_click4)
@@ -1472,39 +1505,8 @@ class SpazzinoGfx < BaseEngineGfx
     
     # here is not better to insert a delay, beacuse we make the player turn slow
     # Delay is better on mano end and when opponent is on turn
-  
   end
   
-  def ani_card_played_end
-    @log.debug "gfx: animation end card played"
-    if @mano_end_card_taken.size > 0
-      @table_cards_played.multiplechoice_colorizetaken(@mano_end_card_taken)
-    end
-    registerTimeout(@option_gfx[:timeout_animation_player], :onTimeoutPlayer, self)
-  end
-  
-  def ani_card_taken_end
-    @log.debug "gfx: animation end card taken"
-    registerTimeout(@option_gfx[:timeout_manoend_continue], :onTimeoutManoEndContinue, self)
-  end
- 
-  
-  ##
-  # Calculate the round distribution cards. mazziere_player is a mazziere player.
-  def calc_gfxround_players(arr_players, mazziere_player)
-    ins_point = -1
-    round_players = []
-    onlast = true
-    arr_players.each_index do |e|
-      if arr_players[e].name == mazziere_player.name
-        ins_point = 0
-        onlast = false
-      end 
-      round_players.insert(ins_point, arr_players[e])
-      ins_point =  onlast ?  -1 : ins_point + 1         
-    end
-    return round_players
-  end
   
   
 end
