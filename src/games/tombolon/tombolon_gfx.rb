@@ -280,31 +280,31 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,900,700)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,900,700)
   
   # start game using a custom deck
-  deck =  RandomManager.new
+  #deck =  RandomManager.new
   #deck.set_predefined_deck('_6d,_7c,_Rc,_Cb,_2s,_6c,_2c,_Cd,_3b,_Fd,_4d,_As,_Fc,_Rs,_Fb,_Fs,_4c,_3c,_5b,_Cs,_3d,_Cc,_5c,_Ad,_6b,_3s,_6s,_2d,_7d,_Rd,_4b,_7s,_Ac,_2b,_Rb,_4s,_5s,_Ab,_5d,_7b', 1)
   #deck.set_predefined_deck('_6b,_Rc,_5d,_Fs,_Rb,_7b,_5b,_As,_7c,_4b,_2b,_Cc,_Fc,_Cs,_4d,_Rs,_Rd,_Cb,_Ab,_2c,_Fs,_3b,_Fd,_Ad,_Ac,_3d,_6s,_6c,_7d,_2d,_2s,_6d,_3s,_Fb,_Cd,_4s,_7s,_4c,_3c,_5c',1)
   #deck.set_predefined_deck('_6b,_Rc,_5d,_5s,_Rb,_7b,_5b,_As,_7c,_4b,_2b,_Cc,_Fc,_Cs,_4d,_Rs,_Rd,_Cb,_Ab,_2c,_Fs,_3b,_Fd,_Ad,_Ac,_3d,_6s,_Fb,_7d,_2d,_4s,_6d,_3s,_6c,_Cd,_7s,_2s,_4c,_3c,_5c',0)
-  deck.set_predefined_deck '_6s,_2c,_Ad,_Ab,_3c,_7s,_4b,_5c,_5b,_5d,_Cd,_Fd,_3d,_4s,_7b,_Cb,_Rc,_3b,_Fs,_5s,_Rd,_Ac,_Cs,_3s,_6d,_4c,_Rb,_Fc,_6b,_As,_Cc,_2b,_4d,_7d,_2s,_Rs,_6c,_7c,_2d,_Fb', 1
-  mainwindow.set_custom_deck(deck)
+  #deck.set_predefined_deck '_6s,_2c,_Ad,_Ab,_3c,_7s,_4b,_5c,_5b,_5d,_Cd,_Fd,_3d,_4s,_7b,_Cb,_Rc,_3b,_Fs,_5s,_Rd,_Ac,_Cs,_3s,_6d,_4c,_Rb,_Fc,_6b,_As,_Cc,_2b,_4d,_7d,_2s,_Rs,_6c,_7c,_2d,_Fb', 1
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
   theApp.create()
   players = []
   players << PlayerOnGame.new('me', nil, :human_local, 0)
-  players << PlayerOnGame.new('cpu', nil, :cpu_local, 0)
+  players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
-  #mainwindow.app_settings["auto_gfx"] = true
-  mainwindow.init_gfx(TombolonGfx, players)
-  spazz_gfx = mainwindow.current_game_gfx
-  mainwindow.app_settings["cpualgo"]["autoplayer"] = {}
-  spazz_gfx.option_gfx[:timeout_autoplay] = 50
-  spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
-  mainwindow.start_new_game
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.init_gfx(TombolonGfx, players)
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  
+  testCanvas.start_new_game
   theApp.run
 end
  
