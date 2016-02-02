@@ -45,7 +45,7 @@ class SpazzinoGfx < BaseEngineGfx
     @model_canvas_gfx.info[:info_gfx_coord] = { 
       :x_top_opp_lx => 20, :y_top_opp_lx => 30, 
       :y_off_plgui_lx => 15, :y_off_plg_card => 10
-    } 
+    }
     
     # store information about player that it is using this gui
     @player_on_gui = {
@@ -1269,7 +1269,7 @@ class SpazzinoGfx < BaseEngineGfx
     points_gfx_update(player) #if curr_points_info.size > 0
     
     # start a timer to give a user a chance to see the end
-    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
+    registerTimeout(@option_gfx[:timeout_manoend], :onTimeoutManoEnd, self)
     
     ## suspend core event process untill timeout
     @core_game.suspend_proc_gevents("onalg_manoend")
@@ -1404,7 +1404,7 @@ class SpazzinoGfx < BaseEngineGfx
       @mano_end_card_taken << taked_lbl 
     end
     @points_status[player.name.to_sym][:num_cards] += arr_lbl_card.size
-    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
+    registerTimeout(@option_gfx[:timeout_manoend], :onTimeoutManoEnd, self)
     @core_game.suspend_proc_gevents("onalg_player_has_taken")
     
   end

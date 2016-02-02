@@ -68,11 +68,12 @@ class BaseEngineGfx < InvWidget
     @image_gfx_resource = {}
     # options
     @option_gfx = { 
-      :timout_manoend => 800,
+      :timeout_manoend => 800,
       :timeout_player => 400,
       :timeout_manoend_continue => 200,
       :timeout_msgbox => 3000,
       :timeout_animation_cardtaken => 20,
+      :timeout_animation_player => 20,
       :timeout_animation_cardplayed => 20,
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,

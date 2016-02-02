@@ -734,7 +734,7 @@ class TressetteGfx < BaseEngineGfx
     @cards_taken.set_lastcardstaken(player_best, carte_prese_mano)
     
     # start a timer to give a user a chance to see the end
-    registerTimeout(@option_gfx[:timout_manoend], :onTimeoutManoEnd, self)
+    registerTimeout(@option_gfx[:timeout_manoend], :onTimeoutManoEnd, self)
     
     # suspend core event process untill timeout
     @core_game.suspend_proc_gevents
