@@ -1,7 +1,7 @@
 == move_to_inv_branch
 
 == TODO
-- carte avversario
+play_as_master_first in mariazza
 - algoritmo spazzino
 - algoritmo tombolon
 - tombolon variante padovana
@@ -17,4 +17,5 @@ poi deve implementare un paio di funzioni che comunichino con il core con giocat
 A questo punto UI può mostrare sia l'aspetto del giocatore a sud che quello a nord, indipendentemente che sia un cpu o human.
 - autoplayer in spazzino, scopetta e tombolon
 - check setting autoplayer_gfx_nomsgbox e rimuovilo se non viene usato
+- carte avversario
 

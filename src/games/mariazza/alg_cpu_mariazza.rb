@@ -36,6 +36,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     # deck info for points and rank
     @deck_info = GamesDeckInfo.new
     @deck_info.build_deck_briscola
+    @cards_possible_in_opp_hand = []
+    @cards_sure_in_opp_hand = []
     # opponents names 
     @opp_names = []
     # team mate 
@@ -51,52 +53,6 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     # points pendings because declared as second
     @pending_points = 0
     @card_played_req = false
-  end
-  
-  ##
-  # Briscola was changed
-  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
-    @log.debug("onalg_player_has_changed_brisc: card_briscola: #{card_briscola}, card_on_hand: #{card_on_hand}")
-    if player == @alg_player
-      # adjust the deck before playing, the 7 is not in the player hand anymore
-      @cards_on_hand.each_index do |ix|
-        if @cards_on_hand[ix] == card_on_hand
-          @cards_on_hand[ix] = card_briscola
-          check_strozza(card_briscola.to_s)
-          @log.debug("onalg_player_has_changed_brisc, hand adjusted: #{@cards_on_hand.to_s}")
-          break
-        end
-      end
-    else
-      check_mariazza_for_card_gone(card_briscola.to_s)
-    end
-    super
-  end
-  
-  ##
-  # Alg is on new giocata. carte_player is an array with all cards for player
-  # hand and briscola at the end
-  def onalg_new_giocata(carte_player)
-    ["b", "d", "s", "c"].each do |segno|
-      @strozzi_on_suite[segno] = [:_A, :_3]
-      @mariazz_on_suite[segno] = true
-    end
-    @alg_is_waiting = false
-   
-    str_card = ""
-    @cards_on_hand = []
-    carte_player.each do |card| 
-      @cards_on_hand << card
-      check_strozza(card.to_s)
-    end
-    @briscola = @cards_on_hand.pop
-    @cards_on_hand.each{|card| str_card << "#{card.to_s} "}
-    @players.each do |pl|
-      @points_segno[pl.name] = 0
-    end 
-    @pending_points = 0
-    @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
-    super
   end
   
   ##
@@ -284,22 +240,25 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     if take_it.size > 0
       w_and_best = best_taken_card(take_it)
+      card_to_play = w_and_best[0]
+      w_and_best_points = @deck_info.get_card_info(card_to_play)[:points] + card_avv_info[:points]
+      if (w_and_best_points < 50 && w_and_best_points >= 5)
+        @log.debug("play_as_master_second, apply R12 #{card_to_play}")
+        return card_to_play
+      end
       # we can take it
       if curr_points_opp > 29 and max_points_take > 0 and take_it.size > 1
         # try to take it
-        card_to_play = w_and_best[0]
         @log.debug("play_as_master_second, apply R5 #{card_to_play}")
         return card_to_play
       end
       if curr_points_opp > 36 and (card_avv_info[:points]  > 0  or points_best_leave > 0)
         # try to take it
-        card_to_play = w_and_best[0]
         @log.debug("play_as_master_second, apply R11 #{card_to_play}")
         return card_to_play
       end
       if points_best_leave  > 2 or min_points_leave > 3 and w_and_best[1] < 320
         # I am loosing too many points?
-        card_to_play = w_and_best[0]
         @log.debug("play_as_master_second, apply R6 #{card_to_play}")
         return card_to_play
       end
@@ -318,6 +277,17 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   ##
   # Play as master first
   def play_as_master_first
+    curr_points_opp = 0
+    @opp_names.each{ |name_pl| curr_points_opp += @points_segno[name_pl] }
+    curr_points_me = 0
+    @team_mates.each{ |name_pl| curr_points_me += @points_segno[name_pl] }
+
+    # TODO use rules
+
+    return get_mininimum_first_play
+  end
+
+  def get_mininimum_first_play
     @pending_points = 0
     w_cards = []
     curr_points_me = @team_mates.inject(0){ |result, name_pl| result + @points_segno[name_pl] }
@@ -364,7 +334,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     # find a minimum
     #p w_cards
     min_list = w_cards.min{|a,b| a[1]<=>b[1]}
-    @log.debug("Play as first: best card#{min_list[0]}, (w_cards = #{w_cards.inspect})")
+    @log.debug("Play as first MI: best card#{min_list[0]}, (w_cards = #{w_cards.inspect})")
     return min_list[0]
   end
   
@@ -435,7 +405,100 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     @log.debug("Best card to play on best_taken_card is #{min_list[0]}, w_cards = #{w_cards.to_s}")
     return min_list
   end
+
   
+  def check_mariazza_for_card_gone(card_s)
+    segno = card_s[2,1]
+    if card_s[1] == "C"[0] or card_s[1] == "R"[0]
+      # if a player play a Horse or a King there is no more declaration  
+      @mariazz_on_suite[segno] = false
+    end 
+  end
+
+  def check_strozza(card_s)
+    segno = card_s[2,1]
+    if card_s[1] == "A"[0]
+      @strozzi_on_suite[segno].delete(:_A)
+    end
+    if card_s[1] == "3"[0]
+      @strozzi_on_suite[segno].delete(:_3)
+    end
+  end
+
+   ##
+  # Provides true if index is opponent index
+  # ix_me: index of the current algorithm
+  # index: index to check
+  def is_opponent?(index,ix_me)
+    if ix_me == 0 or ix_me == 2
+      if index == 1 or index == 3
+        return true
+      else
+        return false
+      end
+    else
+      if index == 0 or index == 2
+        return true
+      else
+        return false
+      end
+    end
+   
+  end
+  
+
+  ### core callbacks
+  
+  ##
+  # Alg is on new giocata. carte_player is an array with all cards for player
+  # hand and briscola at the end
+  def onalg_new_giocata(carte_player)
+    ["b", "d", "s", "c"].each do |segno|
+      @strozzi_on_suite[segno] = [:_A, :_3]
+      @mariazz_on_suite[segno] = true
+    end
+    @alg_is_waiting = false
+    @cards_possible_in_opp_hand = @deck_info.cards_on_game.dup
+    @cards_sure_in_opp_hand = []
+   
+    str_card = ""
+    @cards_on_hand = []
+    carte_player.each do |card|
+      @cards_possible_in_opp_hand.delete(card) 
+      @cards_on_hand << card
+      check_strozza(card.to_s)
+    end
+
+    @briscola = @cards_on_hand.pop
+    @cards_on_hand.each{|card| str_card << "#{card.to_s} "}
+    @players.each do |pl|
+      @points_segno[pl.name] = 0
+    end 
+    @pending_points = 0
+    @log.info "#{@alg_player.name} cards: #{str_card}, briscola is #{@briscola.to_s}"
+    super
+  end
+
+  ##
+  # Briscola was changed
+  def onalg_player_has_changed_brisc(player, card_briscola, card_on_hand)
+    @log.debug("onalg_player_has_changed_brisc: card_briscola: #{card_briscola}, card_on_hand: #{card_on_hand}")
+    if player == @alg_player
+      # adjust the deck before playing, the 7 is not in the player hand anymore
+      @cards_on_hand.each_index do |ix|
+        if @cards_on_hand[ix] == card_on_hand
+          @cards_on_hand[ix] = card_briscola
+          check_strozza(card_briscola.to_s)
+          @log.debug("onalg_player_has_changed_brisc, hand adjusted: #{@cards_on_hand.to_s}")
+          break
+        end
+      end
+    else
+      check_mariazza_for_card_gone(card_briscola.to_s)
+    end
+    super
+  end
+
   ##
   # Algorithm pick up a new card
   # carte_player: card picked from deck
@@ -477,24 +540,6 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     super
   end
 
-  def check_mariazza_for_card_gone(card_s)
-    segno = card_s[2,1]
-    if card_s[1] == "C"[0] or card_s[1] == "R"[0]
-      # if a player play a Horse or a King there is no more declaration  
-      @mariazz_on_suite[segno] = false
-    end 
-  end
-
-  def check_strozza(card_s)
-    segno = card_s[2,1]
-    if card_s[1] == "A"[0]
-      @strozzi_on_suite[segno].delete(:_A)
-    end
-    if card_s[1] == "3"[0]
-      @strozzi_on_suite[segno].delete(:_3)
-    end
-  end
-  
   def onalg_player_has_declared(player, name_decl, points)
     suit_decl = nil
     case name_decl
@@ -546,26 +591,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     super
   end
   
-  ##
-  # Provides true if index is opponent index
-  # ix_me: index of the current algorithm
-  # index: index to check
-  def is_opponent?(index,ix_me)
-    if ix_me == 0 or ix_me == 2
-      if index == 1 or index == 3
-        return true
-      else
-        return false
-      end
-    else
-      if index == 0 or index == 2
-        return true
-      else
-        return false
-      end
-    end
-   
-  end
+ 
   
   def onalg_newmano(player)
     @card_played = [] 
@@ -578,6 +604,8 @@ class AlgCpuMariazza < AlgCpuPlayerBase
   end
   
 end #end AlgCpuMariazza
+
+##################################################################
 
 if $0 == __FILE__
   require 'rubygems'

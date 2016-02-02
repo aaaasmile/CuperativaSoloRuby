@@ -310,7 +310,7 @@ if $0 == __FILE__
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
   testCanvas = TestCanvas.new(theApp)
-  testCanvas.set_position(0,0,950,530)
+  testCanvas.set_position(0,0,950,630)
   
   # start game using a custom deck
   #deck =  RandomManager.new
@@ -326,7 +326,8 @@ if $0 == __FILE__
   players << PlayerOnGame.new('cpu', nil, :cpu_local, 1)
   
   
-  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["all_games"][:cards_opponent] = true
   
   testCanvas.init_gfx(MariazzaGfx, players)
   gfx = testCanvas.current_game_gfx
