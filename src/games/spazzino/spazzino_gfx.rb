@@ -44,8 +44,6 @@ class SpazzinoGfx < BaseEngineGfx
       :timeout_lastcardshow => 1200,
       :carte_avvers => true,
       :autoplayer_gfx => false,
-      # disappear msgbox after timeout when using automatic player
-      :autoplayer_gfx_nomsgbox => true,
       :jump_distr_cards => false
     }
     @algorithm_name = "AlgCpuSpazzino"
@@ -1552,7 +1550,6 @@ if $0 == __FILE__
   testCanvas.init_gfx(SpazzinoGfx, players)
   gfx = testCanvas.current_game_gfx
   gfx.option_gfx[:timeout_autoplay] = 50
-  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
   testCanvas.start_new_game
   theApp.run
 end

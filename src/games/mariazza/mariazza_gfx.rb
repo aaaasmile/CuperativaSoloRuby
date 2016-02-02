@@ -328,7 +328,6 @@ if $0 == __FILE__
   testCanvas.init_gfx(MariazzaGfx, players)
   gfx = testCanvas.current_game_gfx
   gfx.option_gfx[:timeout_autoplay] = 50
-  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
   testCanvas.start_new_game
   
   theApp.run

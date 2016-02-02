@@ -69,8 +69,7 @@ class BaseEngineGfx < InvWidget
     # options
     @option_gfx = { 
       :timeout_msgbox => 3000,
-      :autoplayer_gfx => false,
-      :autoplayer_gfx_nomsgbox => false
+      :autoplayer_gfx => false
     }
     # extra frame near to the canvas
     @extra_frame = nil

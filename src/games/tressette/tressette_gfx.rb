@@ -334,9 +334,7 @@ class TressetteGfx < BaseEngineGfx
     
     # message box
     @msg_box_info = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
-    if @option_gfx[:autoplayer_gfx]
-      @msg_box_info.autoremove = true
-    end 
+    
     @composite_graph.add_component(:msg_box, @msg_box_info)
     
     #smazzata end message box
@@ -346,7 +344,11 @@ class TressetteGfx < BaseEngineGfx
     @msgbox_smazzataend.set_visible(false)
     @composite_graph.add_component(:msg_box_smazzataend, @msgbox_smazzataend)
     
-    
+    if @option_gfx[:autoplayer_gfx]
+      @msg_box_info.autoremove = true
+      @msgbox_smazzataend.autoremove = true
+    end 
+
     # cards taken
     @cards_taken = CardsTakenGraph.new(@app_owner, self, @font_text_curr[:big], players.size )
     @cards_taken.set_resource(:coperto, get_cardsymbolimage_of(:coperto))
@@ -857,7 +859,6 @@ if $0 == __FILE__
   mainwindow.init_gfx(TressetteGfx, players)
   gfx = mainwindow.current_game_gfx
   gfx.option_gfx[:timeout_autoplay] = 50
-  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
   # in TestCanvas automatically jump_distr_cards => true
   mainwindow.start_new_game
   
