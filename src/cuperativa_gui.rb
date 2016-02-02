@@ -67,7 +67,7 @@ class CuperativaGui < FXMainWindow
   # version string (if you change format, spaces points..., chenge also parser)
   VER_PRG_STR = "Ver 1.2.10 11012016"
   # yaml version, useful for restoring old version
-  CUP_YAML_FILE_VERSION = '6.20'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
+  CUP_YAML_FILE_VERSION = '6.30'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
   # settings file
   FILE_APP_SETTINGS = "app_options.yaml"
   # logger mode
@@ -99,30 +99,30 @@ class CuperativaGui < FXMainWindow
                                   {:name => "Cavallin", :type => :cpu_local }    #11
                                   ],
                               "autoplayer" =>{
-                                :auto_gfx => false,
-                                :auto_gamename_gfx => :mariazza_game ,
+                                :auto_gfx => false
                               },
+                              "all_games" => {:cards_opponent => false},
                               "cpualgo" => {:predefined => false, :saved_game => '', :giocata_num => 0, :player_name => '' },
                               "sound" => {:play_intro_netwgamestart => true, :use_sound_ongame => true},
                               "games" => {
                                   :briscola_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :mariazza_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :scopetta_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 590},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :spazzino_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 590},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :tombolon_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 590},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :scacchi_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :briscolone_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                                   :tressette_game =>
-                                  { :ww_mainwin => 997, :hh_mainwin => 701, :splitter => 544, :jump_distr_cards => false},
+                                  { :ww_mainwin => 997, :hh_mainwin => 701, :jump_distr_cards => false},
                                   :briscola5_game =>
-                                  { :ww_mainwin => 900, :hh_mainwin => 701, :splitter => 541},
+                                  { :ww_mainwin => 900, :hh_mainwin => 701},
                               },
   }
   
