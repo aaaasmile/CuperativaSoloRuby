@@ -43,7 +43,7 @@ class SmazzataInfoMbox < ComponentBase
     @name_p2 = "Avversario"
     @autoremove = false
     @registerTimeout = reg_timeout
-    @timeout_autoremove = 3000
+    @timeout_autoremove = 5000
     
     @str_puntegg_smazzata = "Punteggio smazzata"
     @points = { 

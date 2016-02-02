@@ -190,8 +190,8 @@ if $0 == __FILE__
   
   
   theApp = FXApp.new("TestCanvas", "FXRuby")
-  mainwindow = TestCanvas.new(theApp)
-  mainwindow.set_position(0,0,900,700)
+  testCanvas = TestCanvas.new(theApp)
+  testCanvas.set_position(0,0,900,700)
   
   # start game using a custom deck
   #deck =  RandomManager.new
@@ -200,7 +200,7 @@ if $0 == __FILE__
   #deck.set_predefined_deck('_6b,_Rc,_5d,_Fs,_Rb,_7b,_5b,_As,_7c,_4b,_2b,_Cc,_Fc,_Cs,_4d,_Rs,_Rd,_Cb,_Ab,_2c,_Fs,_3b,_Fd,_Ad,_Ac,_3d,_6s,_6c,_7d,_2d,_2s,_6d,_3s,_Fb,_Cd,_4s,_7s,_4c,_3c,_5c',1)
   #deck.set_predefined_deck('_6b,_Rc,_5d,_5s,_Rb,_7b,_5b,_As,_7c,_4b,_2b,_Cc,_Fc,_Cs,_4d,_Rs,_Rd,_Cb,_Ab,_2c,_Fs,_3b,_Fd,_Ad,_Ac,_3d,_6s,_Fb,_7d,_2d,_4s,_6d,_3s,_6c,_Cd,_7s,_2s,_4c,_3c,_5c',0)
   #deck.set_predefined_deck '_6s,_2c,_Ad,_Ab,_3c,_7s,_4b,_5c,_5b,_5d,_Cd,_Fd,_3d,_4s,_7b,_Cb,_Rc,_3b,_Fs,_5s,_Rd,_Ac,_Cs,_3s,_6d,_4c,_Rb,_Fc,_6b,_As,_Cc,_2b,_4d,_7d,_2s,_Rs,_6c,_7c,_2d,_Fb', 0
-  #mainwindow.set_custom_deck(deck)
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
@@ -210,22 +210,24 @@ if $0 == __FILE__
   players << PlayerOnGame.new('maestro', nil, :cpu_local, 0)
   
   
-  yamlgame = 'scopetta2p_60_2010_10_16_11_46_10-savedmatch.yaml'
-  savedgame = File.dirname(__FILE__) + '/../../../test/scopetta/saved_games/' + yamlgame
-  savedgame = File.expand_path(savedgame)
-  mainwindow.app_settings["cpualgo"][:saved_game] = savedgame
-  mainwindow.app_settings["cpualgo"][:giocata_num] = 0
-  mainwindow.app_settings["cpualgo"][:player_name] = 'maestro'
-  mainwindow.app_settings["cpualgo"][:player_name_gui] = 'Scarrafone'
-  mainwindow.app_settings["games"][:scopetta_game] = {:target_points => 11}
+  #yamlgame = 'scopetta2p_60_2010_10_16_11_46_10-savedmatch.yaml'
+  #savedgame = File.dirname(__FILE__) + '/../../../test/scopetta/saved_games/' + yamlgame
+  #savedgame = File.expand_path(savedgame)
+  #testCanvas.app_settings["cpualgo"][:saved_game] = savedgame
+  #testCanvas.app_settings["cpualgo"][:giocata_num] = 0
+  #testCanvas.app_settings["cpualgo"][:player_name] = 'maestro'
+  #testCanvas.app_settings["cpualgo"][:player_name_gui] = 'Scarrafone'
+  #testCanvas.app_settings["games"][:scopetta_game] = {:target_points => 11}
   # NOTA: per rigiocare la partita serve il mazzo predefinito della partita e la linea qua sotto
-  #mainwindow.app_settings["cpualgo"][:predefined] = true #rigioca la partita
+  #testCanvas.app_settings["cpualgo"][:predefined] = true #rigioca la partita
   
-  #mainwindow.app_settings["auto_gfx"] = true
-  mainwindow.init_gfx(ScopettaGfx, players)
-  spazz_gfx = mainwindow.current_game_gfx
-  spazz_gfx.option_gfx[:timeout_autoplay] = 50
-  spazz_gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.init_gfx(ScopettaGfx, players)
+  gfx = testCanvas.current_game_gfx
+  gfx.option_gfx[:timeout_autoplay] = 50
+  gfx.option_gfx[:autoplayer_gfx_nomsgbox] = false
+  
+  testCanvas.start_new_game
   theApp.run
 end
  
