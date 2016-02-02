@@ -496,17 +496,19 @@ class SpazzinoGfx < BaseEngineGfx
     
     # message box
     @msg_box_info = MsgBoxComponent.new(self, @app_owner, @core_game, @option_gfx[:timeout_msgbox], @font_text_curr[:medium])
-    if @option_gfx[:autoplayer_gfx]
-      @msg_box_info.autoremove = true
-    end
+    
     @msg_box_info.build(nil) 
     @composite_graph.add_component(:msg_box, @msg_box_info)
     
     #smazzata end message box
-    @msgbox_smazzataend = SmazzataInfoMbox.new("Smazzata finita", 
+    @msgbox_smazzataend = SmazzataInfoMbox.new(method(:registerTimeout), "Smazzata finita", 
                     200,50, 400,400, @font_text_curr[:medium])
     @msgbox_smazzataend.SetShortcutsSpazzino
     @msgbox_smazzataend.set_visible(false)
+    if @option_gfx[:autoplayer_gfx]
+      @msg_box_info.autoremove = true
+      @msgbox_smazzataend.autoremove = true
+    end
     @composite_graph.add_component(:msg_box_smazzataend, @msgbox_smazzataend)
     
     
@@ -1479,7 +1481,13 @@ class SpazzinoGfx < BaseEngineGfx
     if @player_on_gui[:player] == player
       @log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
-      start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card, card_taken)
+      card_played_taken = []
+      if card_taken.size > 0
+        card_played_taken << lbl_card
+        card_played_taken << card_taken
+        card_played_taken.flatten!
+      end
+      start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card, card_played_taken)
       # suspend core processing because we want to wait end of animation
       @core_game.suspend_proc_gevents("onalg_player_has_played")
       # nothing to do until animation end

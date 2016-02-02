@@ -340,7 +340,7 @@ class TressetteGfx < BaseEngineGfx
     @composite_graph.add_component(:msg_box, @msg_box_info)
     
     #smazzata end message box
-    @msgbox_smazzataend = SmazzataInfoMbox.new("Smazzata finita", 
+    @msgbox_smazzataend = SmazzataInfoMbox.new(method(:registerTimeout), "Smazzata finita", 
                     200,50, 400,400, @font_text_curr[:medium])
     @msgbox_smazzataend.set_shortcuts_tressette
     @msgbox_smazzataend.set_visible(false)

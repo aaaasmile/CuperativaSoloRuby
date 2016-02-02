@@ -18,8 +18,9 @@ require 'component_base'
 class SmazzataInfoMbox < ComponentBase
   attr_accessor :pos_x, :pos_y, :width, :height, :visible, :color
   attr_accessor :caption, :creator, :blocking, :points, :name_p1, :name_p2
+  attr_accessor :autoremove
   
-  def initialize(caption = "",  x=0, y=0, w=0, h=0, font = 0, color=0, hvisb=true)
+  def initialize(reg_timeout, caption = "",  x=0, y=0, w=0, h=0, font = 0, color=0, hvisb=true)
     super(5)
     @comp_name = "SmazzataInfoMbox"
     @pos_x = x       # x position
@@ -40,6 +41,9 @@ class SmazzataInfoMbox < ComponentBase
     @blocking = false
     @name_p1 = "Player"
     @name_p2 = "Avversario"
+    @autoremove = false
+    @registerTimeout = reg_timeout
+    @timeout_autoremove = 3000
     
     @str_puntegg_smazzata = "Punteggio smazzata"
     @points = { 
@@ -62,7 +66,17 @@ class SmazzataInfoMbox < ComponentBase
   end
   
   def set_visible(val)
+    if val != @visible && val
+      if @autoremove
+        @registerTimeout.call(@timeout_autoremove, :onTimeoutAutoremove, self)
+      end
+    end
     @visible = val
+  end
+
+  def onTimeoutAutoremove
+    @log.debug "onTimeoutAutoremove remove smazzata end automatically"
+    set_visible(false)
   end
   
   def set_shortcuts_tressette
@@ -254,7 +268,7 @@ class SmazzataInfoMbox < ComponentBase
   def on_mouse_lclick(x,y)
     return false unless @visible
     if @bt_ok.point_is_inside?(x,y)
-      @visible = false
+      set_visible(false)
       return true
     elsif x > @pos_x && x < (@pos_x + @width) &&
        y > @pos_y && y < (@pos_y + @height)
@@ -263,9 +277,7 @@ class SmazzataInfoMbox < ComponentBase
   end
 end
 
-
-
-
+###### Test stuff
 
 if $0 == __FILE__
   require 'log4r'

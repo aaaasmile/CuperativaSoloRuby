@@ -154,8 +154,6 @@ class ScopettaGfx < SpazzinoGfx
   # Shows the messagebox for smazzata end
   def show_smazzata_end(best_pl_points )
     @log.debug("scopetta smazzata end msgbox")
-    #@msgbox_smazzataend = SmazzataInfoMbox.new("Smazzata finita", 
-    #                200,50, 400,350, @font_text_curr[:medium])
     @msgbox_smazzataend.SetShortcutsScopettta
     
     points_for_msg = []
