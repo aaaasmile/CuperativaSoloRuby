@@ -13,7 +13,6 @@ require 'core/core_game_base'
 ##
 # Class used to play mariazza automatically
 class AlgCpuMariazza < AlgCpuPlayerBase
-  attr_accessor :level_alg, :alg_player
   ##
   # Initialize algorithm of player
   # player: player that use this algorithm instance

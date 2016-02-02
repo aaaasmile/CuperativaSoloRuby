@@ -12,7 +12,8 @@ require 'mod_simple_event_publisher'
 # to redifine NAL_Srv_Algorithm, so better is to implement a new function
 class AlgCpuPlayerBase
   attr_accessor :is_autoplayer
-  
+  attr_accessor :level_alg, :alg_player
+
   include SimpleEventPublisher
 
   def initialize(player, coregame, reg_timeout)
@@ -40,7 +41,7 @@ class AlgCpuPlayerBase
     fire_event(:EV_onalg_game_end, best_pl_segni)
   end
   def onalg_new_giocata(carte_player) 
-    fire_event(:EV_onalg_new_giocata, carte_player)
+    fire_event(:EV_onalg_new_giocata, carte_player, self)
   end
   def onalg_giocataend(best_pl_points)
     fire_event(:EV_onalg_giocataend, best_pl_points) 
@@ -58,7 +59,7 @@ class AlgCpuPlayerBase
     fire_event(:EV_onalg_player_has_declared, player, name_decl, points)
   end
   def onalg_pesca_carta(carte_player) 
-    fire_event(:EV_onalg_pesca_carta, carte_player)
+    fire_event(:EV_onalg_pesca_carta, carte_player, self)
   end
   def onalg_player_pickcards(player, cards_arr)
     fire_event(:EV_onalg_player_pickcards, player, cards_arr) 

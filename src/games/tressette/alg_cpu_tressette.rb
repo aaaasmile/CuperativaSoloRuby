@@ -8,7 +8,7 @@ require 'core/core_game_base'
 ##
 # Class used to play  automatically
 class AlgCpuTressette < AlgCpuPlayerBase
-  attr_accessor :level_alg, :alg_player
+
   attr_reader :cards_on_hand, :num_carte_gioc_in_suit, :points_segno, :card_played, :players, :opp_names, :team_mates, :num_cards_on_deck, :points_player
   ##
   # Initialize algorithm of player

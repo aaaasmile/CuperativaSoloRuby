@@ -86,7 +86,7 @@ class TombolonGfx < SpazzinoGfx
   
   ##
   # Override because we need to change the number of cards to display
-  def onalg_new_giocata(carte_player)
+  def onalg_new_giocata(carte_player, algcpu_player)
     @log.debug("New giocata on tombolon gfx")
     rebuild_cards_on_players(4)
     super(carte_player)
@@ -104,7 +104,7 @@ class TombolonGfx < SpazzinoGfx
  
   
   # Override because we need to change the number of cards to display
-  def onalg_pesca_carta(carte_player)
+  def onalg_pesca_carta(carte_player, algcpu_player)
     if carte_player.size != @num_of_cards
       @log.debug "Resize stack of GfxCards on player hand, new size #{carte_player.size}"
       # number of cards in player hand is changed, need to rebuild the hand

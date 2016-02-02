@@ -1165,7 +1165,7 @@ class SpazzinoGfx < BaseEngineGfx
   # New giocata notification
   # carte_player: array of card as symbol (e.g :bA, :c2 ...). First three cards
   #  are for the player, the rest is on the table.
-  def onalg_new_giocata(carte_player)
+  def onalg_new_giocata(carte_player, algcpu_player)
     str_log = "Nuova giocata, carte in mano: "
     carte_player[0..@num_of_cards-1].each{|e| str_log += "[#{nome_carta_ita(e)}]"}
     log str_log
@@ -1278,7 +1278,7 @@ class SpazzinoGfx < BaseEngineGfx
   ##
   # Player has pick cards from deck
   # carte_player: array of card picked
-  def onalg_pesca_carta(carte_player)
+  def onalg_pesca_carta(carte_player, algcpu_player)
     #expect @num_of_cards cards
     @log.debug "gfx: card picked #{carte_player.join(",")}"
     nomi = []

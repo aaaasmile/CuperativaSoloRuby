@@ -647,7 +647,6 @@ class TressetteGfx < BaseEngineGfx
     @log.debug("gfx: player #{player.name} pick #{cards_arr}")
     if player.name ==  @player_on_gui[:player].name
       player_sym = @player_on_gui[:player].name.to_sym
-      #@cards_players.set_card_empty_player_visible(player_sym, cards_arr.first, false)
       @picked_info[:player_gui] = player_sym
       @picked_info[:player_card_picked] = cards_arr.first
       @deck_main.pop_cards(1)
@@ -656,7 +655,6 @@ class TressetteGfx < BaseEngineGfx
     else
       player_opp_sym = @otherplayers_list.first.name.to_sym
       @picked_info[:player_opponent] = player_opp_sym
-      #@cards_players.set_card_empty_player_decked(player_opp_sym, :card_opp_img)
       @picked_cards_shower.set_card_image(player_opp_sym, cards_arr.first)
     end
     
@@ -679,7 +677,7 @@ class TressetteGfx < BaseEngineGfx
     @log.debug("New mazziere is: #{player.name}")
   end
   
-  def onalg_new_giocata(carte_player)
+  def onalg_new_giocata(carte_player, algcpu_player)
     @log.debug("New giocata #{carte_player}")
     carte_player = sort_on_seed(carte_player)
     build_deck

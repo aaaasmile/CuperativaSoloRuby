@@ -13,7 +13,7 @@ require 'core/alg_cpu_player_base'
 ##
 # Class used to play briscola automatically
 class AlgCpuBriscola < AlgCpuPlayerBase
-  attr_accessor :level_alg, :alg_player
+  
   ##
   # Initialize algorithm of player
   # player: player that use this algorithm instance
