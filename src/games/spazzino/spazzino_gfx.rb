@@ -1200,7 +1200,7 @@ class SpazzinoGfx < BaseEngineGfx
    
     #set cards of opponent (assume it is only one opponent)
     player_opp = @opponents_list.first.name.to_sym
-    @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
+    @cards_players.set_all_playercards_decked(player_opp, :card_opp_img)
     
     # animation distribution cards
     @composite_graph.bring_component_on_front(:cards_players)
@@ -1294,7 +1294,7 @@ class SpazzinoGfx < BaseEngineGfx
     
     # opponent card, simulate on the gui that he has also picked a card
     player_opp = @opponents_list.first.name.to_sym
-    @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
+    @cards_players.set_all_playercards_decked(player_opp, :card_opp_img)
     
     carte_player.size.times{|ix| @deck_main.pop_cards(1)}
     @deck_main.realgame_num_cards -= ( @players_on_match.size * carte_player.size)

@@ -168,8 +168,8 @@ class TressetteGfx < BaseEngineGfx
     player_sym = @picked_info[:player_gui]
     card_pl = @picked_info[:player_card_picked]
     player_opp_sym = @picked_info[:player_opponent]
-    @cards_players.set_card_empty_player(player_sym, card_pl)
-    @cards_players.set_card_empty_player_decked(player_opp_sym, :card_opp_img)
+    @cards_players.set_anempty_with_image(player_sym, card_pl)
+    @cards_players.set_anempty_with_deck(player_opp_sym, :card_opp_img)
     cards_gui_player = @cards_players.get_cards_player(player_sym)
     cards_gui_player = sort_on_seed(cards_gui_player)
     @cards_players.set_cards_player(player_sym, cards_gui_player)
@@ -691,7 +691,7 @@ class TressetteGfx < BaseEngineGfx
     #set cards of opponent (assume it is only one opponent)
     @otherplayers_list.each do |other_player|
       player_opp = other_player.name.to_sym
-      @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
+      @cards_players.set_all_playercards_decked(player_opp, :card_opp_img)
     end
     
     @cards_taken.init_state(@players_on_match)

@@ -658,7 +658,7 @@ class BriscolaGfx < BaseEngineGfx
   def opp_onalg_pesca_carta(carte_player, algcpu_player)
     p "Pesca #{carte_player}"
     player_sym = algcpu_player.alg_player.name.to_sym
-    @cards_players.set_card_empty_player(player_sym, carte_player.first)
+    @cards_players.set_anempty_with_image(player_sym, carte_player.first)
   end
   
   def opp_onalg_new_giocata(carte_player, algcpu_player)
@@ -702,7 +702,7 @@ class BriscolaGfx < BaseEngineGfx
     #set cards of opponent (assume it is only one opponent)
     if !@option_gfx[:cards_opponent]
       player_opp = @opponents_list.first.name.to_sym
-      @cards_players.set_allcards_player_decked(player_opp, :card_opp_img)
+      @cards_players.set_all_playercards_decked(player_opp, :card_opp_img)
     end
       
     set_briscola_on_deckmain(carte_player)
@@ -758,12 +758,12 @@ class BriscolaGfx < BaseEngineGfx
     log "Carta pescata: [#{nome_carta_ita(carte_player.first)}]"
     #search the first free card on player gui
     player_sym = @player_on_gui[:player].name.to_sym
-    @cards_players.set_card_empty_player(player_sym, carte_player.first)
+    @cards_players.set_anempty_with_image(player_sym, carte_player.first)
     
     if !@option_gfx[:cards_opponent]
       # opponent card, simulate on the gui that he has also picked a card
       player_opp_sym = @opponents_list.first.name.to_sym
-      @cards_players.set_card_empty_player_decked(player_opp_sym, :card_opp_img)
+      @cards_players.set_anempty_with_deck(player_opp_sym, :card_opp_img)
     end
     
     # reduce deck on 1 cards because we display only an half deck
@@ -848,7 +848,7 @@ class BriscolaGfx < BaseEngineGfx
     log "#{player.name} ha giocato una carta non valida [#{nome_carta_ita(lbl_card)}]"
     @player_on_gui[:can_play] = true
     player_sym = player.name.to_sym
-    @cards_players.set_card_empty_player(player_sym, lbl_card)
+    @cards_players.set_anempty_with_image(player_sym, lbl_card)
     @table_cards_played.rollback_card_played(player.position, lbl_card)
   end
   
@@ -923,7 +923,7 @@ if $0 == __FILE__
   # end test a custom deck
   
   #testCanvas.app_settings["autoplayer"][:auto_gfx] = true
-  testCanvas.app_settings["all_games"][:cards_opponent] = true
+  #testCanvas.app_settings["all_games"][:cards_opponent] = true
   
   theApp.create()
   players = []

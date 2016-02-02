@@ -72,7 +72,7 @@ class CardsPlayersGraph < ComponentBase
   
   ##
   # Set all player cards as decked. As deck  resource_sym is used
-  def set_allcards_player_decked(player_sym, resource_sym)
+  def set_all_playercards_decked(player_sym, resource_sym)
     cards_opponent_images = @cards_player_todisp[player_sym]
     cards_opponent_images.each do |card_gfx| 
       card_gfx.change_image(@image_gfx_resource[resource_sym], resource_sym)
@@ -81,8 +81,8 @@ class CardsPlayersGraph < ComponentBase
   end
   
   ##
-  # Set an empty card as decked. As decked the resource_sym is used
-  def set_card_empty_player_decked(player_sym, resource_sym)
+  # Set an empty card as decked. The resource_sym is used as deck image
+  def set_anempty_with_deck(player_sym, resource_sym)
     cards_opponent_images = @cards_player_todisp[player_sym]
     cards_opponent_images.each do |card_gfx|
       if card_gfx.lbl == :vuoto 
@@ -112,11 +112,11 @@ class CardsPlayersGraph < ComponentBase
   
   ##
   # Set an empty card with an image. Image is defined from cardlbl label
-  def set_card_empty_player(player_sym, cardlbl)
-    set_card_empty_player_visible(player_sym, cardlbl, true)
+  def set_anempty_with_image(player_sym, cardlbl)
+    set_anempty_with_image_and_visibility(player_sym, cardlbl, true)
   end
   
-  def set_card_empty_player_visible(player_sym, cardlbl, visible)
+  def set_anempty_with_image_and_visibility(player_sym, cardlbl, visible)
     cards_player_images = @cards_player_todisp[player_sym]
     cards_player_images.each do |card_img|
       if card_img.lbl == :vuoto
