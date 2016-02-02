@@ -34,6 +34,7 @@ class TestCanvas < FXMainWindow
       "autoplayer" => {:auto_gfx => false},
       "web_http" => {},
       "sound" => {},
+      "all_games" => {:cards_opponent => false},
       "games" => {:briscola_game => {},:tressette_game =>{:jump_distr_cards => true},
                   :mariazza_game => {}, :scopetta_game => {}, 
                   :spazzino_game =>{}, :tombolon_game =>{}, 
@@ -188,7 +189,7 @@ if $0 == __FILE__
   log = Log4r::Logger.new("coregame_log")
   log.outputters << Outputter.stdout
   
-	theApp = FXApp.new("TestCanvas", "FXRuby")
+  theApp = FXApp.new("TestCanvas", "FXRuby")
   mainwindow = TestCanvas.new(theApp)
   mainwindow.set_position(0,0,950,530)
   

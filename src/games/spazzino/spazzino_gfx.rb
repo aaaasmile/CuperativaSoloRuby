@@ -27,25 +27,7 @@ class SpazzinoGfx < BaseEngineGfx
     @using_rotated_card = false
     @core_game = nil
     @splash_name = File.join(@resource_path, "icons/spazzino_title_trasp.png")
-    
-    # option for graphic engine on spazzino gfx
-    @option_gfx = {
-      :timout_manoend => 800, 
-      :timeout_player => 400, # not used
-      :timeout_manoend_continue => 200,
-      :timeout_manoend_viewtaken => 900,
-      :timeout_msgbox => 3000,
-      :timeout_autoplay => 1000,
-      :timeout_animation_cardtaken => 20,
-      :timeout_animation_player => 20,
-      :timeout_animation_cardplayed => 20,
-      :timeout_animation_carddistr => 20,
-      :timeout_reverseblit => 100,
-      :timeout_lastcardshow => 1200,
-      :cards_opponent => false,
-      :autoplayer_gfx => false,
-      :jump_distr_cards => false
-    }
+  
     @algorithm_name = "AlgCpuSpazzino"
     @splash_image = nil
     # draw handler for each state
@@ -1525,7 +1507,6 @@ if $0 == __FILE__
   
   testCanvas.init_gfx(SpazzinoGfx, players)
   gfx = testCanvas.current_game_gfx
-  gfx.option_gfx[:timeout_autoplay] = 50
   testCanvas.start_new_game
   theApp.run
 end

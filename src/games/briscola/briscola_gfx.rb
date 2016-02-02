@@ -32,21 +32,6 @@ class BriscolaGfx < BaseEngineGfx
       :y_off_plgui_lx => 15, :y_off_plg_card => 10
     } 
     
-    # option for graphic engine on briscola gfx
-    @option_gfx = {
-      :timout_manoend => 900,#800, 
-      :timeout_player => 400,#450, 
-      :timeout_manoend_continue => 400,#500,
-      :timeout_msgbox => 3000,
-      :timeout_animation_cardtaken => 20,
-      :timeout_animation_cardplayed => 20,
-      :timeout_animation_carddistr => 20,
-      :timeout_reverseblit => 100,
-      :timeout_lastcardshow => 1200,
-      :cards_opponent => false,
-      :autoplayer_gfx => false
-    }
-    
     @splash_image = nil
     # draw handler for each state
     @graphic_handler[:on_splash] = :on_draw_splash
@@ -919,8 +904,8 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  testCanvas.app_settings["autoplayer"][:auto_gfx] = false
-  testCanvas.app_settings["games"][:briscola_game] = {:cards_opponent => true}
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["all_games"][:cards_opponent] = true
   
   theApp.create()
   players = []
@@ -929,7 +914,6 @@ if $0 == __FILE__
   
   testCanvas.init_gfx(BriscolaGfx, players)
   gfx = testCanvas.current_game_gfx
-  gfx.option_gfx[:timeout_autoplay] = 50
   testCanvas.start_new_game
 
   theApp.run

@@ -24,19 +24,7 @@ class Tressettein4Gfx < TressetteGfx
     super(parent_wnd)
     
     @log = Log4r::Logger.new("coregame_log::Tressettein4Gfx") 
-    @option_gfx = {
-      :timout_manoend => 900,#800, 
-      :timeout_player => 400,#450, 
-      :timeout_manoend_continue => 400,#500,
-      :timeout_msgbox => 3000,
-      :timeout_animation_cardtaken => 20,
-      :timeout_animation_cardplayed => 20,
-      :timeout_animation_carddistr => 20,
-      :timeout_reverseblit => 100,
-      :timeout_lastcardshow => 1200,
-      :autoplayer_gfx => false,
-      :jump_distr_cards => false
-    }
+   
     @core_name_class = 'CoreGameTressettein4'
     @algorithm_name = "AlgCpuTressettein4" 
   end

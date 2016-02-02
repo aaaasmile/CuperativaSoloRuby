@@ -79,7 +79,6 @@ if $0 == __FILE__
   
   testCanvas.init_gfx(BriscoloneGfx, players)
   gfx = testCanvas.current_game_gfx
-  gfx.option_gfx[:timeout_autoplay] = 50
   testCanvas.start_new_game
   theApp.run
 end 

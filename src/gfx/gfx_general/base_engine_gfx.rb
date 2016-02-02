@@ -68,8 +68,18 @@ class BaseEngineGfx < InvWidget
     @image_gfx_resource = {}
     # options
     @option_gfx = { 
+      :timout_manoend => 800,
+      :timeout_player => 400,
+      :timeout_manoend_continue => 200,
       :timeout_msgbox => 3000,
-      :autoplayer_gfx => false
+      :timeout_animation_cardtaken => 20,
+      :timeout_animation_cardplayed => 20,
+      :timeout_animation_carddistr => 20,
+      :timeout_reverseblit => 100,
+      :timeout_lastcardshow => 1200,
+      :cards_opponent => false,
+      :autoplayer_gfx => false,
+      :jump_distr_cards => false
     }
     # extra frame near to the canvas
     @extra_frame = nil
@@ -473,6 +483,10 @@ class BaseEngineGfx < InvWidget
     if options["autoplayer"]
       @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
     end
+    if options["all_games"] && options["all_games"][:cards_opponent] != nil
+      @option_gfx[:cards_opponent] = options["all_games"][:cards_opponent]
+    end
+
     init_core_game(options)
     
     load_specific_resource()

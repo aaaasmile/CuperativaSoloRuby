@@ -301,7 +301,6 @@ if $0 == __FILE__
   testCanvas.app_settings["autoplayer"][:auto_gfx] = true
   testCanvas.init_gfx(TombolonGfx, players)
   gfx = testCanvas.current_game_gfx
-  gfx.option_gfx[:timeout_autoplay] = 50
   
   testCanvas.start_new_game
   theApp.run

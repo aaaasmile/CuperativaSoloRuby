@@ -30,20 +30,7 @@ class TressetteGfx < BaseEngineGfx
     @core_name_class = 'CoreGameTressette'
     @splash_name = File.join(@resource_path, "icons/tressette.png")
     
-    # option for graphic engine on briscola gfx
-    @option_gfx = {
-      :timout_manoend => 900,#800, 
-      :timeout_player => 400,#450, 
-      :timeout_manoend_continue => 400,#500,
-      :timeout_msgbox => 3000,
-      :timeout_animation_cardtaken => 20,
-      :timeout_animation_cardplayed => 20,
-      :timeout_animation_carddistr => 20,
-      :timeout_reverseblit => 100,
-      :timeout_lastcardshow => 1200,
-      :autoplayer_gfx => false,
-      :jump_distr_cards => false
-    }
+   
     @splash_image = nil
     # draw handler for each state
     @graphic_handler[:on_splash] = :on_draw_splash
@@ -848,8 +835,6 @@ if $0 == __FILE__
   
   mainwindow.init_gfx(TressetteGfx, players)
   gfx = mainwindow.current_game_gfx
-  gfx.option_gfx[:timeout_autoplay] = 50
-  # in TestCanvas automatically jump_distr_cards => true
   mainwindow.start_new_game
   
   theApp.run
