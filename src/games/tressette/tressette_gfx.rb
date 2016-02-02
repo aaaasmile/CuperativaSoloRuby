@@ -414,7 +414,7 @@ class TressetteGfx < BaseEngineGfx
       @turn_marker.add_marker(player_for_sud.name, :is_on,
             {:x => {:type => :left_anchor, :offset => 10},
               :y => {:type => :bottom_anchor, :offset => -45},
-              :anchor_element => :canvas, :marker_width => 90, :marker_height => 15 })
+              :anchor_element => :canvas, :marker_width => 60, :marker_height => 10 })
         
       @labels_graph.set_label_text(:sud_player_pt,
                                     "Punti: ", 
@@ -472,7 +472,7 @@ class TressetteGfx < BaseEngineGfx
         @turn_marker.add_marker(player.name, :is_on,
               {:x => {:type => :left_anchor, :offset => 10},
                :y => {:type => :top_anchor, :offset => 48},
-               :anchor_element => :canvas, :marker_width => 90, :marker_height => 15 })
+               :anchor_element => :canvas, :marker_width => 60, :marker_height => 10 })
         @labels_graph.set_label_text(:nord_player_pt,
                                      "Punti: ", 
               {:x => {:type => :left_anchor, :offset => 10},
