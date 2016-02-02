@@ -206,8 +206,10 @@ class CardsPlayersGraph < ComponentBase
                  (img_coperto.height + canvas_gfx.info[:info_gfx_coord][:y_off_plg_card])
     elsif player.position == :nord
       # on nord player, we have overlapped cards
-      xoffset = 20
-      left_pl1_card = (canvas_gfx.info[:canvas][:width] - (@numcards * img_coperto.width - @numcards * 40))/ 2
+      xoffset = canvas_gfx.info[:opponent_info][:x_offset]
+      if !canvas_gfx.info[:opponent_info][:is_like_human]
+        left_pl1_card = (canvas_gfx.info[:canvas][:width] - (@numcards * img_coperto.width - @numcards * 40))/ 2
+      end
     end
     left_pl1_card = 0 if left_pl1_card < 0
     left_pl1_card += @offset_left
@@ -235,7 +237,7 @@ class CardsPlayersGraph < ComponentBase
   
   # Le funzioni build_with_info e resize_with_info sono una miglioria alle build e resize
   # Queste nuove usano l'hash info_tag per ancorare la posizione ad un elemento
-  # gi� creato. Cos� si ottiene un posizionamento relativo senza avere numeri
+  # gia creato. Cosi si ottiene un posizionamento relativo senza avere numeri
   # magici in questo file e assunzioni che possono variare da gioco a gioco
   
   def build_with_info(player_name, img_coperto_sym, are_clickable, info_tag)
@@ -322,7 +324,9 @@ class CardsPlayersGraph < ComponentBase
     @log.debug "Build cards of player #{player.name}, num: #{@numcards}"
     player_sym = player.name.to_sym
     img_coperto = nil
-    if player.position == :sud
+    model_canvas_gfx = @gfx_res.model_canvas_gfx
+
+    if player.type == :human_local || model_canvas_gfx.info[:opponent_info][:is_like_human]
       # gui player
       img_coperto = @image_gfx_resource[:coperto]
     else
@@ -340,7 +344,7 @@ class CardsPlayersGraph < ComponentBase
       # animation distr
       gfx_deck_small = CardGfx.new(@gfx_res, 0, 0, @image_gfx_resource[:card_opp_img], :card_opp_img, 1 )
       @cards_distr_animated[player_sym] << gfx_deck_small
-      if player.position == :sud
+      if player.type == :human_local
         # we have only GUI player clickable cards
         @widget_list_clickable << gfx_card_new
       end 

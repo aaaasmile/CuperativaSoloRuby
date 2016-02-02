@@ -88,6 +88,7 @@ class BriscolaGfx < BaseEngineGfx
     # smazzata end messagebox
     @msgbox_smazzataend = nil
     @show_opponent_cards = false
+    @num_of_check_start_ani = 0
     @log = Log4r::Logger.new("coregame_log::BriscolaGfx") 
     # NOTE: don't forget to initialize variables also in on_gui_start_new_game
   end
@@ -284,8 +285,13 @@ class BriscolaGfx < BaseEngineGfx
     @show_opponent_cards ||= @option_gfx[:cards_opponent]
 
     unless @model_canvas_gfx.info[:canvas][:height] 
-      @log.error("ERROR: Canvas information not set")
-      return
+      raise("ERROR: Canvas information not set")
+    end
+
+    card_coperto_gfx = get_cardsymbolimage_of(:coperto)
+    if @show_opponent_cards
+      @model_canvas_gfx.info[:opponent_info][:is_like_human] = true
+      @model_canvas_gfx.info[:opponent_info][:x_offset] = (card_coperto_gfx.width / 5) * 3
     end
     
     # composite object
@@ -293,7 +299,7 @@ class BriscolaGfx < BaseEngineGfx
    
      # cards on table played
     @table_cards_played = TablePlayedCardsGraph.new(@app_owner, self, players.size)
-    @table_cards_played.set_resource(:coperto, get_cardsymbolimage_of(:coperto))
+    @table_cards_played.set_resource(:coperto, card_coperto_gfx)
     @composite_graph.add_component(:table_cardsplayed, @table_cards_played)
      
     # card players
@@ -675,7 +681,7 @@ class BriscolaGfx < BaseEngineGfx
    # human algorithm events
   
   def onalg_new_match(players)
-    @num_of_check = players.size
+    @num_of_check_start_ani = players.size
     #p players.serialize 
     log "Nuova partita. Numero gioc: #{players.size}"
     players.each{|pl| log " Nome: #{pl.name}"}
@@ -722,11 +728,11 @@ class BriscolaGfx < BaseEngineGfx
   def check_for_start_distr_animation
     start_anim = !@show_opponent_cards
     if !start_anim
-      @num_of_check -= 1
-      start_anim = @num_of_check <= 0
+      @num_of_check_start_ani -= 1
+      start_anim = @num_of_check_start_ani <= 0
     end
     if start_anim 
-      @num_of_check = @players_on_match.size
+      @num_of_check_start_ani = @players_on_match.size
       @cards_players.start_animadistr
       # suspend core event process untill animation_cards_distr_end is called
       @core_game.suspend_proc_gevents

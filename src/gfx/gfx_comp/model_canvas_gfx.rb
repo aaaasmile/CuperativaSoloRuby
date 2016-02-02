@@ -5,6 +5,7 @@
 # Holds information about game scene
 class ModelCanvasGfx
   attr_accessor :info
+
   def initialize
     reset
   end
@@ -13,6 +14,7 @@ class ModelCanvasGfx
     @info = {
       :canvas => {:width => 0, :height => 0}, :info_gfx_coord => {}, :deck_info => {},
       :card_played_pos => [], :card_played_pos_end => {}, 
+      :opponent_info => { :x_offset => 20, :is_like_human => false}
     }
   end
   
