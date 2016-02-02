@@ -303,20 +303,10 @@ class TressetteGfx < BaseEngineGfx
       return
     end
     
-    if options["autoplayer"]
-      @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
-    end
-    
     if options["games"] and options["games"][:tressette_game]
       @option_gfx[:jump_distr_cards] = options["games"][:tressette_game][:jump_distr_cards]
     end
 
-    
-    # initialize the core
-    init_core_game(options)
-    
-    load_specific_resource()
-    
     # composite object
     @composite_graph = GraphicalComposite.new(self)
     

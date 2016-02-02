@@ -43,7 +43,7 @@ class BriscolaGfx < BaseEngineGfx
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
-      :carte_avvers => true,
+      :cards_opponent => false,
       :autoplayer_gfx => false
     }
     
@@ -299,19 +299,6 @@ class BriscolaGfx < BaseEngineGfx
       @log.error("ERROR: Canvas information not set")
       return
     end
-    
-    if options["autoplayer"]
-      @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
-    end
-    
-    # initialize the core
-    #p options
-    #p options[:games][:briscola]
-    init_core_game(options)
-    
-    #p @core_game.num_of_cards_onhandplayer
-    
-    load_specific_resource
     
     # composite object
     @composite_graph = GraphicalComposite.new(self)
@@ -932,7 +919,8 @@ if $0 == __FILE__
   #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
-  testCanvas.app_settings["autoplayer"][:auto_gfx] = true
+  testCanvas.app_settings["autoplayer"][:auto_gfx] = false
+  testCanvas.app_settings["games"][:briscola_game] = {:cards_opponent => true}
   
   theApp.create()
   players = []

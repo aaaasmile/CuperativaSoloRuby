@@ -42,7 +42,7 @@ class SpazzinoGfx < BaseEngineGfx
       :timeout_animation_carddistr => 20,
       :timeout_reverseblit => 100,
       :timeout_lastcardshow => 1200,
-      :carte_avvers => true,
+      :cards_opponent => false,
       :autoplayer_gfx => false,
       :jump_distr_cards => false
     }
@@ -456,16 +456,7 @@ class SpazzinoGfx < BaseEngineGfx
     @points_status = {}
     @player_gfx_info = {}
     
-    
-    # initialize the core
-    init_core_game(options)
-
-    load_specific_resource
-    
-    if options["autoplayer"]
-      @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
-    end
-    
+  
     # composite object
     @composite_graph = GraphicalComposite.new(self)
     

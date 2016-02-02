@@ -469,6 +469,14 @@ class BaseEngineGfx < InvWidget
       deck_name = 'francesi'
     end
     load_cards(deck_name)
+
+    if options["autoplayer"]
+      @option_gfx[:autoplayer_gfx] = options["autoplayer"][:auto_gfx]
+    end
+    init_core_game(options)
+    
+    load_specific_resource()
+    
     
     #call custom game implementation on child view
     on_gui_start_new_game(players, options) if respond_to?(:on_gui_start_new_game)
