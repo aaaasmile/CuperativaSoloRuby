@@ -146,7 +146,7 @@ class TressetteGfx < BaseEngineGfx
   ##
   # The player on the gui has played a card. Start the animation process
   def start_guiplayer_card_played_animation( player, lbl_card)
-    @log.debug("user card is played animation start #{lbl_card}")
+    #@log.debug("user card is played animation start #{lbl_card}")
     ix = @player_on_gui[:mano_ix]
     player_sym = player.name.to_sym
     @cards_players.card_invisible(player_sym, lbl_card)
@@ -517,7 +517,7 @@ class TressetteGfx < BaseEngineGfx
   ##
   # Mano end timeout
   def onTimeoutManoEnd
-    @log.debug("gfx: onTimeoutManoEnd")
+    #@log.debug("gfx: onTimeoutManoEnd")
     if @state_gfx == :on_game
       # prepare animation cards taken
       if @mano_end_player_taker
@@ -532,7 +532,7 @@ class TressetteGfx < BaseEngineGfx
   ##
   # Now continue the game
   def onTimeoutManoEndContinue
-    @log.debug("gfx: onTimeoutManoEndContinue")
+    #@log.debug("gfx: onTimeoutManoEndContinue")
     # restore event process
     @core_game.continue_process_events if @core_game
   end
@@ -722,7 +722,7 @@ class TressetteGfx < BaseEngineGfx
   # carte_prese_mano: cards taken on this hand
   # punti_presi: points collectd in this hand
   def onalg_manoend(player_best, carte_prese_mano, punti_presi)
-    log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}"
+    #log "Mano finita. Vinta: #{player_best.name}, punti: #{punti_presi}"
     @player_picked_count = 0
     @mano_end_player_taker = player_best
     
@@ -774,7 +774,7 @@ class TressetteGfx < BaseEngineGfx
     
     # check if it was gui player
     if @player_on_gui[:player] == player
-      @log.debug "Carta giocata correttamente #{lbl_card}"  
+      #@log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
       # start card played animation
       start_guiplayer_card_played_animation( @player_on_gui[:player], lbl_card)

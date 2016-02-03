@@ -409,7 +409,7 @@ class CoreGameTressette < CoreGameBase
   end
   
   def pesca_carta
-    @log.info "pesca_carta"
+    #@log.info "pesca_carta"
     carte_player = []
     if @mazzo_gioco.size > 0
       # ci sono ancora carte da pescare dal mazzo   

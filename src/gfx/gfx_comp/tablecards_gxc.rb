@@ -178,7 +178,7 @@ class TablePlayedCardsGraph < ComponentBase
   # Animation is terminated
   # type: :card_played, :card_taken
   def animation_is_terminated(type)
-    @log.debug "animation terminated #{type}"
+    #@log.debug "animation terminated #{type}"
     @state_animation[type] = :idle
     if type == :card_played
       @cards_played_todisp.each do |gfx_card|
@@ -447,7 +447,7 @@ class TablePlayedCardsGraph < ComponentBase
   ##
   # Start animation cards taken
   def start_ani_cards_taken
-    @log.debug "Start animation cards taken with #{@cards_taken_disp.size} cards"
+    #@log.debug "Start animation cards taken with #{@cards_taken_disp.size} cards"
     @cards_taken_disp.each{|gfx_card| gfx_card.visible = true}
     @cards_played_todisp.each{|gfx_card| gfx_card.visible = false}
     @state_animation[:card_taken] = :ongoing
@@ -455,7 +455,7 @@ class TablePlayedCardsGraph < ComponentBase
   end
   
   def card_is_played2_incirc(lbl_card, player_position, z_ord, init_x,  init_y)
-    @log.debug "card is played #{lbl_card} from #{player_position}"
+    #@log.debug "card is played #{lbl_card} from #{player_position}"
     gfx_played = CardGfx.new(@gfx_res, init_x, init_y, 
                @gfx_res.get_card_image_of(lbl_card), lbl_card, 1 )
     
@@ -553,7 +553,7 @@ class TablePlayedCardsGraph < ComponentBase
   # init_y: initial y position
   def start_ani_played_card(ix, init_x, init_y)
     @state_animation[:card_played] = :ongoing
-    @log.debug "tablecard: start ani played card: #{ix}, #{init_x}, #{init_y}"
+    #@log.debug "tablecard: start ani played card: #{ix}, #{init_x}, #{init_y}"
     if ix >= @cards_played_todisp.size
       strerr =  "Unable to animate card with ix#{ix} because size is #{@cards_played_todisp.size}"
       @log.error strerr 
@@ -689,7 +689,7 @@ class TablePlayedCardsGraph < ComponentBase
         card.visible = false
       end
       animation_is_terminated(:card_taken)
-      @log.debug "Animation card taken terminated"
+      #@log.debug "Animation card taken terminated"
       @gfx_res.ani_card_taken_end
     else
       # continue animation

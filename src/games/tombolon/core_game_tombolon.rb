@@ -57,7 +57,7 @@ class CoreGameTombolon < CoreGameSpazzino
   ##
   # Override new giocata to count distribution
   def new_giocata
-    @log.debug "new_mano START"
+    #@log.debug "new_mano START"
     @player_input_hdl.block_start
     
     @num_of_ditribution = 1
@@ -92,7 +92,7 @@ class CoreGameTombolon < CoreGameSpazzino
       player.algorithm.onalg_gameinfo( {:deckcard => @lastcard_ondeck} )
     end
     
-    @log.debug "new_mano END"
+    #@log.debug "new_mano END"
     @player_input_hdl.block_end
   end
   

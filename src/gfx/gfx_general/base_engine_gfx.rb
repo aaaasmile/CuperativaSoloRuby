@@ -321,7 +321,7 @@ class BaseEngineGfx < InvWidget
   ##
   # Animation for card distribution is terminated
   def animation_cards_distr_end
-    @log.debug "END Animation distrubite cards"
+    #@log.debug "END Animation distrubite cards"
     @composite_graph.bring_component_on_front(nil)
     @core_game.continue_process_events if @core_game
   end

@@ -1433,7 +1433,7 @@ class SpazzinoGfx < BaseEngineGfx
     
     # check if it was gui player
     if @player_on_gui[:player] == player
-      @log.debug "Carta giocata correttamente #{lbl_card}"  
+      #@log.debug "Carta giocata correttamente #{lbl_card}"  
       @player_on_gui[:can_play] = false
       card_played_taken = []
       if card_taken.size > 0

@@ -130,7 +130,7 @@ class CardsPlayersGraph < ComponentBase
   ##
   # Set a card in player hand as invisible
   def card_invisible(player_sym, lbl_card)
-    @log.debug "cardsplayer_gfxc: card invisible #{lbl_card} on player #{player_sym}"
+    #@log.debug "cardsplayer_gfxc: card invisible #{lbl_card} on player #{player_sym}"
     bfound = false
     @cards_player_todisp[player_sym].each do |cardgfx|
       #p cardgfx.lbl

@@ -120,7 +120,7 @@ class CoreGameBriscola < CoreGameBase
     
     new_giocata_distribute_cards
     
-    @log.debug "new_giocata END"
+    #@log.debug "new_giocata END"
     @player_input_hdl.block_end
   end
   
@@ -148,7 +148,7 @@ class CoreGameBriscola < CoreGameBase
   # Col termine di mano ci si riferisce a tutte le carte giocate dai giocatori
   # prima che ci sia una presa
   def new_mano
-    @log.info "new_mano START"
+    #@log.info "new_mano START"
     @player_input_hdl.block_start
     
     # reverse it for use pop
@@ -162,7 +162,7 @@ class CoreGameBriscola < CoreGameBase
     @players.each do |pl|
       pl.algorithm.onalg_have_to_play(player_onturn)
     end
-    @log.info "new_mano END"
+   # @log.info "new_mano END"
     @player_input_hdl.block_end
   end
   
@@ -190,7 +190,7 @@ class CoreGameBriscola < CoreGameBase
   ##
   # Tempo di pescare una carta dal mazzo
   def pesca_carta
-    @log.info "pesca_carta"
+    #@log.info "pesca_carta"
     carte_player = []
     briscola_in_tavola = true
     if @mazzo_gioco.size > 0
@@ -223,7 +223,7 @@ class CoreGameBriscola < CoreGameBase
   # Una carta e' stata giocata con successo, continua la mano se
   # ci sono ancora giocatori che devono giocare, altrimenti la mano finisce.
   def continua_mano
-    @log.debug "continua_mano START"
+    #@log.debug "continua_mano START"
     @player_input_hdl.block_start
     
     player_onturn = @round_players.last
@@ -235,12 +235,12 @@ class CoreGameBriscola < CoreGameBase
       end
     else
       # no more player have to play
-      @log.debug "continua_mano END"
+      #@log.debug "continua_mano END"
       @player_input_hdl.block_end
       submit_next_event(:mano_end)
       return
     end
-    @log.debug "continua_mano END"
+    #@log.debug "continua_mano END"
     @player_input_hdl.block_end
   end
   
@@ -250,9 +250,8 @@ class CoreGameBriscola < CoreGameBase
     # mano end calcola chi vince la mano e ricomincia da capo
     # usa @carte_gioc_mano_corr per calcolare chi vince la mano; 
     # accumula le carte prese nell hash @carte_prese
-    @log.info "mano_end"
+    #@log.info "mano_end"
     lbl_best,player_best =  vincitore_mano(@carte_gioc_mano_corr)
-    @log.info "mano vinta da #{player_best.name}"
     @mano_count += 1
     
     @carte_gioc_mano_corr.each do |hash_card| 
@@ -269,7 +268,7 @@ class CoreGameBriscola < CoreGameBase
     end
     
     punti_presi = calc_puneggio(carte_prese_mano)
-    @log.info "Punti fatti nella mano #{punti_presi}" 
+    @log.info "Hand wons by #{player_best.name},  points on this hand #{punti_presi}" 
     @players.each{|pl| pl.algorithm.onalg_manoend(player_best, carte_prese_mano, punti_presi) }
     
     # reset cards played on  the current mano

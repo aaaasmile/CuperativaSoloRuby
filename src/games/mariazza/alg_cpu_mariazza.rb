@@ -130,13 +130,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     return card
   end
   
-  ##
-  # Provides true if maziazza is still declarable on the given suite
-  # suit: a string like "b" for suite bastoni. 1 character length
-  def is_mariazz_possible?(suit)
-    return @mariazz_on_suite[suit]
-  end
-  
+ 
   ##
   # Play as master as second
   def play_as_master_second
@@ -149,9 +143,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     take_it = []
     leave_it = []
     # build takeit leaveit arrays
+    is_briscola = false
+    strosa_card = nil
     @cards_on_hand.each do |card_lbl|
       card_s = card_lbl.to_s
       bcurr_card_take = false
+      is_briscola = card_s[2] == @briscola.to_s[2]
       card_curr_info = @deck_info.get_card_info(card_lbl)
       if card_s[2] == card_avv_s[2]
         # same suit
@@ -172,6 +169,11 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       # check how many points make the card if it take
       points = card_curr_info[:points] + card_avv_info[:points]
       if bcurr_card_take
+        if points >= 10 && strosa_card == nil && !is_briscola
+          strosa_card = card_lbl 
+        elsif !is_briscola && points >= 10 && strosa_card != nil && @deck_info.get_card_info(card_lbl)[:points] > @deck_info.get_card_info(strosa_card)[:points]
+          strosa_card = card_lbl 
+        end
         if points > max_points_take
           max_card_take = card_lbl
           max_points_take = points
@@ -213,6 +215,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @log.debug("play_as_master_second, apply R2-decl #{card_to_play}")
       return card_to_play 
     end
+
+    if strosa_card != nil
+      @log.debug("play_as_master_second, apply RStrosa #{strosa_card}")
+      return strosa_card
+    end
+
     if max_card_take_s[2] == @briscola.to_s[2]
       # card that take is briscola, pay attention to play it
       if max_points_take >= 20
@@ -406,6 +414,12 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     return min_list
   end
 
+  ##
+  # Provides true if maziazza is still declarable on the given suite
+  # suit: a string like "b" for suite bastoni. 1 character length
+  def is_mariazz_possible?(suit)
+    return @mariazz_on_suite[suit]
+  end
   
   def check_mariazza_for_card_gone(card_s)
     segno = card_s[2,1]

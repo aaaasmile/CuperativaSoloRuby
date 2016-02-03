@@ -152,7 +152,7 @@ class CoreGameSpazzino < CoreGameBase
     
     @lasttaken_player = nil
     @lasttaken_cards = nil
-    @log.debug  "new_giocata END"
+    #@log.debug  "new_giocata END"
     @player_input_hdl.block_end
     
     submit_next_event(:new_mano)
@@ -171,7 +171,7 @@ class CoreGameSpazzino < CoreGameBase
   # Col termine di mano ci si riferisce a tutte le carte giocate dai giocatori
   # prima che ci sia una presa
   def new_mano
-    @log.debug "new_mano START"
+    #@log.debug "new_mano START"
     @player_input_hdl.block_start
     @mano_count += 1
     # reverse it for use pop
@@ -191,7 +191,7 @@ class CoreGameSpazzino < CoreGameBase
       # don't notify commands declaration for player that are only informed
       pl.algorithm.onalg_have_to_play(player_onturn)
     end
-    @log.debug "new_mano END"
+    #@log.debug "new_mano END"
     
     @player_input_hdl.block_end
   end
@@ -255,7 +255,7 @@ class CoreGameSpazzino < CoreGameBase
   ##
   # Player take cards from deck
   def pesca_carta
-    @log.debug "pesca_carta"
+    #@log.debug "pesca_carta"
     carte_player = []
     if @mazzo_gioco.size >= @num_of_cards_onhandplayer * @players.size
       # there are still cards to distibute   

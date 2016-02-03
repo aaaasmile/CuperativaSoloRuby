@@ -133,7 +133,7 @@ class AlgCpuPlayerBase
   end
 
   def onTimeoutAlgorithmHaveToPlayWithCmd(command_decl_avail)
-    @log.debug "Timeout have to play, commands: #{command_decl_avail.inspect}"
+    #@log.debug "Timeout have to play, commands: #{command_decl_avail.inspect}"
     alg_check_cmds_play_acard(command_decl_avail)
     @core_game.continue_process_events if @core_game
   end

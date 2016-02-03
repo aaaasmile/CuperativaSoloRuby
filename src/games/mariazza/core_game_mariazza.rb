@@ -62,7 +62,7 @@ class CoreGameMariazza < CoreGameBriscola
   # Col termine di mano ci si riferisce a tutte le carte giocate dai giocatori
   # prima che ci sia una presa
   def new_mano
-    @log.debug "new_mano START"
+    #@log.debug "new_mano START"
     @player_input_hdl.block_start
     
     # reverse it for use pop
@@ -108,7 +108,7 @@ class CoreGameMariazza < CoreGameBriscola
         pl.algorithm.onalg_have_to_play_with_cmd(player_onturn, [])
       end
     end
-    @log.debug "new_mano END"
+    #@log.debug "new_mano END"
     @player_input_hdl.block_end
   end
   
@@ -126,7 +126,7 @@ class CoreGameMariazza < CoreGameBriscola
     @points_curr_segno.each do |k,v|
       str_points += "#{k} = #{v} "
     end
-    @log.info "Punteggio attuale: #{str_points}, max #{punti_attuali_max}, target #{@game_opt[:target_points_segno]}" 
+    #@log.info "Punteggio attuale: #{str_points}, max #{punti_attuali_max}, target #{@game_opt[:target_points_segno]}" 
     #p @game_opt[:target_points_segno]
     #p punti_attuali_max
     if punti_attuali_max >= @game_opt[:target_points_segno]
@@ -205,7 +205,7 @@ class CoreGameMariazza < CoreGameBriscola
   # Una carta e' stata giocata con successo, continua la mano se
   # ci sono ancora giocatori che devono giocare, altrimenti la mano finisce.
   def continua_mano
-    @log.debug "continua_mano START"
+    #@log.debug "continua_mano START"
     @player_input_hdl.block_start
     
     player_onturn = @round_players.last
@@ -227,12 +227,12 @@ class CoreGameMariazza < CoreGameBriscola
       end
     else
       # no more player have to play
-      @log.debug "continua_mano END"
+      #@log.debug "continua_mano END"
       @player_input_hdl.block_end
       submit_next_event(:mano_end)
       return
     end
-    @log.debug "continua_mano END"
+    #@log.debug "continua_mano END"
     @player_input_hdl.block_end
   end
 
