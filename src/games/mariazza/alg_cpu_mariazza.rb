@@ -129,7 +129,6 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     end
     return card
   end
-  
  
   ##
   # Play as master as second
@@ -224,8 +223,9 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     if max_card_take_s[2] == @briscola.to_s[2]
       # card that take is briscola, pay attention to play it
       if max_points_take >= 20
-        @log.debug("play_as_master_second, apply R3 #{max_card_take}")
-        return max_card_take
+        best = best_taken_card(take_it)[0]
+        @log.debug("play_as_master_second, apply R3 #{best}")
+        return best
       end
     elsif max_points_take >= 10
       # take it, strosa!
@@ -247,28 +247,27 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       return best_leave_it
     end
     if take_it.size > 0
-      w_and_best = best_taken_card(take_it)
-      card_to_play = w_and_best[0]
-      w_and_best_points = @deck_info.get_card_info(card_to_play)[:points] + card_avv_info[:points]
-      if (w_and_best_points < 50 && w_and_best_points >= 5)
-        @log.debug("play_as_master_second, apply R12 #{card_to_play}")
-        return card_to_play
-      end
       # we can take it
-      if curr_points_opp > 29 and max_points_take > 0 and take_it.size > 1
-        # try to take it
-        @log.debug("play_as_master_second, apply R5 #{card_to_play}")
-        return card_to_play
+      w_and_best = best_taken_card(take_it)
+      best_card = w_and_best[0]
+      best_card_weight = w_and_best[1]
+      best_card_points = @deck_info.get_card_info(best_card)[:points] + card_avv_info[:points]
+      if (best_card_points >= 5)
+        @log.debug("play_as_master_second, apply R12 #{best_card}")
+        return best_card
       end
-      if curr_points_opp > 36 and (card_avv_info[:points]  > 0  or points_best_leave > 0)
-        # try to take it
-        @log.debug("play_as_master_second, apply R11 #{card_to_play}")
-        return card_to_play
+      if curr_points_opp > 29 && best_card_points > 0 && take_it.size > 1
+        @log.debug("play_as_master_second, apply R5 #{best_card}")
+        return best_card
       end
-      if points_best_leave  > 2 or min_points_leave > 3 and w_and_best[1] < 320
+      if curr_points_opp > 36 && (card_avv_info[:points]  > 0  || points_best_leave > 0)
+        @log.debug("play_as_master_second, apply R11 #{best_card}")
+        return best_card
+      end
+      if (points_best_leave  > 2 || best_card_points > 2) && best_card_weight < 290
         # I am loosing too many points?
-        @log.debug("play_as_master_second, apply R6 #{card_to_play}")
-        return card_to_play
+        @log.debug("play_as_master_second, apply R6 #{best_card}")
+        return best_card
       end
     end 
     # leave it
@@ -383,6 +382,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       curr_w += 200 if  card_s[2] == @briscola.to_s[2]
       # check if it is an asso or 3
       curr_w += 0 if card_s[1] == "A"[0]
+      curr_w += 100 if card_s[1] == "A"[0] && card_s[2] == @briscola.to_s[2]
       curr_w += 5 if card_s[1] == "3"[0] 
       if card_s =~ /[24567]/
         # liscio value
@@ -410,7 +410,7 @@ class AlgCpuMariazza < AlgCpuPlayerBase
     # find a minimum
     #p w_cards
     min_list = w_cards.min{|a,b| a[1]<=>b[1]}
-    @log.debug("Best card to play on best_taken_card is #{min_list[0]}, w_cards = #{w_cards.to_s}")
+    @log.debug("Best card to play on best_taken_card is #{min_list[0]}, w_cards = #{w_cards.inspect}")
     return min_list
   end
 

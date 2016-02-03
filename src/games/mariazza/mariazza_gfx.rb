@@ -313,10 +313,10 @@ if $0 == __FILE__
   testCanvas.set_position(0,0,950,630)
   
   # start game using a custom deck
-  deck =  RandomManager.new
+  #deck =  RandomManager.new
   #deck.set_predefined_deck('_3c,_Ab,_4b,_Cd,_6d,_Fb,_2b,_7s,_4c,_3b,_7c,_3d,_5b,_Ad,_2s,_Rs,_Fd,_2d,_4s,_Cb,_3s,_6b,_5c,_5s,_Cs,_7b,_Fs,_7d,_5d,_6c,_Rb,_Rd,_As,_Fc,_Cc,_Rc,_Ac,_6s,_4d,_2c',0) # mazzo OK
-  deck.set_predefined_deck('_5d,_5s,_Ac,_Rb,_Fd,_2c,_7s,_6d,_4s,_Fs,_6b,_2s,_Cc,_2d,_Rs,_4d,_2b,_3b,_Cb,_7d,_5b,_4c,_3d,_Ad,_Rd,_6c,_Cd,_6s,_As,_7c,_Fc,_4b,_Fb,_Ab,_5c,_3s,_Rc,_Cs,_3c,_7b',0) #deck fake to test the first hand alg
-  testCanvas.set_custom_deck(deck)
+  #deck.set_predefined_deck('_5d,_5s,_Ac,_Rb,_Fd,_2c,_7s,_6d,_4s,_Fs,_6b,_2s,_Cc,_2d,_Rs,_4d,_2b,_3b,_Cb,_7d,_5b,_4c,_3d,_Ad,_Rd,_6c,_Cd,_6s,_As,_7c,_Fc,_4b,_Fb,_Ab,_5c,_3s,_Rc,_Cs,_3c,_7b',0) #deck fake to test the first hand alg
+  #testCanvas.set_custom_deck(deck)
   # end test a custom deck
   
   
