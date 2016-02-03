@@ -246,25 +246,27 @@ class AlgCpuMariazza < AlgCpuPlayerBase
       @log.debug("play_as_master_second, apply R10 #{best_leave_it} ")
       return best_leave_it
     end
+    tot_points_lost_best_leaveit = card_avv_info[:points] + points_best_leave
     if take_it.size > 0
       # we can take it
       w_and_best = best_taken_card(take_it)
       best_card = w_and_best[0]
       best_card_weight = w_and_best[1]
-      best_card_points = @deck_info.get_card_info(best_card)[:points] + card_avv_info[:points]
-      if (best_card_points >= 5)
+      bc_points = @deck_info.get_card_info(best_card)[:points]
+      best_card_tot_points = bc_points + card_avv_info[:points]
+      if (best_card_tot_points >= 5 && bc_points < 11)
         @log.debug("play_as_master_second, apply R12 #{best_card}")
         return best_card
       end
-      if curr_points_opp > 29 && best_card_points > 0 && take_it.size > 1
+      if curr_points_opp > 29 && best_card_tot_points > 0 && take_it.size > 1
         @log.debug("play_as_master_second, apply R5 #{best_card}")
         return best_card
       end
-      if curr_points_opp > 36 && (card_avv_info[:points]  > 0  || points_best_leave > 0)
+      if curr_points_opp > 36 && tot_points_lost_best_leaveit > 0
         @log.debug("play_as_master_second, apply R11 #{best_card}")
         return best_card
       end
-      if (points_best_leave  > 2 || best_card_points > 2) && best_card_weight < 290
+      if (tot_points_lost_best_leaveit  > 2 || best_card_tot_points > 2) && best_card_weight < 290
         # I am loosing too many points?
         @log.debug("play_as_master_second, apply R6 #{best_card}")
         return best_card
