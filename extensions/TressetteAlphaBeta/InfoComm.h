@@ -26,7 +26,7 @@
 #ifndef __INFO_COMM_H
 #define __INFO_COMM_H
 
-#include <vector>
+//#include <vector>
 
 #ifndef BOOL 
     typedef int BOOL;

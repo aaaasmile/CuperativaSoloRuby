@@ -29,6 +29,7 @@
 #include "StdAfx.h"
 #include "cStateAB.h"
 #include <algorithm>
+#include <utility>
 #include "TraceService.h"
 
 
@@ -214,8 +215,8 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
     {
 		for (int j = i - 1; j >= 0 && movecount[j] > movecount[i]; --j) 
         {
-            std::swap<int>(movecount[j], movecount[i]);
-			std::swap<int>(suitorder[j], suitorder[i]);
+            std::swap(movecount[j], movecount[i]);
+			std::swap(suitorder[j], suitorder[i]);
 			i = j;
 		}
 	}

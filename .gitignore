@@ -14,3 +14,7 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.v12.suo
 deploy/CupStarterConsoleSharp/UpgradeLog.htm
 deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.VC.opendb
 deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
+*.user
+*.ipch
+/deploy/CupStarterConsoleSharp/Debug/TressetteAlphaBeta.dll
+/deploy/CupStarterConsoleSharp/Debug/TressetteAlphaBeta.ilk
