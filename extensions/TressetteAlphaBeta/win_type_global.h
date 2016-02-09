@@ -55,6 +55,8 @@
 	#include <vector>
     #include <deque>
     #include <string>
+    #include <sys/time.h>
+    #include <string.h>
 #endif
 
 #ifndef BOOL 
@@ -95,6 +97,10 @@
         #define ULONG unsigned long
 #endif
 
+#ifndef UINT
+    typedef unsigned int    UINT;
+#endif
+
 #ifndef LPCSTR
     typedef CONST CHAR *LPCSTR, *PCSTR;
 #endif
@@ -106,7 +112,7 @@
 
 #ifndef TRACE
     #include <stdio.h>
-    #ifdef WIN32
+    #ifdef _MSC_VER
         // windows platform
         inline void TRACE(const char* fmt, ...)
         {

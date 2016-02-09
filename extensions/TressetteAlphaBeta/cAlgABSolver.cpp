@@ -1,27 +1,3 @@
-/*
-    Tressette
-    Copyright (C) 2005  Igor Sarzi Sartori
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the Free
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-    Igor Sarzi Sartori
-    www.invido.it
-    6colpiunbucosolo@gmx.net
-*/
-
-
 // cAlgABSolver.cpp: implementation of the cAlgABSolver class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -33,6 +9,9 @@
 #include "win_type_global.h"
 #include "TraceService.h"
 
+#ifndef _MSC_VER
+    #include <sys/time.h>
+#endif
 
 
 using namespace searchalpha;
@@ -442,18 +421,20 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
 */
 void  cAlgABSolver::alphaBeta_progress()
 {
-
+#ifndef _MSC_VER
+    gettimeofday(&_start, NULL);
+#endif
 }
 
 int cAlgABSolver::getTicks()
 {
-#ifdef WIN32
+#ifdef _MSC_VER
 	return ::GetTickCount();
 #else
 	Uint32 ticks;
 	struct timeval now;
 	gettimeofday(&now, NULL);
-	ticks=(now.tv_sec-start.tv_sec)*1000+(now.tv_usec-start.tv_usec)/1000;
+	ticks = (now.tv_sec - _start.tv_sec) * 1000 + (now.tv_usec - _start.tv_usec) / 1000;
 	return(ticks);
 #endif
 }

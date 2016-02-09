@@ -18,3 +18,7 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
 *.ipch
 /deploy/CupStarterConsoleSharp/Debug/TressetteAlphaBeta.dll
 /deploy/CupStarterConsoleSharp/Debug/TressetteAlphaBeta.ilk
+/extensions/TressetteAlphaBeta/cStateAB.o
+/extensions/TressetteAlphaBeta/cHand.o
+/extensions/TressetteAlphaBeta/cCardItem.o
+/extensions/TressetteAlphaBeta/cAlgABSolver.o
