@@ -1,8 +1,12 @@
 // Include the Ruby headers and goodies
-#ifdef _MSC_VER
+
 // this file is the extension entry point, it is intended to be compiled in mingw and not in visual studio
+#ifndef _MSC_VER
 
 #include "ruby.h"
+#include "RubyTre4AlphaBeta.h"
+
+// compiled with ruby 1.8.7 (2010-08-16 patchlevel 302) [i386-mingw32]
 
 // Defining a space for information and references about the module to be stored internally
 VALUE RubyTre4AlphaBeta = Qnil;
@@ -11,7 +15,7 @@ VALUE RubyTre4AlphaBeta = Qnil;
 void Init_RubyTre4AlphaBeta();
 
 // Prototype for our method 'test1' - methods are prefixed by 'method_' here
-VALUE method_test1(VALUE self);
+VALUE method_test1(ANYARGS);
 
 // The initialization method for this module
 void Init_RubyTre4AlphaBeta() {
@@ -20,7 +24,7 @@ void Init_RubyTre4AlphaBeta() {
 }
 
 // Our 'test1' method.. it simply returns a value of '10' for now.
-VALUE method_test1(VALUE self) {
+VALUE method_test1(ANYARGS) {
     int x = 10;
     return INT2NUM(x);
 }

@@ -132,7 +132,7 @@ public:
     }
 };
 
-// Functor to sort the card list in descending manner. Use only card value no matter wat the suite
+// Functor to sort the card list in descending manner. Use only card value no matter what the suit
 class cmp2CardDescOnlyValue
 {
 public:

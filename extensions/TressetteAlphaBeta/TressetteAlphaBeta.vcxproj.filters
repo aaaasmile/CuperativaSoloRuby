@@ -16,9 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="RubyTre4AlphaBeta.cpp">
-      <Filter>Source Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -54,6 +51,9 @@
     <ClInclude Include="TraceService.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="RubyTre4AlphaBeta.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -78,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TraceService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RubyTre4AlphaBeta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
