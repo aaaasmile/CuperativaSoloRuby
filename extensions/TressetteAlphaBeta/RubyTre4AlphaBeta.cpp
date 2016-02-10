@@ -1,8 +1,9 @@
 // Include the Ruby headers and goodies
 // this file is the extension entry point, it is intended to be compiled in mingw and not in visual studio
-#include "stdafx.h"
+
 
 #ifndef _MSC_VER
+// rubybinding
 #include "ruby.h"
 #include "RubyTre4AlphaBeta.h"
 
@@ -30,10 +31,13 @@ VALUE method_test1(ANYARGS) {
 }
 #else
 // c# binding
+#include "stdafx.h"
 #include "RubyTre4AlphaBeta.h"
 
 namespace Tre4AlphaBeta
 {
+    using namespace System;
+
     AlphaBetaSolver::AlphaBetaSolver()
     {
         _aBSolver = new cAlgABSolver();
@@ -43,6 +47,38 @@ namespace Tre4AlphaBeta
     void AlphaBetaSolver::Solve()
     {
         _aBSolver->Solve();
+    }
+
+    void AlphaBetaSolver::SetHand(int playerIx, String^ handDescription)
+    {
+        CARDINFO currHand[searchalpha::MAXNUMTRICKS];
+        array<String^>^ separators = gcnew array< String^ >(1);
+
+        separators[0] = ",";
+        array<String^>^ items = handDescription->Split(separators, StringSplitOptions::RemoveEmptyEntries);
+        int count = 0;
+        for each (String^ cdItem in items)
+        {
+            bool recognized = false;
+            int ix = -1;
+            String^ noSpace = cdItem->Trim();
+            if (noSpace->Length == 2)
+            {
+                ix = cCardItem::SuitAndLettToIndex(noSpace[0], noSpace[1]);
+                recognized = (ix >= 0 && ix < searchalpha::DECKSIZE && count < searchalpha::MAXNUMTRICKS);
+            }
+            if (!recognized)
+                throw gcnew Exception(String::Format("invalid card item {0}", cdItem));
+
+            currHand[count].byIndex = ix;
+            count++;
+        }
+
+        if (count > 0)
+        {
+            _aBSolver->SetHands(0, &currHand[0], count);
+        }
+
     }
 
 }

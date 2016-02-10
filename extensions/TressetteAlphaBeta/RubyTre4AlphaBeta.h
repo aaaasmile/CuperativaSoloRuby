@@ -19,7 +19,7 @@ namespace Tre4AlphaBeta
     public:
         AlphaBetaSolver();
         void Solve();
-
+        void SetHand(int playerIx, System::String^ handDescription);
 
     private:
         cAlgABSolver*  _aBSolver;
