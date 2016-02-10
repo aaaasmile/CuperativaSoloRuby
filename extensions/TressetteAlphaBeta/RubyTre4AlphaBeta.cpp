@@ -1,5 +1,4 @@
 // Include the Ruby headers and goodies
-
 // this file is the extension entry point, it is intended to be compiled in mingw and not in visual studio
 #ifndef _MSC_VER
 
@@ -28,5 +27,4 @@ VALUE method_test1(ANYARGS) {
     int x = 10;
     return INT2NUM(x);
 }
-
 #endif

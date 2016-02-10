@@ -23,6 +23,7 @@ Si edita il file config.yml e si mette dentro qualcosa di simile a:
  Ora lo si installa con 
  ruby dk.rb install
  A questo punto è possibile compilare gem nativi.
+ (https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 
  == L'estensione ruby
  Ho messo in progetto di visual studio 2015 tutto il codice cpp che mi serve per l'algoritmo alpha-beta
@@ -35,8 +36,8 @@ Si edita il file config.yml e si mette dentro qualcosa di simile a:
  Le particolarità per compilare il codice come estensione, è stato quella di creare il file RubyTre4AlphaBeta.h
  per l'export di Init_RubyTre4AlphaBeta e quella di avere la libreria lstdc++ linkata (extconf.rb).
  Anche l'ordine degli headers e windows.h vanno settati a modo in mingw. Per quanto riquarda il file
- RubyTre4AlphaBeta.cpp, non sempre gli esempi che si trovano in rete vanno bene per 1.8.7, quindi bisogna
- controllare il file ruby.h per essere sicuri.
+ RubyTre4AlphaBeta.cpp, non sempre gli esempi che si trovano in rete (http://www.rubyinside.com/how-to-create-a-ruby-extension-in-c-in-under-5-minutes-100.html)
+ vanno bene per 1.8.7, quindi bisogna controllare il file ruby.h per essere sicuri.
  Una volta compilata l'estensione col comando make, si lancia irb e poi si mette require 'RubyTre4AlphaBeta',
  include RubyTre4AlphaBeta e puts test1 per vedere se va.
 

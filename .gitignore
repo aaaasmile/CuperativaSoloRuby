@@ -29,3 +29,4 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
 /extensions/TressetteAlphaBeta/StdAfx.o
 /extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.so
 /extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.o
+*.metagen
