@@ -23,3 +23,9 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
 /extensions/TressetteAlphaBeta/cCardItem.o
 /extensions/TressetteAlphaBeta/cAlgABSolver.o
 /extensions/TressetteAlphaBeta/dllmain.o
+/extensions/TressetteAlphaBeta/TrickHistoryItem.o
+/extensions/TressetteAlphaBeta/TressetteAlphaBeta.o
+/extensions/TressetteAlphaBeta/TraceService.o
+/extensions/TressetteAlphaBeta/StdAfx.o
+/extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.so
+/extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.o
