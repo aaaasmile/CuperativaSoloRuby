@@ -42,13 +42,15 @@
     #include <iostream>
 #endif
 
+#ifdef WIN32
+    #include <windows.h>
+#endif
 #if _MSC_VER > 1000
 	#pragma warning( disable: 4251 )
     #pragma warning(disable:4786)
 	#pragma warning(disable:4996)
     #include <vector> 
     #include <deque>
-    #include <windows.h>
     #include <string>
 #else
 	#include <iostream>

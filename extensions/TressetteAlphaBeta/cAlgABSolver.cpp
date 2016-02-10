@@ -6,7 +6,6 @@
 #include "cStateAB.h"
 #include "cAlgABSolver.h"
 #include "cCardItem.h"
-#include "win_type_global.h"
 #include "TraceService.h"
 
 #ifndef _MSC_VER

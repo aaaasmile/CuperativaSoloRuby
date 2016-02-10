@@ -25,10 +25,8 @@
 // TraceService.cpp
 
 #include "StdAfx.h"
-#include "win_type_global.h"
 #include <iostream>
 #include <fstream>
-//#include "AlgPlayerInterface.h"
 #include "TraceService.h"
 
 ///////////////////////////////////////////////////////

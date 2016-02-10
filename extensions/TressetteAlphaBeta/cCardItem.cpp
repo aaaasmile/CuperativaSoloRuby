@@ -28,7 +28,6 @@
 
 #include "StdAfx.h"
 #include "cCardItem.h"
-#include "win_type_global.h"
 
 
 

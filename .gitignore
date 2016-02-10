@@ -22,3 +22,4 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
 /extensions/TressetteAlphaBeta/cHand.o
 /extensions/TressetteAlphaBeta/cCardItem.o
 /extensions/TressetteAlphaBeta/cAlgABSolver.o
+/extensions/TressetteAlphaBeta/dllmain.o
