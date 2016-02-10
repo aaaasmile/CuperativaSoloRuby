@@ -58,7 +58,7 @@
     #include <deque>
     #include <string>
     #include <sys/time.h>
-    #include <string.h>
+    #include <string>
 #endif
 
 #ifndef BOOL 

@@ -1,4 +1,7 @@
 // Include the Ruby headers and goodies
+#ifdef _MSC_VER
+// this file is the extension entry point, it is intended to be compiled in mingw and not in visual studio
+
 #include "ruby.h"
 
 // Defining a space for information and references about the module to be stored internally
@@ -21,3 +24,5 @@ VALUE method_test1(VALUE self) {
     int x = 10;
     return INT2NUM(x);
 }
+
+#endif

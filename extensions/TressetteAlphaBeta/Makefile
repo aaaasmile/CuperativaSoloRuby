@@ -45,11 +45,11 @@ LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
-RUBY_EXTCONF_H = extconf.h
+RUBY_EXTCONF_H = 
 CFLAGS   =  -g -O2 -DFD_SETSIZE=256  $(cflags) 
 INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\"  $(DEFS) $(cppflags)
+CPPFLAGS =   $(DEFS) $(cppflags)
 CXXFLAGS = $(CFLAGS) 
 ldflags  = -L. 
 dldflags =  -Wl,--enable-auto-image-base,--enable-auto-import,--export-all
@@ -87,7 +87,7 @@ DISTCLEANFILES =
 extout = 
 extout_prefix = 
 target_prefix = 
-LOCAL_LIBS = 
+LOCAL_LIBS = -lstdc++ 
 LIBS = $(LIBRUBYARG_SHARED)  -lshell32 -lws2_32  
 SRCS = cAlgABSolver.cpp cCardItem.cpp cHand.cpp cStateAB.cpp dllmain.cpp RubyTre4AlphaBeta.cpp StdAfx.cpp TraceService.cpp TressetteAlphaBeta.cpp TrickHistoryItem.cpp
 OBJS = cAlgABSolver.o cCardItem.o cHand.o cStateAB.o dllmain.o RubyTre4AlphaBeta.o StdAfx.o TraceService.o TressetteAlphaBeta.o TrickHistoryItem.o
@@ -153,4 +153,4 @@ $(DLLIB): $(OBJS) Makefile
 
 
 
-$(OBJS): ruby.h defines.h $(RUBY_EXTCONF_H)
+$(OBJS): ruby.h defines.h
