@@ -51,7 +51,7 @@ namespace Tre4AlphaBeta
 
     void AlphaBetaSolver::SetHand(int playerIx, String^ handDescription)
     {
-        CARDINFO currHand[searchalpha::MAXNUMTRICKS];
+        int currHandIxs[searchalpha::MAXNUMTRICKS] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         array<String^>^ separators = gcnew array< String^ >(1);
 
         separators[0] = ",";
@@ -70,13 +70,13 @@ namespace Tre4AlphaBeta
             if (!recognized)
                 throw gcnew Exception(String::Format("invalid card item {0}", cdItem));
 
-            currHand[count].byIndex = ix;
+            currHandIxs[count] = ix;
             count++;
         }
 
         if (count > 0)
         {
-            _aBSolver->SetHands(0, &currHand[0], count);
+            _aBSolver->SetHands(0, &currHandIxs[0], count);
         }
 
     }

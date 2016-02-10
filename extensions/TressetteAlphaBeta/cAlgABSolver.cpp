@@ -54,19 +54,19 @@ void cAlgABSolver::InitDeck()
 //       SetHands
 /*! Set a player hands
 // \param int  iPlayerIx : player index 
-// \param CARDINFO* arrCards : array of cards
+// \param CARDINFO* arrCards : array of card indexes
 // \param int iNumItem : number of item
 */
-void cAlgABSolver::SetHands(int  iPlayerIx, CARDINFO* arrCards, int iNumItem)
+void cAlgABSolver::SetHands(int  iPlayerIx, int* arrCards, int iNumItem)
 {
     CARDLIST handSubmit;
     for (int i = 0; i < iNumItem; i++)
     {
-        ASSERT(arrCards[i].byIndex != NOT_VALID_INDEX);
+        ASSERT(arrCards[i] != NOT_VALID_INDEX);
         BOOL bCardFound = FALSE;
         for (int j = 0; !bCardFound && j <DECKSIZE; j++)
         {
-            if (m_Deck[j].card.byIndex == arrCards[i].byIndex )
+            if (m_Deck[j].card.byIndex == arrCards[i] )
             {
                 bCardFound = TRUE;
                 handSubmit.push_back( &m_Deck[j] );

@@ -33,7 +33,7 @@ public:
     //! initialize deck
     void    InitDeck();
     //! set a player hands
-    void    SetHands(int  iPlayerIx, CARDINFO* arrCards, int iNumItem);
+    void    SetHands(int  iPlayerIx, int* arrCards, int iNumItem);
     //! set the plaer index that start
     void    SetInitialPlayer(int  iPlayerIx);
     //! solve the hand
