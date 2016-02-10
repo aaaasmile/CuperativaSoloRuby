@@ -56,6 +56,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TressetteAlphaBeta", "..\..\extensions\TressetteAlphaBeta\TressetteAlphaBeta.vcxproj", "{81300606-5048-47E8-B065-61B6C19C4003}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestTressetteAlphaBeta", "..\..\extensions\ConsoleTestTressetteAlphaBeta\ConsoleTestTressetteAlphaBeta.csproj", "{C5EED422-3AEB-4122-A8A8-814FF93DD14B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,11 +128,28 @@ Global
 		{81300606-5048-47E8-B065-61B6C19C4003}.Release|x64.Build.0 = Release|x64
 		{81300606-5048-47E8-B065-61B6C19C4003}.Release|x86.ActiveCfg = Release|Win32
 		{81300606-5048-47E8-B065-61B6C19C4003}.Release|x86.Build.0 = Release|Win32
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|x64.Build.0 = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|x64.Build.0 = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{81300606-5048-47E8-B065-61B6C19C4003} = {582A449E-82ED-4EA1-9076-7DEDB73E4307}
+		{C5EED422-3AEB-4122-A8A8-814FF93DD14B} = {582A449E-82ED-4EA1-9076-7DEDB73E4307}
 	EndGlobalSection
 EndGlobal

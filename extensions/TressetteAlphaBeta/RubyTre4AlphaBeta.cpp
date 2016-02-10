@@ -1,7 +1,8 @@
 // Include the Ruby headers and goodies
 // this file is the extension entry point, it is intended to be compiled in mingw and not in visual studio
-#ifndef _MSC_VER
+#include "stdafx.h"
 
+#ifndef _MSC_VER
 #include "ruby.h"
 #include "RubyTre4AlphaBeta.h"
 
@@ -27,4 +28,23 @@ VALUE method_test1(ANYARGS) {
     int x = 10;
     return INT2NUM(x);
 }
+#else
+// c# binding
+#include "RubyTre4AlphaBeta.h"
+
+namespace Tre4AlphaBeta
+{
+    AlphaBetaSolver::AlphaBetaSolver()
+    {
+        _aBSolver = new cAlgABSolver();
+        _aBSolver->InitDeck();
+    }
+
+    void AlphaBetaSolver::Solve()
+    {
+        _aBSolver->Solve();
+    }
+
+}
+
 #endif

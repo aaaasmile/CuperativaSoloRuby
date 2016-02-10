@@ -30,3 +30,7 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.sdf
 /extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.so
 /extensions/TressetteAlphaBeta/RubyTre4AlphaBeta.o
 *.metagen
+/extensions/ConsoleTestTressetteAlphaBeta/bin/Debug
+/extensions/ConsoleTestTressetteAlphaBeta/obj/Debug
+/extensions/TressetteAlphaBeta/x64/Debug
+/extensions/TressetteAlphaBeta/Resource.aps

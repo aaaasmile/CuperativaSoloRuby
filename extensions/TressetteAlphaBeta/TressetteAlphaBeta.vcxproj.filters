@@ -33,13 +33,7 @@
     <ClInclude Include="cHand.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConstSearchAlpha.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="cStateAB.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InfoComm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="TrickHistoryItem.h">
@@ -51,8 +45,17 @@
     <ClInclude Include="TraceService.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RubyTre4AlphaBeta.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoComm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstSearchAlpha.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,5 +89,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="extconf.rb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
