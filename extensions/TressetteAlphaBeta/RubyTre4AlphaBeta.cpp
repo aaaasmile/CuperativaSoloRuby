@@ -47,7 +47,7 @@ namespace Tre4AlphaBeta
 
         _pABSolver = new cAlgABSolver();
         _pABSolver->InitDeck();
-        
+
     }
 
     void AlphaBetaSolver::Solve()
@@ -70,7 +70,9 @@ namespace Tre4AlphaBeta
             String^ noSpace = cdItem->Trim();
             if (noSpace->Length == 2)
             {
-                ix = cCardItem::SuitAndLettToIndex(noSpace[0], noSpace[1]);
+                char letter = static_cast<char>(noSpace[0]);
+                char suit = static_cast<char>(noSpace[1]);
+                ix = cCardItem::SuitAndLettToIndex(letter, suit);
                 recognized = (ix >= 0 && ix < searchalpha::DECKSIZE && count < searchalpha::MAXNUMTRICKS);
             }
             if (!recognized)

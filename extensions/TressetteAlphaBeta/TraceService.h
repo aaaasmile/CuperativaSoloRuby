@@ -93,9 +93,10 @@ public:
 
 private:
     // Flash m_entryTraceDetails into the channel output
-    void   flashTheEntry(int channel);
+    void   flashTheEntry();
 
 private:
+    CHAR               _bufferForComment[1024];
     EntryTraceDetail   m_entryTraceDetails;
     //! channel mask
     BOOL               m_abChannelMask[NUM_OF_CHANN];

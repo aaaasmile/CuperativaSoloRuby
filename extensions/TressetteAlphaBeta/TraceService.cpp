@@ -153,46 +153,42 @@ BOOL   TraceService::AddNewEntry(int iChannel, EntryTraceDetail::eType eValType,
 */
 void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm)
 {
-    static CHAR buff[1024];
-    sprintf(buff, lpszForm);
-    m_entryTraceDetails.m_strComment = buff;
-    flashTheEntry(m_entryTraceDetails.m_iChannel);
+    sprintf(_bufferForComment, lpszForm);
+    m_entryTraceDetails.m_strComment = _bufferForComment;
+    flashTheEntry();
 }
 
 void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, int arg1)
 {
-    static CHAR buff[1024];
-    sprintf(buff, lpszForm, arg1);
-    m_entryTraceDetails.m_strComment = buff;
-    flashTheEntry(m_entryTraceDetails.m_iChannel);
+    sprintf(_bufferForComment, lpszForm, arg1);
+    m_entryTraceDetails.m_strComment = _bufferForComment;
+    flashTheEntry();
 }
 
 void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1)
 {
-    static CHAR buff[1024];
-    sprintf(buff, lpszForm, arg1);
-    m_entryTraceDetails.m_strComment = buff;
-    flashTheEntry(m_entryTraceDetails.m_iChannel);
+    sprintf(_bufferForComment, lpszForm, arg1);
+    m_entryTraceDetails.m_strComment = _bufferForComment;
+    flashTheEntry();
 }
 
 void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1, int arg2, LPCSTR arg3)
 {
-    static CHAR buff[1024];
-    sprintf(buff, lpszForm, arg1, arg2, arg3);
-    m_entryTraceDetails.m_strComment = buff;
-    flashTheEntry(m_entryTraceDetails.m_iChannel);
+    sprintf(_bufferForComment, lpszForm, arg1, arg2, arg3);
+    m_entryTraceDetails.m_strComment = _bufferForComment;
+    flashTheEntry();
 }
 
 void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, int arg1, int arg2)
 {
-    static CHAR buff[1024];
-    sprintf(buff, lpszForm, arg1, arg2);
-    m_entryTraceDetails.m_strComment = buff;
-    flashTheEntry(m_entryTraceDetails.m_iChannel);
+    sprintf(_bufferForComment, lpszForm, arg1, arg2);
+    m_entryTraceDetails.m_strComment = _bufferForComment;
+    flashTheEntry();
 }
 
-void   TraceService::flashTheEntry(int channel)
+void   TraceService::flashTheEntry()
 {
+    int channel = m_entryTraceDetails.m_iChannel;
     STRING strEntry = m_entryTraceDetails.ToString();
     switch (m_aeChannelOut[channel])
     {
