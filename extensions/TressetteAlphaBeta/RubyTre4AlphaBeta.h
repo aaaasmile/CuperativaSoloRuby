@@ -22,7 +22,8 @@ namespace Tre4AlphaBeta
         void SetHand(int playerIx, System::String^ handDescription);
 
     private:
-        cAlgABSolver*  _aBSolver;
+        cAlgABSolver*   _pABSolver;
+        TraceService*   _pTracer;
     };
 }
 

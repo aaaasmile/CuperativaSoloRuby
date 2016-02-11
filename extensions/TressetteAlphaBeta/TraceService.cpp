@@ -54,8 +54,8 @@ STRING EntryTraceDetail::ToString()
         strOnlyFileName = m_strFileName;
     }
     sprintf(buff, "%d, %s, %s, %d, %s", m_ulTimeStamp, alpszDetTypeName[m_eTrType],
-            strOnlyFileName.c_str(), m_iLineNumber, m_strComment.c_str());
-    
+        strOnlyFileName.c_str(), m_iLineNumber, m_strComment.c_str());
+
     strRes = buff;
     return strRes;
 }
@@ -151,22 +151,47 @@ BOOL   TraceService::AddNewEntry(int iChannel, EntryTraceDetail::eType eValType,
 // \param LPCSTR lpszForm :
 // \param ... :
 */
-void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, ...)
+void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm)
 {
-
     static CHAR buff[1024];
-    va_list marker;
-    va_start(marker, lpszForm);
-    vsprintf(buff, lpszForm, marker);
-    va_end(marker);
+    sprintf(buff, lpszForm);
     m_entryTraceDetails.m_strComment = buff;
-
     flashTheEntry(m_entryTraceDetails.m_iChannel);
-
 }
 
+void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, int arg1)
+{
+    static CHAR buff[1024];
+    sprintf(buff, lpszForm, arg1);
+    m_entryTraceDetails.m_strComment = buff;
+    flashTheEntry(m_entryTraceDetails.m_iChannel);
+}
 
-void  TraceService::flashTheEntry(int channel)
+void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1)
+{
+    static CHAR buff[1024];
+    sprintf(buff, lpszForm, arg1);
+    m_entryTraceDetails.m_strComment = buff;
+    flashTheEntry(m_entryTraceDetails.m_iChannel);
+}
+
+void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1, int arg2, LPCSTR arg3)
+{
+    static CHAR buff[1024];
+    sprintf(buff, lpszForm, arg1, arg2, arg3);
+    m_entryTraceDetails.m_strComment = buff;
+    flashTheEntry(m_entryTraceDetails.m_iChannel);
+}
+
+void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, int arg1, int arg2)
+{
+    static CHAR buff[1024];
+    sprintf(buff, lpszForm, arg1, arg2);
+    m_entryTraceDetails.m_strComment = buff;
+    flashTheEntry(m_entryTraceDetails.m_iChannel);
+}
+
+void   TraceService::flashTheEntry(int channel)
 {
     STRING strEntry = m_entryTraceDetails.ToString();
     switch (m_aeChannelOut[channel])

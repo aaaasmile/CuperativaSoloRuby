@@ -79,7 +79,11 @@ public:
     //! add a new trace entry
     BOOL   AddNewEntry(int iChannel, EntryTraceDetail::eType eValType, LPCSTR lpszFileName, int iLineNr);
     //! add a comment to the last entry
-    void   AddCommentToLastEntry(LPCSTR lpszForm, ...);
+    void   AddCommentToLastEntry(LPCSTR lpszForm);
+    void   AddCommentToLastEntry(LPCSTR lpszForm, int arg1);
+    void   AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1);
+    void   AddCommentToLastEntry(LPCSTR lpszForm, int arg1, int arg2);
+    void   AddCommentToLastEntry(LPCSTR lpszForm, LPCSTR arg1, int arg2, LPCSTR arg3);
     //! enable channel
     void   EnableChannel(int iChann, BOOL bVal) { if (iChann >= 0 && iChann < NUM_OF_CHANN)m_abChannelMask[iChann] = bVal; }
     //! change the output channel

@@ -33,6 +33,7 @@ VALUE method_test1(ANYARGS) {
 // c# binding
 #include "stdafx.h"
 #include "RubyTre4AlphaBeta.h"
+#include "TraceService.h"
 
 namespace Tre4AlphaBeta
 {
@@ -40,13 +41,18 @@ namespace Tre4AlphaBeta
 
     AlphaBetaSolver::AlphaBetaSolver()
     {
-        _aBSolver = new cAlgABSolver();
-        _aBSolver->InitDeck();
+        _pTracer = TraceService::Instance();
+        _pTracer->EnableChannel(TR_ALPHABETA_CH, TRUE);
+        _pTracer->SetOutputChannel(TR_ALPHABETA_CH, TraceService::OT_STDOUT, NULL);
+
+        _pABSolver = new cAlgABSolver();
+        _pABSolver->InitDeck();
+        
     }
 
     void AlphaBetaSolver::Solve()
     {
-        _aBSolver->Solve();
+        _pABSolver->Solve();
     }
 
     void AlphaBetaSolver::SetHand(int playerIx, String^ handDescription)
@@ -76,7 +82,7 @@ namespace Tre4AlphaBeta
 
         if (count > 0)
         {
-            _aBSolver->SetHands(0, &currHandIxs[0], count);
+            _pABSolver->SetHands(0, &currHandIxs[0], count);
         }
 
     }

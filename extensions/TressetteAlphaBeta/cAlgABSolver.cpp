@@ -42,7 +42,6 @@ cAlgABSolver::~cAlgABSolver()
 void cAlgABSolver::InitDeck()
 {
     m_pTracer = TraceService::Instance();
-    m_pTracer->EnableChannel(TR_ALPHABETA_CH, TRUE);
 
     for (int i = 0; i < DECKSIZE; i++)
     {
