@@ -42,6 +42,7 @@ cAlgABSolver::~cAlgABSolver()
 void cAlgABSolver::InitDeck()
 {
     m_pTracer = TraceService::Instance();
+    m_pTracer->EnableChannel(TR_ALPHABETA_CH, TRUE);
 
     for (int i = 0; i < DECKSIZE; i++)
     {
@@ -319,7 +320,7 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
     
     Uint32 uiNowTime = getTicks();
     if (uiNowTime - m_uiInitialTime > m_uiMaxCalcTime)
-	{
+    {
         // time calculation elapsed
         // return something neutral
         pCurrState->SetTimeout();
@@ -428,13 +429,13 @@ void  cAlgABSolver::alphaBeta_progress()
 int cAlgABSolver::getTicks()
 {
 #ifdef _MSC_VER
-	return ::GetTickCount();
+    return ::GetTickCount();
 #else
-	Uint32 ticks;
-	struct timeval now;
-	gettimeofday(&now, NULL);
-	ticks = (now.tv_sec - _start.tv_sec) * 1000 + (now.tv_usec - _start.tv_usec) / 1000;
-	return(ticks);
+    Uint32 ticks;
+    struct timeval now;
+    gettimeofday(&now, NULL);
+    ticks = (now.tv_sec - _start.tv_sec) * 1000 + (now.tv_usec - _start.tv_usec) / 1000;
+    return(ticks);
 #endif
 }
 
@@ -468,12 +469,12 @@ void cAlgABSolver::renderHandStdOut()
     STRING strPlayer = PlayerIndexToName(m_StateInitial.GetInitialPlayer());
     STRING strState = m_StateInitial.State_repr();
     //vrb(0, "lead: %s, ",  strPlayer.c_str());
-	//vrb(0, "estimated %d tricks left to play\n", m_StateInitial.GetTrickLeft());
-	//vrb(1, "\n%s\n", m_StateInitial.State_repr().c_str());
+    //vrb(0, "estimated %d tricks left to play\n", m_StateInitial.GetTrickLeft());
+    //vrb(1, "\n%s\n", m_StateInitial.State_repr().c_str());
     if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
     {
             m_pTracer->AddCommentToLastEntry("lead: %s, estimated %d tricks left to play\n\n%s\n", 
-            strPlayer.c_str(), m_StateInitial.GetTrickLeft(),  strState.c_str());
+                strPlayer.c_str(), m_StateInitial.GetTrickLeft(),  strState.c_str());
     }
 }
 
@@ -486,7 +487,7 @@ void cAlgABSolver::renderHandStdOut()
 void cAlgABSolver::renderBestLine(cBestLine& lstMainLine)
 {
     CHAR buff[512];
-	UINT i;
+    UINT i;
     for (i = 0; i < lstMainLine.m_CardListBest.size(); i++)
     {
         cCardItem* pCard = lstMainLine.m_CardListBest[i];

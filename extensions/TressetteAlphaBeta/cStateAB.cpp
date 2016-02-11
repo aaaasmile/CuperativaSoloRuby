@@ -1,27 +1,3 @@
-/*
-    Tressette
-    Copyright (C) 2005  Igor Sarzi Sartori
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the Free
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-    Igor Sarzi Sartori
-    www.invido.it
-    6colpiunbucosolo@gmx.net
-*/
-
-
 // cStateAB.cpp: implementation of the cStateAB class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -94,44 +70,44 @@ cStateAB::~cStateAB()
 */
 STRING cStateAB::State_repr() 
 {
-	
+    
     STRING strState;
     STRING suitbabble;
     int offset = 0;
     char babble[2048];
     char* bab = babble;
-	int suit;
-	
-	// north
-	for (suit = 0; suit < SUITCOUNT; ++suit) 
+    int suit;
+    
+    // north
+    for (suit = 0; suit < SUITCOUNT; ++suit) 
     {
-		bab += offset;
+        bab += offset;
         suitbabble = m_HanPlayers[0].RenderSuit((eSUIT)suit);
-		offset = sprintf(bab, "%13s%-20s\n", "", suitbabble.c_str());
-	}
+        offset = sprintf(bab, "%13s%-20s\n", "", suitbabble.c_str());
+    }
 
     // west - east
-	for (suit = 0; suit < SUITCOUNT; ++suit) 
+    for (suit = 0; suit < SUITCOUNT; ++suit) 
     {
-		bab += offset;
-		suitbabble = m_HanPlayers[1].RenderSuit((eSUIT)suit);
+        bab += offset;
+        suitbabble = m_HanPlayers[1].RenderSuit((eSUIT)suit);
         offset = sprintf(bab, "%1s%-20s", "", suitbabble.c_str());
-		bab += offset;
+        bab += offset;
         suitbabble = m_HanPlayers[3].RenderSuit((eSUIT)suit);
         offset = sprintf(bab, "%6s%-20s\n", "", suitbabble.c_str());
-	}
-	
-	// south
-	for (suit = 0; suit < SUITCOUNT; ++suit) 
+    }
+    
+    // south
+    for (suit = 0; suit < SUITCOUNT; ++suit) 
     {
-		bab += offset;
+        bab += offset;
         suitbabble = m_HanPlayers[2].RenderSuit((eSUIT)suit);
-		offset = sprintf(bab, "%13s%-20s\n", "", suitbabble.c_str());
-	}
-	
-	
+        offset = sprintf(bab, "%13s%-20s\n", "", suitbabble.c_str());
+    }
+    
+    
     strState = babble;
-	return strState;
+    return strState;
 }
 
 
@@ -192,34 +168,34 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
     // find the suit with more moves
     for (int player = 0; player < PLAYERCOUNT; ++player) 
     {
-		if (player == m_PlayerIx) 
+        if (player == m_PlayerIx) 
         {
             continue;
         }
-		for (int suit = 0; suit < SUITCOUNT; ++suit) 
+        for (int suit = 0; suit < SUITCOUNT; ++suit) 
         {
-			int moves = m_HanPlayers[player].Suitlength((eSUIT)suit);
+            int moves = m_HanPlayers[player].Suitlength((eSUIT)suit);
             if (moves > 0)
             {
-			    movecount[suit] *= moves;
+                movecount[suit] *= moves;
             }
             else
             {
-				m_HanPlayers[player].Length();
+                m_HanPlayers[player].Length();
             }
-		}
-	}
+        }
+    }
     
     // sort the suit
     for (i = 1; i < SUITCOUNT; ++i) 
     {
-		for (int j = i - 1; j >= 0 && movecount[j] > movecount[i]; --j) 
+        for (int j = i - 1; j >= 0 && movecount[j] > movecount[i]; --j) 
         {
             std::swap(movecount[j], movecount[i]);
-			std::swap(suitorder[j], suitorder[i]);
-			i = j;
-		}
-	}
+            std::swap(suitorder[j], suitorder[i]);
+            i = j;
+        }
+    }
     
     // now provides all cards of the player sorted by suit. Order is: first comes the suit 
     // with more combinations
@@ -258,7 +234,7 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
     
     BYTE byPlTrickWinIx = 0; 
     cCardItem* pWinCard = pHistItem->m_Trick[0];
-	int i;
+    int i;
     for (i = 1; i < iCurrTrickLen; i++)
     {
         cCardItem* pCandCard = pHistItem->m_Trick[i];

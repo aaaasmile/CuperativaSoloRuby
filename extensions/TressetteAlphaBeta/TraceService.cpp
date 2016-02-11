@@ -155,7 +155,7 @@ BOOL   TraceService::AddNewEntry(int iChannel, int iId, EntryTraceDetail::eType 
         GetSystemTime( &SysTm);
         m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = SysTm.wMinute * 60 + SysTm.wSecond;
 #else
-	m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = 0;
+    m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = 0;
 #endif
         // enable the call to add a comment
         m_iLastEntryUsed = iIndexNew;
@@ -189,9 +189,9 @@ void   TraceService::AddCommentToLastEntry(LPCSTR lpszForm, ... )
     {
         static CHAR buff[1024];
         va_list marker;
-	    va_start(marker, lpszForm);										
-	    vsprintf(buff, lpszForm, marker);						
-	    va_end(marker);	
+        va_start(marker, lpszForm);										
+        vsprintf(buff, lpszForm, marker);						
+        va_end(marker);	
         m_mtxEntryTraceDetails[m_iLastChannelUsed][m_iLastEntryUsed].m_strComment = buff ;
         
         flashTheEntry();
@@ -234,7 +234,7 @@ void TraceService::AddSimpleTrace(int iChannel, LPCSTR lpszForm, ...)
         GetSystemTime( &SysTm);
         m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = SysTm.wMinute * 60 + SysTm.wSecond;
 #else
-	m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = 0;
+    m_mtxEntryTraceDetails[iChannel][iIndexNew].m_ulTimeStamp  = 0;
 #endif
         // info for flashout
         m_iLastEntryUsed = iIndexNew;
@@ -242,9 +242,9 @@ void TraceService::AddSimpleTrace(int iChannel, LPCSTR lpszForm, ...)
 
         static CHAR buff[1024];
         va_list marker;
-	va_start(marker, lpszForm);										
-	vsprintf(buff, lpszForm, marker);						
-	va_end(marker);	
+    va_start(marker, lpszForm);										
+    vsprintf(buff, lpszForm, marker);						
+    va_end(marker);	
         m_mtxEntryTraceDetails[m_iLastChannelUsed][m_iLastEntryUsed].m_strComment = buff ;
 
         // put it out
@@ -292,7 +292,7 @@ void  TraceService::flashTheEntry()
             {
                 strEntry = m_mtxEntryTraceDetails[m_iLastChannelUsed][m_iLastEntryUsed].ToString();
                 //m_pICustomTracer->Trace( strEntry.c_str() ); 
-				ASSERT(0); // TO DO
+                ASSERT(0); // TO DO
             }
             
             break;

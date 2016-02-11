@@ -22,8 +22,8 @@ class cCardItem
 {
     
 public:
-	cCardItem();
-	virtual ~cCardItem();
+    cCardItem();
+    virtual ~cCardItem();
 
     void SetCardIndex(int itmpIndex);
     static int LetterToIndex(char lett);

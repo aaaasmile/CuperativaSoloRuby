@@ -26,8 +26,8 @@ class TraceService;
 class cAlgABSolver  
 {
 public:
-	cAlgABSolver();
-	virtual ~cAlgABSolver();
+    cAlgABSolver();
+    virtual ~cAlgABSolver();
 
 public:
     //! initialize deck
@@ -57,7 +57,7 @@ private:
     void   vrb(int n, char* strPar, ...);
     int    alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState);
     void   alphaBeta_progress();
-	int    getTicks();
+    int    getTicks();
     
 private:
     //! initial state

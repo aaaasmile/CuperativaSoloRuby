@@ -24,9 +24,9 @@ typedef unsigned __int64 stateid;
 typedef long long stateid;
 #endif
 public:
-	cStateAB();
+    cStateAB();
     cStateAB(cStateAB* pCopy);
-	virtual ~cStateAB();
+    virtual ~cStateAB();
     //! state to string
     STRING   State_repr();
     //! Provides all legal moves using the euristic
