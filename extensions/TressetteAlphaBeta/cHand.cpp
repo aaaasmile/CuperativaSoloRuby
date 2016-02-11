@@ -25,11 +25,11 @@ cHand::~cHand()
 ////////////////////////////////////////
 //       AddCards
 /*! Add a card to the hand list
-// \param CARDLIST& handSubmit : 
+// \param CARDLIST& handSubmit :
 */
 void  cHand::AddCards(CARDLIST& handSubmit)
 {
-    for (UINT i = 0; i  < handSubmit.size(); i++)
+    for (UINT i = 0; i < handSubmit.size(); i++)
     {
         eSUIT esuit = handSubmit[i]->card.eSuit;
         suitList[esuit].push_back(handSubmit[i]);
@@ -39,8 +39,8 @@ void  cHand::AddCards(CARDLIST& handSubmit)
 
 ////////////////////////////////////////
 //       RenderSuit
-/*! Display into a string a list that belongs to a suit. 
-// \param eSUIT suit : 
+/*! Display into a string a list that belongs to a suit.
+// \param eSUIT suit :
 */
 STRING cHand::RenderSuit(eSUIT esuit)
 {
@@ -57,7 +57,7 @@ STRING cHand::RenderSuit(eSUIT esuit)
     }
     if (offset > 0)
     {
-        offset --;
+        offset--;
     }
     pCurr += offset;
     *pCurr = '\0';
@@ -73,21 +73,21 @@ STRING cHand::RenderSuit(eSUIT esuit)
 /*! A card was played, remove it from the player hand
 // \param cCardItem* pCard : card played
 */
-void cHand::PlayCard( cCardItem* pCard )
+void cHand::PlayCard(cCardItem* pCard)
 {
     CARDLIST*  tmpList = &suitList[pCard->card.eSuit];
 
-//    cStateAB::TraceCardListDbg(*tmpList); 
+    //    cStateAB::TraceCardListDbg(*tmpList); 
 
     CARDLIST_IT pCurrIter = tmpList->begin();
 
     BOOL bFound = FALSE;
     int iIniItems = tmpList->size();
     int i;
-    for (i = 0; !bFound && i < iIniItems; i++ )
+    for (i = 0; !bFound && i < iIniItems; i++)
     {
         cCardItem* pCardInList = (*tmpList)[i];
-        if (pCardInList->card.byIndex ==  pCard->card.byIndex )
+        if (pCardInList->card.byIndex == pCard->card.byIndex)
         {
             // card found
             bFound = TRUE;

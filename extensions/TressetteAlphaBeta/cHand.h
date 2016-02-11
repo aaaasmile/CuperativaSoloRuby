@@ -17,9 +17,9 @@
 #include "win_type_global.h"
 
 //! class  cHand
-class cHand  
+class cHand
 {
-    
+
 public:
     cHand();
     virtual ~cHand();
@@ -28,13 +28,13 @@ public:
     //! render a suit in a string
     STRING  RenderSuit(eSUIT esuit);
     //! provides the suit leength
-    int     Suitlength(eSUIT esuit){return suitList[esuit].size();}
+    int     Suitlength(eSUIT esuit) { return suitList[esuit].size(); }
     //! lenght of the hand
-    int     Length(){return suitList[0].size() + suitList[1].size() + suitList[2].size() + suitList[3].size();}
+    int     Length() { return suitList[0].size() + suitList[1].size() + suitList[2].size() + suitList[3].size(); }
     //! a card in the hand was played, adjust hand information
-    void    PlayCard( cCardItem* pCard );
+    void    PlayCard(cCardItem* pCard);
     //! reset the hand
-    void    ResetHand(){for(int i = 0; i < searchalpha::SUITCOUNT; i++)suitList[i].clear();}
+    void    ResetHand() { for (int i = 0; i < searchalpha::SUITCOUNT; i++)suitList[i].clear(); }
     //! provides the last card
     cCardItem* GetLastPlayableCard();
 

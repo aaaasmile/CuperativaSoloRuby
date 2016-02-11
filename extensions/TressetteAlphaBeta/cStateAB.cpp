@@ -29,23 +29,18 @@ cStateAB::cStateAB()
 }
 
 
-////////////////////////////////////////
-//       cStateAB
-/*! Copy constructor
-// \param cStateAB* pCopy : 
-*/
 cStateAB::cStateAB(cStateAB* pCopy)
 {
     m_byTricksleft = pCopy->m_byTricksleft;
-    m_eSuit = pCopy->m_eSuit ;
+    m_eSuit = pCopy->m_eSuit;
     m_trickHist = pCopy->m_trickHist;
     m_PlayerIx = pCopy->m_PlayerIx;
-    
+
     for (int i = 0; i < PLAYERCOUNT; i++)
     {
         m_HanPlayers[i] = pCopy->m_HanPlayers[i];
     }
-    
+
     m_id = pCopy->m_id;
     m_arrTeamPoints[0] = pCopy->m_arrTeamPoints[0];
     m_arrTeamPoints[1] = pCopy->m_arrTeamPoints[1];
@@ -55,10 +50,6 @@ cStateAB::cStateAB(cStateAB* pCopy)
 }
 
 
-////////////////////////////////////////
-//       ~cStateAB
-/*! 
-*/
 cStateAB::~cStateAB()
 {
 
@@ -68,18 +59,18 @@ cStateAB::~cStateAB()
 //       State_repr
 /*! Provides the state in a string to be rendered.
 */
-STRING cStateAB::State_repr() 
+STRING cStateAB::State_repr()
 {
-    
+
     STRING strState;
     STRING suitbabble;
     int offset = 0;
     char babble[2048];
     char* bab = babble;
     int suit;
-    
+
     // north
-    for (suit = 0; suit < SUITCOUNT; ++suit) 
+    for (suit = 0; suit < SUITCOUNT; ++suit)
     {
         bab += offset;
         suitbabble = m_HanPlayers[0].RenderSuit((eSUIT)suit);
@@ -87,7 +78,7 @@ STRING cStateAB::State_repr()
     }
 
     // west - east
-    for (suit = 0; suit < SUITCOUNT; ++suit) 
+    for (suit = 0; suit < SUITCOUNT; ++suit)
     {
         bab += offset;
         suitbabble = m_HanPlayers[1].RenderSuit((eSUIT)suit);
@@ -96,16 +87,16 @@ STRING cStateAB::State_repr()
         suitbabble = m_HanPlayers[3].RenderSuit((eSUIT)suit);
         offset = sprintf(bab, "%6s%-20s\n", "", suitbabble.c_str());
     }
-    
+
     // south
-    for (suit = 0; suit < SUITCOUNT; ++suit) 
+    for (suit = 0; suit < SUITCOUNT; ++suit)
     {
         bab += offset;
         suitbabble = m_HanPlayers[2].RenderSuit((eSUIT)suit);
         offset = sprintf(bab, "%13s%-20s\n", "", suitbabble.c_str());
     }
-    
-    
+
+
     strState = babble;
     return strState;
 }
@@ -142,19 +133,19 @@ void cStateAB::TraceCardListDbg(CARDLIST& cardlistState)
     TraceService* pTracer = TraceService::Instance();
     for (UINT i = 0; i < cardlistState.size(); i++)
     {
-       cCardItem* pCard = cardlistState[i];
-       //TRACE("%c%c ",pCard->chCardLetter,pCard->chSuitLetter); 
-       sprintf(&buff[3*i], "%c%c ",pCard->chCardLetter,pCard->chSuitLetter);
+        cCardItem* pCard = cardlistState[i];
+        //TRACE("%c%c ",pCard->chCardLetter,pCard->chSuitLetter); 
+        sprintf(&buff[3 * i], "%c%c ", pCard->chCardLetter, pCard->chSuitLetter);
     }
     //TRACE("\n");
-    if ( pTracer->AddNewEntry(TR_ALPHABETA_CH, 4, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-         pTracer->AddCommentToLastEntry("%s", buff); 
+    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 4, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        pTracer->AddCommentToLastEntry("%s", buff);
 }
 
 
 ////////////////////////////////////////
 //       narrowones_first
-/*! First player in the trick, provides all available cards sorted by better chance. 
+/*! First player in the trick, provides all available cards sorted by better chance.
 // \param CARDLIST& cardlistState : card list result
 */
 void cStateAB::narrowones_first(CARDLIST& cardlistState)
@@ -166,13 +157,13 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
     int i;
 
     // find the suit with more moves
-    for (int player = 0; player < PLAYERCOUNT; ++player) 
+    for (int player = 0; player < PLAYERCOUNT; ++player)
     {
-        if (player == m_PlayerIx) 
+        if (player == m_PlayerIx)
         {
             continue;
         }
-        for (int suit = 0; suit < SUITCOUNT; ++suit) 
+        for (int suit = 0; suit < SUITCOUNT; ++suit)
         {
             int moves = m_HanPlayers[player].Suitlength((eSUIT)suit);
             if (moves > 0)
@@ -185,18 +176,18 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
             }
         }
     }
-    
+
     // sort the suit
-    for (i = 1; i < SUITCOUNT; ++i) 
+    for (i = 1; i < SUITCOUNT; ++i)
     {
-        for (int j = i - 1; j >= 0 && movecount[j] > movecount[i]; --j) 
+        for (int j = i - 1; j >= 0 && movecount[j] > movecount[i]; --j)
         {
             std::swap(movecount[j], movecount[i]);
             std::swap(suitorder[j], suitorder[i]);
             i = j;
         }
     }
-    
+
     // now provides all cards of the player sorted by suit. Order is: first comes the suit 
     // with more combinations
     for (i = 0; i < SUITCOUNT; i++)
@@ -207,7 +198,7 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
         for (UINT j = 0; j < TmpSuitPlayer.size(); j++)
         {
             cCardItem* pCard = TmpSuitPlayer[j];
-            cardlistState.push_back( pCard );
+            cardlistState.push_back(pCard);
         }
     }
     //TraceCardListDbg(cardlistState);
@@ -217,7 +208,7 @@ void cStateAB::narrowones_first(CARDLIST& cardlistState)
 ////////////////////////////////////////
 //       takeit_or_leaveit
 /*! Play as second, third or fourth
-// \param CARDLIST& cardlistState : 
+// \param CARDLIST& cardlistState :
 */
 void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
 {
@@ -231,23 +222,23 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
 
     // retrives the winning card
     int iCurrTrickLen = pHistItem->m_Trick.size();
-    
-    BYTE byPlTrickWinIx = 0; 
+
+    BYTE byPlTrickWinIx = 0;
     cCardItem* pWinCard = pHistItem->m_Trick[0];
     int i;
     for (i = 1; i < iCurrTrickLen; i++)
     {
         cCardItem* pCandCard = pHistItem->m_Trick[i];
-        if (cCardItem::CardCompareSbF(pWinCard, pCandCard) > 0  )
+        if (cCardItem::CardCompareSbF(pWinCard, pCandCard) > 0)
         {
-                // ok, new winning card
-                byPlTrickWinIx = i;
-                pWinCard = pCandCard;
+            // ok, new winning card
+            byPlTrickWinIx = i;
+            pWinCard = pCandCard;
         }
     }
 
     // now create 2 list of cards, a winner and a loser
-    
+
     CARDLIST lstWinner;
     CARDLIST lstLoser;
     CARDLIST* pListSuit = &(m_HanPlayers[m_PlayerIx].suitList[m_eSuit]);
@@ -255,10 +246,10 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
     if (pListSuit->size() > 0)
     {
         // player can responce to suit
-        for (UINT k = 0; k < pListSuit->size(); k++ )
+        for (UINT k = 0; k < pListSuit->size(); k++)
         {
             cCardItem* pMyCard = (*pListSuit)[k];
-            if (cCardItem::CardCompareSbF(pWinCard, pMyCard) > 0 )
+            if (cCardItem::CardCompareSbF(pWinCard, pMyCard) > 0)
             {
                 // on the player hand there is winner card
                 lstWinner.push_back(pMyCard);
@@ -275,7 +266,7 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
         {
             // the player can also refuse the suite, only loser cards
             pListSuit = &(m_HanPlayers[m_PlayerIx].suitList[(eSUIT)i]);
-            for (UINT k = 0; k < pListSuit->size(); k++ )
+            for (UINT k = 0; k < pListSuit->size(); k++)
             {
                 cCardItem* pMyCard = (*pListSuit)[k];
                 lstLoser.push_back(pMyCard);
@@ -295,12 +286,12 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
     //TraceCardListDbg(lstWinner);
     //TraceCardListDbg(lstLoser);
 
-    
+
     if (iCurrTrickLen == 1)
     {
         //  2 second player, try to take it
         cardlistState = lstWinner;
-        appendList( cardlistState, lstLoser);
+        appendList(cardlistState, lstLoser);
     }
     else if (iCurrTrickLen == 2)
     {
@@ -308,14 +299,14 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
         if (byPlTrickWinIx == 0)
         {
             // teams already wins, leave it
-             cardlistState = lstLoser;
-             appendList( cardlistState, lstWinner);
+            cardlistState = lstLoser;
+            appendList(cardlistState, lstWinner);
         }
         else
         {
             // take it
             cardlistState = lstWinner;
-            appendList( cardlistState, lstLoser);
+            appendList(cardlistState, lstLoser);
         }
 
     }
@@ -325,14 +316,14 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
         if (byPlTrickWinIx == 1)
         {
             // teams already wins, leave it
-             cardlistState = lstLoser;
-             appendList( cardlistState, lstWinner);
+            cardlistState = lstLoser;
+            appendList(cardlistState, lstWinner);
         }
         else
         {
             // take it
             cardlistState = lstWinner;
-            appendList( cardlistState, lstLoser);
+            appendList(cardlistState, lstLoser);
         }
 
     }
@@ -341,8 +332,8 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
         // lenght not correct
         ASSERT(0);
     }
-    
-    
+
+
     //TraceCardListDbg(cardlistState);
 }
 
@@ -350,8 +341,8 @@ void cStateAB::takeit_or_leaveit(CARDLIST& cardlistState)
 ////////////////////////////////////////
 //       appendList
 /*! Append the second list to the first
-// \param CARDLIST& lstFirst : 
-// \param CARDLIST& lstSecond : 
+// \param CARDLIST& lstFirst :
+// \param CARDLIST& lstSecond :
 */
 void cStateAB::appendList(CARDLIST& lstFirst, CARDLIST& lstSecond)
 {
@@ -370,7 +361,7 @@ void cStateAB::appendList(CARDLIST& lstFirst, CARDLIST& lstSecond)
 */
 void cStateAB::AddTrickHist(int iPlIx_Start, CARDLIST& trickHist)
 {
-    if ( getTeamIndex(m_PlayerIx) == getTeamIndex(iPlIx_Start))
+    if (getTeamIndex(m_PlayerIx) == getTeamIndex(iPlIx_Start))
     {
         // same team for the first player
         m_bIsMaximize = TRUE;
@@ -383,7 +374,7 @@ void cStateAB::AddTrickHist(int iPlIx_Start, CARDLIST& trickHist)
 
     for (UINT i = 0; i < trickHist.size(); i++)
     {
-        MakeMove( trickHist[i] );
+        MakeMove(trickHist[i]);
     }
 }
 
@@ -391,20 +382,20 @@ void cStateAB::AddTrickHist(int iPlIx_Start, CARDLIST& trickHist)
 ////////////////////////////////////////
 //       SetInitialPlayer
 /*! Set the player that begin to play, this is also the player for the algorithm is good for.
-// \param int iVal : 
+// \param int iVal :
 */
 void  cStateAB::SetInitialPlayer(int iVal)
 {
-    m_PlayerIx = iVal; 
+    m_PlayerIx = iVal;
     m_bIsMaximize = TRUE;
 }
 
 ////////////////////////////////////////
 //       MakeMove
 /*! Make a move
-// \param cCardItem* pCard : 
+// \param cCardItem* pCard :
 */
-void  cStateAB::MakeMove( cCardItem* pCard )
+void  cStateAB::MakeMove(cCardItem* pCard)
 {
     // remove the card from the hand
     m_HanPlayers[m_PlayerIx].PlayCard(pCard);
@@ -413,15 +404,15 @@ void  cStateAB::MakeMove( cCardItem* pCard )
     TrickHistoryItem* pLastItem = 0;
     int iNumTrick = m_trickHist.size();
     BOOL bAddNewTRick = FALSE;
-    if ( iNumTrick == 0 )
+    if (iNumTrick == 0)
     {
         // first trick, we need a new one
         bAddNewTRick = TRUE;
     }
-    else 
+    else
     {
         pLastItem = &(m_trickHist[iNumTrick - 1]);
-        if ( pLastItem->m_Trick.size() == PLAYERCOUNT)
+        if (pLastItem->m_Trick.size() == PLAYERCOUNT)
         {
             // we need a new trick
             bAddNewTRick = TRUE;
@@ -429,20 +420,20 @@ void  cStateAB::MakeMove( cCardItem* pCard )
     }
     if (bAddNewTRick)
     {
-        m_trickHist.push_back( TrickHistoryItem(m_PlayerIx,  MAXNUMTRICKS - m_byTricksleft) );
+        m_trickHist.push_back(TrickHistoryItem(m_PlayerIx, MAXNUMTRICKS - m_byTricksleft));
         iNumTrick = m_trickHist.size();
         pLastItem = &(m_trickHist[iNumTrick - 1]);
     }
     if (m_eSuit == UNDEF)
     {
         // first card played in the trick
-        m_eSuit = pCard->card.eSuit;  
+        m_eSuit = pCard->card.eSuit;
     }
     ASSERT(pLastItem);
     // add card in the current trick
     pLastItem->m_Trick.push_back(pCard);
     // check if the trick is terminated
-    if ( pLastItem->m_Trick.size() == PLAYERCOUNT )
+    if (pLastItem->m_Trick.size() == PLAYERCOUNT)
     {
         // --------  trick is terminated --------
         //TRACE("TRICK end:");TraceCardListDbg(pLastItem->m_Trick);
@@ -454,13 +445,13 @@ void  cStateAB::MakeMove( cCardItem* pCard )
         for (int i = 1; i < PLAYERCOUNT; i++)
         {
             cCardItem* pCandCard = pLastItem->m_Trick[i];
-            BYTE byPlayerCandidate = getPlayerIncremented(pLastItem->m_byPlayer_S,  i);
+            BYTE byPlayerCandidate = getPlayerIncremented(pLastItem->m_byPlayer_S, i);
             // accumulate also trick points
             byPointsOnThisTrick += pCandCard->byPoints;
-            if (pWinCard->card.eSuit == pCandCard->card.eSuit )
+            if (pWinCard->card.eSuit == pCandCard->card.eSuit)
             {
                 // cards could be comparated
-                if (pCandCard->card.iRank > pWinCard->card.iRank )
+                if (pCandCard->card.iRank > pWinCard->card.iRank)
                 {
                     // ok, new winning card
                     byPlayerWinner = byPlayerCandidate;
@@ -526,9 +517,9 @@ int cStateAB::EvaluateState()
         TrickHistoryItem* pFirstItem = &(m_trickHist[0]);
         BYTE byTeamMaximize = getTeamIndex(pFirstItem->m_byPlayer_S);
         BYTE byTeamMinimize = !byTeamMaximize;
-    
-// ritornando solo i punti l'algoritmo non funziona bene (avversario gioca assi terzi)
-// 
+
+        // ritornando solo i punti l'algoritmo non funziona bene (avversario gioca assi terzi)
+        // 
 
         if (m_bIsMaximize)
         {
@@ -569,23 +560,23 @@ int cStateAB::EvaluateLastTrick()
     // retrieves the last card
     pWinCard = m_HanPlayers[byPlayerWinner].GetLastPlayableCard();
     ASSERT(pWinCard);
-    
+
     BYTE byPointsOnThisTrick = pWinCard->byPoints;
     // play the last trick
     for (int i = 1; i < PLAYERCOUNT; i++)
     {
         // the next player on table
-        BYTE byPlayerCandidate = getPlayerIncremented(pLastItem->m_byPlayer_T,  i);
+        BYTE byPlayerCandidate = getPlayerIncremented(pLastItem->m_byPlayer_T, i);
         // the card that play
         cCardItem* pCandCard = m_HanPlayers[byPlayerCandidate].GetLastPlayableCard();
         ASSERT(pCandCard);
 
         // accumulate also trick points
         byPointsOnThisTrick += pCandCard->byPoints;
-        if (pWinCard->card.eSuit == pCandCard->card.eSuit )
+        if (pWinCard->card.eSuit == pCandCard->card.eSuit)
         {
             // cards could be comparated
-            if (pCandCard->card.iRank > pWinCard->card.iRank )
+            if (pCandCard->card.iRank > pWinCard->card.iRank)
             {
                 // ok, new winning card
                 byPlayerWinner = byPlayerCandidate;
@@ -593,7 +584,7 @@ int cStateAB::EvaluateLastTrick()
             }
         }
     }
-    
+
     // update team points
     BYTE byTeamWinner = getTeamIndex(byPlayerWinner);
     m_arrTeamPoints[byTeamWinner] += byPointsOnThisTrick;
@@ -627,7 +618,7 @@ int cStateAB::EvaluateLastTrick()
     }
 
     return iPoints;
-    
+
 }
 
 ////////////////////////////////////////
@@ -638,14 +629,14 @@ void cStateAB::TraceTrickHistory(int iAlpha)
 {
     TraceService* pTracer = TraceService::Instance();
     //TRACE("History:\n");
-    if ( pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-         pTracer->AddCommentToLastEntry("cStateAB::History"); 
+    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        pTracer->AddCommentToLastEntry("cStateAB::History");
     for (UINT i = 0; i < m_trickHist.size(); i++)
     {
         //TRACE("Trick %d, alpha %d :", i, iAlpha);
-        if ( pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            pTracer->AddCommentToLastEntry("Trick %d, alpha %d :", i, iAlpha); 
-    
+        if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+            pTracer->AddCommentToLastEntry("Trick %d, alpha %d :", i, iAlpha);
+
         TraceCardListDbg(m_trickHist[i].m_Trick);
     }
 }
@@ -654,7 +645,7 @@ void cStateAB::TraceTrickHistory(int iAlpha)
 ////////////////////////////////////////
 //       GetBestLine
 /*! Provides the best line
-// \param CARDLIST& lstBest : 
+// \param CARDLIST& lstBest :
 */
 void  cStateAB::GetBestLine(cBestLine& lstBest)
 {
@@ -664,10 +655,10 @@ void  cStateAB::GetBestLine(cBestLine& lstBest)
     for (UINT i = 0; i < m_trickHist.size(); i++)
     {
         int iPlayerIx = m_trickHist[i].m_byPlayer_S;
-        for(UINT j = 0; j < m_trickHist[i].m_Trick.size(); j++)
+        for (UINT j = 0; j < m_trickHist[i].m_Trick.size(); j++)
         {
-            lstBest.m_CardListBest.push_back( m_trickHist[i].m_Trick[j] );
-            lstBest.m_vctPlayerList.push_back( iPlayerIx ); 
+            lstBest.m_CardListBest.push_back(m_trickHist[i].m_Trick[j]);
+            lstBest.m_vctPlayerList.push_back(iPlayerIx);
             iPlayerIx = getNextPlayerIndex(iPlayerIx);
         }
     }
@@ -683,6 +674,6 @@ void  cStateAB::GetBestLine(cBestLine& lstBest)
 void  cStateAB::AddCards(int iPlayerIx, CARDLIST& handSubmit)
 {
     ASSERT(iPlayerIx >= 0 && iPlayerIx < PLAYERCOUNT);
-    m_HanPlayers[iPlayerIx].ResetHand(); 
+    m_HanPlayers[iPlayerIx].ResetHand();
     m_HanPlayers[iPlayerIx].AddCards(handSubmit);
 }

@@ -22,8 +22,8 @@ class TraceService;
 
 //! class cAlgABSolver
 /** This class calculate the alpha-beta algorithm of the game
-*/ 
-class cAlgABSolver  
+*/
+class cAlgABSolver
 {
 public:
     cAlgABSolver();
@@ -43,13 +43,13 @@ public:
     //! resolve the player index ini a string
     static STRING PlayerIndexToName(BYTE byIndex);
     //! set the hand deph
-    void    SetHandDeph(int iVal){m_iSearchdHandDeph = iVal;}
+    void    SetHandDeph(int iVal) { m_iSearchdHandDeph = iVal; }
     //! set the calculation max time in millisec 
-    void    SetMaxCalcTime(Uint32 uiVal){m_uiMaxCalcTime = uiVal;}
+    void    SetMaxCalcTime(Uint32 uiVal) { m_uiMaxCalcTime = uiVal; }
     //! provides the best card to play found with solve
     void    GetBestCardToPlay(int iPlayerIx, CARDINFO* pCardInfo);
     //! set the history of the current trick
-    void    SetCurrTrickHistory(int iPlIx_Start,CARDINFO* arrCards, int iNumItem);
+    void    SetCurrTrickHistory(int iPlIx_Start, CARDINFO* arrCards, int iNumItem);
 
 private:
     void   renderHandStdOut();
@@ -58,7 +58,7 @@ private:
     int    alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState);
     void   alphaBeta_progress();
     int    getTicks();
-    
+
 private:
     //! initial state
     cStateAB   m_StateInitial;

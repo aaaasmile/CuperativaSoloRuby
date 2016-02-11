@@ -18,9 +18,9 @@
 
 
 //! class cCardItem
-class cCardItem  
+class cCardItem
 {
-    
+
 public:
     cCardItem();
     virtual ~cCardItem();
@@ -42,7 +42,7 @@ private:
 };
 
 typedef cCardItem* P_MYCARDITEM;
-typedef std::deque<P_MYCARDITEM> CARDLIST; 
+typedef std::deque<P_MYCARDITEM> CARDLIST;
 typedef CARDLIST::iterator CARDLIST_IT;
 
 
@@ -52,7 +52,7 @@ class cmp2CardAscen
 public:
     bool operator ()(const P_MYCARDITEM& Card_1, const P_MYCARDITEM& Card_2) const
     {
-        if (Card_1->card.eSuit > Card_2->card.eSuit  )
+        if (Card_1->card.eSuit > Card_2->card.eSuit)
         {
             // swap element
             return true;
@@ -83,7 +83,7 @@ class cmp2CardDesc
 public:
     bool operator ()(const P_MYCARDITEM& Card_1, const P_MYCARDITEM& Card_2) const
     {
-        if (Card_1->card.eSuit < Card_2->card.eSuit  )
+        if (Card_1->card.eSuit < Card_2->card.eSuit)
         {
             // swap element
             return true;
@@ -134,7 +134,7 @@ public:
         else
         {
             return false;
-        }       
+        }
     }
 };
 
@@ -142,8 +142,8 @@ public:
 class cBestLine
 {
 public:
-    cBestLine(){}
-    void Clear(){m_CardListBest.clear(); m_vctPlayerList.clear();}
+    cBestLine() {}
+    void Clear() { m_CardListBest.clear(); m_vctPlayerList.clear(); }
 
     CARDLIST  m_CardListBest;
     VCT_INT   m_vctPlayerList;

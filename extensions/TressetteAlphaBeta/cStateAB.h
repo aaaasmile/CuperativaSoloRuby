@@ -16,12 +16,12 @@
 
 
 //! class cStateAB
-class cStateAB  
+class cStateAB
 {
 #ifdef WIN32
-typedef unsigned __int64 stateid;
+    typedef unsigned __int64 stateid;
 #else
-typedef long long stateid;
+    typedef long long stateid;
 #endif
 public:
     cStateAB();
@@ -32,19 +32,19 @@ public:
     //! Provides all legal moves using the euristic
     void     GenerateLegalMoves(CARDLIST& cardlistState);
     //! make a move
-    void     MakeMove( cCardItem* pCard );
+    void     MakeMove(cCardItem* pCard);
     //! get the number of tricks left
-    int      GetTrickLeft(){return m_byTricksleft;}
+    int      GetTrickLeft() { return m_byTricksleft; }
     //! set the number of tricks left
-    void     SetTrickLeft(BYTE byVal){m_byTricksleft = byVal;}
+    void     SetTrickLeft(BYTE byVal) { m_byTricksleft = byVal; }
     //! add cards to a player
     void     AddCards(int iPlayerIx, CARDLIST& handSubmit);
     //! provides the current player on turn
-    int      GetInitialPlayer(){return m_PlayerIx;}
+    int      GetInitialPlayer() { return m_PlayerIx; }
     //! set the current player on turn
     void     SetInitialPlayer(int iVal);
     //! flag if the team turn is changed
-    BOOL     IsTeamOnTurnChanged(){return m_bTeamOnTurnChange;}
+    BOOL     IsTeamOnTurnChanged() { return m_bTeamOnTurnChange; }
     //! evaluate the state
     int      EvaluateState();
     //! provides the best line
@@ -57,17 +57,17 @@ public:
     static void  TraceCardListDbg(CARDLIST& cardlistState);
     void     TraceTrickHistory(int iAlpha);
     //! set calculation timeout
-    void     SetTimeout(){m_bTimeOut = TRUE;}
+    void     SetTimeout() { m_bTimeOut = TRUE; }
     //! provides timeout flag
-    BOOL     GetTimeout(){return m_bTimeOut;}
+    BOOL     GetTimeout() { return m_bTimeOut; }
 
 private:
-    BYTE  getNextPlayerIndex(BYTE byPlIx){byPlIx++;if(byPlIx>= searchalpha::PLAYERCOUNT){byPlIx = 0;}return byPlIx;}
+    BYTE  getNextPlayerIndex(BYTE byPlIx) { byPlIx++; if (byPlIx >= searchalpha::PLAYERCOUNT) { byPlIx = 0; }return byPlIx; }
     void  narrowones_first(CARDLIST& cardlistState);
     void  takeit_or_leaveit(CARDLIST& cardlistState);
-    BYTE  getTeamIndex(BYTE byPlIx){if( (byPlIx & 1) == 0){return 0;}else{return 1;}}
-    
-    BYTE  getPlayerIncremented(BYTE byPlIx, BYTE iInc){while(iInc>0){byPlIx = getNextPlayerIndex(byPlIx); iInc--;} return byPlIx; }
+    BYTE  getTeamIndex(BYTE byPlIx) { if ((byPlIx & 1) == 0) { return 0; } else { return 1; } }
+
+    BYTE  getPlayerIncremented(BYTE byPlIx, BYTE iInc) { while (iInc > 0) { byPlIx = getNextPlayerIndex(byPlIx); iInc--; } return byPlIx; }
     void  appendList(CARDLIST& lstFirst, CARDLIST& lstSecond);
 
 private:

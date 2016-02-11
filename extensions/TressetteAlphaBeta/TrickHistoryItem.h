@@ -16,13 +16,15 @@
 #include "win_type_global.h"
 
 //! class  TrickHistory
-class TrickHistoryItem  
+class TrickHistoryItem
 {
 public:
     TrickHistoryItem();
     virtual ~TrickHistoryItem();
-    TrickHistoryItem(BYTE byPlS, BYTE byTn ){m_byPlayer_S = byPlS; 
-                         m_byPlayer_T = 0xff; m_byTrickNum = byTn; m_byPointsTrick = 0;}
+    TrickHistoryItem(BYTE byPlS, BYTE byTn) {
+        m_byPlayer_S = byPlS;
+        m_byPlayer_T = 0xff; m_byTrickNum = byTn; m_byPointsTrick = 0;
+    }
 
     //! card list trick
     CARDLIST    m_Trick;

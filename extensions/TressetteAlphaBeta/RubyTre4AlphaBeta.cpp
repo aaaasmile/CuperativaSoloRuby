@@ -51,7 +51,7 @@ namespace Tre4AlphaBeta
 
     void AlphaBetaSolver::SetHand(int playerIx, String^ handDescription)
     {
-        int currHandIxs[searchalpha::MAXNUMTRICKS] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        int currHandIxs[searchalpha::MAXNUMTRICKS] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
         array<String^>^ separators = gcnew array< String^ >(1);
 
         separators[0] = ",";

@@ -54,10 +54,10 @@ class TraceService
     };
 protected:
     TraceService();
-   
+
 public:
     static  TraceService* Instance();
-    
+
 private:
     static TraceService* pinstance;
 
@@ -79,15 +79,13 @@ public:
     //! add a new trace entry
     BOOL   AddNewEntry(int iChannel, int iId, EntryTraceDetail::eType eValType, LPCSTR lpszFileName, int iLineNr);
     //! add a comment to the last entry
-    void   AddCommentToLastEntry(LPCSTR lpszForm, ... );
+    void   AddCommentToLastEntry(LPCSTR lpszForm, ...);
     //! enable channel
-    void   EnableChannel(int iChann, BOOL bVal){if(iChann>= 0 && iChann < NUM_OF_CHANN)m_abChannelMask[iChann] = bVal;}
+    void   EnableChannel(int iChann, BOOL bVal) { if (iChann >= 0 && iChann < NUM_OF_CHANN)m_abChannelMask[iChann] = bVal; }
     //! change the output channel
     void   SetOutputChannel(int iChannel, eOutType eVal, LPCSTR lpszFileName);
-    //! add a simple trace
-    void   AddSimpleTrace(int iChannel, LPCSTR lpszForm, ...);
     //! set the custom trace interface
-    void   SetCustomTacerInterface(I_GuiTracer* pIval){m_pICustomTracer = pIval;}
+    void   SetCustomTacerInterface(I_GuiTracer* pIval) { m_pICustomTracer = pIval; }
 
 private:
     void   flashTheEntry();
@@ -109,7 +107,7 @@ private:
     std::ofstream      m_aChannelFiles[NUM_OF_CHANN];
     //! custom tracer inetrface
     I_GuiTracer*       m_pICustomTracer;
-    
+
 };
 
 

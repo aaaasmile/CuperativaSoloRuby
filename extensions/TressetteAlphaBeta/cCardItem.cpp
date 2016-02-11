@@ -120,7 +120,7 @@ void cCardItem::SetCardIndex(int itmpIndex)
 }
 
 // give index for something like 7D (sette di denari = 26)
-int cCardItem::SuitAndLettToIndex(char lett, char suit) 
+int cCardItem::SuitAndLettToIndex(char lett, char suit)
 {
     int result = -1;
     int suitIx = 0;

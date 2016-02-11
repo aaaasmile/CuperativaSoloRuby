@@ -9,13 +9,13 @@
 #include "TraceService.h"
 
 #ifndef _MSC_VER
-    #include <sys/time.h>
+#include <sys/time.h>
 #endif
 
 
 using namespace searchalpha;
 
-static BYTE  getNextPlayerIndex(BYTE byPlIx){byPlIx++;if(byPlIx>= searchalpha::PLAYERCOUNT){byPlIx = 0;}return byPlIx;}
+static BYTE  getNextPlayerIndex(BYTE byPlIx) { byPlIx++; if (byPlIx >= searchalpha::PLAYERCOUNT) { byPlIx = 0; }return byPlIx; }
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -46,7 +46,7 @@ void cAlgABSolver::InitDeck()
 
     for (int i = 0; i < DECKSIZE; i++)
     {
-        m_Deck[i].SetCardIndex(i); 
+        m_Deck[i].SetCardIndex(i);
     }
 }
 
@@ -54,7 +54,7 @@ void cAlgABSolver::InitDeck()
 ////////////////////////////////////////
 //       SetHands
 /*! Set a player hands
-// \param int  iPlayerIx : player index 
+// \param int  iPlayerIx : player index
 // \param CARDINFO* arrCards : array of card indexes
 // \param int iNumItem : number of item
 */
@@ -65,18 +65,18 @@ void cAlgABSolver::SetHands(int  iPlayerIx, int* arrCards, int iNumItem)
     {
         ASSERT(arrCards[i] != NOT_VALID_INDEX);
         BOOL bCardFound = FALSE;
-        for (int j = 0; !bCardFound && j <DECKSIZE; j++)
+        for (int j = 0; !bCardFound && j < DECKSIZE; j++)
         {
-            if (m_Deck[j].card.byIndex == arrCards[i] )
+            if (m_Deck[j].card.byIndex == arrCards[i])
             {
                 bCardFound = TRUE;
-                handSubmit.push_back( &m_Deck[j] );
+                handSubmit.push_back(&m_Deck[j]);
             }
         }
         ASSERT(bCardFound); // do you have call InitDeck?
     }
-    m_StateInitial.SetTrickLeft(iNumItem); 
-    m_StateInitial.AddCards(iPlayerIx,handSubmit) ;
+    m_StateInitial.SetTrickLeft(iNumItem);
+    m_StateInitial.AddCards(iPlayerIx, handSubmit);
 }
 
 
@@ -94,25 +94,25 @@ void cAlgABSolver::SetCurrTrickHistory(int iPlIx_Start, CARDINFO* arrCards, int 
     for (int i = 0; i < iNumItem; i++)
     {
         BOOL bCardFound = FALSE;
-        for (int j = 0; !bCardFound && j <DECKSIZE; j++)
+        for (int j = 0; !bCardFound && j < DECKSIZE; j++)
         {
-            if (m_Deck[j].card.byIndex == arrCards[i].byIndex )
+            if (m_Deck[j].card.byIndex == arrCards[i].byIndex)
             {
                 bCardFound = TRUE;
-                trickHist.push_back( &m_Deck[j] );
+                trickHist.push_back(&m_Deck[j]);
             }
         }
         ASSERT(bCardFound); // do you have call InitDeck?
     }
-    m_StateInitial.AddTrickHist(iPlIx_Start, trickHist) ;
-    
+    m_StateInitial.AddTrickHist(iPlIx_Start, trickHist);
+
 }
 
 
 ////////////////////////////////////////
 //       PlayerNameToIndex
-/*! 
-// \param LPCSTR lpstrName : 
+/*!
+// \param LPCSTR lpstrName :
 */
 int cAlgABSolver::PlayerNameToIndex(LPCSTR lpstrName)
 {
@@ -144,13 +144,13 @@ int cAlgABSolver::PlayerNameToIndex(LPCSTR lpstrName)
 
 ////////////////////////////////////////
 //       PlayerIndexToName
-/*! 
-// \param BYTE byIndex : 
+/*!
+// \param BYTE byIndex :
 */
 STRING cAlgABSolver::PlayerIndexToName(BYTE byIndex)
 {
     STRING strName;
-    switch(byIndex)
+    switch (byIndex)
     {
     case 0:
         strName = "nord";
@@ -173,12 +173,12 @@ STRING cAlgABSolver::PlayerIndexToName(BYTE byIndex)
 ////////////////////////////////////////
 //       SetInitialPlayer
 /*! Set the player that begin the game
-// \param int  iPlayerIx : 
+// \param int  iPlayerIx :
 */
 void cAlgABSolver::SetInitialPlayer(int  iPlayerIx)
 {
     ASSERT(iPlayerIx >= 0 && iPlayerIx < PLAYERCOUNT);
-    m_StateInitial.SetInitialPlayer( iPlayerIx );
+    m_StateInitial.SetInitialPlayer(iPlayerIx);
 }
 
 ////////////////////////////////////////
@@ -187,7 +187,7 @@ void cAlgABSolver::SetInitialPlayer(int  iPlayerIx)
 */
 void  cAlgABSolver::Solve()
 {
-    m_lstMainLine.Clear(); 
+    m_lstMainLine.Clear();
     m_iNumOfCalc = 0;
     // display in stdout all cards
     renderHandStdOut();
@@ -200,10 +200,10 @@ void  cAlgABSolver::Solve()
     {
         // only one legal move, don't need alpha beta
         renderBestLine(m_lstMainLine);
-        m_lstMainLine.m_vctPlayerList.push_back( m_StateInitial.GetInitialPlayer() ); 
+        m_lstMainLine.m_vctPlayerList.push_back(m_StateInitial.GetInitialPlayer());
         //TRACE("\nBest line: ");
-        if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            m_pTracer->AddCommentToLastEntry("Best line:"); 
+        if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+            m_pTracer->AddCommentToLastEntry("Best line:");
         cStateAB::TraceCardListDbg(m_lstMainLine.m_CardListBest);
         return;
     }
@@ -213,46 +213,46 @@ void  cAlgABSolver::Solve()
     // http://www.seanet.com/~brucemo/topics/alphabeta.htm
     cStateAB* pCurrState = new cStateAB(m_StateInitial);
 
-    int iInitialDepth = m_iSearchdHandDeph; 
-    
+    int iInitialDepth = m_iSearchdHandDeph;
+
     /*
     _CrtMemState s1, s2, s3;
     _CrtMemCheckpoint(&s1);
     */
-    
+
 
     m_uiInitialTime = getTicks();
 
     // start the alpha beta algorithm
-    alphaBeta(iInitialDepth, -99, 99,  pCurrState);
+    alphaBeta(iInitialDepth, -99, 99, pCurrState);
 
     delete pCurrState;
 
 
-   // _CrtMemDumpAllObjectsSince(  &s1 );
-   // _CrtDumpMemoryLeaks(  );
-/*
-    _CrtMemCheckpoint( &s2 );
-    if ( _CrtMemDifference( &s3, &s1, &s2 ) )
-      _CrtMemDumpStatistics( &s3 );
-*/
+    // _CrtMemDumpAllObjectsSince(  &s1 );
+    // _CrtDumpMemoryLeaks(  );
+ /*
+     _CrtMemCheckpoint( &s2 );
+     if ( _CrtMemDifference( &s3, &s1, &s2 ) )
+       _CrtMemDumpStatistics( &s3 );
+ */
 
-    //vrb(0, "\nNum of states: %d\n",  m_iNumOfCalc);
-    if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            m_pTracer->AddCommentToLastEntry("Num of states: %d", m_iNumOfCalc); 
-    
+ //vrb(0, "\nNum of states: %d\n",  m_iNumOfCalc);
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        m_pTracer->AddCommentToLastEntry("Num of states: %d", m_iNumOfCalc);
+
 
     // display the result in the debugger
     //TRACE("\nBest line: ");
-    if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 2, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            m_pTracer->AddCommentToLastEntry("Best line:"); 
-    cStateAB::TraceCardListDbg(m_lstMainLine.m_CardListBest );
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 2, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        m_pTracer->AddCommentToLastEntry("Best line:");
+    cStateAB::TraceCardListDbg(m_lstMainLine.m_CardListBest);
 
-    if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            m_pTracer->AddCommentToLastEntry("---- SOLVE TERMINATED  ( player %d )  ---", m_StateInitial.GetInitialPlayer()); 
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        m_pTracer->AddCommentToLastEntry("---- SOLVE TERMINATED  ( player %d )  ---", m_StateInitial.GetInitialPlayer());
 
     // display the best line on stdout
-    renderBestLine(m_lstMainLine); 
+    renderBestLine(m_lstMainLine);
 }
 
 
@@ -260,26 +260,26 @@ void  cAlgABSolver::Solve()
 ////////////////////////////////////////
 //       GetBestCardToPlay
 /*! Provides the best card to play
-// \param CARDINFO* pCardInfo : 
+// \param CARDINFO* pCardInfo :
 */
-void  cAlgABSolver::GetBestCardToPlay(int iPlayerIx,  CARDINFO* pCardInfo)
+void  cAlgABSolver::GetBestCardToPlay(int iPlayerIx, CARDINFO* pCardInfo)
 {
     ASSERT(pCardInfo);
     int iCount = 0;
     if (m_lstMainLine.m_CardListBest.size() > 0 &&
-        m_lstMainLine.m_vctPlayerList.size() > 0 )
+        m_lstMainLine.m_vctPlayerList.size() > 0)
     {
-        
+
         // the best line begin with card played by the first player
-        int iPlayer_S = m_lstMainLine.m_vctPlayerList[0]; 
+        int iPlayer_S = m_lstMainLine.m_vctPlayerList[0];
         int iPlayerNext = iPlayer_S;
         iCount = 0;
-        while ( iPlayerNext != iPlayerIx && iCount < searchalpha::PLAYERCOUNT)
+        while (iPlayerNext != iPlayerIx && iCount < searchalpha::PLAYERCOUNT)
         {
             iCount++;
             iPlayerNext = getNextPlayerIndex(iPlayerNext);
         }
-        if ((UINT)iCount >=  m_lstMainLine.m_CardListBest.size() )
+        if ((UINT)iCount >= m_lstMainLine.m_CardListBest.size())
         {
             // something is wrong
             ASSERT(0);
@@ -290,9 +290,9 @@ void  cAlgABSolver::GetBestCardToPlay(int iPlayerIx,  CARDINFO* pCardInfo)
 
         //cCardItem* pCard = m_lstMainLine.m_CardListBest[iCount];
         //*pCardInfo = pCard->card ;
-        
+
     }
-    else if (m_lstMainLine.m_CardListBest.size() > 0 )
+    else if (m_lstMainLine.m_CardListBest.size() > 0)
     {
         iCount = 0;
     }
@@ -304,20 +304,20 @@ void  cAlgABSolver::GetBestCardToPlay(int iPlayerIx,  CARDINFO* pCardInfo)
         iCount = 0;
     }
     cCardItem* pCard = m_lstMainLine.m_CardListBest[iCount];
-    *pCardInfo = pCard->card ;
+    *pCardInfo = pCard->card;
 }
 
 ////////////////////////////////////////
 //       alphaBeta
 /*! Perform alpha beta algorithm
-// \param int depth : 
-// \param int alpha : 
-// \param int beta : 
+// \param int depth :
+// \param int alpha :
+// \param int beta :
 */
 int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState)
 
 {
-    
+
     Uint32 uiNowTime = getTicks();
     if (uiNowTime - m_uiInitialTime > m_uiMaxCalcTime)
     {
@@ -344,8 +344,8 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
     {
         return pCurrState->EvaluateState();
     }
-    
-    
+
+
     CARDLIST lstLegalMoves;
     pCurrState->GenerateLegalMoves(lstLegalMoves);
 
@@ -353,11 +353,11 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
     {
 
         cStateAB* pNextState = new cStateAB(pCurrState);
-        pNextState->MakeMove( lstLegalMoves[i] );
+        pNextState->MakeMove(lstLegalMoves[i]);
 
         int val;
 
-        if ( pNextState->IsTeamOnTurnChanged() )
+        if (pNextState->IsTeamOnTurnChanged())
         {
             // this is the usual turn-out. The team that have to move has changed, this a swap between min and max 
             val = -alphaBeta(depth - 1, -beta, -alpha, pNextState);
@@ -368,8 +368,8 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
             // In such case there is no swap between minimize and maximize, we repeat the alg call in the same intervall
             val = alphaBeta(depth - 1, alpha, beta, pNextState);
         }
-        
-        if ( pNextState->GetTimeout() )
+
+        if (pNextState->GetTimeout())
         {
             //timeout
             pCurrState->SetTimeout();
@@ -389,27 +389,27 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
             // save the main line
             alpha = val;
             cBestLine tmpBestList;
-            pNextState->TraceTrickHistory(alpha); 
+            pNextState->TraceTrickHistory(alpha);
             pNextState->GetBestLine(tmpBestList);
             if (tmpBestList.m_CardListBest[0]->card.byIndex != m_lstMainLine.m_CardListBest[0]->card.byIndex)
             {
                 // main line is changed
-                if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-                    m_pTracer->AddCommentToLastEntry("Main line is changed"); 
+                if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+                    m_pTracer->AddCommentToLastEntry("Main line is changed");
 
                 //if (tmpBestList.m_CardListBest.size() >= m_lstMainLine.m_CardListBest.size() )
                 {
                     m_lstMainLine = tmpBestList;
                 }
             }
-            renderBestLine(tmpBestList); 
-            
+            renderBestLine(tmpBestList);
+
         }
 
         delete pNextState;
         pNextState = 0;
     }
-    
+
     return alpha;
 }
 
@@ -442,27 +442,27 @@ int cAlgABSolver::getTicks()
 
 ////////////////////////////////////////
 //       vrb
-/*! 
-// \param int n : 
-// \param char* strPar : 
-// \param ... : 
+/*!
+// \param int n :
+// \param char* strPar :
+// \param ... :
 */
 void cAlgABSolver::vrb(int n, char* strPar, ...)
 {
     char buff[512];
-    if (m_iVerboseLevel > n) 
-    { 
+    if (m_iVerboseLevel > n)
+    {
         va_list argptr;
         va_start(argptr, strPar);
         vsprintf(buff, strPar, argptr);
         va_end(argptr);
-        fprintf(stdout, buff); 
+        fprintf(stdout, buff);
     }
 }
 
 ////////////////////////////////////////
 //       renderHandStdOut
-/*! Render the state 
+/*! Render the state
 */
 void cAlgABSolver::renderHandStdOut()
 {
@@ -471,10 +471,10 @@ void cAlgABSolver::renderHandStdOut()
     //vrb(0, "lead: %s, ",  strPlayer.c_str());
     //vrb(0, "estimated %d tricks left to play\n", m_StateInitial.GetTrickLeft());
     //vrb(1, "\n%s\n", m_StateInitial.State_repr().c_str());
-    if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
     {
-            m_pTracer->AddCommentToLastEntry("lead: %s, estimated %d tricks left to play\n\n%s\n", 
-                strPlayer.c_str(), m_StateInitial.GetTrickLeft(),  strState.c_str());
+        m_pTracer->AddCommentToLastEntry("lead: %s, estimated %d tricks left to play\n\n%s\n",
+            strPlayer.c_str(), m_StateInitial.GetTrickLeft(), strState.c_str());
     }
 }
 
@@ -482,7 +482,7 @@ void cAlgABSolver::renderHandStdOut()
 ////////////////////////////////////////
 //       renderBestLine
 /*! Display the current best line
-// \param CARDLIST& lstMainLine : 
+// \param CARDLIST& lstMainLine :
 */
 void cAlgABSolver::renderBestLine(cBestLine& lstMainLine)
 {
@@ -491,20 +491,20 @@ void cAlgABSolver::renderBestLine(cBestLine& lstMainLine)
     for (i = 0; i < lstMainLine.m_CardListBest.size(); i++)
     {
         cCardItem* pCard = lstMainLine.m_CardListBest[i];
-        sprintf(&buff[3*i], "%c%c ",pCard->chCardLetter,pCard->chSuitLetter);
+        sprintf(&buff[3 * i], "%c%c ", pCard->chCardLetter, pCard->chSuitLetter);
     }
     CHAR bufFin[512];
     sprintf(bufFin, "\r%d :", m_iNumOfCalc);
     strcat(bufFin, buff);
-    for (i = strlen(bufFin); i < 80; i++ )
+    for (i = strlen(bufFin); i < 80; i++)
     {
         bufFin[i] = ' ';
     }
     bufFin[i++] = '\n';
     bufFin[i] = '\0';
     //fprintf(stdout, bufFin); 
-    if ( m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__) )
-            m_pTracer->AddCommentToLastEntry("%s", bufFin); 
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        m_pTracer->AddCommentToLastEntry("%s", bufFin);
 }
 
 
