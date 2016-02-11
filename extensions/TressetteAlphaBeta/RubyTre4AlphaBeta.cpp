@@ -84,7 +84,7 @@ namespace Tre4AlphaBeta
 
         if (count > 0)
         {
-            _pABSolver->SetHands(0, &currHandIxs[0], count);
+            _pABSolver->SetHands(playerIx, &currHandIxs[0], count);
         }
 
     }
