@@ -67,7 +67,7 @@ namespace Tre4AlphaBeta
         {
             bool recognized = false;
             int ix = -1;
-            String^ noSpace = cdItem->Trim();
+            String^ noSpace = cdItem->Trim()->Replace("_", "")->ToUpper();
             if (noSpace->Length == 2)
             {
                 char letter = static_cast<char>(noSpace[0]);
