@@ -202,7 +202,7 @@ void  cAlgABSolver::Solve()
         renderBestLine(m_lstMainLine);
         m_lstMainLine.m_vctPlayerList.push_back(m_StateInitial.GetInitialPlayer());
         //TRACE("\nBest line: ");
-        if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
             m_pTracer->AddCommentToLastEntry("Best line:");
         cStateAB::TraceCardListDbg(m_lstMainLine.m_CardListBest);
         return;
@@ -238,17 +238,17 @@ void  cAlgABSolver::Solve()
  */
 
  //vrb(0, "\nNum of states: %d\n",  m_iNumOfCalc);
-    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 1, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         m_pTracer->AddCommentToLastEntry("Num of states: %d", m_iNumOfCalc);
 
 
     // display the result in the debugger
     //TRACE("\nBest line: ");
-    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 2, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         m_pTracer->AddCommentToLastEntry("Best line:");
     cStateAB::TraceCardListDbg(m_lstMainLine.m_CardListBest);
 
-    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         m_pTracer->AddCommentToLastEntry("---- SOLVE TERMINATED  ( player %d )  ---", m_StateInitial.GetInitialPlayer());
 
     // display the best line on stdout
@@ -394,7 +394,7 @@ int cAlgABSolver::alphaBeta(int depth, int alpha, int beta, cStateAB* pCurrState
             if (tmpBestList.m_CardListBest[0]->card.byIndex != m_lstMainLine.m_CardListBest[0]->card.byIndex)
             {
                 // main line is changed
-                if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+                if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
                     m_pTracer->AddCommentToLastEntry("Main line is changed");
 
                 //if (tmpBestList.m_CardListBest.size() >= m_lstMainLine.m_CardListBest.size() )
@@ -471,7 +471,7 @@ void cAlgABSolver::renderHandStdOut()
     //vrb(0, "lead: %s, ",  strPlayer.c_str());
     //vrb(0, "estimated %d tricks left to play\n", m_StateInitial.GetTrickLeft());
     //vrb(1, "\n%s\n", m_StateInitial.State_repr().c_str());
-    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
     {
         m_pTracer->AddCommentToLastEntry("lead: %s, estimated %d tricks left to play\n\n%s\n",
             strPlayer.c_str(), m_StateInitial.GetTrickLeft(), strState.c_str());
@@ -503,7 +503,7 @@ void cAlgABSolver::renderBestLine(cBestLine& lstMainLine)
     bufFin[i++] = '\n';
     bufFin[i] = '\0';
     //fprintf(stdout, bufFin); 
-    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, 3, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (m_pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         m_pTracer->AddCommentToLastEntry("%s", bufFin);
 }
 

@@ -29,8 +29,8 @@ public:
 public:
     //! time stamp
     ULONG   m_ulTimeStamp;
-    //! trace entry id
-    int     m_iID;
+    //! channel id
+    int     m_iChannel;
     //! type
     eType   m_eTrType;
     //! filename
@@ -77,7 +77,7 @@ public:
     //! destructor
     ~TraceService();
     //! add a new trace entry
-    BOOL   AddNewEntry(int iChannel, int iId, EntryTraceDetail::eType eValType, LPCSTR lpszFileName, int iLineNr);
+    BOOL   AddNewEntry(int iChannel, EntryTraceDetail::eType eValType, LPCSTR lpszFileName, int iLineNr);
     //! add a comment to the last entry
     void   AddCommentToLastEntry(LPCSTR lpszForm, ...);
     //! enable channel
@@ -88,21 +88,15 @@ public:
     void   SetCustomTacerInterface(I_GuiTracer* pIval) { m_pICustomTracer = pIval; }
 
 private:
-    void   flashTheEntry();
+    // Flash m_entryTraceDetails into the channel output
+    void   flashTheEntry(int channel);
 
 private:
-    //! tracer channels in circular buffer
-    EntryTraceDetail   m_mtxEntryTraceDetails[NUM_OF_CHANN][NUM_OF_ENTRIES];
+    EntryTraceDetail   m_entryTraceDetails;
     //! channel mask
     BOOL               m_abChannelMask[NUM_OF_CHANN];
     //! type output
     eOutType           m_aeChannelOut[NUM_OF_CHANN];
-    //! cursor new entry
-    int                m_aiChannelCursor[NUM_OF_CHANN];
-    //! last entry index
-    int                m_iLastEntryUsed;
-    //! last channel used
-    int                m_iLastChannelUsed;
     //! file tracer for each channel
     std::ofstream      m_aChannelFiles[NUM_OF_CHANN];
     //! custom tracer inetrface

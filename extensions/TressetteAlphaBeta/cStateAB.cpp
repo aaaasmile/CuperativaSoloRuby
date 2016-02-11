@@ -138,7 +138,7 @@ void cStateAB::TraceCardListDbg(CARDLIST& cardlistState)
         sprintf(&buff[3 * i], "%c%c ", pCard->chCardLetter, pCard->chSuitLetter);
     }
     //TRACE("\n");
-    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 4, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         pTracer->AddCommentToLastEntry("%s", buff);
 }
 
@@ -629,12 +629,12 @@ void cStateAB::TraceTrickHistory(int iAlpha)
 {
     TraceService* pTracer = TraceService::Instance();
     //TRACE("History:\n");
-    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 5, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+    if (pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
         pTracer->AddCommentToLastEntry("cStateAB::History");
     for (UINT i = 0; i < m_trickHist.size(); i++)
     {
         //TRACE("Trick %d, alpha %d :", i, iAlpha);
-        if (pTracer->AddNewEntry(TR_ALPHABETA_CH, 6, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
+        if (pTracer->AddNewEntry(TR_ALPHABETA_CH, EntryTraceDetail::TR_INFO, __FILE__, __LINE__))
             pTracer->AddCommentToLastEntry("Trick %d, alpha %d :", i, iAlpha);
 
         TraceCardListDbg(m_trickHist[i].m_Trick);
