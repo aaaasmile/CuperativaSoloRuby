@@ -64,13 +64,12 @@ private:
 public:
     enum eOutType
     {
-        OT_MEMORY,
-        OT_STDOUT,
-        OT_STDERR,
-        OT_FILE,
-        OT_CUSTOMFN,
-        OT_SOCKET,
-        OT_MSVDEBUGGER
+        OT_MEMORY = 1,
+        OT_STDOUT = 2,
+        OT_STDERR = 4,
+        OT_FILE = 8,
+        OT_CUSTOMFN = 16,
+        OT_MSVDEBUGGER = 32
     };
 
 public:
@@ -100,8 +99,8 @@ private:
     EntryTraceDetail   m_entryTraceDetails;
     //! channel mask
     BOOL               m_abChannelMask[NUM_OF_CHANN];
-    //! type output
-    eOutType           m_aeChannelOut[NUM_OF_CHANN];
+    //! channel output type (combined)
+    int                m_aeChannelOut[NUM_OF_CHANN];
     //! file tracer for each channel
     std::ofstream      m_aChannelFiles[NUM_OF_CHANN];
     //! custom tracer inetrface

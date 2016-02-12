@@ -23,9 +23,7 @@
     #include <windows.h>
 #endif
 #if _MSC_VER > 1000
-	#pragma warning( disable: 4251 )
-    #pragma warning(disable:4786)
-	#pragma warning(disable:4996)
+	#pragma warning(disable:4996) // unsafe sprintf
     #include <vector> 
     #include <deque>
     #include <string>
@@ -95,7 +93,7 @@
         // windows platform
         inline void TRACE(const char* fmt, ...)
         {
-            char myBuff[512];
+            static char myBuff[1024];
             va_list args;
 
             va_start( args, fmt );     /* Initialize variable arguments. */

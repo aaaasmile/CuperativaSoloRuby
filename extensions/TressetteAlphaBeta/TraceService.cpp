@@ -190,36 +190,23 @@ void   TraceService::flashTheEntry()
 {
     int channel = m_entryTraceDetails.m_iChannel;
     STRING strEntry = m_entryTraceDetails.ToString();
-    switch (m_aeChannelOut[channel])
-    {
-    case OT_FILE:
+    if (m_aeChannelOut[channel] & OT_FILE)
         m_aChannelFiles[channel] << strEntry.c_str() << std::endl;
-        break;
-    case OT_STDOUT:
+
+    if (m_aeChannelOut[channel] & OT_STDOUT)
         std::cout << strEntry.c_str() << std::endl;
-        break;
-    case OT_STDERR:
+
+    if (m_aeChannelOut[channel] & OT_STDERR)
         std::cerr << strEntry.c_str() << std::endl;
-        break;
-    case OT_CUSTOMFN:
-        if (m_pICustomTracer)
-        {
-            //m_pICustomTracer->Trace( strEntry.c_str() ); 
-            ASSERT(0); // TO DO
-        }
-        break;
-    case OT_MSVDEBUGGER:
-        // visual studio debugger
-        if (strEntry.length() < 512)
+
+
+    if (m_aeChannelOut[channel] & OT_MSVDEBUGGER)
+    {
+        if (strEntry.length() < 1024)
         {
             TRACE(strEntry.c_str());
             TRACE("\n");
         }
-        break;
-    case OT_MEMORY:
-    default:
-        // do nothing
-        break;
     }
 }
 
@@ -233,7 +220,7 @@ void TraceService::SetOutputChannel(int iChannel, eOutType eVal, LPCSTR lpszFile
 {
     if (iChannel >= 0 && iChannel < NUM_OF_CHANN)
     {
-        m_aeChannelOut[iChannel] = eVal;
+        m_aeChannelOut[iChannel] = (m_aeChannelOut[iChannel] | eVal);
         if (eVal == OT_FILE)
         {
             m_aChannelFiles[iChannel].open(lpszFileName);

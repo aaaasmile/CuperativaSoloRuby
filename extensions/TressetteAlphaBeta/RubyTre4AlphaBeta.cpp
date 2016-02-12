@@ -44,6 +44,7 @@ namespace Tre4AlphaBeta
         _pTracer = TraceService::Instance();
         _pTracer->EnableChannel(TR_ALPHABETA_CH, TRUE);
         _pTracer->SetOutputChannel(TR_ALPHABETA_CH, TraceService::OT_STDOUT, NULL);
+        _pTracer->SetOutputChannel(TR_ALPHABETA_CH, TraceService::OT_MSVDEBUGGER, NULL);
 
         _pABSolver = new cAlgABSolver();
         _pABSolver->InitDeck();
