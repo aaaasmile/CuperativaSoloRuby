@@ -3,6 +3,8 @@
 ;Written by Joost Verburg
 ;File template per creare un file nsi
 
+;; PER FAVORE: LASCIA QUESTO FILE IN ANSI e non convertirlo in UTF8, altrimenti non vanno gli accenti
+
 !define MUI_PRODUCT "Cuperativa"
 
 ;--------------------------------
@@ -172,6 +174,7 @@ Section "Uninstall"
   ;Delete Files 
   RMDir /r "$INSTDIR\*.*"
   RMDir /r "$LOCALAPPDATA\invido_it\Cuperativa\*.*"
+  RMDir /r "$LOCALAPPDATA\invido_it\CupUserData\*.*"
  
   ;Remove the installation directory
   RMDir "$INSTDIR"

@@ -1,14 +1,53 @@
 == Cuperativa
 
-Il programma Cuperativa Ë un software per giocare a carte da soli o
+Il programma Cuperativa √® un software per giocare a carte da soli
 contro il computer. Al momento i giochi sono disponibili sono:
- - Briscola in 2
- - Mariazza
+ - Briscola
+ - Mariazza o 'Mariasa'
  - Spazzino
  - Scopa
  - Tombolon
 
+Tutti i giochi della Cuperativa sono a due giocatori.
+
 == Changelog 
+
+== Versione 1.2.10 (13.10.2016)
+- Corretto il bug della lettura iniziale dei settings.
+
+== Versione 1.2.9
+- Migliorato l'algoritmo della 'Mariasa'.
+- Unit test completa
+
+== Versione 1.2.7
+- Migliorata la grafica.
+- Setup compatibile con Win7, Win8.1 e WinXP.
+- Senza dubbio creato il pi√π forte giocatore artificiale di Mariasa.
+- Semplificato l‚Äôinterfaccia grafica togliendo l‚Äôobsoleto supporto di rete.
+- giochi supportati a due giocatori contro il computer: briscola, mariazza, scopetta, spazzino, briscolone, tombolon e tressette.
+- codice sorgete completo pubblicato su GitHub: CuperativaSoloRuby.
+
+== Versione Aloa Verde 0.8.2
+- salvataggio settings
+- posizione carte prese nel tressette
+
+== Versione Cuperativa Aloa Verde 0.8.1
+
+- migliorato algoritmo della scopetta
+- migliorie al gioco in rete
+
+== Versione Cuperativa 0.8.0
+
+- gioco del tressette
+- migliorato algoritmo della scopetta
+- migliorie al gioco in rete
+
+== Versione Cuperativa 0.7.5
+
+- gioco del briscolone
+- ogni partita viene lanciata in una nuova finestra
+- effetti sonori
+- migliorate le animazioni nel gioco della scopetta e spazzino
 
 == Versione 0.7.1 (30.06.2009)
 
@@ -16,7 +55,7 @@ contro il computer. Al momento i giochi sono disponibili sono:
 - tombolon: distribuisce le carte in modo corretto
 - tombolon: chi raggiunge per primo i 31 punti vince
 - update via cuperativa server funziona di nuovo
-- migliorata la velocit‡ del gioco della mariazza
+- migliorata la velocit√† del gioco della mariazza
 - briscola: mostra il numero delle carte rimanenti nel mazzo
 - online: chat del tavolo sempre visibile
 
@@ -33,7 +72,7 @@ contro il computer. Al momento i giochi sono disponibili sono:
 
 == Versione 0.6.0 (19.11.2008)
 - Aggiunto lo spazzino
-- Aggiunto la modalit‡ gioco privato online
+- Aggiunto la modalit√† gioco privato online
 - Migliorato il layout del programma
 - Migliorato l'aggiornamento automatico via server
 
@@ -43,7 +82,7 @@ contro il computer. Al momento i giochi sono disponibili sono:
 - Aggiunto animazioni durante la presa
 - Separato il codice sorgente dal file eseguibile
 - Ottimizzazione del gioco di una carta
-- Feedback quando giocare una carta non Ë ammesso
+- Feedback quando giocare una carta non √® ammesso
 - Aggiornamento automatico rapido, online e offline
 - BUGFIX: briscola non conosce il pareggio
 
@@ -67,7 +106,7 @@ contro il computer. Al momento i giochi sono disponibili sono:
 - Suono inizio partita a richiesta
 - Game recorder 
 - Unit test
-- BUGFIX: viene offerto di cambiare il sette anche quando la briscola non Ë pi˘ in tavola
+- BUGFIX: viene offerto di cambiare il sette anche quando la briscola non √® pi√π in tavola
   in quanto siamo alle ultime 5 carte.
 - Miglioria: log Scambio briscola OK _7s -> _As 
 - Scambio briscola confermato con la dialogbox
@@ -85,29 +124,25 @@ contro il computer. Al momento i giochi sono disponibili sono:
 Corretti numerosi errori tra i quali:
 - mariazza vale sempre 20 punti, 40 quella di briscola
 - carta giocata sovrapposta alla briscola
-- mariazza si dichiara solo quando si Ë di prima mano
+- mariazza si dichiara solo quando si √® di prima mano
 Migliorie:
 - Tolta la finestra di dos di log nell'exe
 
 
 == Versione 0.3.1
-Prima versione con funzionalit‡ di rete. Eseguibile in formato binario per
+Prima versione con funzionalit√† di rete. Eseguibile in formato binario per
 windows.
 
 == Versione 0.2.1
 Prima versione pubblicata. Stato alpha solo per vedere come potrebbe
 funzionare il gioco e l'interfaccia grafica
 
-== FAQ ===
-Vedi http://briscola.rubyforge.org
 
 
 == Autore
 Igor Sarzi Sartori
 
-Home del progetto
-http://briscola.rubyforge.org
-Home:
-http://www.invido.it
+Maaggiori informazioni su: http://invido.it
+
 Email:
 6colpiunbucosolo@gmx.net 

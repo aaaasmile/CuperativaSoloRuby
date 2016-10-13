@@ -13,10 +13,10 @@ if $0 == __FILE__
   # - copile the nsis file
   # Requisites: 7zip (version used 9.20), nsis (version used 2.48). 
   #             Ruby package: a zip with an essential ruby distribution that can execute the cuperativa application
-  # Write those full paths into the target_deploy_info.yaml
+  # Write these full paths into the target_deploy_info.yaml
   
   dep = SetupCreator.new
-  options_filename = 'jim_target.yaml'
+  options_filename = 'target_deploy_info.yaml'
   opt = YAML::load_file( options_filename )
   if opt == nil or opt.class != Hash
     puts "Target file not recognized"

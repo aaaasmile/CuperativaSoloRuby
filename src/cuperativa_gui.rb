@@ -65,7 +65,7 @@ class CuperativaGui < FXMainWindow
   # aplication name
   APP_CUPERATIVA_NAME = "Cuperativa"
   # version string (if you change format, spaces points..., chenge also parser)
-  VER_PRG_STR = "Ver 1.2.9 09012016"
+  VER_PRG_STR = "Ver 1.2.10 23102016"
   # yaml version, useful for restoring old version
   CUP_YAML_FILE_VERSION = '6.20'   # to be changed only when SETTINGS_DEFAULT_APPGUI structure is changed            
   # settings file
