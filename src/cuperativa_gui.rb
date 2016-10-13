@@ -459,7 +459,12 @@ class CuperativaGui < FXMainWindow
   def load_application_settings
     yamloptions = {}
     prop_options = {}
-    yamloptions = YAML::load_file(@settings_filename) if File.exist?( @settings_filename )
+	begin
+	  yamloptions = YAML::load_file(@settings_filename) if File.exist?( @settings_filename )
+	rescue => detail
+      str = detail.backtrace.join("\n")
+	  @log.debug "Load setting error: #{detail} #{str}"
+	end
     if yamloptions.class == Hash
       # check if the yaml file is up to date
       #p yamloptions["versionyaml"]
