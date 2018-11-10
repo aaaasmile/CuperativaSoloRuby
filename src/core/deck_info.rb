@@ -56,12 +56,12 @@ class GamesDeckInfo
     @deck_info[:_5s][:ix] = 43
     @deck_info[:_6s][:ix] = 44
     @deck_info[:_7s][:ix] = 45
-    @deck_info[:_8s] = {:ix=> 46, :nome => 'otto spade' , :symb => :ott, :segno => :D, :seed_ix => 3, :pos => 8}
-    @deck_info[:_9s] = {:ix=> 47,:nome => 'nove spade', :symb => :nov, :segno => :D, :seed_ix => 3, :pos => 9}
-    @deck_info[:_ds] = {:ix=> 48,:nome => 'dieci spade' , :symb => :die, :segno => :D, :seed_ix => 3, :pos => 10}
-    @deck_info[:_Fs] = {:ix=> 49, :nome => 'fante spade' , :symb => :fan, :segno => :D, :seed_ix => 3, :pos => 11}
-    @deck_info[:_Cs] = {:ix=> 50 ,:nome => 'cavallo spade', :symb => :cav, :segno => :D, :seed_ix => 3, :pos => 12}
-    @deck_info[:_Rs] = {:ix=> 51 ,:nome => 're spade' , :symb => :re, :segno => :D, :seed_ix => 3, :pos => 13}
+    @deck_info[:_8s] = {:ix=> 46, :nome => 'otto spade' , :symb => :ott, :segno => :S, :seed_ix => 3, :pos => 8}
+    @deck_info[:_9s] = {:ix=> 47,:nome => 'nove spade', :symb => :nov, :segno => :S, :seed_ix => 3, :pos => 9}
+    @deck_info[:_ds] = {:ix=> 48,:nome => 'dieci spade' , :symb => :die, :segno => :S, :seed_ix => 3, :pos => 10}
+    @deck_info[:_Fs] = {:ix=> 49, :nome => 'fante spade' , :symb => :fan, :segno => :S, :seed_ix => 3, :pos => 11}
+    @deck_info[:_Cs] = {:ix=> 50 ,:nome => 'cavallo spade', :symb => :cav, :segno => :S, :seed_ix => 3, :pos => 12}
+    @deck_info[:_Rs] = {:ix=> 51 ,:nome => 're spade' , :symb => :re, :segno => :S, :seed_ix => 3, :pos => 13}
     return @deck_info
   end
   
