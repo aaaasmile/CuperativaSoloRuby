@@ -10,3 +10,4 @@ deploy/CupStarterConsoleSharp/CupStarterConsoleSharp.v12.suo
 /src/err_app_2015_12_29_19_46_07.log
 /tmp
 /deploy/CupStarterConsoleSharp/.vs/config/applicationhost.config
+/deployed/*.*
