@@ -54,7 +54,7 @@ class SetupCreator
     # copy some extra file
     license_name = "License.txt"
     manual_filename = "cuperativa.chm"
-    readme_filename = "Readme.txt"
+    readme_filename = "Readme.md"
     ruby_dirname = 'Ruby'
     app_dirname = 'App'
     # copy license file

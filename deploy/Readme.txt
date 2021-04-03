@@ -1,9 +1,11 @@
-== Versione 1.0.1
-L'idea Ë quella di avere un installer nsi (in visual studio cambia troppo), dove vengono installati lo starter,
+Documentazione aggiornata nella directory ./scripts
+
+## Versione 1.0.1
+L'idea √® quella di avere un installer nsi (in visual studio cambia troppo), dove vengono installati lo starter,
 e i pacchetti zip di ruby e app. Lo starter spacchetta ruby e app nel folder %appdata% e poi lancia il programma.
-Quando un nuovo setup Ë creato, non fa altro che copiare una nuova app_x_x_x.zip, eventualmente anche il ruby_x_x_x.zip,
+Quando un nuovo setup √® creato, non fa altro che copiare una nuova app_x_x_x.zip, eventualmente anche il ruby_x_x_x.zip,
 ma il ruby zip non dovrebbe cambiare e settare il registry con la nuova versione.
-Lo starter alla prossima esecuzione scopatter‡ lo zip e lo user‡ come nuova app.
+Lo starter alla prossima esecuzione scopatter√† lo zip e lo user√† come nuova app.
 Un ipotetico updater.rb potrebbe fare la stessa cosa, vale a dire sompattare la nuova app in %appdata%, aggiornare il registry e far ripartire lo starter.
 Step da seguire per creare una nuova versione:
 - aggiorna il target_deploy_info.yaml
@@ -12,25 +14,25 @@ Step da seguire per creare una nuova versione:
 - compila il file cuperativa_gen.nsi usando il tasto destro del mouse in file explorer
 
 
-== Versione 0.9.0
+## Versione 0.9.0
 - mettere in target_deploy_info.yaml la directory dove si fa il deploy.
-      Questa directory deve avere gi‡ ruby.
+      Questa directory deve avere gi√† ruby.
 - Usa lo script create_appdata_zip.rb e crea lo zip da mettere in deploy\CupStarterConsoleSharp
 - Rebuild di CupStarterConsoleSharp
 - Build SetupCup in visual studio
 
-== Quello che si fa per pubblicare la versione 0.7.0
+## Quello che si fa per pubblicare la versione 0.7.0
 
-== Super concentrato per creare setup.exe
+## Super concentrato per creare setup.exe
 
 - mettere in target_deploy_info.yaml la directory dove si fa il deploy.
-      Questa directory deve avere gi‡ ruby.
+      Questa directory deve avere gi√† ruby.
 - Lancia prepare_app_totmp.rb per creare app
 - Lancia prepare_nsi_win32_noexe.rb per avere il file nsi
 - compila il file nsi con compressione LZMA
 
 
-=== pacchetti per update da server
+### pacchetti per update da server
 
 1) Completare il sofwtare sul client e il server ed aggiornare le versioni
   all'interno dei programmi (client e server)
@@ -50,11 +52,11 @@ Step da seguire per creare una nuova versione:
     - nel file del server mod_conn_cmdh.rb bisogna aggiornare i link per l'update.
       Eventualmente fare l'upload via ftp dei files necessari per scaricare la nuova versione
      
-=== Setup win32
+### Setup win32
 
 Dopo avere completato i punti 1 e 2 del paragrafo precedente bisogna creare il file di setup
 per l'installazione su windows.
-Come? Bisogna usare windows. Bisogna avere una directory dove si ha gi‡ la distribuzione
+Come? Bisogna usare windows. Bisogna avere una directory dove si ha gi√† la distribuzione
 ruby smagrita con solo i pacchetti necessari. Per esempio questa directory:
 C:\Biblio\ruby\ruby_win32_deployed\newver
 che contiene i subfolders:
@@ -62,24 +64,24 @@ che contiene i subfolders:
 
 La directory \ruby deve essere creata manualmente copiando da una precedente
 Poi si lancia lo script prepare_app_totmp.rb nella directory cuperativa0508/deploy
-per creare la directory \app. Se esiste gi‡ una sottodirectory \app nel target folder,
-questa verr‡ sovrascritta.
+per creare la directory \app. Se esiste gi√† una sottodirectory \app nel target folder,
+questa verr√† sovrascritta.
 Ora, sempre nella directory cuperativa0508/deploy si lancia lo script  
 prepare_nsi_win32_noexe.rb per generare il file nsi. 
-Andando nella directory <target customnewver> si potr‡ lanciare
-il file cuperativa_gen.nsi che creer‡ il setup, per esempio cuperativa_<new ver>_setup.exe.
+Andando nella directory <target customnewver> si potr√† lanciare
+il file cuperativa_gen.nsi che creer√† il setup, per esempio cuperativa_<new ver>_setup.exe.
 
 
-=== Linux
+### Linux
 
-Nessun pacchetto bin Ë previsto per questa piattaforma. L'utente puÚ perÚ usare i sorgenti.
+Nessun pacchetto bin √® previsto per questa piattaforma. L'utente pu√≤ per√≤ usare i sorgenti.
 
-== Provare l'update
+## Provare l'update
 - Preparazione: 
       * generare il file tgz dei sorgenti full e src con prepare_update_src_pack.rb
       * Avere un mismatch di protocollo tra server e client. Questo fa partire il check delle versioni.
       * Avere un mismatch tra versione client e la lista sul server TABLE_SW_UPDATE in mod_conn_cmdh.rb.
-        Questo serve per avviare l'update, se la versione del client non Ë nella lista del server, l'update 
+        Questo serve per avviare l'update, se la versione del client non ÔøΩ nella lista del server, l'update 
         non parte
   Fare attenzione che nel pacchetto tgz non ci siano yaml con password varie
   - Caricare i files tgz su 'http://kickers.fabbricadigitale.it/cuperativa/update_packages
@@ -119,11 +121,11 @@ oppure:
 dep = DeployLocalVersion.new
 dep.create_all_current_packages
 
-2) A questo punto si ha una directory che per default Ë:
+2) A questo punto si ha una directory che per default ÔøΩ:
 tmp_deploy
 Andare nella directory tmp_deploy e lanciare lo script:
 ruby make_cup_exe.rb
-CosÏ verr‡ creato l'exe sotto windows e il bin sotto linux.
+Cos√¨ verr√† creato l'exe sotto windows e il bin sotto linux.
 Ora l'exe e la sottodirectory app sono pronti da impacchettare
 nell'exe.
 
@@ -144,7 +146,7 @@ dep.create_nsi_installer
 directory ../../rubyforge\published
 
 2) Prima di lanciare lo script, cambiare la versione da pubblicare
-nelle opzioni. La funzione da lanciare Ë
+nelle opzioni. La funzione da lanciare ÔøΩ
 dep.deploy_version(options)
 
 3) Andare nella directory ../../rubyforge\published/ver.XXXXX/src

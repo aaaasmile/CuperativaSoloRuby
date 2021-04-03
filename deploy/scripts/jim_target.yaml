@@ -1,7 +1,0 @@
-# yaml used for deploy
----
-
-:root_deploy: E:\Projects\ruby\Deployed
-:ruby_package: E:\Projects\ruby\Deployed\common\ruby_0_0_1.zip
-:nsi_exe: C:\Program Files (x86)\NSIS\makensis.exe
-:p7zip_exe: D:\Program Files\7-Zip\7z.exe
