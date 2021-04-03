@@ -12,6 +12,7 @@ vale a dire la D:\PC_Jim_2016\Projects\ruby\Deployed
 
 ## Note
 Non convertire il file setup_muster.nsi_tm in UTF8 altrimenti gli accenti vanno persi.
+Anche con ruby 2.3.1 gli accenti vanno persi, quindi il file si lascia in ANSI.
 
 ## Versione 1.0.1
 - mettere in target_deploy_info.yaml la directory dove vengono messe tutte le versioni

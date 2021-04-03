@@ -500,13 +500,13 @@ class TablePlayedCardsGraph < ComponentBase
       
     if card_taken.size == 0
       dest_gfx = find_first_free_on_table()
-      dest_gfx.cd_data[:is_target] = true
       #p dest_gfx.lbl
       #p dest_gfx.pos_x
       if dest_gfx == nil
         @log.error "Programming error, not enought gfx card on table available. Why?"
         dest_gfx = @table_cards_gfx[0]
       end
+      dest_gfx.cd_data[:is_target] = true
       if dest_gfx.pos_x == nil or dest_gfx.pos_y == nil
         strerr = "Programming error: destination card no position"
         @log.error strerr 

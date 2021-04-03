@@ -635,7 +635,7 @@ class SpazzinoGfx < BaseEngineGfx
         {:x => {:type => :center_anchor_horiz, :offset => 0},
          :y => {:type => :center_anchor_vert, :offset => 0},
          :anchor_element => :canvas,
-         :max_num_cards => 10, :intra_card_off => 5, 
+         :max_num_cards => 12, :intra_card_off => 5, 
          :img_coperto_sym => :coperto, :type_distr => :linear})
     
     # create points shower

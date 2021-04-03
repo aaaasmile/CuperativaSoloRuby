@@ -12,6 +12,10 @@ Tutti i giochi della Cuperativa sono a due giocatori.
 
 ## Changelog 
 
+## Versione 1.3.0 03042021
+- Usa CupStarterConsoleSharp.exe compilato con .net 4.5
+- Corretto bug nello spazzino
+
 ## Versione 1.2.10 (23.10.2016)
 - Corretto il bug della lettura iniziale dei settings.
 
